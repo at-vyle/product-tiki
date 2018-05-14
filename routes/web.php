@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 // Todo: add middleware for admin authenticate
-Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'namespace' => 'Admin\\'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'namespace' => 'Admin'], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('categories', 'CategoryController')->parameters(['categories' => 'id']);
     Route::resource('products', 'ProductController')->parameters(['products' => 'id']);
