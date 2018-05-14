@@ -11,18 +11,15 @@
 |
 */
 
-// Route::get('/admin', function () {
-//     return view('admin.pages.index');
-// })->name('index');
-
 Route::get('/', function() {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-    Route::get('/', 'Admin\HomeController@index')->name('home');
-    Route::resource('category', 'Admin\CategoryController')->parameters(['category' => 'id']);
-    Route::resource('product', 'Admin\ProductController')->parameters(['product' => 'id']);
-    Route::resource('post', 'Admin\PostController')->parameters(['post' => 'id']);
-    Route::resource('user', 'Admin\UserController')->parameters(['user' => 'id']);
+// Todo: add middleware for admin authenticate
+Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'namespace' => 'Admin\\'], function () {
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::resource('categories', 'CategoryController')->parameters(['categories' => 'id']);
+    Route::resource('products', 'ProductController')->parameters(['products' => 'id']);
+    Route::resource('posts', 'PostController')->parameters(['posts' => 'id']);
+    Route::resource('users', 'UserController')->parameters(['users' => 'id']);
 });
