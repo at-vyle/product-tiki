@@ -15,6 +15,10 @@
 //     return view('admin.pages.index');
 // })->name('index');
 
+Route::get('/', function() {
+    return view('welcome');
+});
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', 'Admin\HomeController@index')->name('home');
     Route::resource('category', 'Admin\CategoryController')->parameters(['category' => 'id']);
