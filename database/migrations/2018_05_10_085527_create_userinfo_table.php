@@ -21,7 +21,7 @@ class CreateUserinfoTable extends Migration
             $table->boolean('gender')->default(0);
             $table->date('dob')->nullable();
             $table->string('address')->charset('utf8')->collation('utf8_unicode_ci')->nullable();
-            $table->string('phone',50)->nullable();
+            $table->string('phone', 50)->nullable();
             $table->string('identity_card')->nullable();
             $table->timestamps();
         });

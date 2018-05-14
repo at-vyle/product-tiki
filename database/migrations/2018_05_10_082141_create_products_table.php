@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->text('description')->charset('utf8')->collation('utf8_unicode_ci');
             $table->unsignedInteger('total_rate')->default(0);
             $table->unsignedInteger('rate_count')->default(0);
-            $table->decimal('avg_rating',5,1)->default(0);
+            $table->decimal('avg_rating', 5, 1)->default(0);
             $table->unsignedInteger('price');
             $table->unsignedInteger('quantity')->default(1);
             $table->boolean('status');
