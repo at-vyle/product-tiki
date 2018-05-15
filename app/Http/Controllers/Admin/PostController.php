@@ -58,17 +58,17 @@ class PostController extends Controller
      */
     public function showComments()
     {
-        return 'abc';
+        //
     }
 
-        /**
+    /**
      * Display the specified resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function showReviews()
     {
-        return 'abc';
+        //
     }
 
     /**
@@ -80,7 +80,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        dd($id);
     }
 
     /**
@@ -93,7 +93,8 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request);
+        dd($id);
     }
 
     /**
@@ -105,6 +106,6 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd($id);
     }
 }
