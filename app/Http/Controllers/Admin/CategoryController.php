@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,8 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $list_categories = DB::table('categories')->paginate(10);
-        return view('admin.pages.categories.index', ['list_categories' => $list_categories]);
+        $listCategories = DB::table('categories')->paginate(10);
+        dd($listCategories);
+        // return view('admin.pages.categories.index', ['list_categories' => $list_categories]);
     }
 
     /**
