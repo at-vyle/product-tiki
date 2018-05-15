@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Models\MainModel;
+use Illuminate\Database\Eloquent\Model;
 
-class OrderDetail extends MainModel
+class OrderDetail extends Model
 {
     protected $table = 'order_details';
 

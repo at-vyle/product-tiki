@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Models\MainModel;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -43,7 +43,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comment()
+    public function comments()
     {
         return $this->hasMany('App\Models\Comment', 'user_id', 'id');
     }
@@ -53,7 +53,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function post()
+    public function posts()
     {
         return $this->hasMany('App\Models\Post', 'user_id', 'id');
     }
@@ -63,7 +63,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function order()
+    public function orders()
     {
         return $this->hasMany('App\Models\Order', 'user_id', 'id');
     }

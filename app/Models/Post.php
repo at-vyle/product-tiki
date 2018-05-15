@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Models\MainModel;
+use Illuminate\Database\Eloquent\Model;
 
-class Post extends MainModel
+class Post extends Model
 {
     protected $table = 'posts';
 
@@ -22,7 +22,7 @@ class Post extends MainModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function product()
+    public function products()
     {
         return $this->belongsTo('App\Models\Product', 'product_id', 'id');
     }
@@ -31,7 +31,7 @@ class Post extends MainModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function users()
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
@@ -40,7 +40,7 @@ class Post extends MainModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comment()
+    public function comments()
     {
         return $this->hasMany('App\Models\Comment', 'post_id', 'id');
     }

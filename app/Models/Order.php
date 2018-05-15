@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Models\MainModel;
+use Illuminate\Database\Eloquent\Model;
 
-class Order extends MainModel
+class Order extends Model
 {
     protected $table = 'orders';
 
@@ -32,7 +32,7 @@ class Order extends MainModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function orderDetail()
+    public function orderDetails()
     {
         return $this->hasMany('App\Models\OrderDetail', 'order_id', 'id');
     }

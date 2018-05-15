@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Models\MainModel;
+use Illuminate\Database\Eloquent\Model;
 
-class UserInfo extends MainModel
+class UserInfo extends Model
 {
     protected $table = 'user_info';
     

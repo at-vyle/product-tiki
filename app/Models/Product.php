@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Models\MainModel;
+use Illuminate\Database\Eloquent\Model;
 
-class Product extends MainModel
+class Product extends Model
 {
     protected $table = 'products';
 
@@ -22,7 +22,7 @@ class Product extends MainModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function orderDetail()
+    public function orderDetails()
     {
         return $this->hasMany('App\Models\OrderDetail', 'product_id', 'id');
     }
@@ -32,7 +32,7 @@ class Product extends MainModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function image()
+    public function images()
     {
         return $this->hasMany('App\Models\Image', 'product_id', 'id');
     }
@@ -42,7 +42,7 @@ class Product extends MainModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function post()
+    public function posts()
     {
         return $this->hasMany('App\Models\Post', 'product_id', 'id');
     }

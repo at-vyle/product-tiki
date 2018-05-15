@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Models\MainModel;
+use Illuminate\Database\Eloquent\Model;
 
-class Comment extends MainModel
+class Comment extends Model
 {
     protected $name = 'content';
 
@@ -20,7 +20,7 @@ class Comment extends MainModel
     ];
 
     /**
-     * Get Post Object
+     * Get the post that owns the comment
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
