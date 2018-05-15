@@ -212,7 +212,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Product Tiki - Design by <a href="">Team AT Intern Spring PHP</a>
+            {{ __('messages.footer') }}<a href="">{{ __('messages.team') }}</a>
           </div>
           <div class="clearfix"></div>
         </footer>

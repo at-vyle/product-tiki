@@ -6,12 +6,17 @@ return [
             'title' => 'Category'
         ],
         'table' => [
-        'id' => 'ID',
-        'name' => 'Name',
-        'parent_id' => 'Parent ID',
-        'created_at' => 'Created At',
-        'updated_at' => 'Updated At',
-        'action' => 'Action',
-        ]
+            'id' => 'ID',
+            'name' => 'Name',
+            'parent_id' => 'Parent ID',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+            'action' => 'Action',
+        ],
+        'add' => [
+            'title' => 'Add Category',
+            'name' => 'Name Category',
+            'parent_category' => 'Parent Category',
+        ],
     ]
 ];

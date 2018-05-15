@@ -15,9 +15,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $listCategories = DB::table('categories')->paginate(10);
-        dd($listCategories);
+        // $listCategories = DB::table('categories')->paginate(10);
+        // dd($listCategories);
         // return view('admin.pages.categories.index', ['list_categories' => $list_categories]);
+        return view('admin.pages.categories.index');
     }
 
     /**
@@ -27,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.categories.add');
     }
 
     /**

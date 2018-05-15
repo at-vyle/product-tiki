@@ -15,9 +15,6 @@
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                  <th>
-                    <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                  </th>
                   <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.id') }}</th>
                   <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.name') }}</th>
                   <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.parent_id') }}</th>
@@ -32,9 +29,6 @@
               </thead>
               <tbody>
                 <tr class="odd pointer">
-                  <td class="a-center ">
-                    <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                  </td>
                   <td class=" ">121000039</td>
                   <td class=" ">May 23, 2014 11:30:12 PM</td>
                   <td class=" ">121000208 <i class="success fa fa-long-arrow-up"></i>
@@ -45,9 +39,6 @@
                   </td>
                 </tr>
                 <tr class="even pointer">
-                  <td class="a-center ">
-                    <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                  </td>
                   <td class=" ">121000038</td>
                   <td class=" ">May 24, 2014 10:55:33 PM</td>
                   <td class=" ">121000203 <i class="success fa fa-long-arrow-up"></i>
@@ -58,9 +49,6 @@
                   </td>
                 </tr>
                 <tr class="odd pointer">
-                  <td class="a-center ">
-                    <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                  </td>
                   <td class=" ">121000037</td>
                   <td class=" ">May 24, 2014 10:52:44 PM</td>
                   <td class=" ">121000204</td>
@@ -70,9 +58,6 @@
                   </td>
                 </tr>
                 <tr class="even pointer">
-                  <td class="a-center ">
-                    <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                  </td>
                   <td class=" ">121000040</td>
                   <td class=" ">May 24, 2014 11:47:56 PM </td>
                   <td class=" ">121000210</td>
@@ -82,9 +67,6 @@
                   </td>
                 </tr>
                 <tr class="odd pointer">
-                  <td class="a-center ">
-                    <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                  </td>
                   <td class=" ">121000039</td>
                   <td class=" ">May 26, 2014 11:30:12 PM</td>
                   <td class=" ">121000208 <i class="error fa fa-long-arrow-down"></i>
@@ -95,9 +77,6 @@
                   </td>
                 </tr>
                 <tr class="even pointer">
-                  <td class="a-center ">
-                    <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                  </td>
                   <td class=" ">121000038</td>
                   <td class=" ">May 26, 2014 10:55:33 PM</td>
                   <td class=" ">121000203</td>
@@ -107,9 +86,6 @@
                   </td>
                 </tr>
                 <tr class="odd pointer">
-                  <td class="a-center ">
-                    <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                  </td>
                   <td class=" ">121000037</td>
                   <td class=" ">May 26, 2014 10:52:44 PM</td>
                   <td class=" ">121000204</td>
@@ -119,9 +95,6 @@
                   </td>
                 </tr>
                 <tr class="even pointer">
-                  <td class="a-center ">
-                    <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                  </td>
                   <td class=" ">121000040</td>
                   <td class=" ">May 27, 2014 11:47:56 PM </td>
                   <td class=" ">121000210</td>
@@ -131,9 +104,6 @@
                   </td>
                 </tr>
                 <tr class="odd pointer">
-                  <td class="a-center ">
-                    <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                  </td>
                   <td class=" ">121000039</td>
                   <td class=" ">May 28, 2014 11:30:12 PM</td>
                   <td class=" ">121000208</td>
