@@ -58,7 +58,7 @@ class PostController extends Controller
      */
     public function showComments()
     {
-        return 'abc';
+        //
     }
 
         /**
@@ -68,7 +68,7 @@ class PostController extends Controller
      */
     public function showReviews()
     {
-        return 'abc';
+        //
     }
 
     /**
