@@ -1,12 +1,12 @@
 @extends('admin.layout.master')
-@section('title', 'HOME')
+@section('title', __('product.index.title'))
 @section('content')
-<div class="right_col" role="main" style="min-height: 1162px;">
+<div class="right_col" role="main">
   <div class="">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2>List Products</h2>
+          <h2>@lang('product.index.table-title')</h2>
           <div class="clearfix"></div>
         </div>
 
@@ -53,7 +53,7 @@
                   <td class=" "></td>
                   <td class=" "></td>
                   <td class=" last">
-                    <a href="#"> @lang('product.index.view') </a>
+                    <a href="#"> @lang('product.index.edit') </a>
                   </td>
                 </tr>
               </tbody>

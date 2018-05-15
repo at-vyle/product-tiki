@@ -2,6 +2,8 @@
 
 return [
     'index' => [
+        'title' => 'Product',
+        'table-title' => 'Product List',
         'id' => 'Id',
         'category_id' => 'Category Id',
         'name' => 'Name',
@@ -13,6 +15,6 @@ return [
         'created_at' => 'Created At',
         'update_at' => 'Update At',
         'action' => 'Action',
-        'view' => 'View'
+        'edit' => 'Edit'
     ]
 ];
