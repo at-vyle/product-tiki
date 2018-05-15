@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Model\MainModel;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model\MainModel;
+use Illuminate\Database\Eloquent\Models\MainModel;
 
 class UserInfo extends MainModel
 {
-    protected $table='user_info';
+    protected $table = 'user_info';
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -17,12 +18,12 @@ class UserInfo extends MainModel
     ];
 
     /**
-     * Get User Object
+     * Get User Info of User
      *
-     * @return App\Model\User
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->belongsto('App\Model\User', 'user_id', 'id');
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 }

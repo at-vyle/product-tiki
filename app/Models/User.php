@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Models\MainModel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -26,40 +27,44 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'api_token'
     ];
+
     /**
-     * Get UserInfo Object
+     * Get UserInfo of User
      *
-     * @return App\Model\UserInfo
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function userinfo()
     {
-        return $this->hasOne('App\Model\UserInfo', 'user_id', 'id');
+        return $this->hasOne('App\Models\UserInfo', 'user_id', 'id');
     }
+
     /**
-     * Get Comment Object
+     * Get Comment of User
      *
-     * @return App\Model\Comment
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comment()
     {
-        return $this->hasMany('App\Model\Comment', 'user_id', 'id');
+        return $this->hasMany('App\Models\Comment', 'user_id', 'id');
     }
+
     /**
-     * Get Post Object
+     * Get Post of User
      *
-     * @return App\Model\Post
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function post()
     {
-        return $this->hasMany('App\Model\Post', 'user_id', 'id');
+        return $this->hasMany('App\Models\Post', 'user_id', 'id');
     }
+    
     /**
-     * Get Order Object
+     * Get Order of User
      *
-     * @return App\Model\Order
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function order()
     {
-        return $this->hasMany('App\Model\Order', 'user_id', 'id');
+        return $this->hasMany('App\Models\Order', 'user_id', 'id');
     }
 }
