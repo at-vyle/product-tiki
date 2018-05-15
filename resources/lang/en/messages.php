@@ -10,5 +10,8 @@ return [
     'categories' => 'Categories',
     'products' => 'Products',
     'posts' => 'Posts',
-    'users' => 'Users'
+    'users' => 'Users',
+    'footer' => 'Product Tiki - Design by ',
+    'team' => 'Team AT Intern Spring PHP',
+
 ];
