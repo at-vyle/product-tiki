@@ -14,7 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.categories.index');
+        $list_categories = DB::table('categories')->paginate(10);
+        return view('admin.pages.categories.index', ['list_categories' => $list_categories]);
     }
 
     /**
