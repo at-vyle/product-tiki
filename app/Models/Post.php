@@ -22,7 +22,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function products()
+    public function product()
     {
         return $this->belongsTo('App\Models\Product', 'product_id', 'id');
     }
@@ -31,7 +31,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function users()
+    public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
