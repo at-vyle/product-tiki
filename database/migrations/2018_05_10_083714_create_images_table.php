@@ -17,8 +17,10 @@ class CreateImagesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('product_id');
             $table->string('img_url');
+            $table->foreign('product_id')
+                    ->references('id')->on('products')
+                    ->onDelete('no action');
             $table->timestamps();
-            $table->softDeletes('deleted_at');
         });
     }
 

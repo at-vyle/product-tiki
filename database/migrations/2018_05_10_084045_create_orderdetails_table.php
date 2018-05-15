@@ -19,6 +19,12 @@ class CreateOrderDetailsTable extends Migration
             $table->unsignedInteger('order_id');
             $table->unsignedInteger('quantity');
             $table->unsignedInteger('product_price');
+            $table->foreign('product_id')
+                    ->references('id')->on('products')
+                    ->onDelete('no action');
+            $table->foreign('order_id')
+                    ->references('id')->on('orders')
+                    ->onDelete('no action');
             $table->timestamps();
             $table->softDeletes('deleted_at');
         });
@@ -31,6 +37,6 @@ class CreateOrderDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invoices');
+        Schema::dropIfExists('order_details');
     }
 }

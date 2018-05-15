@@ -18,6 +18,12 @@ class CreateCommentsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('post_id');
             $table->text('content')->charset('utf8')->collation('utf8_unicode_ci');
+            $table->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->onDelete('no action');
+            $table->foreign('post_id')
+                    ->references('id')->on('posts')
+                    ->onDelete('no action');
             $table->timestamps();
             $table->softDeletes('deleted_at');
         });

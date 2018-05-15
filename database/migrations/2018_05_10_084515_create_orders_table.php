@@ -18,6 +18,9 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('total')->default(0);
             $table->boolean('status')->default(0);
+            $table->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->onDelete('no action');
             $table->timestamps();
             $table->softDeletes('deleted_at');
         });

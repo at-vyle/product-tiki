@@ -24,6 +24,9 @@ class CreateProductsTable extends Migration
             $table->unsignedInteger('price');
             $table->unsignedInteger('quantity')->default(1);
             $table->boolean('status');
+            $table->foreign('category_id')
+                    ->references('id')->on('categories')
+                    ->onDelete('no action');
             $table->timestamps();
             $table->softDeletes('deleted_at');
         });

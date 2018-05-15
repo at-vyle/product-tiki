@@ -21,8 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('old_password')->nullable;
             $table->boolean('is_active')->default(0);
             $table->boolean('role')->default(0);
-            $table->timestamp('last_logined_at');
-            $table->string('api_token', 60);
+            $table->timestamp('last_logined_at')->nullable;
+            $table->string('api_token', 60)->nullable;
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes('deleted_at');
