@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
-@section('title', {{ __('post.admin.list.title') }})
+@section('title', __('post.admin.list.title') )
 @section('content')
-  <div class="right_col" role="main" style="min-height: 1162px;">
+  <div class="right_col" role="main" class="index-main">
     <div class="">
       <div class="page-title">
         <div class="title_left">
@@ -32,7 +32,7 @@
               <h2>{{ __('post.admin.list.subtitle') }}</h2>
               <div class="clearfix"></div>
             </div>
-            <div class="x_content" style="display: block;">
+            <div class="x_content" class="list-table">
               <table class="table table-hover">
                 <thead>
                   <tr>
@@ -55,13 +55,13 @@
                     <td>@twitter</td>
                     <td>
                       <form action="" class="col-md-4">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-edit" style="font-size:20px"></i></button>
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-edit icon-size" ></i></button>
                       </form>
                       <form action="" class="col-md-4">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-trash" style="font-size:20px"></i></button>
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-trash icon-size" ></i></button>
                       </form>
                       <form action="" class="col-md-4">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-eye" style="font-size:20px"></i></button>
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-eye icon-size" ></i></button>
                       </form>
                     </td>
                   </tr>
