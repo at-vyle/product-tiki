@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.post-list');
+        return view('admin.pages.posts.post-list');
     }
 
     /**
@@ -24,7 +24,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.post-add');
+        return view('admin.pages.posts.post-add');
     }
 
     /**
@@ -34,7 +34,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        dd($request->all());
     }
 
     /**
@@ -45,7 +45,27 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        dd($id);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showComments()
+    {
+        
+    }
+
+        /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showReviews()
+    {
+        
     }
 
     /**
