@@ -212,7 +212,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            Product Tiki - Design by <a href="">Team AT Intern Spring PHP</a>
           </div>
           <div class="clearfix"></div>
         </footer>
