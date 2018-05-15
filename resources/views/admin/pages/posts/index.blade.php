@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title', 'Category List')
+@section('title', {{ __('post.admin.list.title') }})
 @section('content')
   <div class="right_col" role="main" style="min-height: 1162px;">
     <div class="">
