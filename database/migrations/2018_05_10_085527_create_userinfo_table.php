@@ -37,8 +37,6 @@ class CreateUserinfoTable extends Migration
      */
     public function down()
     {
-        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('user_info');
-        Schema::enableForeignKeyConstraints();
     }
 }
