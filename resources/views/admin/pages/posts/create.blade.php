@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title', {{ __('post.admin.form.title') }})
+@section('title', __('post.admin.form.title') )
 @section('content')
   <div class="right_col" role="main" style="min-height: 3619px;">
     <div class="">
@@ -25,10 +25,10 @@
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <div id="post-type" class="btn-group" data-toggle="buttons">
                       <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                        <input type="radio" name="type" value="1"> &nbsp; {{ __('post.admin.form.type_reviews') }} &nbsp;
+                        <input type="radio" name="type" value="1" onchange="changeType(this.value)"> &nbsp; {{ __('post.admin.form.type_reviews') }} &nbsp;
                       </label>
                       <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                        <input type="radio" name="type" value="0"> &nbsp; {{ __('post.admin.form.type_comments') }} &nbsp; 
+                        <input type="radio" name="type" value="0" onchange="changeType(this.value)"> &nbsp; {{ __('post.admin.form.type_comments') }} &nbsp; 
                       </label>
                     </div>
                   </div>
@@ -44,10 +44,9 @@
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('post.admin.form.user_id') }}</label>
                   <div class="col-md-7 col-sm-7 col-xs-12">
                     <select name="user_id" class="select2_group form-control">
-                      <optgroup label="Alaskan/Hawaiian Time Zone">
-                        <option value="0">Alaska</option>
-                        <option value="1">Hawaii</option>
-                      </optgroup>
+                      @foreach($users_id as $id)
+                        <option value="{{ $id }}">{{ $id }}</option>
+                      @endforeach
                     </select>
                   </div>
                 </div>
@@ -55,14 +54,13 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('post.admin.form.product_id') }}</label>
                     <div class="col-md-7 col-sm-7 col-xs-12">
                       <select name="product_id" class="select2_group form-control">
-                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                          <option value="AK">Alaska</option>
-                          <option value="HI">Hawaii</option>
-                        </optgroup>
+                        @foreach($products_id as $id)
+                        <option value="{{ $id }}">{{ $id }}</option>
+                        @endforeach
                       </select>
                     </div>
                 </div>
-                <div class="item form-group">
+                <div class="item form-group" id="rate-item">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('post.admin.form.rate') }}</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <div id="rating" class="btn-group" data-toggle="buttons">
@@ -98,5 +96,6 @@
       </div>
     </div>
   </div>
+  <script src="/js/custom.js"></script>
 @endsection
 

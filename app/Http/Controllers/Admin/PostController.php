@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,7 +26,21 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.posts.create');
+        $products = Product::all();
+        $users = User::all();
+        $loopCount = count($products);
+        for ($i = 0; $i < $loopCount; $i++) {
+            $productsId[$i] = $products[$i]->id;
+        }
+        $loopCount = count($users);
+        for ($i = 0; $i < $loopCount; $i++) {
+            $usersId[$i] = $users[$i]->id;
+        }
+
+        $data['users_id'] = $usersId;
+        $data['products_id'] = $productsId;
+
+        return view('admin.pages.posts.create', $data);
     }
 
     /**
