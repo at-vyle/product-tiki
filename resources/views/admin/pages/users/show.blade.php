@@ -6,7 +6,6 @@
       <div class="x_panel">
         <div class="x_title">
           <h2>{{ __('user.index.userinfo') }}</h2>
-          
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -60,15 +59,12 @@
                 <input type="text" class="form-control" readonly="readonly" placeholder="205676767">
               </div>
             </div>
-           
-
             <div class="ln_solid"></div>
             <div class="form-group">
               <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                 <a href="{{ route('admin.users.index') }}" class="btn btn-success">Back</a>
               </div>
             </div>
-
           </form>
           <div class="clearfix"></div>
         </div>
