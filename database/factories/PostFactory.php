@@ -12,7 +12,7 @@ $factory->state(App\Models\Post::class, 'rating', function (Faker $faker) {
     return [
         'product_id' => App\Models\Product::all()->random()->id,
         'user_id' => App\Models\User::all()->random()->id,
-        'type' => APP\Models\Post::TYPE_REVIEW,
+        'type' => App\Models\Post::TYPE_REVIEW,
         'content' => $faker->text($maxNbChars = 500),
         'rating' => $faker->numberBetween($min = 1, $max = 5),
         'status' => $faker->numberBetween($min = 0, $max = 1),
