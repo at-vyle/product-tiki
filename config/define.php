@@ -1,5 +1,7 @@
 <?php
 
-[
-    'perPage' => 15,
+return [
+    'product' => [
+        'limit_rows' => 5
+    ]
 ];
