@@ -16,3 +16,7 @@ storage/debugbar/
 /public/bower_components
 .env.testing.local
 .env.test
+
+
+app/Http/Requests/
+config/define.php

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\Backend\CategoryRequest;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
@@ -15,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $listCategories = Category::paginate(10);
+        $listCategories = Category::paginate( config('define.page_length') );
         $data['listCategories'] = $listCategories;
         return view('admin.pages.categories.index', $data);
     }
@@ -27,7 +28,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.categories.create');
+        $listCategoriesParent = Category::where('parent_id', null)->get();
+        $data['listCategoriesParent'] = $listCategoriesParent;
+        return view('admin.pages.categories.create', $data);
     }
 
     /**
@@ -37,9 +40,18 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        dd($request);
+        $category = new Category();
+	    $category->name = $request->input('name');
+        $category->parent_id = $request->parent_id;
+	    if($category->save()) {
+	      $listCategories = Category::paginate( config('define.page_length') );
+	      $data['listCategories'] = $listCategories;
+	      return view('admin.pages.categories.index', $data);
+	    } else {
+	      return view('admin.pages.categories.create');
+	    }
     }
 
     /**

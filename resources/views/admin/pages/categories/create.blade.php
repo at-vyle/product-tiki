@@ -12,30 +12,41 @@
           </div>
           <div class="x_content">
             <br />
-            <form class="form-horizontal form-label-left">
+            <form class="form-horizontal form-label-left" method="post" action="/admin/categories">
+            @if(count($errors))
+              <div class="form-group">
+                <div class="alert alert-danger">
+                  <ul>
+                    @foreach($errors->all() as $error)
+                      <li>{{$error}}</li>
+                    @endforeach
+                  </ul>
+                </div>
+              </div>
+            @endif
+            {{ csrf_field() }}
+            @method('POST')
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('category.admin.add.name') }}</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                  <input type="text" class="form-control" placeholder="Name Category">
+                  <input type="text" class="form-control" placeholder="Name Category" name="name">
                 </div>
               </div>
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('category.admin.add.parent_category') }}</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                  <select class="form-control">
+                  <select class="form-control" name="parent_id">
                     <option></option>
-                    <option>Option one</option>
-                    <option>Option two</option>
-                    <option>Option three</option>
-                    <option>Option four</option>
+                    @foreach ($listCategoriesParent as $list)
+                    <option value="{{ $list->id }}">{{ $list->name }}</option>
+                    @endforeach
                   </select>
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                  <button type="button" class="btn btn-primary">Cancel</button>
                   <button type="reset" class="btn btn-primary">Reset</button>
-                  <button type="submit" class="btn btn-success">Submit</button>
+                  <button type="submit" name="create" class="btn btn-success">Submit</button>
                 </div>
               </div>
             </form>
