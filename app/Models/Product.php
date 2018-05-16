@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $table = 'products';
+    const AVAILABLE = 1;
 
     /**
      * The attributes that are mass assignable.
