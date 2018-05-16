@@ -11,7 +11,7 @@
         </div>
         <div class="x_content">
           <br />
-          <form id="demo-form2" data-parsley-validate method="POST" action="/admin/products" class="form-horizontal form-label-left">
+          <form id="demo-form2" data-parsley-validate method="POST" action="/admin/products" enctype="multipart/form-data" class="form-horizontal form-label-left">
 
             {{ csrf_field() }}
 
@@ -67,7 +67,7 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div id="image" class="btn-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="imageInput">@lang('product.create.file-input')</label>
-                  <input data-preview="#preview" name="input_img" type="file" id="imageInput">
+                  <input name="input_img" type="file" id="imageInput">
                 </div>
               </div>
             </div>

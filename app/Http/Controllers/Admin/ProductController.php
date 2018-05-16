@@ -50,22 +50,22 @@ class ProductController extends Controller
             'quantity',
             'status'
         ]));
-        if($product->quantity > 0){
+        if ($product->quantity > 0) {
             $product->status = 1;
-        }else {
+        } else {
             $product->status = 0;
         }
         $product->save();
 
-        // $img = request()->file('input_img');
-        // $imgName = time().'.'.$image->getClientOriginalExtension();
-        // $img->move('images/upload', $imgName );
-        // $image = Image::create([
-        //     'product_id' => $product->id,
-        //     'img_url' => 'upload' . $imgName
-        // ]);
+        $img = request()->file('input_img');
+        $imgName = time() . '-' . $img->getClientOriginalName();
+        $img->move('images/upload', $imgName);
+        Image::create([
+            'product_id' => $product->id,
+            'img_url' => 'images/upload/' . $imgName
+        ]);
 
-        return back();
+        return redirect('/admin/products');
     }
 
     /**
