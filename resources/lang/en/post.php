@@ -16,7 +16,8 @@ return [
         ],
         'list' => [
             'title' => 'Admin Posts Management',
-            'subtitle' => 'All Posts',
+            'subtitle_index' => 'All Posts',
+            'subtitle_search' => 'Search result',
             'product_col' => 'Product Name',
             'user_col' => 'Username',
             'type_col' => 'Type',

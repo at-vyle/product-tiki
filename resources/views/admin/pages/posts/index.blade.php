@@ -32,7 +32,13 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-              <h2>{{ __('post.admin.list.subtitle') }}</h2>
+              <h2>
+                @if ($type == 'index') 
+                  {{ __('post.admin.list.subtitle_index') }}
+                @elseif ($type == 'search')
+                  {{ __('post.admin.list.subtitle_search') }}
+                @endif
+              </h2>
               <div class="clearfix"></div>
             </div>
             <div class="x_content" class="list-table">

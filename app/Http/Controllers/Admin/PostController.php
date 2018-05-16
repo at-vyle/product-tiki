@@ -22,6 +22,7 @@ class PostController extends Controller
             $post->user;
             $post->product;
         }
+        $data['type'] = 'index';
         $data['posts'] = $posts;
         return view('admin.pages.posts.index', $data);
     }
@@ -42,6 +43,7 @@ class PostController extends Controller
             $post->user;
             $post->product;
         }
+        $data['type'] = 'search';
         $data['posts'] = $posts;
         return view('admin.pages.posts.index', $data);
     }
