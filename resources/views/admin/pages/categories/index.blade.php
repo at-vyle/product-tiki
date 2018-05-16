@@ -22,19 +22,16 @@
                   <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.updated_at') }}</th>
                   <th class="column-title no-link last" style="display: table-cell;"><span class="nobr">{{ __('category.admin.table.action') }}</span>
                   </th>
-                  <th class="bulk-actions" colspan="7" style="display: none;">
-                    <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt">1 Records Selected</span> ) <i class="fa fa-chevron-down"></i></a>
-                  </th>
                 </tr>
               </thead>
               <tbody>
                 @foreach ($listCategories as $list)
                 <tr class="even pointer">
-                  <td class=" ">{{$list->id}}</td>
-                  <td class=" ">{{$list->name}}</td>
-                  <td class=" ">{{$list->parent_id}}</td>
-                  <td class=" ">{{$list->created_at}}</td>
-                  <td class="a-right a-right ">{{$list->updated_at}}</td>
+                  <td class=" ">{{ $list->id }}</td>
+                  <td class=" ">{{ $list->name }}</td>
+                  <td class=" ">{{ $list->parent_id}}</td>
+                  <td class=" ">{{ $list->created_at }}</td>
+                  <td class="a-right a-right ">{{ $list->updated_at }}</td>
                   <td class=" last"><a href="#">View</a>
                   </td>
                 </tr>
