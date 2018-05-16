@@ -5,6 +5,13 @@ return [
     'show_all' => 'Show All',
     'add' => 'Add',
     'comments' => 'Comments',
-    'Reviews' => 'Reviews',
-    'title' => 'Admin Dashboard'
+    'reviews' => 'Reviews',
+    'title' => 'Admin Dashboard',
+    'categories' => 'Categories',
+    'products' => 'Products',
+    'posts' => 'Posts',
+    'users' => 'Users',
+    'footer' => 'Product Tiki - Design by ',
+    'team' => 'Team AT Intern Spring PHP',
+
 ];
