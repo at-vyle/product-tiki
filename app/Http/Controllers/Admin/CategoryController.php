@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $listCategories = Category::paginate( config('define.page_length') );
+        $listCategories = Category::paginate(config('define.page_length'));
         $data['listCategories'] = $listCategories;
         return view('admin.pages.categories.index', $data);
     }
@@ -43,15 +43,15 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         $category = new Category();
-	    $category->name = $request->input('name');
+        $category->name = $request->input('name');
         $category->parent_id = $request->parent_id;
-	    if($category->save()) {
-	      $listCategories = Category::paginate( config('define.page_length') );
-	      $data['listCategories'] = $listCategories;
-	      return view('admin.pages.categories.index', $data);
-	    } else {
-	      return view('admin.pages.categories.create');
-	    }
+        if ($category->save()) {
+            $listCategories = Category::paginate(config('define.page_length'));
+            $data['listCategories'] = $listCategories;
+            return view('admin.pages.categories.index', $data);
+        } else {
+            return view('admin.pages.categories.create');
+        }
     }
 
     /**
