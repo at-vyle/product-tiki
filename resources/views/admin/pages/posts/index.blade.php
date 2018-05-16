@@ -82,6 +82,7 @@
             </div>
           </div>
         </div>
+        {{ $posts->render() }}
         <div class="clearfix"></div>       
       </div>
     </div>
