@@ -14,17 +14,19 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.users.index'); 
+        return view('admin.pages.users.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
+        dd($id);
         return view('admin.pages.users.show');
     }
 }
