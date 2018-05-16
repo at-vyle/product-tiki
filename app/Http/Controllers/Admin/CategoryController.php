@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $listCategories = Category::paginate(10);
+        $listCategories = Category::paginate(config('define.page_length'));
         $data['listCategories'] = $listCategories;
         return view('admin.pages.categories.index', $data);
     }
