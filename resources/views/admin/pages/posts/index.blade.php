@@ -51,13 +51,16 @@
                     <td>{{ $post['user']->username }}</td>
                     <td>{{ $post['product']->name }}</td>
                     <td>
-                      @if ( $post['type'] == 1 ) {{ __('post.admin.form.type_reviews') }}
-                      @else {{ __('post.admin.form.type_comments') }}
+                      @if ( $post['type'] == 1 ) 
+                        {{ __('post.admin.form.type_reviews') }}
+                      @else 
+                        {{ __('post.admin.form.type_comments') }}
                       @endif
                     </td>
                     <td>{{ $post['content'] }}</td>
                     <td>
-                        @if ( $post['status'] ) {{ __('post.admin.list.status') }}
+                        @if ( $post['status'] ) 
+                          {{ __('post.admin.list.status') }}
                         @endif
                     </td>
                     <td>{{ $post['rating'] }}</td>
