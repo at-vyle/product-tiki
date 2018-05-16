@@ -23,7 +23,7 @@ $factory->state(App\Models\Post::class, 'comment', function (Faker $faker) {
     return [
         'product_id' => App\Models\Product::all()->random()->id,
         'user_id' => App\Models\User::all()->random()->id,
-        'type' => APP\Models\Post::TYPE_COMMENT,
+        'type' => App\Models\Post::TYPE_COMMENT,
         'content' => $faker->text($maxNbChars = 500),
         'status' => $faker->numberBetween($min = 0, $max = 1),
     ];
