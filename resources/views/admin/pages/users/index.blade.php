@@ -33,9 +33,9 @@
                 <td class=" ">{{ $user->email }}</td>
                 <td class=" ">{{ $user->userInfo['full_name'] }}</td>
                 @if ( $user->userInfo['gender'] == 1 )
-                <td class="a-right a-right ">Female</td>
+                <td class="a-right a-right ">{{ __('user.index.female') }}</td>
                 @else 
-                <td class="a-right a-right ">Male</td>
+                <td class="a-right a-right ">{{ __('user.index.male') }}</td>
                 @endif
                 <td class=" ">0</td>
                 <td class="last "><a href="#"><i class="fa fa-edit"></i></a>|<a href=""><i class="fa fa-trash"></i></a>
