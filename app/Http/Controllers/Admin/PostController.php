@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $perPage = config('paginate.perPage');
+        $perPage = config('define.perPage');
         $posts = Post::with(['user', 'product'])->paginate($perPage);
         $data['posts'] = $posts;
         return view('admin.pages.posts.index', $data);
