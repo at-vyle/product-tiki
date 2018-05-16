@@ -18,10 +18,6 @@ class PostController extends Controller
         $post = new Post();
         $perPage = $post->perPage;
         $posts = Post::with(['user', 'product'])->paginate($perPage);
-        foreach ($posts as $post) {
-            $post->user;
-            $post->product;
-        }
         $data['posts'] = $posts;
         return view('admin.pages.posts.index', $data);
     }
