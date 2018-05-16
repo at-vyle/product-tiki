@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(5);
+        $products = Product::paginate(config('define.product.limit_rows'));
         $data['products'] = $products;
         return view('admin.pages.products.index', $data);
     }
