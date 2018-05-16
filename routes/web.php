@@ -24,5 +24,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'namespace' => 'Admin'], f
     Route::post('posts/q', 'PostController@findByContent')->name('posts.find');
     Route::get('posts/comments' , 'PostController@showComments')->name('posts.comments');
     Route::get('posts/reviews' , 'PostController@showReviews')->name('posts.reviews');
-    // Route::resource('users', 'UserController')->parameters(['users' => 'id']);
+    Route::resource('users', 'UserController')->parameters(['users' => 'id']);
 });

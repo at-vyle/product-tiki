@@ -31,7 +31,7 @@ class PostController extends Controller
      */
     public function findByContent(Request $request)
     {
-        $perPage = config('paginate.perPage');
+        $perPage = config('define.product.limit_rows');
         $posts = Post::where('content', 'like', '%'.$request->content.'%')->with(['user', 'product'])->paginate($perPage);
         $data['type'] = 'search';
         $data['posts'] = $posts;
