@@ -28,12 +28,12 @@ class UserInfo extends Model
     }
 
     /**
-   * Get the user's avatar.
-   *
-   * @return string
-   */
-   public function getAvatarUrlAttribute()
-   {
-       return asset(config('define.images_path_users') . $this->avatar);
-   }
+     * Get the user's avatar.
+     *
+     * @return string
+     */
+    public function getAvatarUrlAttribute()
+    {
+        return asset(config('define.images_path_users') . $this->avatar);
+    }
 }

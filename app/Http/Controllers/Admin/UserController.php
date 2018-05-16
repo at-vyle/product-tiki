@@ -14,7 +14,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $result = User::with('userinfo')->paginate(config('define.row_limit'));
         $data['result'] = $result;
         return view('admin.pages.users.index', $data);
