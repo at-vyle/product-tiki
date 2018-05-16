@@ -27,6 +27,25 @@ class PostController extends Controller
     }
 
     /**
+     * Display a listing of the resource with condition
+     *
+     * @param \Illuminate\Http\Request $request request content
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function findByContent(Request $request)
+    {
+        $post = new Post();
+        $perPage = $post->perPage;
+        $posts = Post::where('content', 'like', '%'.$request->content.'%')->with(['user', 'product'])->paginate($perPage);
+        foreach ($posts as $post) {
+            $post->user;
+            $post->product;
+        }
+        $data['posts'] = $posts;
+        return view('admin.pages.posts.index', $data);
+    }
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
