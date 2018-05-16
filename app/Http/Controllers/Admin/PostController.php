@@ -18,7 +18,7 @@ class PostController extends Controller
     {
         $post = new Post();
         $perPage = $post->perPage;
-        $posts = Post::paginate($perPage);
+        $posts = Post::with(['user', 'product'])->paginate($perPage);
         foreach ($posts as $post) {
             $users = $post->user;
             $products = $post->product;
