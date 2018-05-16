@@ -2,5 +2,7 @@
 
 return [
     'images_path_users' => '/images/',
-    'row_limit' => 5,
+    'product' => [
+        'limit_rows' => 5
+    ]
 ];
