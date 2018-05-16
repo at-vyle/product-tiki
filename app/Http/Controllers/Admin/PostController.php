@@ -15,13 +15,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = new Post();
-        $perPage = $post->perPage;
+        $perPage = config('paginate.perPage');
         $posts = Post::with(['user', 'product'])->paginate($perPage);
-        foreach ($posts as $post) {
-            $post->user;
-            $post->product;
-        }
         $data['type'] = 'index';
         $data['posts'] = $posts;
         return view('admin.pages.posts.index', $data);
@@ -36,8 +31,7 @@ class PostController extends Controller
      */
     public function findByContent(Request $request)
     {
-        $post = new Post();
-        $perPage = $post->perPage;
+        $perPage = config('paginate.perPage');
         $posts = Post::where('content', 'like', '%'.$request->content.'%')->with(['user', 'product'])->paginate($perPage);
         $data['type'] = 'search';
         $data['posts'] = $posts;
