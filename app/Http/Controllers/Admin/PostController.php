@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,8 +19,8 @@ class PostController extends Controller
         $perPage = $post->perPage;
         $posts = Post::with(['user', 'product'])->paginate($perPage);
         foreach ($posts as $post) {
-            $users = $post->user;
-            $products = $post->product;
+            $post->user;
+            $post->product;
         }
         $data['posts'] = $posts;
         return view('admin.pages.posts.index', $data);
