@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.products.index');
+        $products = Product::paginate(config('define.product.limit_rows'));
+        $data['products'] = $products;
+        return view('admin.pages.products.index', $data);
     }
 
     /**
