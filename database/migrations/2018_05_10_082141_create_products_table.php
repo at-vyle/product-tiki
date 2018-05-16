@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->decimal('avg_rating', 5, 1)->default(0);
             $table->unsignedInteger('price');
             $table->unsignedInteger('quantity')->default(1);
-            $table->boolean('status');
+            $table->boolean('status')->default(1);
             $table->foreign('category_id')
                     ->references('id')->on('categories')
                     ->onDelete('no action');
