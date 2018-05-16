@@ -51,7 +51,7 @@
                     <td>{{ $post['user']->username }}</td>
                     <td>{{ $post['product']->name }}</td>
                     <td>
-                      @if ($post['type'] == APP\Models\Post::TYPE_REVIEW ) 
+                      @if ($post['type'] == App\Models\Post::TYPE_REVIEW ) 
                         {{ __('post.admin.form.type_reviews') }}
                       @else 
                         {{ __('post.admin.form.type_comments') }}
