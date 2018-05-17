@@ -49,12 +49,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach( $posts as $post )
+                  @foreach ($posts as $post )
                   <tr>
                     <td>{{ $post['user']->username }}</td>
                     <td>{{ $post['product']->name }}</td>
                     <td>
-                      @if ( $post['type'] == 1 ) 
+                      @if ($post['type'] == App\Models\Post::TYPE_REVIEW ) 
                         {{ __('post.admin.form.type_reviews') }}
                       @else 
                         {{ __('post.admin.form.type_comments') }}
@@ -62,8 +62,8 @@
                     </td>
                     <td>{{ $post['content'] }}</td>
                     <td>
-                        @if ( $post['status'] ) 
-                          {{ __('post.admin.list.status') }}
+                        @if ($post['status'] ) 
+                          {{ __('common.approve') }}
                         @endif
                     </td>
                     <td>{{ $post['rating'] }}</td>
@@ -85,6 +85,7 @@
             </div>
           </div>
         </div>
+        {{ $posts->render() }}
         <div class="clearfix"></div>       
       </div>
     </div>
