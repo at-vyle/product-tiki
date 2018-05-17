@@ -11,6 +11,8 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Request $request request content
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
@@ -42,11 +44,11 @@ class PostController extends Controller
     //         array_push($condition, ['status', '=', $request->post_status]);
     //     }
         $content = $request->content;
-        $status = (int)$request->post_status;
+        $status = (int) $request->post_status;
         $perPage = config('define.product.limit_rows');
         $posts = Post::when($content, function ($query) use ($content) {
             return $query->where('content', 'like', "%$content%");
-        })->when($status === 0 || $status === 1 , function ($query) use ($status) {
+        })->when($status === 0 || $status === 1, function ($query) use ($status) {
             return $query->where('status', '=', $status);
         })
         ->with(['user','product'])->paginate($perPage);
