@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +15,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.posts.index');
+        $perPage = config('define.post.limit_rows');
+        $posts = Post::with(['user', 'product'])->paginate($perPage);
+        $data['posts'] = $posts;
+        return view('admin.pages.posts.index', $data);
     }
 
     /**
