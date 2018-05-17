@@ -33,7 +33,7 @@ return [
         'userinfo' => 'Detail User Information',
         'male' => 'Male',
         'female' => 'Female',
-        'qlusers' => 'USERS',
+        'title' => 'USERS',
         'formdesign' => 'Form Design',
         'cancel' => 'Cancel',
         'reset' => 'Reset',

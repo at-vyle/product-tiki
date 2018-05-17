@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title', 'HOME')
+@section('title', __('user.index.title'))
 @section('content')
 <div class="right_col" role="main">
   <div class="row">
@@ -79,7 +79,7 @@
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('user.index.dob') }}<span class="required">*</span></label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="birthday" class="date-picker form-control col-md-7 col-xs-12"  type="text">
+                <input id="birthday" name="birthday" class="form-control col-md-7 col-xs-12"  type="date">
               </div>
             </div>
             <div class="ln_solid"></div>
