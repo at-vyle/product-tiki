@@ -23,6 +23,6 @@ $factory->define(UserInfo::class, function (Faker $faker) {
         'dob' => $faker->date($format = 'Y-m-d', $max = 'now'),
         'address' => $faker->address,
         'phone' => $faker->phoneNumber,
-        'identity_card' => $faker->numberBetween($min = 1000000000, $max = 999999999),
+        //'identity_card' => $faker->numberBetween(1000000000,999999999),
     ];
 });

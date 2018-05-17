@@ -15,8 +15,9 @@ class UserInfoTableSeeder extends Seeder
     {
         $idUsers = User::pluck('id')->toArray();
         for ($i =0 ;$i < 10; $i++) {
-            factory(App\Models\UserInfo::class)->create([
+            factory(App\Models\UserInfo::class,1)->create([
                 'user_id' => $faker->unique()->randomElement($idUsers),  
+                'identity_card' => "1" . $faker->numberBetween(1000,9999) . $faker->unique()->numberBetween(1000,9999)
             ]);
         }
         
