@@ -31,8 +31,15 @@ class PostController extends Controller
      */
     public function findByContent(Request $request)
     {
+        $condition = [];
+        if ($request->content != '') {
+            array_push($condition, ['content', 'like', "%$request->content%"]);
+        }
+        if ($request->post_status == Post::APPROVED || $request->post_status == Post::UNAPPROVED) {
+            array_push($condition, ['status', '=', $request->post_status]);
+        }
         $perPage = config('define.product.limit_rows');
-        $posts = Post::where('content', 'like', '%'.$request->content.'%')->with(['user', 'product'])->paginate($perPage);
+        $posts = Post::where($condition)->with(['user','product'])->paginate($perPage);
         $data['type'] = 'search';
         $data['posts'] = $posts;
         return view('admin.pages.posts.index', $data);

@@ -26,6 +26,9 @@ return [
             'action_col' => 'Action',
             'search' => 'Search for...',
             'go' => 'Go!',
+            'approved_post' => 'Approved Post',
+            'unapproved_post' => 'Unapproved Post',
+            'select_title' => 'Status Option'
         ]
     ]
 ];
