@@ -33,4 +33,14 @@ class UserController extends Controller
         $data['result'] = $result;
         return view('admin.pages.users.show', $data);
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin.pages.users.create');
+    }
 }
