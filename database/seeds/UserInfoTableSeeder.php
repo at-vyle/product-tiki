@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
 
 class UserInfoTableSeeder extends Seeder
 {
@@ -12,5 +13,6 @@ class UserInfoTableSeeder extends Seeder
     public function run()
     {
         factory('App\Models\UserInfo', 10)->create();
+        $idUsers = User::pluck('id')->toArray();
     }
 }

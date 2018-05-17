@@ -1,6 +1,8 @@
 <?php
 
 use Faker\Generator as Faker;
+use App\Models\User;
+use App\Models\UserInfo;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +15,9 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\Models\UserInfo::class, function (Faker $faker) {
+$factory->define(UserInfo::class, function (Faker $faker) {
     return [
-        'user_id' => App\Models\User::all()->unique()->random()->id,
+        'user_id' => $faker->unique()->randomElement(User::pluck('id')->toArray()),
         'full_name' => $faker->name,
         'avatar' => 'img.jpg',
         'gender' => $faker->numberBetween($min = 0, $max = 1),
