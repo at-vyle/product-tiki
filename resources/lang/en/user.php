@@ -33,5 +33,10 @@ return [
         'userinfo' => 'Detail User Information',
         'male' => 'Male',
         'female' => 'Female',
+        'qlusers' => 'USERS',
+        'formdesign' => 'Form Design',
+        'cancel' => 'Cancel',
+        'reset' => 'Reset',
+        'submit' => 'Submit',
     ]
 ];

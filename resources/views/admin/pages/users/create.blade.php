@@ -6,7 +6,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2>Form Design <small>different form elements</small></h2>
+          <h2>{{ __('user.index.formdesign') }}</h2>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -14,41 +14,70 @@
           <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">User  Name <span class="required">*</span>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">{{ __('user.index.username') }}<span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="first-name"  class="form-control col-md-7 col-xs-12">
+                <input type="text" id="username" name="username" class="form-control col-md-7 col-xs-12">
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Last Name <span class="required">*</span>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">{{ __('user.index.email') }}<span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="last-name" name="last-name"  class="form-control col-md-7 col-xs-12">
+                <input type="text" id="email" name="email"  class="form-control col-md-7 col-xs-12">
               </div>
             </div>
             <div class="form-group">
-              <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Middle Name / Initial</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">{{ __('user.index.password') }}<span class="required">*</span>
+              </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
+                <input type="password" id="password" name="password"  class="form-control col-md-7 col-xs-12">
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fullname">{{ __('user.index.fullname') }}<span class="required">*</span></label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" id="fullname" name="fullname"  class="form-control col-md-7 col-xs-12">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">{{ __('user.index.address') }}<span class="required">*</span></label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" id="address" name="address"  class="form-control col-md-7 col-xs-12">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="phone">{{ __('user.index.phone') }}<span class="required">*</span></label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" id="phone" name="phone"  class="form-control col-md-7 col-xs-12">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="indentity-card">{{ __('user.index.indentity_card') }}<span class="required">*</span></label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" id="indentity" name="indentity"  class="form-control col-md-7 col-xs-12">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="avatar">{{ __('user.index.avatar') }}<span class="required">*</span></label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="file" id="avatar" name="avatar"  class="form-control col-md-7 col-xs-12">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('user.index.gender') }}<span class="required">*</span></label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div id="gender" class="btn-group" data-toggle="buttons">
                   <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                    <input type="radio" name="gender" value="male" data-parsley-multiple="gender"> &nbsp; Male &nbsp;
+                    <input type="radio" name="gender" value="male" data-parsley-multiple="gender"> &nbsp; {{ __('user.index.male') }} &nbsp;
                   </label>
                   <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                    <input type="radio" name="gender" value="female" data-parsley-multiple="gender"> Female
-                  </label>
+                    <input type="radio" name="gender" value="female" data-parsley-multiple="gender"> {{ __('user.index.female') }}</label>
                 </div>
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span class="required">*</span>
-              </label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('user.index.dob') }}<span class="required">*</span></label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input id="birthday" class="date-picker form-control col-md-7 col-xs-12"  type="text">
               </div>
@@ -56,9 +85,9 @@
             <div class="ln_solid"></div>
             <div class="form-group">
               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                <button class="btn btn-primary" type="button">Cancel</button>
-                <button class="btn btn-primary" type="reset">Reset</button>
-                <button type="submit" class="btn btn-success">Submit</button>
+                <button class="btn btn-primary" type="button">{{ __('user.index.cancel') }}</button>
+                <button class="btn btn-primary" type="reset">{{ __('user.index.reset') }}</button>
+                <button type="submit" class="btn btn-success">{{ __('user.index.submit') }}</button>
               </div>
             </div>
 
