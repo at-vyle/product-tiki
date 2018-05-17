@@ -67,6 +67,7 @@ class ProductController extends Controller
             'img_url' => 'images/upload/' . $imgName
         ]);
 
+        session()->flash('message', 'Create product successfully');
         return redirect('/admin/products');
     }
 
