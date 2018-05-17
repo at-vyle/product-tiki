@@ -36,13 +36,6 @@ class PostController extends Controller
      */
     public function findByContent(Request $request)
     {
-    //     $condition = [];
-    //     if ($request->content != '') {
-    //         array_push($condition, ['content', 'like', "%$request->content%"]);
-    //     }
-    //     if ($request->post_status == Post::APPROVED || $request->post_status == Post::UNAPPROVED) {
-    //         array_push($condition, ['status', '=', $request->post_status]);
-    //     }
         $content = $request->content;
         $status = (int) $request->post_status;
         $perPage = config('define.product.limit_rows');
