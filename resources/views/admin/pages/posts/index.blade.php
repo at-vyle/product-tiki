@@ -15,7 +15,7 @@
               <div class="input-group">              
                 <input type="text" name="content" class="form-control" placeholder="{{ __('post.admin.list.search') }}">
                 <span class="input-group-btn">
-                  <button class="btn btn-default search-button" type="submit">{{ __('post.admin.list.go') }}</button>
+                  <button class="btn btn-default" type="submit">{{ __('post.admin.list.go') }}</button>
                 </span>
               </div>
             </form>
