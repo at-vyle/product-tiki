@@ -13,9 +13,12 @@ class UserInfoTableSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        $idUsers = User::pluck('id')->toArray();
-        factory('App\Models\UserInfo', 10)->create([
-            'user_id' => $faker->randomElement($idUsers)
-        ]);
+        $idUsers = User::get()->pluck('id')->toArray();
+        for ($i =0 ;$i < 10; $i++) {
+            factory(App\Models\UserInfo::class)->create([
+                'user_id' => $faker->unique()->randomElement($idUsers),  
+            ]);
+        }
+        
     }
 }
