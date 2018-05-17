@@ -36,23 +36,34 @@
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th class="col-md-1">#ID</th>
-                    <th class="col-md-1">#{{ __('post.admin.list.product_col') }}</th>
+                    <th class="col-md-1">{{ __('post.admin.list.user_col') }}</th>
+                    <th class="col-md-2">{{ __('post.admin.list.product_col') }}</th>
                     <th class="col-md-1">{{ __('post.admin.list.type_col') }}</th>
-                    <th class="col-md-5">{{ __('post.admin.list.content_col') }}</th>
+                    <th class="col-md-4">{{ __('post.admin.list.content_col') }}</th>
                     <th class="col-md-1">{{ __('post.admin.list.status_col') }}</th>
                     <th class="col-md-1"># <i class="fa fa-star"></i></th>
                     <th class="col-md-2">{{ __('post.admin.list.action_col') }}</th>
                   </tr>
                 </thead>
                 <tbody>
+                  @foreach ($posts as $post )
                   <tr>
-                    <td>3</td>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>the Bird</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
+                    <td>{{ $post['user']->username }}</td>
+                    <td>{{ $post['product']->name }}</td>
+                    <td>
+                      @if ($post['type'] == App\Models\Post::TYPE_REVIEW ) 
+                        {{ __('post.admin.form.type_reviews') }}
+                      @else 
+                        {{ __('post.admin.form.type_comments') }}
+                      @endif
+                    </td>
+                    <td>{{ $post['content'] }}</td>
+                    <td>
+                        @if ($post['status'] ) 
+                          {{ __('common.approve') }}
+                        @endif
+                    </td>
+                    <td>{{ $post['rating'] }}</td>
                     <td>
                       <form action="" class="col-md-4">
                         <button class="btn btn-primary" type="submit"><i class="fa fa-edit icon-size" ></i></button>
@@ -65,11 +76,13 @@
                       </form>
                     </td>
                   </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>
           </div>
         </div>
+        {{ $posts->render() }}
         <div class="clearfix"></div>       
       </div>
     </div>

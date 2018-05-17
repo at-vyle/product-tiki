@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'cancel' => 'Cancel'
+    'cancel' => 'Cancel',
+    'approve' => 'Approved',
+    'cancel' => 'Canceled'
 ];
