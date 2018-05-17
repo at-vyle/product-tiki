@@ -13,8 +13,11 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->content || $request->post_status) {
+            $this->findByContent($request);
+        }
         $perPage = config('define.post.limit_rows');
         $posts = Post::with(['user', 'product'])->paginate($perPage);
         $data['type'] = 'index';
@@ -31,16 +34,24 @@ class PostController extends Controller
      */
     public function findByContent(Request $request)
     {
-        $condition = [];
-        if ($request->content != '') {
-            array_push($condition, ['content', 'like', "%$request->content%"]);
-        }
-        if ($request->post_status == Post::APPROVED || $request->post_status == Post::UNAPPROVED) {
-            array_push($condition, ['status', '=', $request->post_status]);
-        }
+    //     $condition = [];
+    //     if ($request->content != '') {
+    //         array_push($condition, ['content', 'like', "%$request->content%"]);
+    //     }
+    //     if ($request->post_status == Post::APPROVED || $request->post_status == Post::UNAPPROVED) {
+    //         array_push($condition, ['status', '=', $request->post_status]);
+    //     }
+        $content = $request->content;
+        $status = (int)$request->post_status;
         $perPage = config('define.product.limit_rows');
-        $posts = Post::where($condition)->with(['user','product'])->paginate($perPage);
+        $posts = Post::when($content, function ($query) use ($content) {
+            return $query->where('content', 'like', "%$content%");
+        })->when($status === 0 || $status === 1 , function ($query) use ($status) {
+            return $query->where('status', '=', $status);
+        })
+        ->with(['user','product'])->paginate($perPage);
         $data['type'] = 'search';
+        $posts->appends(request()->query());
         $data['posts'] = $posts;
         return view('admin.pages.posts.index', $data);
     }

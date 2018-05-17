@@ -10,15 +10,14 @@
 
         <div class="title_right">
           <div class="col-md-10 col-sm-10 col-xs-12 form-group pull-right top_search">
-            <form action="{{ route('admin.posts.find') }}" method="POST">
-              @csrf
+            <form action="{{ route('admin.posts.index') }}" method="GET">
               <div class="input-group">   
                 <div class="col-md-6">
                   <select name="post_status" class="form-control">
-                    <option value="">{{ __('post.admin.list.select_title') }}</option>
+                    <option value="{{ App\Models\Post::STATUS_DEFAULT }}">{{ __('post.admin.list.select_title') }}</option>
                     <option value="{{ App\Models\Post::UNAPPROVED }}">{{ __('post.admin.list.unapproved_post') }}</option>
                     <option value="{{ App\Models\Post::APPROVED }}">{{ __('post.admin.list.approved_post') }}</option>
-                    <option value="">{{ __('post.admin.list.subtitle_index') }}</option>
+                    <option value="{{ App\Models\Post::STATUS_DEFAULT }}">{{ __('post.admin.list.subtitle_index') }}</option>
                   </select>
                 </div>          
                 <div class="col-md-6">

@@ -12,6 +12,7 @@ class Post extends Model
     const TYPE_COMMENT = 2;
     const APPROVED = 1;
     const UNAPPROVED = 0;
+    const STATUS_DEFAULT = -1;
 
     /**
      * The attributes that are mass assignable.
