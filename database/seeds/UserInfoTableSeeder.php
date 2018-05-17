@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Faker\Generator as Faker;
 
 class UserInfoTableSeeder extends Seeder
 {
@@ -10,9 +11,11 @@ class UserInfoTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
-        factory('App\Models\UserInfo', 10)->create();
         $idUsers = User::pluck('id')->toArray();
+        factory('App\Models\UserInfo', 10)->create([
+            'user_id' => $faker->randomElement($idUsers)
+        ]);
     }
 }

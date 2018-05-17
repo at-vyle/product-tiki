@@ -17,7 +17,6 @@ use App\Models\UserInfo;
 
 $factory->define(UserInfo::class, function (Faker $faker) {
     return [
-        'user_id' => $faker->unique()->randomElement(User::pluck('id')->toArray()),
         'full_name' => $faker->name,
         'avatar' => 'img.jpg',
         'gender' => $faker->numberBetween($min = 0, $max = 1),
