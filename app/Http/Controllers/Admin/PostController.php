@@ -17,8 +17,8 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->content || $request->post_status) {
-            $this->findByContent($request);
+        if ($request->content || $request->post_status == 0 || $request->post_status == 1) {
+            return $this->findByContent($request);
         }
         $perPage = config('define.post.limit_rows');
         $posts = Post::with(['user', 'product'])->paginate($perPage);
