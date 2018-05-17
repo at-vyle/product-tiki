@@ -27,7 +27,6 @@ return [
         'quantity' => 'Quantity',
         'image' => 'Image',
         'file-input' => 'File Input',
-        'cancel' => 'Cancel',
         'create' => 'Create'
     ]
 ];
