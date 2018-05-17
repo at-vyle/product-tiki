@@ -26,7 +26,6 @@ return [
             'action_col' => 'Action',
             'search' => 'Search for...',
             'go' => 'Go!',
-            'status' => 'Approved',
         ]
     ]
 ];
