@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'cancel' => 'Cancel',
+    'cancel-btn' => 'Cancel',
     'approve' => 'Approved',
     'cancel' => 'Canceled'
 ];
