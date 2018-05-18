@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
-use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -12,12 +11,20 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Request $request request content
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $perPage = config('define.post.limit_rows');
-        $posts = Post::with(['user', 'product'])->paginate($perPage);
+        $posts = Post::when(isset($request->content), function ($query) use ($request) {
+            return $query->where('content', 'like', "%$request->content%");
+        })->when(isset($request->post_status), function ($query) use ($request) {
+            return $query->where('status', '=', $request->post_status);
+        })
+        ->with(['user','product'])->paginate($perPage);
+        $posts->appends(request()->query());
         $data['posts'] = $posts;
         return view('admin.pages.posts.index', $data);
     }
@@ -53,11 +60,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $perPage = config('define.post.limit_rows');
-        $comments = Post::find($id)->comments()->with('user')->paginate($perPage);
-        $data['comments'] = $comments;
-        $data['post_id'] = $id;
-        return view('admin.pages.posts.show', $data);
+        dd($id);
     }
 
     /**
