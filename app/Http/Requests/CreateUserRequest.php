@@ -31,7 +31,7 @@ class CreateUserRequest extends FormRequest
             'password'        => 'required|string|min:6',
             'fullname'        => 'required|string|max:255',
             'avatar'          => 'image|mimes:png,jpg,jpeg',
-            'birthday'        => 'required',
+            'birthday'        => 'required|date_format:"Y-m-d"',
             'address'         => 'required|string|max:255',
             'phone'           => 'required|numeric|digits:11',
             'indentity'       => 'required|numeric|digits:9|unique:users',
