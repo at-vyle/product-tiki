@@ -30,11 +30,17 @@ class AdminListPostTest extends DuskTestCase
      */
     public function testSearchPost()
     {
+        factory('App\Models\Category', 1)->create();
+        factory('App\Models\Product', 1)->create();
+        factory('App\Models\User', 1)->create();
+        factory('App\Models\Post', 1)->states('rating')->create([
+            'content' => 'dkashkdjhdasndjkashdkjah'
+        ]);
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/posts')
-                    ->type('content', 'Lorem')
+                    ->type('content', 'dkashkdjhdasndjkashdkjah')
                     ->press('Go!')
-                    ->assertPathIs('/admin/posts/q');;
+                    ->assertSee('dkashkdjhdasndjkashdkjah');
         });
     }
 }
