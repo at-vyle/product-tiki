@@ -27,15 +27,47 @@ class TestShowListUser extends DuskTestCase
     }
 
     /**
-     * A Dusk test example.
+     * A Dusk test show list user.
      *
      * @return void
      */
-    public function testExample()
+    public function testShowList()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-                    ->assertSee('Laravel');
+            $browser->visit('/admin/users/index')
+                    ->assertPathIs('/admin/users/index')
+                    ->assertSee('Show Users');
+        });
+    }
+
+    /**
+     * A Dusk test show record with table has data.
+     *
+     * @return void
+     */
+    public function testShowRecord()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/admin/users/index')
+                ->assertSee('Show Users');
+            $elements = $browser->elements('.table tbody tr');
+            $this->assertCount(self::ROW_LIMIT, $elements);
+        });
+    }
+
+    /**
+     * Test view Admin List Users with pagination
+     *
+     * @return void
+     */
+    public function testListUsersPagination()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/admin/users/index')
+                ->assertSee('Show Users');
+            $paginate_element = $browser->elements('.pagination li');
+            $number_page = count($paginate_element) - 2;
+            $this->assertTrue($number_page == ceil((self::NUMBER_RECORD_CREATE) / (self::ROW_LIMIT)));
         });
     }
 }
