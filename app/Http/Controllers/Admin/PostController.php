@@ -54,14 +54,9 @@ class PostController extends Controller
     public function show($id)
     {
         $perPage = config('define.post.limit_rows');
-        // $comments = Comment::all()->when($id, function ($query) use ($id) {
-        //     return $query->where('post_id', '=', $id);
-        // })->with('user')->paginate($perPage);
-        // $comments.appends(request()->query());
-
-        $comments = Post::find($id)->comments()->with('user');
-        dd($comments);
+        $comments = Comment::with(['user'])->where('post_id', '=', $id)->paginate($perPage);
         $data['comments'] = $comments;
+        $data['post_id'] = $id;
         return view('admin.pages.posts.show', $data);
     }
 

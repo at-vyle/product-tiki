@@ -7,7 +7,6 @@
         <div class="title_left">
           <h3>{{ __('post.admin.show.title') }}</h3>
         </div>
-{{dd($comments)}}
         <div class="title_right">
           <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
             <div class="input-group">
@@ -29,7 +28,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-              <h2>{{ __('post.admin.show.subtitle') }}{{ $posts[0]->id }}</h2>
+              <h2>{{ __('post.admin.show.subtitle') }}{{ $post_id }}</h2>
               <div class="clearfix"></div>
             </div>
             <div class="x_content" class="list-table">
@@ -42,19 +41,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($posts as $post )
+                  @foreach ($comments as $comment )
                   <tr>
-                    <td>{{ $post['user']->username }}</td>
-                    <td>{{ $post['content'] }}</td>
+                    <td>{{ $comment['user']->username }}</td>
+                    <td>{{ $comment['content'] }}</td>
                     <td>
                       <form action="" class="col-md-4">
                         <button class="btn btn-primary" type="submit"><i class="fa fa-edit icon-size" ></i></button>
                       </form>
                       <form action="" class="col-md-4">
                         <button class="btn btn-primary" type="submit"><i class="fa fa-trash icon-size" ></i></button>
-                      </form>
-                      <form action="{{ route('admin.posts.show', ['id' => $post['id']]) }}" class="col-md-4">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-eye icon-size" ></i></button>
                       </form>
                     </td>
                   </tr>
@@ -64,7 +60,7 @@
             </div>
           </div>
         </div>
-        {{ $posts->render() }}
+        {{ $comments->render() }}
         <div class="clearfix"></div>       
       </div>
     </div>
