@@ -97,11 +97,7 @@ class PostController extends Controller
     public function update($id)
     {
         $post = Post::find($id);
-        if ($post->status == 1) {
-            $post->status = 0;
-        } else {
-            $post->status =1;
-        }
+        $post->status = $post->status === 1 ? 0 : 1;
         $post->save();
         session(['message' => __('post.admin.form.updated')]);
         return redirect()->route('admin.posts.index');
