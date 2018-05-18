@@ -82,7 +82,7 @@
                       <form action="{{ route('admin.posts.destroy', ['id' => $post['id']]) }}" class="col-md-4" method="POST" id="delete{{ $post['id'] }}">
                         @csrf
                         @method('DELETE')
-                        <button onclick="deletePost(event, {{ $post['id'] }})" class="btn btn-primary" type="submit"><i class="fa fa-trash icon-size" ></i></button>
+                        <button onclick="deletePost(event, {{ $post['id'] }}, '@lang('post.admin.form.delete_msg')')" class="btn btn-primary" type="submit"><i class="fa fa-trash icon-size" ></i></button>
                       </form>
                       <form action="" class="col-md-4">
                         @csrf
