@@ -89,4 +89,18 @@ class CategoryController extends Controller
             return view('admin.pages.categories.edit');
         }
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id category's id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $category = Category::find($id)->delete();
+        $categoryParent = Category::where('parent_id', $id)->delete();
+        return redirect()->route('admin.categories.index');
+    }
 }
