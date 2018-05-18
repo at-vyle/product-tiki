@@ -63,7 +63,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        dd($id);
+        return view('admin.pages.products.edit');
     }
 
     /**
