@@ -97,10 +97,28 @@ class PostController extends Controller
     public function update($id)
     {
         $post = Post::find($id);
-        $post->status = $post->status === 1 ? 0 : 1;
+        $post->status = !$post->status;
         $post->save();
         session(['message' => __('post.admin.form.updated')]);
-        return redirect()->route('admin.posts.index');
+        // return redirect()->route('admin.posts.index');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param int $id post id to change status
+     *
+     * @return array status code
+     */
+    public function changeStatus($id)
+    {
+        $post = Post::find($id);
+        $post->status = !$post->status;
+        $post->save();
+        $data['status'] = (int) $post->status;
+        $data['msg'] = __('post.admin.form.updated');
+        return $data;
+        // return redirect()->route('admin.posts.index');
     }
 
     /**
