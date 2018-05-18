@@ -45,7 +45,7 @@
                       <img src="" alt="">
                     </td>
                     <td class=" last">
-                      <a href="#"> @lang('product.index.edit') </a>
+                      <a href="{!! route('admin.products.edit', ['id' => $product['id']]) !!}"> @lang('product.index.edit') </a>
                     </td>
                   </tr>
                 </tbody>
