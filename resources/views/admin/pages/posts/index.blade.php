@@ -14,10 +14,9 @@
               <div class="input-group">   
                 <div class="col-md-6">
                   <select name="post_status" class="form-control">
-                    <option value="{{ App\Models\Post::STATUS_DEFAULT }}">{{ __('post.admin.list.select_title') }}</option>
+                      <option value="">{{ __('post.admin.list.subtitle_index') }}</option>
                     <option value="{{ App\Models\Post::UNAPPROVED }}">{{ __('post.admin.list.unapproved_post') }}</option>
                     <option value="{{ App\Models\Post::APPROVED }}">{{ __('post.admin.list.approved_post') }}</option>
-                    <option value="{{ App\Models\Post::STATUS_DEFAULT }}">{{ __('post.admin.list.subtitle_index') }}</option>
                   </select>
                 </div>          
                 <div class="col-md-6">
@@ -42,11 +41,7 @@
           <div class="x_panel">
             <div class="x_title">
               <h2>
-                @if ($type == 'index') 
                   {{ __('post.admin.list.subtitle_index') }}
-                @elseif ($type == 'search')
-                  {{ __('post.admin.list.subtitle_search') }}
-                @endif
               </h2>
               <div class="clearfix"></div>
             </div>

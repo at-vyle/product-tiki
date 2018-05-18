@@ -17,39 +17,18 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->content || $request->post_status == 0 || $request->post_status == 1) {
-            return $this->findByContent($request);
-        }
         $perPage = config('define.post.limit_rows');
-        $posts = Post::with(['user', 'product'])->paginate($perPage);
-        $data['type'] = 'index';
-        $data['posts'] = $posts;
-        return view('admin.pages.posts.index', $data);
-    }
-
-    /**
-     * Display a listing of the resource with condition
-     *
-     * @param \Illuminate\Http\Request $request request content
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function findByContent(Request $request)
-    {
-        $content = $request->content;
-        $status = (int) $request->post_status;
-        $perPage = config('define.product.limit_rows');
-        $posts = Post::when($content, function ($query) use ($content) {
-            return $query->where('content', 'like', "%$content%");
-        })->when($status === 0 || $status === 1, function ($query) use ($status) {
-            return $query->where('status', '=', $status);
+        $posts = Post::when(isset($request->content), function ($query) use ($request) {
+            return $query->where('content', 'like', "%$request->content%");
+        })->when(isset($request->post_status), function ($query) use ($request) {
+            return $query->where('status', '=', $request->post_status);
         })
         ->with(['user','product'])->paginate($perPage);
-        $data['type'] = 'search';
         $posts->appends(request()->query());
         $data['posts'] = $posts;
         return view('admin.pages.posts.index', $data);
     }
+
     /**
      * Show the form for creating a new resource.
      *
