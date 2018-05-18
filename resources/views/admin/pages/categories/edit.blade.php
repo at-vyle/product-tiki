@@ -12,7 +12,9 @@
           </div>
           <div class="x_content">
             <br />
-            <form class="form-horizontal form-label-left" method="post" action="/admin/categories">
+            <form class="form-horizontal form-label-left" method="POST" action="/admin/categories/{{ $category->id }}">
+            {{ csrf_field() }}
+            @method('PUT')
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('category.admin.add.name') }}</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
@@ -23,16 +25,9 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('category.admin.add.parent_category') }}</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                   <select class="form-control" name="parent_id">
-                    <option value='-1'>Null</option>
-
+                    <option value=""></option>
                     @foreach ($categoryParent as $parent)
                     <option value="{{ $parent->id }}" @if ($parent->id == $category->parent_id) selected @endif>{{ $parent->name }}</option>
-                      
-                      <!-- @if ($category->id == $parent->id)
-                      <option value="{{ $parent->id }}" checked="checked">{{ $parent->name }}</option>
-                      @elseif ($category->id == null)
-                      <option value="{{ $parent->id }}" checked="checked"></option>
-                      @endif -->
                     @endforeach
                   </select>
                 </div>

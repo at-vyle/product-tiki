@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\Backend\CategoryRequest;
+use App\Http\Requests\Backend\EditCategoryRequest;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
@@ -68,5 +69,24 @@ class CategoryController extends Controller
         $data['category'] = $category;
         $data['categoryParent'] = $categoryParent;
         return view('admin.pages.categories.edit', $data);
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request get request
+     * @param int                      $id      category's id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(EditCategoryRequest $request, $id)
+    {
+        $category = Category::find($id);
+        $category->name = $request->name;
+        $category->parent_id = $request->parent_id;
+        if ($category->save()) {
+            return redirect()->route('admin.categories.index');
+        } else {
+            return view('admin.pages.categories.edit');
+        }
     }
 }
