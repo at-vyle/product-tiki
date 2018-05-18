@@ -79,6 +79,8 @@
                     <td>
                         @if ($post['status'] ) 
                           {{ __('common.approve') }}
+                        @else
+                          {{ __('common.pending') }}
                         @endif
                     </td>
                     <td>{{ $post['rating'] }}</td>

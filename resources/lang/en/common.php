@@ -2,5 +2,6 @@
 
 return [
     'approve' => 'Approved',
-    'cancel' => 'Canceled'
+    'cancel' => 'Canceled',
+    'pending' => 'Pending'
 ];
