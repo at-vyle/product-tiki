@@ -16,5 +16,17 @@ return [
         'update_at' => 'Update At',
         'action' => 'Action',
         'edit' => 'Edit'
+    ],
+    'create' => [
+        'title' => 'Create Product',
+        'table-title' => 'Create Product',
+        'category' => 'Category',
+        'name' => 'Name',
+        'description' => 'Description',
+        'price' => 'Price',
+        'quantity' => 'Quantity',
+        'image' => 'Image',
+        'file-input' => 'File Input',
+        'create' => 'Create'
     ]
 ];
