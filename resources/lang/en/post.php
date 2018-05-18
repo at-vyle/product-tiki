@@ -28,7 +28,7 @@ return [
         ],
         'show' => [
             'title' => 'Subcomments List',
-            'subtitle' => 'All subcomments of Post',
+            'subtitle' => 'All subcomments of Post ',
             'post_col' => 'Post ID'
         ]
     ]
