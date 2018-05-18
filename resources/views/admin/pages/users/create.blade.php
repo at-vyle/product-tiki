@@ -9,20 +9,9 @@
           <h2>{{ __('user.index.formdesign') }}</h2>
           <div class="clearfix"></div>
         </div>
-        @if (count($errors))
-          <div class="form-group">
-              <div class="alert alert-error">
-                <ul>
-                  @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                  @endforeach
-                </ul>
-              </div>
-            </div>
-        @endif
         <div class="x_content">
           <br>
-          <form id="demo-form2" method="POST" action="{{route('admin.users.store')}}" enctype="multipart/form-data" class="form-horizontal form-label-left">
+          <form id="demo-form2" method="POST" action="" enctype="multipart/form-data" class="form-horizontal form-label-left">
             @csrf
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">{{ __('user.index.username') }}<span class="required">*</span>
@@ -101,7 +90,6 @@
                 <button type="submit" class="btn btn-success">{{ __('user.index.submit') }}</button>
               </div>
             </div>
-
           </form>
         </div>
       </div>

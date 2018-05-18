@@ -10,11 +10,6 @@
       </div>
       <div class="x_content">
         <div class="table-responsive">
-        @if (session('message'))
-          <div class="alert alert-info">
-            {{ session('message') }}
-          </div>
-        @endif
           <table class="table table-striped jambo_table bulk_action">
             <thead>
               <tr class="headings">
