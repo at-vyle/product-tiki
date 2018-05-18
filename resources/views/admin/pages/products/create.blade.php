@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 @section('title', __('product.create.title'))
 @section('content')
-<div class="right_col" role="main" style="min-height: 1162px;">
+<div class="right_col" role="main">
   <div class="">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
@@ -11,9 +11,9 @@
         </div>
         <div class="x_content">
           <br />
-          <form id="demo-form2" data-parsley-validate method="POST" action="/admin/products" enctype="multipart/form-data" class="form-horizontal form-label-left">
+          <form id="demo-form2" data-parsley-validate method="POST" action="{!! route('admin.products.store') !!}" enctype="multipart/form-data" class="form-horizontal form-label-left">
 
-            {{ csrf_field() }}
+            @csrf
 
             @include('admin.layout.errors')
 
@@ -77,7 +77,7 @@
             <div class="ln_solid"></div>
             <div class="form-group">
               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                <button class="btn btn-primary" type="button">@lang('product.create.cancel')</button>
+                <button class="btn btn-primary" type="button">@lang('common.cancel-btn')</button>
                 <button type="submit" class="btn btn-success">@lang('product.create.create')</button>
               </div>
             </div>

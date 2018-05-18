@@ -18,7 +18,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.products.index');
+        $products = Product::paginate(config('define.product.limit_rows'));
+        $data['products'] = $products;
+        return view('admin.pages.products.index', $data);
     }
 
     /**
@@ -42,31 +44,18 @@ class ProductController extends Controller
      */
     public function store(StoreProduct $request)
     {
-        $request['status'] = 0;
-        $product = Product::create(request([
-            'category_id',
-            'name',
-            'description',
-            'price',
-            'quantity',
-            'status'
-        ]));
-        if ($product->quantity > 0) {
-            $product->status = 1;
-        } else {
-            $product->status = 0;
-        }
-        $product->save();
+        $request['status'] = $request->quantity ? 1 : 0;
+        $product = Product::create($request->all());
 
         $img = request()->file('input_img');
         $imgName = time() . '-' . $img->getClientOriginalName();
-        $img->move('images/upload', $imgName);
+        $img->move(config('define.product.upload_image_url'), $imgName);
         Image::create([
             'product_id' => $product->id,
-            'img_url' => 'images/upload/' . $imgName
+            'img_url' => config('define.product.upload_image_url') . $imgName
         ]);
 
-        return redirect('/admin/products');
+        return redirect()->route('admin.products.index')->with('message', trans('messages.create_product_success'));
     }
 
     /**
