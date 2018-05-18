@@ -20,5 +20,8 @@ return [
             'submit' => 'Submit',
             'reset' => 'Reset',
         ],
+        'edit' => [
+            'title' => 'Edit Category',
+        ]
     ]
 ];

@@ -53,4 +53,20 @@ class CategoryController extends Controller
             return view('admin.pages.categories.create');
         }
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id category's id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $category = Category::find($id);
+        $categoryParent = Category::where('parent_id', null)->get();
+        $data['category'] = $category;
+        $data['categoryParent'] = $categoryParent;
+        return view('admin.pages.categories.edit', $data);
+    }
 }
