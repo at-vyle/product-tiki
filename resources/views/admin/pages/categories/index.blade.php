@@ -30,17 +30,18 @@
               <tbody>
                 @foreach ($listCategories as $list)
                 <tr class="even pointer">
-                  <td class=" ">{{ $list->id }}</td>
-                  <td class=" ">{{ $list->name }}</td>
-                  <td class=" ">{{ $list->parent_id }}</td>
-                  <td class=" ">{{ $list->created_at }}</td>
+                  <td>{{ $list->id }}</td>
+                  <td>{{ $list->name }}</td>
+                  <td>{{ $list->parent_id }}</td>
+                  <td>{{ $list->created_at }}</td>
                   <td class="a-right a-right ">{{ $list->updated_at }}</td>
-                  <td class="last "><a href="/admin/categories/{{$list->id}}/edit"><i class="fa fa-edit"></i></a> | 
-                  <form method="POST" action="/admin/categories/{{$list->id}}" style="display:inline;">
-                    @method('DELETE')
-                    {{ csrf_field() }}
-                    <button type="submit" style="border:none; background:none;"><i class="fa fa-trash"></i></button>
-                  </form>
+                  <td class="last">
+                    <a href="/admin/categories/{{$list->id}}/edit"><i class="fa fa-edit"></i></a> | 
+                    <form method="POST" action="/admin/categories/{{$list->id}}" style="display:inline;">
+                      @method('DELETE')
+                      {{ csrf_field() }}
+                      <button type="submit" style="border:none; background:none;"><i class="fa fa-trash"></i></button>
+                    </form>
                   </td>
                 </tr>
                 @endforeach
