@@ -44,43 +44,5 @@ class UserController extends Controller
     public function create()
     {
         return view('admin.pages.users.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CreateUserRequest $request)
-    {
-        $user = new User;
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->password = bcrypt($password);
-        $user->save();
-
-        $insertedId = $user->id;
-        $user_info = new UserInfo;
-        $user_info->user_id = $insertedId;
-        $user_info->fullname = $request->fullname;
-        $user_info->address = $request->address;
-        $user_info->phone = $request->phone;
-        $user_info->indentity = $request->indentity_card;
-        $user_info->gender = $request->gender;
-        $user_info->birthday = $request->dob;
-        if ($request->hasFile('avatar')) {
-            $image = $request->file('avatar');
-            $nameNew = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $user_info->avatar = $nameNew;
-            $user_info->save();
-            $image->move($destinationPath, $nameNew);
-        } else {
-            $user_info->avatar = $request->avatar;
-            $user_info->save();
-        }
-        Session::flash('message', trans('user.messages.create_success'));
-        return redirect()->route('admin.pages.users.index');
-    }
+    }  
 }
