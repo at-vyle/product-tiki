@@ -14,7 +14,7 @@
               <div class="input-group">   
                 <div class="col-md-6">
                   <select name="post_status" class="form-control">
-                      <option value="">{{ __('post.admin.list.subtitle_index') }}</option>
+                    <option value="">{{ __('post.admin.list.subtitle_index') }}</option>
                     <option value="{{ App\Models\Post::UNAPPROVED }}">{{ __('post.admin.list.unapproved_post') }}</option>
                     <option value="{{ App\Models\Post::APPROVED }}">{{ __('post.admin.list.approved_post') }}</option>
                   </select>
