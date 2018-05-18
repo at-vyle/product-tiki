@@ -52,7 +52,10 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        dd($id);
+        $perPage = config('define.post.limit_rows');
+        $posts = Post::with(['user', 'product'])->paginate($perPage);
+        $data['posts'] = $posts;
+        return view('admin.pages.posts.show', $data);
     }
 
     /**

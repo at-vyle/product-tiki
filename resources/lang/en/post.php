@@ -25,6 +25,11 @@ return [
             'action_col' => 'Action',
             'search' => 'Search for...',
             'go' => 'Go!',
+        ],
+        'show' => [
+            'title' => 'Subcomments List',
+            'subtitle' => 'All subcomments of Post',
+            'post_col' => 'Post ID'
         ]
     ]
 ];

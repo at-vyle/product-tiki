@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
-@section('title', __('post.admin.list.title') )
+@section('title', __('post.admin.show.title') )
 @section('content')
   <div class="right_col" role="main" class="index-main">
     <div class="">
       <div class="page-title">
         <div class="title_left">
-          <h3>{{ __('post.admin.list.title') }}</h3>
+          <h3>{{ __('post.admin.show.title') }}</h3>
         </div>
 
         <div class="title_right">
@@ -29,7 +29,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-              <h2>{{ __('post.admin.list.subtitle') }}</h2>
+              <h2>{{ __('post.admin.show.subtitle') }}{{ $posts[0]->id }}</h2>
               <div class="clearfix"></div>
             </div>
             <div class="x_content" class="list-table">
@@ -37,33 +37,15 @@
                 <thead>
                   <tr>
                     <th class="col-md-1">{{ __('post.admin.list.user_col') }}</th>
-                    <th class="col-md-2">{{ __('post.admin.list.product_col') }}</th>
-                    <th class="col-md-1">{{ __('post.admin.list.type_col') }}</th>
-                    <th class="col-md-4">{{ __('post.admin.list.content_col') }}</th>
-                    <th class="col-md-1">{{ __('post.admin.list.status_col') }}</th>
-                    <th class="col-md-1"># <i class="fa fa-star"></i></th>
-                    <th class="col-md-2">{{ __('post.admin.list.action_col') }}</th>
+                    <th class="col-md-8">{{ __('post.admin.list.content_col') }}</th>
+                    <th class="col-md-3">{{ __('post.admin.list.action_col') }}</th>
                   </tr>
                 </thead>
                 <tbody>
                   @foreach ($posts as $post )
                   <tr>
                     <td>{{ $post['user']->username }}</td>
-                    <td>{{ $post['product']->name }}</td>
-                    <td>
-                      @if ($post['type'] == App\Models\Post::TYPE_REVIEW ) 
-                        {{ __('post.admin.form.type_reviews') }}
-                      @else 
-                        {{ __('post.admin.form.type_comments') }}
-                      @endif
-                    </td>
                     <td>{{ $post['content'] }}</td>
-                    <td>
-                        @if ($post['status'] ) 
-                          {{ __('common.approve') }}
-                        @endif
-                    </td>
-                    <td>{{ $post['rating'] }}</td>
                     <td>
                       <form action="" class="col-md-4">
                         <button class="btn btn-primary" type="submit"><i class="fa fa-edit icon-size" ></i></button>
