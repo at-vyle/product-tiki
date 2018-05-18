@@ -10,6 +10,11 @@
       </div>
       <div class="x_content">
         <div class="table-responsive">
+        @if (session('message'))
+          <div class="alert alert-info">
+            {{ session('message') }}
+          </div>
+        @endif
           <table class="table table-striped jambo_table bulk_action">
             <thead>
               <tr class="headings">
@@ -38,14 +43,14 @@
                 <td class="a-right a-right ">{{ __('user.index.male') }}</td>
                 @endif
                 <td class=" ">0</td>
-                <td class="last "><a href="#"><i class="fa fa-edit"></i></a>|<a href=""><i class="fa fa-trash"></i></a>
+                <td class="last"><a href="#"><i class="fa fa-edit"></i></a>|<a href=""><i class="fa fa-trash"></i></a>
                 <td class="last"><a href="{{ route('admin.users.show', array('id' => $user->id)) }}">{{ __('user.index.detail') }}</a>
                 </td>
               @endforeach
               </tr>
             </tbody>
           </table>
-          {{$result->render()}}
+          {{ $result->render() }}
         </div>
       </div>
     </div>

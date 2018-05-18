@@ -33,7 +33,7 @@ class CreateUserRequest extends FormRequest
             'avatar'          => 'image|mimes:png,jpg,jpeg',
             'birthday'        => 'required|date_format:"Y-m-d"',
             'address'         => 'required|string|max:255',
-            'phone'           => 'required|numeric|digits:11',
+            'phone'           => 'required|integer|max:15',
             'indentity'       => 'required|numeric|digits:9|unique:users',
             'gender'          => 'required',
         ];
