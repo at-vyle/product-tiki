@@ -11,7 +11,7 @@
         </div>
         <div class="x_content">
           <br />
-          <form id="demo-form2" data-parsley-validate method="POST" action="/admin/products" enctype="multipart/form-data" class="form-horizontal form-label-left">
+          <form id="demo-form2" data-parsley-validate method="POST" action="{!! route('admin.products.store') !!}" enctype="multipart/form-data" class="form-horizontal form-label-left">
 
             @csrf
 
