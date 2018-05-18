@@ -32,7 +32,7 @@ function loadAjax(url, id) {
         if (status == 0) {
             console.log('abc');
             document.getElementById('update'+id).innerHTML = approved;
-            document.getElementById('status'+id).innerHTML = "";
+            document.getElementById('status'+id).innerHTML = "Pending";
         }
         document.getElementById('info-message').innerHTML = json_data['msg'];
       }
