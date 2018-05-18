@@ -32,6 +32,9 @@
               <h2>{{ __('post.admin.list.subtitle') }}</h2>
               <div class="clearfix"></div>
             </div>
+            @if (session()->has('message')) 
+            <h2>{{ session()->pull('message', 'default') }}</h2>
+            @endif
             <div class="x_content" class="list-table">
               <table class="table table-hover">
                 <thead>
@@ -65,13 +68,24 @@
                     </td>
                     <td>{{ $post['rating'] }}</td>
                     <td>
-                      <form action="" class="col-md-4">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-edit icon-size" ></i></button>
+                      <form action="{{ route('admin.posts.update', ['id' => $post['id']]) }}" class="col-md-4" method="POST">
+                        @method('PUT')
+                        @csrf
+                        <button id="update{{ $post['id'] }}" class="btn btn-primary update-btn" type="submit">
+                          @if ($post['status'])
+                            <i class="fa fa-times-circle icon-size" ></i>
+                          @else
+                            <i class="fa fa-check-circle icon-size" ></i>
+                          @endif
+                        </button>
+                      </form>
+                      <form action="{{ route('admin.posts.destroy', ['id' => $post['id']]) }}" class="col-md-4" method="POST" id="delete{{ $post['id'] }}">
+                        @csrf
+                        @method('DELETE')
+                        <button onclick="deletePost(event, {{ $post['id'] }})" class="btn btn-primary" type="submit"><i class="fa fa-trash icon-size" ></i></button>
                       </form>
                       <form action="" class="col-md-4">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-trash icon-size" ></i></button>
-                      </form>
-                      <form action="" class="col-md-4">
+                        @csrf
                         <button class="btn btn-primary" type="submit"><i class="fa fa-eye icon-size" ></i></button>
                       </form>
                     </td>
@@ -87,5 +101,5 @@
       </div>
     </div>
   </div>
-
+  <script src="/js/common.js"></script>
 @endsection

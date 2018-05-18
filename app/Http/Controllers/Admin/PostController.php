@@ -90,15 +90,21 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request request
-     * @param int                      $id      post id
+     * @param int $id post id to change status
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        dd($request);
-        dd($id);
+        $post = Post::find($id);
+        if ($post->status == 1) {
+            $post->status = 0;
+        } else {
+            $post->status =1;
+        }
+        $post->save();
+        session(['message' => __('post.admin.form.updated')]);
+        return redirect()->route('admin.posts.index');
     }
 
     /**
@@ -110,6 +116,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
+        $post = Post::findOrFail($id);
+        $post->delete();
+        session(['message' => __('post.admin.form.deleted')]);
+        return redirect()->route('admin.posts.index');
     }
 }

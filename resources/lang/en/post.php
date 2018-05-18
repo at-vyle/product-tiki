@@ -12,7 +12,9 @@ return [
             'type_comments' => 'Comments',
             'product_id' => 'Product ID',
             'user_id' => 'User ID',
-            'rate' => 'Reviews Rating'
+            'rate' => 'Reviews Rating',
+            'updated' => 'Updated!!!!',
+            'deleted' => 'Deleted!!!!'
         ],
         'list' => [
             'title' => 'Admin Posts Management',
