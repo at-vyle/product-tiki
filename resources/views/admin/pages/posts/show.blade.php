@@ -7,7 +7,7 @@
         <div class="title_left">
           <h3>{{ __('post.admin.show.title') }}</h3>
         </div>
-
+{{dd($comments)}}
         <div class="title_right">
           <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
             <div class="input-group">

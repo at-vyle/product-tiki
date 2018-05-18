@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -53,8 +54,14 @@ class PostController extends Controller
     public function show($id)
     {
         $perPage = config('define.post.limit_rows');
-        $posts = Post::with(['user', 'product'])->paginate($perPage);
-        $data['posts'] = $posts;
+        // $comments = Comment::all()->when($id, function ($query) use ($id) {
+        //     return $query->where('post_id', '=', $id);
+        // })->with('user')->paginate($perPage);
+        // $comments.appends(request()->query());
+
+        $comments = Post::find($id)->comments()->with('user');
+        dd($comments);
+        $data['comments'] = $comments;
         return view('admin.pages.posts.show', $data);
     }
 
