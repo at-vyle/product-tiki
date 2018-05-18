@@ -11,31 +11,24 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $perPage = config('define.post.limit_rows');
-        $posts = Post::with(['user', 'product'])->paginate($perPage);
-        $data['posts'] = $posts;
-        return view('admin.pages.posts.index', $data);
-    }
-
-    /**
-     * Display a listing of the resource with condition
-     *
      * @param \Illuminate\Http\Request $request request content
      *
      * @return \Illuminate\Http\Response
      */
-    public function findByContent(Request $request)
+    public function index(Request $request)
     {
-        $post = new Post();
-        $perPage = $post->perPage;
-        $posts = Post::where('content', 'like', '%'.$request->content.'%')->with(['user', 'product'])->paginate($perPage);
+        $perPage = config('define.post.limit_rows');
+        $posts = Post::when(isset($request->content), function ($query) use ($request) {
+            return $query->where('content', 'like', "%$request->content%");
+        })->when(isset($request->post_status), function ($query) use ($request) {
+            return $query->where('status', '=', $request->post_status);
+        })
+        ->with(['user','product'])->paginate($perPage);
+        $posts->appends(request()->query());
         $data['posts'] = $posts;
         return view('admin.pages.posts.index', $data);
     }
+
     /**
      * Show the form for creating a new resource.
      *
