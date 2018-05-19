@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $table = 'posts';
+    
     const TYPE_REVIEW = 1;
     const TYPE_COMMENT = 2;
+    const APPROVED = 1;
+    const UNAPPROVED = 0;
 
     /**
      * The attributes that are mass assignable.
