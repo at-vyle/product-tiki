@@ -60,7 +60,11 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        dd($id);
+        $perPage = config('define.post.limit_rows');
+        $comments = Post::find($id)->comments()->with('user')->paginate($perPage);
+        $data['comments'] = $comments;
+        $data['post_id'] = $id;
+        return view('admin.pages.posts.show', $data);
     }
 
     /**
