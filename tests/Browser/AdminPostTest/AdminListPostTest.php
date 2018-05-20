@@ -19,7 +19,7 @@ class AdminListPostTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/posts')
-                    ->assertSee('All Posts');
+                    ->assertSee(__('post.admin.list.subtitle_index'));
         });
     }
 
@@ -30,17 +30,18 @@ class AdminListPostTest extends DuskTestCase
      */
     public function testSearchPost()
     {
+        $testContent = 'dkashkdjhdasndjkashdkjah';
         factory('App\Models\Category', 1)->create();
         factory('App\Models\Product', 1)->create();
         factory('App\Models\User', 1)->create();
         factory('App\Models\Post', 1)->states('rating')->create([
-            'content' => 'dkashkdjhdasndjkashdkjah'
+            'content' => $testContent
         ]);
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser) use ($testContent) {
             $browser->visit('/admin/posts')
-                    ->type('content', 'dkashkdjhdasndjkashdkjah')
-                    ->press('Go!')
-                    ->assertSee('dkashkdjhdasndjkashdkjah');
+                    ->type('content', $testContent)
+                    ->press(__('post.admin.list.go'))
+                    ->assertSee($testContent);
         });
     }
 }
