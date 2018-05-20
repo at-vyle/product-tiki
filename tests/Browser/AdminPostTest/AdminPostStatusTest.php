@@ -5,6 +5,7 @@ namespace Tests\Browser\AdminPostTest;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Models\Post;
 
 class AdminPostStatusTest extends DuskTestCase
 {
@@ -21,11 +22,13 @@ class AdminPostStatusTest extends DuskTestCase
         factory('App\Models\Product', 1)->create();
         factory('App\Models\User', 1)->create();
         factory('App\Models\Post', 1)->states('rating')->create([
-            'status' => 0
+            'status' => Post::UNAPPROVED
         ]);
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/posts')
                     ->click('#update1')
+                    ->assertSee(__('common.approve'));
+            $browser->visit('/admin/posts')
                     ->assertSee(__('common.approve'));
         });
     }
