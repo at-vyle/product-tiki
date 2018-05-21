@@ -18,5 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'namespace' => 'Api'], function () {
-    Route::put('posts/{id}/stt', 'PostController@changeStatus')->name('posts.update.status');
+    Route::put('posts/{id}/status', 'PostController@changeStatus')->name('posts.update.status');
 });
