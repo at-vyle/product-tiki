@@ -2,7 +2,7 @@ function deletePost(e, id) {
     e.preventDefault();
     msg = Lang.get('post.admin.form.delete_msg');
     if (confirm(msg)) {
-        document.getElementById('delete'+id).submit();
+        document.getElementById('delete' + id).submit();
     }
 }
 
@@ -21,15 +21,16 @@ function loadAjax(url, id) {
       if ( xmlhttp.readyState === 4 && xmlhttp.status === 200 ) {
         json_data = JSON.parse(xmlhttp.responseText);
         status = json_data['status'];
-        document.getElementById('update'+id).innerHTML = '';
+        var btnStatus = document.getElementById('update'+id).innerHTML;
+        var textStatus = document.getElementById('update'+id).innerHTML;
+        btnStatus = '';
         if (status == 1) {
-            document.getElementById('update'+id).innerHTML = pending;
-            document.getElementById('status'+id).innerHTML = Lang.get('common.approve');
+            btnStatus = pending;
+            textStatus = Lang.get('common.approve');
         }
         if (status == 0) {
-            console.log('abc');
-            document.getElementById('update'+id).innerHTML = approved;
-            document.getElementById('status'+id).innerHTML = Lang.get('common.pending');
+            btnStatus = approved;
+            textStatus = Lang.get('common.pending');
         }
         document.getElementById('info-message').innerHTML = json_data['msg'];
       }
