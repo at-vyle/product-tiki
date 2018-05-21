@@ -52,6 +52,7 @@ class AdminCommentTest extends DuskTestCase
                     ->press('#view1')
                     ->type('content', $test)
                     ->press(__('post.admin.list.go'))
+                    ->assertQueryStringHas('content')
                     ->assertSee($test);
         });
     }
