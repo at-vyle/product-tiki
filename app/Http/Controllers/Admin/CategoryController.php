@@ -43,12 +43,12 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $category = new Category();
-        $category->name = $request->input('name');
-        $category->parent_id = $request->parent_id;
+        $input = $request->except('_token', '_method');
+        $category = Category::create($input);
         if ($category->save()) {
             $listCategories = Category::paginate(config('define.category.limit_rows'));
             $data['listCategories'] = $listCategories;
+            $data['msg'] = __('category.admin.message.add');
             return view('admin.pages.categories.index', $data);
         } else {
             return view('admin.pages.categories.create');
@@ -84,6 +84,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->parent_id = $request->parent_id;
         if ($category->save()) {
+            session(['msg' => __('category.admin.message.edit')]);
             return redirect()->route('admin.categories.index');
         } else {
             return view('admin.pages.categories.edit');

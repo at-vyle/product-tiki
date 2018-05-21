@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title', __('category.admin.list.title') )
+@section('title', __('category.admin.title') )
 @section('content')
 <div class="right_col" role="main">
   <div class="">
@@ -10,20 +10,23 @@
           <h2>{{ __('category.admin.list.title') }}</h2>
           <div class="clearfix"></div>
         </div>
+        @if (isset($msg)) 
+          <p class="alert alert-info">{{ $msg }}</p>
+        @elseif (session()->get('msg'))
+          <p class="alert alert-info">{{ session()->pull('msg') }}</p>
+        @endif
+        
         <div class="x_content">
           <div class="table-responsive">
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                  <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.id') }}</th>
-                  <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.name') }}</th>
-                  <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.parent_id') }}</th>
-                  <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.created_at') }}</th>
-                  <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.updated_at') }}</th>
-                  <th class="column-title no-link last" style="display: table-cell;"><span class="nobr">{{ __('category.admin.table.action') }}</span>
-                  </th>
-                  <th class="bulk-actions" colspan="7" style="display: none;">
-                    <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt">1 Records Selected</span> ) <i class="fa fa-chevron-down"></i></a>
+                  <th class="column-title">{{ __('category.admin.table.id') }}</th>
+                  <th class="column-title">{{ __('category.admin.table.name') }}</th>
+                  <th class="column-title">{{ __('category.admin.table.parent_id') }}</th>
+                  <th class="column-title">{{ __('category.admin.table.created_at') }}</th>
+                  <th class="column-title">{{ __('category.admin.table.updated_at') }}</th>
+                  <th class="column-title no-link last"><span class="nobr">{{ __('category.admin.table.action') }}</span>
                   </th>
                 </tr>
               </thead>
