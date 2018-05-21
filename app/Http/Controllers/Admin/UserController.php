@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use App\Models\User;
 use App\Models\UserInfo;
+use App\Mail\SendMailUser;
+use Mail;
 
 class UserController extends Controller
 {
@@ -81,6 +83,9 @@ class UserController extends Controller
         $user_info->avatar = $request->avatar;
             $user_info->save();
         }
+        $data['email'] = $user->email;
+        $data['password'] = $password;
+        Mail::to($user->email)->send(new SendMailUser($data));
         return redirect()->route('admin.users.index')->with('message', trans('messages.create_user_success'));
     }
 }
