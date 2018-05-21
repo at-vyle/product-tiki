@@ -1,6 +1,8 @@
 @extends('admin.layout.master')
 @section('title', __('post.admin.show.title') )
 @section('content')
+<script src="/js/messages.js"></script>
+<script src="/js/post.js"></script>
   <div class="right_col" role="main" class="index-main">
     <div class="">
       <div class="page-title">
@@ -33,6 +35,7 @@
               <h2>{{ __('post.admin.show.subtitle') }}{{ $post_id }}</h2>
               <div class="clearfix"></div>
             </div>
+            <h2 id="info-message">@if (session()->has('message')) {{ session()->pull('message', 'default') }} @endif</h2>
             <div class="x_content" class="list-table">
               <table class="table table-hover">
                 <thead>
@@ -51,8 +54,10 @@
                       <form action="" class="col-md-4">
                         <button class="btn btn-primary" type="submit"><i class="fa fa-edit icon-size" ></i></button>
                       </form>
-                      <form action="" class="col-md-4">
-                        <button class="btn btn-danger" type="submit"><i class="fa fa-trash icon-size" ></i></button>
+                      <form action="{{ route('admin.posts.comment.destroy', [ 'post_id' => $post_id, 'id' => $comment['id']]) }}" class="col-md-4" method="POST" id="delete{{ $comment['id'] }}">
+                        @csrf
+                        @method('DELETE')
+                        <button onclick="deleteComment(event, {{ $comment['id'] }})" class="btn btn-danger" type="submit"><i class="fa fa-trash icon-size" ></i></button>
                       </form>
                     </td>
                   </tr>

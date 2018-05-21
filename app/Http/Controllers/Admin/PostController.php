@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -121,24 +122,6 @@ class PostController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param int $id post id to change status
-     *
-     * @return array status code
-     */
-    public function changeStatus($id)
-    {
-        $post = Post::find($id);
-        $post->status = !$post->status;
-        $post->save();
-        $data['status'] = (int) $post->status;
-        $data['msg'] = __('post.admin.form.updated');
-        return $data;
-        // return redirect()->route('admin.posts.index');
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param int $id post id
@@ -148,8 +131,32 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        $post->delete();
-        session(['message' => __('post.admin.form.deleted')]);
-        return redirect()->route('admin.posts.index');
+        if ($post) {
+            $post->delete();
+            session(['message' => __('post.admin.form.deleted')]);
+            return redirect()->route('admin.posts.index');
+        } else {
+            session(['message' => __('post.admin.form.id_not_found')]);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $postId post id
+     * @param int $id     comment id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteComment($postId, $id)
+    {
+        $comment = Comment::findOrFail($id);
+        if ($comment) {
+            $comment->delete();
+            session(['message' => __('post.admin.form.deleted')]);
+            return redirect()->route('admin.posts.show', ['id' => $postId]);
+        } else {
+            session(['message' => __('post.admin.form.id_not_found')]);
+        }
     }
 }

@@ -1,8 +1,8 @@
-function deletePost(e, id, msg) {
+function deletePost(e, id) {
     e.preventDefault();
-    msg = msg+id;
+    msg = Lang.get('post.admin.form.delete_msg');
     if (confirm(msg)) {
-        document.getElementById('delete'+id).submit();
+        document.getElementById('delete' + id).submit();
     }
 }
 
@@ -11,7 +11,6 @@ function updateStatus(e, id, url) {
     loadAjax(url, id);
 }
 function loadAjax(url, id) {
-    
     var xmlhttp;
     var approved = '<i class="fa fa-check-circle icon-size"></i>';
     var pending = '<i class="fa fa-times-circle icon-size"></i>';
@@ -21,18 +20,17 @@ function loadAjax(url, id) {
     xmlhttp.onreadystatechange = function() {
       if ( xmlhttp.readyState === 4 && xmlhttp.status === 200 ) {
         json_data = JSON.parse(xmlhttp.responseText);
-        console.log(json_data);
         status = json_data['status'];
-        console.log(status);
-        document.getElementById('update'+id).innerHTML = '';
+        var btnStatus = document.getElementById('update'+id).innerHTML;
+        var textStatus = document.getElementById('update'+id).innerHTML;
+        btnStatus = '';
         if (status == 1) {
-            document.getElementById('update'+id).innerHTML = pending;
-            document.getElementById('status'+id).innerHTML = "Approved";
+            btnStatus = pending;
+            textStatus = Lang.get('common.approve');
         }
         if (status == 0) {
-            console.log('abc');
-            document.getElementById('update'+id).innerHTML = approved;
-            document.getElementById('status'+id).innerHTML = "Pending";
+            btnStatus = approved;
+            textStatus = Lang.get('common.pending');
         }
         document.getElementById('info-message').innerHTML = json_data['msg'];
       }
@@ -43,4 +41,12 @@ function loadAjax(url, id) {
     xmlhttp.setRequestHeader('X-CSRF-Token', csrf);
 
     xmlhttp.send();
+}
+
+function deleteComment(e, id) {
+    e.preventDefault();
+    msg = Lang.get('post.admin.form.delete_comment_msg') + id;
+    if (confirm(msg)) {
+        document.getElementById('delete' + id).submit();
+    }
 }

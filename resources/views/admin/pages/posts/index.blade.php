@@ -1,7 +1,8 @@
 @extends('admin.layout.master')
 @section('title', __('post.admin.list.title') )
 @section('content')
-<script src="/js/common.js"></script>
+<script src="/js/messages.js"></script>
+<script src="/js/post.js"></script>
   <div class="right_col" role="main" class="index-main">
     <div class="">
       <div class="page-title">
@@ -97,7 +98,7 @@
                       <form action="{{ route('admin.posts.destroy', ['id' => $post['id']]) }}" class="col-md-4" method="POST" id="delete{{ $post['id'] }}">
                         @csrf
                         @method('DELETE')
-                        <button onclick="deletePost(event, {{ $post['id'] }}, '@lang('post.admin.form.delete_msg')')" class="btn btn-danger" type="submit"><i class="fa fa-trash icon-size" ></i></button>
+                        <button onclick="deletePost(event, {{ $post['id'] }})" class="btn btn-danger" type="submit"><i class="fa fa-trash icon-size" ></i></button>
                       </form>
                       <form action="{{ route('admin.posts.show', ['id' => $post['id']]) }}" class="col-md-4">
                         <button class="btn btn-primary" type="submit" id='view{{ $post['id'] }}'><i class="fa fa-eye icon-size" ></i></button>
