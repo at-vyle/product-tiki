@@ -100,8 +100,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id)->delete();
-        $categoryParent = Category::where('parent_id', $id)->delete();
+        Category::find($id)->delete();
+        Category::where('parent_id', $id)->delete();
+        session(['msg' => __('category.admin.message.del')]);
         return redirect()->route('admin.categories.index');
     }
 }
