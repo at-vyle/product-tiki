@@ -24,6 +24,11 @@ return [
         ],
         'edit' => [
             'title' => 'Edit Category',
+        ],
+        'message' => [
+            'add' => 'Create New Category Successfull!',
+            'edit' => 'Update Category Successfull!',
+            'del' => 'Delete Category Successfull!',
         ]
     ]
 ];
