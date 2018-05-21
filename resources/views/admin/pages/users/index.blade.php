@@ -27,22 +27,22 @@
             </thead>
             <tbody>
               @foreach ($result as $user)
-              <tr class="even pointer">
-                <td class=" ">{{ $user->id }}</td>
-                <td class=" ">{{ $user->username }}</td>
-                <td class=" ">{{ $user->email }}</td>
-                <td class=" ">{{ $user->userInfo['full_name'] }}</td>
-                @if ( $user->userInfo['gender'] == 1 )
-                <td class="a-right a-right ">{{ __('user.index.female') }}</td>
-                @else 
-                <td class="a-right a-right ">{{ __('user.index.male') }}</td>
-                @endif
-                <td class=" ">0</td>
-                <td class="last "><a href="#"><i class="fa fa-edit"></i></a>|<a href=""><i class="fa fa-trash"></i></a>
-                <td class="last"><a href="{{ route('admin.users.show', array('id' => $user->id)) }}">{{ __('user.index.detail') }}</a>
-                </td>
+                <tr class="even pointer">
+                  <td class=" ">{{ $user->id }}</td>
+                  <td class=" ">{{ $user->username }}</td>
+                  <td class=" ">{{ $user->email }}</td>
+                  <td class=" ">{{ $user->userInfo['full_name'] }}</td>
+                  @if ( $user->userInfo['gender'] == 1 )
+                    <td class="a-right a-right ">{{ __('user.index.female') }}</td>
+                  @else 
+                    <td class="a-right a-right ">{{ __('user.index.male') }}</td>
+                  @endif
+                  <td class=" ">0</td>
+                  <td class="last"><a href="#"><i class="fa fa-edit"></i></a>|<a href=""><i class="fa fa-trash"></i></a>
+                  <td class="last"><a href="{{ route('admin.users.show', array('id' => $user->id)) }}">{{ __('user.index.detail') }}</a>
+                  </td>
+                </tr>
               @endforeach
-              </tr>
             </tbody>
           </table>
           {{$result->render()}}
