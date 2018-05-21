@@ -1,6 +1,6 @@
-function deletePost(e, id, msg) {
+function deletePost(e, id) {
     e.preventDefault();
-    msg = msg+id;
+    msg = Lang.get('post.admin.form.delete_msg');
     if (confirm(msg)) {
         document.getElementById('delete'+id).submit();
     }
@@ -27,12 +27,12 @@ function loadAjax(url, id) {
         document.getElementById('update'+id).innerHTML = '';
         if (status == 1) {
             document.getElementById('update'+id).innerHTML = pending;
-            document.getElementById('status'+id).innerHTML = "Approved";
+            document.getElementById('status'+id).innerHTML = Lang.get('common.approve');
         }
         if (status == 0) {
             console.log('abc');
             document.getElementById('update'+id).innerHTML = approved;
-            document.getElementById('status'+id).innerHTML = "Pending";
+            document.getElementById('status'+id).innerHTML = Lang.get('common.pending');
         }
         document.getElementById('info-message').innerHTML = json_data['msg'];
       }
