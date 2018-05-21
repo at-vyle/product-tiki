@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 @section('title', __('category.admin.title') )
 @section('content')
-<div class="right_col" role="main" style="min-height: 1381px;">
+<div class="right_col" role="main">
   <div class="">
     <div class="row">
       <div class="col-md-12 col-xs-12">
