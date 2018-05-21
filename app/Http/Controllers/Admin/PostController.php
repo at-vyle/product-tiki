@@ -139,7 +139,7 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $postId post id
-     * @param int $id comment id
+     * @param int $id     comment id
      *
      * @return \Illuminate\Http\Response
      */
