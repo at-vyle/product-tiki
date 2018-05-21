@@ -31,6 +31,11 @@ return [
             'approved_post' => 'Approved Post',
             'unapproved_post' => 'Unapproved Post',
             'select_title' => 'Status Option'
+        ],
+        'show' => [
+            'title' => 'Subcomments List',
+            'subtitle' => 'All subcomments of Post ',
+            'post_col' => 'Post ID'
         ]
     ]
 ];
