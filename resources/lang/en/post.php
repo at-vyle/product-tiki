@@ -15,7 +15,8 @@ return [
             'rate' => 'Reviews Rating',
             'updated' => 'Updated!!!!',
             'deleted' => 'Deleted!!!!',
-            'delete_msg' => 'Do you want to delete posts with ID '
+            'delete_msg' => 'Do you want to delete posts with ID ',
+            'id_not_found' => 'ID not found'
         ],
         'list' => [
             'title' => 'Admin Posts Management',

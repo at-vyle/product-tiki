@@ -11,7 +11,6 @@ function updateStatus(e, id, url) {
     loadAjax(url, id);
 }
 function loadAjax(url, id) {
-    
     var xmlhttp;
     var approved = '<i class="fa fa-check-circle icon-size"></i>';
     var pending = '<i class="fa fa-times-circle icon-size"></i>';
@@ -21,9 +20,7 @@ function loadAjax(url, id) {
     xmlhttp.onreadystatechange = function() {
       if ( xmlhttp.readyState === 4 && xmlhttp.status === 200 ) {
         json_data = JSON.parse(xmlhttp.responseText);
-        console.log(json_data);
         status = json_data['status'];
-        console.log(status);
         document.getElementById('update'+id).innerHTML = '';
         if (status == 1) {
             document.getElementById('update'+id).innerHTML = pending;
