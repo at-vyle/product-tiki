@@ -128,6 +128,5 @@ class PostController extends Controller
         } else {
             session(['message' => __('post.admin.form.id_not_found')]);
         }
-        
     }
 }

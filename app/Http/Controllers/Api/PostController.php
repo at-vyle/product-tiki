@@ -8,6 +8,13 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
+    /**
+    * Update the specified resource in storage.
+    *
+    * @param int $id post id to change status
+    *
+    * @return array status code
+    */
     public function changeStatus($id)
     {
         $post = Post::find($id);
@@ -17,5 +24,4 @@ class PostController extends Controller
         $data['msg'] = __('post.admin.form.updated');
         return $data;
     }
-
 }
