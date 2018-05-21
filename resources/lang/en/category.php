@@ -19,6 +19,7 @@ return [
             'parent_category' => 'Parent Category',
             'submit' => 'Submit',
             'reset' => 'Reset',
+            'placeholder_name' => 'Category Name',
         ],
         'edit' => [
             'title' => 'Edit Category',
