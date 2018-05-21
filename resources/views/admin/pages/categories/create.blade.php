@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title', 'Category')
+@section('title', __('category.admin.title') )
 @section('content')
 <div class="right_col" role="main" style="min-height: 1381px;">
   <div class="">
@@ -24,12 +24,12 @@
                 </div>
               </div>
             @endif
-            {{ csrf_field() }}
+            @csrf
             @method('POST')
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('category.admin.add.name') }}</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                  <input type="text" class="form-control" placeholder="Name Category" name="name">
+                  <input type="text" class="form-control" placeholder="{{ __('category.admin.add.placeholder_name') }}" name="name">
                 </div>
               </div>
               <div class="form-group">
@@ -46,7 +46,7 @@
               <div class="form-group">
                 <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                   <button type="reset" class="btn btn-primary">{{ __('category.admin.add.reset') }}</button>
-                  <button type="submit" name="create" class="btn btn-success">{{ __('category.admin.add.submit') }}</button>
+                  <button type="submit" class="btn btn-success">{{ __('category.admin.add.submit') }}</button>
                 </div>
               </div>
             </form>

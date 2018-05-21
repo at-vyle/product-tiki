@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title', __('category.admin.list.title') )
+@section('title', __('category.admin.title') )
 @section('content')
 <div class="right_col" role="main">
   <div class="">
@@ -10,6 +10,9 @@
           <h2>{{ __('category.admin.list.title') }}</h2>
           <div class="clearfix"></div>
         </div>
+        @if(isset($msg)) 
+            <p class="alert alert-info">{{$msg}}</p>
+          @endif
         <div class="x_content">
           <div class="table-responsive">
             <table class="table table-striped jambo_table bulk_action">
