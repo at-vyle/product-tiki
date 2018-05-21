@@ -42,3 +42,11 @@ function loadAjax(url, id) {
 
     xmlhttp.send();
 }
+
+function deleteComment(e, id) {
+    e.preventDefault();
+    msg = Lang.get('post.admin.form.delete_comment_msg') + id;
+    if (confirm(msg)) {
+        document.getElementById('delete' + id).submit();
+    }
+}

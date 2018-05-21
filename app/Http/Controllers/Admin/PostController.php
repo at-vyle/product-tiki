@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -129,6 +130,26 @@ class PostController extends Controller
             $post->delete();
             session(['message' => __('post.admin.form.deleted')]);
             return redirect()->route('admin.posts.index');
+        } else {
+            session(['message' => __('post.admin.form.id_not_found')]);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $postId post id
+     * @param int $id comment id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteComment($postId, $id)
+    {
+        $comment = Comment::findOrFail($id);
+        if ($comment) {
+            $comment->delete();
+            session(['message' => __('post.admin.form.deleted')]);
+            return redirect()->route('admin.posts.show', ['id' => $postId]);
         } else {
             session(['message' => __('post.admin.form.id_not_found')]);
         }
