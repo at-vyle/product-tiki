@@ -2,8 +2,9 @@
 
 return [
     'admin' => [
+        'title' => 'Category',
         'list' => [
-            'title' => 'Category'
+            'title' => 'List Categories'
         ],
         'table' => [
             'id' => 'ID',
@@ -19,6 +20,7 @@ return [
             'parent_category' => 'Parent Category',
             'submit' => 'Submit',
             'reset' => 'Reset',
+            'placeholder_name' => 'Name Category',
         ],
         'edit' => [
             'title' => 'Edit Category',

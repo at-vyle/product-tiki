@@ -43,12 +43,12 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $category = new Category();
-        $category->name = $request->input('name');
-        $category->parent_id = $request->parent_id;
-        if ($category->save()) {
+        $input = $request->except('_token', '_method');
+        $category = Category::insert($input);
+        if ($category) {
             $listCategories = Category::paginate(config('define.category.limit_rows'));
             $data['listCategories'] = $listCategories;
+            $data['msg'] = 'Create Category successfull!';
             return view('admin.pages.categories.index', $data);
         } else {
             return view('admin.pages.categories.create');
