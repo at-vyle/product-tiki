@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
-@section('title', 'Category')
+@section('title', __('category.admin.list.title') )
 @section('content')
-<div class="right_col" role="main" style="min-height: 1381px;">
+<div class="right_col" role="main">
   <div class="">
     <div class="row">
       <div class="col-md-12 col-xs-12">
@@ -24,15 +24,8 @@
                 <div class="col-md-9 col-sm-9 col-xs-12">
                   <select class="form-control" name="parent_id">
                     <option value='-1'>Null</option>
-
                     @foreach ($categoryParent as $parent)
                     <option value="{{ $parent->id }}" @if ($parent->id == $category->parent_id) selected @endif>{{ $parent->name }}</option>
-                      
-                      <!-- @if ($category->id == $parent->id)
-                      <option value="{{ $parent->id }}" checked="checked">{{ $parent->name }}</option>
-                      @elseif ($category->id == null)
-                      <option value="{{ $parent->id }}" checked="checked"></option>
-                      @endif -->
                     @endforeach
                   </select>
                 </div>
