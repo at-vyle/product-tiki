@@ -40,7 +40,7 @@ class AdminCommentTest extends DuskTestCase
     }
 
     /**
-     * test if search post work.
+     * test if search comments work.
      *
      * @return void
      */
@@ -54,6 +54,23 @@ class AdminCommentTest extends DuskTestCase
                     ->press(__('post.admin.list.go'))
                     ->assertQueryStringHas('content')
                     ->assertSee($test);
+        });
+    }
+
+    /**
+     * test delete comments.
+     *
+     * @return void
+     */
+    public function testDeleteComment()
+    {
+        $test = $this->testContent;
+        $this->browse(function (Browser $browser) use ($test) {
+            $browser->visit('/admin/posts')
+                    ->press('#view1')
+                    ->click('.btn-danger')
+                    ->acceptDialog()
+                    ->assertDontSee($test);
         });
     }
 }

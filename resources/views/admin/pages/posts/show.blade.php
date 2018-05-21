@@ -52,7 +52,7 @@
                         <button class="btn btn-primary" type="submit"><i class="fa fa-edit icon-size" ></i></button>
                       </form>
                       <form action="" class="col-md-4">
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-trash icon-size" ></i></button>
+                        <button class="btn btn-danger" type="submit"><i class="fa fa-trash icon-size" ></i></button>
                       </form>
                     </td>
                   </tr>
