@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title', __('category.admin.list.title') )
+@section('title', __('category.admin.title') )
 @section('content')
 <div class="right_col" role="main">
   <div class="">

@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title', 'Category')
+@section('title', __('category.admin.title') )
 @section('content')
 <div class="right_col" role="main" style="min-height: 1381px;">
   <div class="">
@@ -24,7 +24,7 @@
                 </div>
               </div>
             @endif
-            {{ csrf_field() }}
+            @csrf
             @method('POST')
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('category.admin.add.name') }}</label>

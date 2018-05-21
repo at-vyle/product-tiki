@@ -2,8 +2,9 @@
 
 return [
     'admin' => [
+        'title' => 'Category',
         'list' => [
-            'title' => 'Category'
+            'title' => 'List Categories'
         ],
         'table' => [
             'id' => 'ID',
