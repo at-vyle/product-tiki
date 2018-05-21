@@ -81,7 +81,6 @@ class UserController extends Controller
         $user_info->avatar = $request->avatar;
             $user_info->save();
         }
-        return redirect()->route('admin.users.index')->with('message', trans('messages.create_user_success'));;
-        //return view('admin.pages.users.store');
+        return redirect()->route('admin.users.index')->with('message', trans('messages.create_user_success'));
     }
 }
