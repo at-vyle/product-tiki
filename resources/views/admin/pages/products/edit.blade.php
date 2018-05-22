@@ -15,6 +15,7 @@
 
             @csrf
             @method('PUT')
+            @include('admin.layout.errors')
 
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('product.create.category')</label>
@@ -48,7 +49,7 @@
                 <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="price" name="price" class="form-control col-md-7 col-xs-12" required="required" type="text" value="{{ $product->price }}">
+                <input id="price" name="price" class="form-control col-md-7 col-xs-12" required="required" type="number" value="{{ $product->price }}">
               </div>
             </div>
 
@@ -57,7 +58,7 @@
                 <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="quantity" name="quantity" class="form-control col-md-7 col-xs-12" required="required" type="text" value="{{ $product->quantity }}">
+                <input id="quantity" name="quantity" class="form-control col-md-7 col-xs-12" required="required" type="number" value="{{ $product->quantity }}">
               </div>
             </div>
 
