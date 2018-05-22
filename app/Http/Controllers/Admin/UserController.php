@@ -49,37 +49,37 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(CreateUserRequest $request)
     {
-        $password = str_random(6);
         $user = new User;
         $user->username = $request->username;
         $user->email = $request->email;
-        $user->password = bcrypt($password);
+        $user->password = bcrypt($request->password);
         $user->save();
 
         $insertedId = $user->id;
-        $user_info = new UserInfo;
-        $user_info->user_id = $insertedId;
-        $user_info->full_name = $request->full_name;
-        $user_info->address = $request->address;
-        $user_info->phone = $request->phone;
-        $user_info->identity_card = $request->identity_card;
-        $user_info->gender = $request->gender;
-        $user_info->dob = $request->dob;
+        $userInfo = new UserInfo;
+        $userInfo->user_id = $insertedId;
+        $userInfo->full_name = $request->full_name;
+        $userInfo->address = $request->address;
+        $userInfo->phone = $request->phone;
+        $userInfo->identity_card = $request->identity_card;
+        $userInfo->gender = $request->gender;
+        $userInfo->dob = $request->dob;
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
             $nameNew = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/images');
-            $user_info->avatar = $nameNew;
-            $user_info->save();
+            $userInfo->avatar = $nameNew;
+            $userInfo->save();
             $image->move($destinationPath, $nameNew);
         } else {
-        $user_info->avatar = $request->avatar;
-            $user_info->save();
+            $userInfo->avatar = $request->avatar;
+            $userInfo->save();
         }
         return redirect()->route('admin.users.index')->with('message', trans('messages.create_user_success'));
     }

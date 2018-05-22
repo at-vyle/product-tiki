@@ -96,7 +96,6 @@
             <div class="ln_solid"></div>
             <div class="form-group">
               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                <button class="btn btn-primary" type="button">{{ __('user.index.cancel') }}</button>
                 <button class="btn btn-primary" type="reset">{{ __('user.index.reset') }}</button>
                 <button type="submit" class="btn btn-success">{{ __('user.index.submit') }}</button>
               </div>
