@@ -40,15 +40,15 @@ class UpdateCategoryTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($category) {
             $browser->visit('/admin/categories/'.$category->id.'/edit')
                     ->assertSee(__('category.admin.edit.title'))
-                    ->type('name',$category->name)
-                    ->select('parent_id',$category->parent_id)
+                    ->type('name', $category->name)
+                    ->select('parent_id', 2)
                     ->press(__('category.admin.add.submit'))
                     ->assertSee(__('category.admin.message.edit'))
                     ->assertPathIs('/admin/categories');
         });
         $this->assertDatabaseHas('categories', [
                     'name' => $category->name,
-                    'parent_id' => $category->parent_id
+                    'parent_id' => 2
                 ]);
     }
     /**
