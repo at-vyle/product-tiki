@@ -10,6 +10,9 @@ return [
     ],
     'post' => [
         'limit_rows' => 5
+    ],
+    'category' => [
+        'limit_rows' => 10
     ]
 
 ];

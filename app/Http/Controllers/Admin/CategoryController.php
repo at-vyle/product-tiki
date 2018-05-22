@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $listCategories = Category::paginate(config('define.page_length'));
+        $listCategories = Category::paginate(config('define.category.limit_rows'));
         $data['listCategories'] = $listCategories;
         return view('admin.pages.categories.index', $data);
     }
@@ -28,67 +28,5 @@ class CategoryController extends Controller
     public function create()
     {
         return view('admin.pages.categories.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request get request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        dd($request);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id category's id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        dd($id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id category's id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        dd($id);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request get request
-     * @param int                      $id      category's id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        dd($request);
-        dd($id);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id category's id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        dd($id);
     }
 }
