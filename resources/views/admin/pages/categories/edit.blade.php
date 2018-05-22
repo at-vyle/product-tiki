@@ -12,7 +12,7 @@
           </div>
           <div class="x_content">
             <br />
-            <form class="form-horizontal form-label-left" method="POST" action="/admin/categories/{{ $category->id }}">
+            <form class="form-horizontal form-label-left" method="POST" action="{{ route('admin.categories.update', ['id' => $category['id']]) }}">
             {{ csrf_field() }}
             @method('PUT')
               <div class="form-group">

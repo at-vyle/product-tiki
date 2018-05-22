@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Http\Requests\Backend\CategoryRequest;
+use App\Http\Requests\Backend\CategoryRequests;
 use App\Http\Requests\Backend\EditCategoryRequest;
 use App\Http\Controllers\Controller;
 
@@ -29,7 +29,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $listCategoriesParent = Category::where('parent_id', null)->get();
+        $listCategoriesParent = Category::get();
         $data['listCategoriesParent'] = $listCategoriesParent;
         return view('admin.pages.categories.create', $data);
     }
@@ -41,7 +41,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(CategoryRequests $request)
     {
         $input = $request->except('_token', '_method');
         $category = Category::create($input);
@@ -65,7 +65,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::find($id);
-        $categoryParent = Category::where('parent_id', null)->get();
+        $categoryParent = Category::get();
         $data['category'] = $category;
         $data['categoryParent'] = $categoryParent;
         return view('admin.pages.categories.edit', $data);
