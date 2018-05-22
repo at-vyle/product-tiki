@@ -1,6 +1,7 @@
 @extends('admin.layout.master')
 @section('title', __('category.admin.title') )
 @section('content')
+<script src="/js/deleteCategory.js"></script>
 <div class="right_col" role="main">
   <div class="">
     <div class="row">
@@ -39,11 +40,11 @@
                   <td>{{ $list->created_at }}</td>
                   <td class="a-right a-right ">{{ $list->updated_at }}</td>
                   <td class="last">
-                    <a href="/admin/categories/{{$list->id}}/edit"><i class="fa fa-edit"></i></a> | 
-                    <form method="POST" action="/admin/categories/{{$list->id}}" style="display:inline;">
+                    <a href="{{ route('admin.categories.edit', ['id' => $list->id]) }}" ><button class="btn-success"><i class="fa fa-edit"></i></button></a>| 
+                    <form method="POST" action="{{ route('admin.categories.destroy', ['id' => $list->id]) }}" style="display:inline;" id="deleted{{ $list->id }}">
                       @method('DELETE')
                       {{ csrf_field() }}
-                      <button type="submit" style="border:none; background:none;"><i class="fa fa-trash"></i></button>
+                      <button type="submit" class="btn-danger" onclick="deleteCategory(event, {{ $list->id }})"><i class="fa fa-trash"></i></button>
                     </form>
                   </td>
                 </tr>
