@@ -95,8 +95,27 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request);
-        dd($id);
+        $request['status'] = $request->quantity ? 1 : 0;
+        $product = Product::find($id);
+        $product->category_id = $request->category_id;
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->quantity = $request->quantity;
+        $product->status = $request->status;
+        $product->save();
+
+        if (request()->file('input_img')) {
+            $img = request()->file('input_img');
+            $imgName = time() . '-' . $img->getClientOriginalName();
+            $img->move(config('define.product.upload_image_url'), $imgName);
+            Image::create([
+                'product_id' => $product->id,
+                'img_url' => config('define.product.upload_image_url') . $imgName
+            ]);
+        }
+
+        return redirect()->route('admin.products.index')->with('message', trans('messages.update_product_success'));
     }
 
     /**
