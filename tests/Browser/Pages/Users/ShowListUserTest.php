@@ -7,7 +7,7 @@ use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\User;
 
-class TestShowListUser extends DuskTestCase
+class ShowListUserTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
@@ -36,7 +36,7 @@ class TestShowListUser extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/users')
                     ->assertPathIs('/admin/users')
-                    ->assertSee('Show Users');
+                    ->assertSee(__('user.index.showuser'));
         });
     }
 
@@ -49,7 +49,7 @@ class TestShowListUser extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/users')
-                    ->assertSee('Show Users');
+                    ->assertSee(__('user.index.showuser'));
             $elements = $browser->elements('.table tbody tr');
             $this->assertCount(self::ROW_LIMIT, $elements);
         });
@@ -64,7 +64,7 @@ class TestShowListUser extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/users')
-                    ->assertSee('Show Users');
+                    ->assertSee(__('user.index.showuser'));
             $paginate_element = $browser->elements('.pagination li');
             $number_page = count($paginate_element) - 2;
             $this->assertTrue($number_page == ceil((self::NUMBER_RECORD_CREATE) / (self::ROW_LIMIT)));
