@@ -3,12 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
+    use SoftDeletes;
     protected $table = 'posts';
+    
     const TYPE_REVIEW = 1;
     const TYPE_COMMENT = 2;
+    const APPROVED = 1;
+    const UNAPPROVED = 0;
 
     /**
      * The attributes that are mass assignable.
@@ -18,6 +23,8 @@ class Post extends Model
     protected $fillable = [
         'product_id', 'user_id', 'type', 'content', 'rating', 'status',
     ];
+
+    protected $dates = ['deleted_at'];
 
     /**
      * Get Product of Post
