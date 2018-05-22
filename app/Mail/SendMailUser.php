@@ -14,6 +14,8 @@ class SendMailUser extends Mailable
     /**
      * Create a new message instance.
      *
+     * @param string $data data
+     *
      * @return void
      */
     public function __construct($data)
