@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Http\Requests\Backend\CategoryRequest;
+use App\Http\Requests\Backend\CategoryRequests;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
@@ -40,7 +40,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(CategoryRequests $request)
     {
         $input = $request->except('_token', '_method');
         $category = Category::insert($input);
