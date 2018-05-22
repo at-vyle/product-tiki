@@ -14,17 +14,14 @@
           <form data-parsley-validate method="POST" action="{!! route('admin.products.update', ['id' => $product['id']]) !!}" enctype="multipart/form-data" class="form-horizontal form-label-left">
 
             @csrf
+            @method('PUT')
 
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('product.create.category')</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <select name="category_id" class="select2_single form-control" tabindex="-1">
                   @foreach ( $categories as $category )
-                    @if ($product->category_id == $category->id)
-                      <option value="{{ $category->id }}" selected="selected">{{ $category->name }}</option>
-                    @else
-                      <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endif
+                    <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : ''}}>{{ $category->name }}</option>
                   @endforeach
                 </select>
               </div>
