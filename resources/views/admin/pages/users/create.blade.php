@@ -35,9 +35,9 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fullname">{{ __('user.index.fullname') }}<span class="required">*</span></label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="full_name">{{ __('user.index.fullname') }}<span class="required">*</span></label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="fullname" name="fullname" class="form-control col-md-7 col-xs-12">
+                <input type="text" id="full_name" name="full_name" class="form-control col-md-7 col-xs-12">
               </div>
             </div>
             <div class="form-group">
@@ -53,9 +53,9 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="indentity-card">{{ __('user.index.indentity_card') }}<span class="required">*</span></label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="identity_card">{{ __('user.index.indentity_card') }}<span class="required">*</span></label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="indentity" name="indentity" class="form-control col-md-7 col-xs-12">
+                <input type="text" id="identity_card" name="identity_card" class="form-control col-md-7 col-xs-12">
               </div>
             </div>
             <div class="form-group">
@@ -85,7 +85,6 @@
             <div class="ln_solid"></div>
             <div class="form-group">
               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                <button class="btn btn-primary" type="button">{{ __('user.index.cancel') }}</button>
                 <button class="btn btn-primary" type="reset">{{ __('user.index.reset') }}</button>
                 <button type="submit" class="btn btn-success">{{ __('user.index.submit') }}</button>
               </div>
