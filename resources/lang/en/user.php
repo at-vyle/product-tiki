@@ -31,5 +31,7 @@ return [
         'showuser' => 'Show Users',
         'back' => 'Back',
         'userinfo' => 'Detail User Information',
+        'male' => 'Male',
+        'female' => 'Female',
     ]
 ];

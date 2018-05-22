@@ -16,14 +16,18 @@ return [
         ],
         'list' => [
             'title' => 'Admin Posts Management',
-            'subtitle' => 'All Posts',
-            'product_col' => 'Product',
+            'subtitle_index' => 'All Posts',
+            'product_col' => 'Product Name',
+            'user_col' => 'Username',
             'type_col' => 'Type',
             'content_col' => 'Content',
             'status_col' => 'Status',
             'action_col' => 'Action',
             'search' => 'Search for...',
             'go' => 'Go!',
+            'approved_post' => 'Approved Post',
+            'unapproved_post' => 'Unapproved Post',
+            'select_title' => 'Status Option'
         ]
     ]
 ];
