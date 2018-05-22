@@ -28,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $listCategoriesParent = Category::where('parent_id', null)->get();
+        $listCategoriesParent = Category::get();
         $data['listCategoriesParent'] = $listCategoriesParent;
         return view('admin.pages.categories.create', $data);
     }
@@ -43,11 +43,11 @@ class CategoryController extends Controller
     public function store(CategoryRequests $request)
     {
         $input = $request->except('_token', '_method');
-        $category = Category::insert($input);
+        $category = Category::create($input);
         if ($category) {
             $listCategories = Category::paginate(config('define.category.limit_rows'));
             $data['listCategories'] = $listCategories;
-            $data['msg'] = 'Create Category successfull!';
+            $data['msg'] = __('category.admin.message.add');
             return view('admin.pages.categories.index', $data);
         } else {
             return view('admin.pages.categories.create');

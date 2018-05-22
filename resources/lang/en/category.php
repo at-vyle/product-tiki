@@ -22,5 +22,10 @@ return [
             'reset' => 'Reset',
             'placeholder_name' => 'Name Category',
         ],
+        'message' => [
+            'add' => 'Create New Category Successfull!',
+            'edit' => 'Update Category Successfull!',
+            'del' => 'Delete Category Successfull!',
+        ]
     ]
 ];
