@@ -2,6 +2,7 @@
 <?php
 
 return [
+    'images_path_users' => '/images/',
     'page_length' => 10,
     'product' => [
         'limit_rows' => 5,
@@ -9,6 +10,9 @@ return [
     ],
     'post' => [
         'limit_rows' => 5
+    ],
+    'category' => [
+        'limit_rows' => 10
     ]
 
 ];

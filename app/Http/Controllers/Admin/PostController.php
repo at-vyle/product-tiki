@@ -30,27 +30,6 @@ class PostController extends Controller
         return view('admin.pages.posts.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('admin.pages.posts.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        dd($request->all());
-    }
 
     /**
      * Display the specified resource.
@@ -66,54 +45,6 @@ class PostController extends Controller
         $data['comments'] = $comments;
         $data['post_id'] = $id;
         return view('admin.pages.posts.show', $data);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showComments()
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showReviews()
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id post id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        dd($id);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param int $id post id to change status
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update($id)
-    {
-        $post = Post::find($id);
-        $post->status = !$post->status;
-        $post->save();
-        session(['message' => __('post.admin.form.updated')]);
-        // return redirect()->route('admin.posts.index');
     }
 
     /**
