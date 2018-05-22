@@ -10,6 +10,17 @@
             <h2>{{ __('category.admin.edit.title') }}</h2>
             <div class="clearfix"></div>
           </div>
+          @if(count($errors))
+              <div class="form-group">
+                <div class="alert alert-danger">
+                  <ul>
+                    @foreach($errors->all() as $error)
+                      <li>{{$error}}</li>
+                    @endforeach
+                  </ul>
+                </div>
+              </div>
+            @endif
           <div class="x_content">
             <br />
             <form class="form-horizontal form-label-left" method="POST" action="{{ route('admin.categories.update', ['id' => $category['id']]) }}">
