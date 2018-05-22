@@ -22,5 +22,6 @@ return [
             'reset' => 'Reset',
             'placeholder_name' => 'Name Category',
         ],
+        'message' => 'Create Category successfull!',
     ]
 ];

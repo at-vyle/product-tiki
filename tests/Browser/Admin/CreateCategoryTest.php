@@ -17,9 +17,11 @@ class CreateCategoryTest extends DuskTestCase
     public function testCreateCategoriesUrl()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/categories/create')
+            $browser->visit('/admin/categories')
+                ->clickLink(__('messages.add'))
+                ->pause(1000)
                 ->assertPathIs('/admin/categories/create')
-                ->assertSee('Add Category');
+                ->assertSee(__('category.admin.add.title'));
         });
     }
     /**
@@ -35,7 +37,7 @@ class CreateCategoryTest extends DuskTestCase
             $browser->visit('admin/categories/create')
                 ->type('name', $testContent)
                 ->select('parent_id', '1');       
-            $browser->press('Submit')
+            $browser->press(__('category.admin.add.submit'))
                 ->pause(1000)
                 ->assertSee(__('category.admin.message'));
             $this->assertDatabaseHas('categories', [
@@ -57,7 +59,7 @@ class CreateCategoryTest extends DuskTestCase
             $browser->visit('admin/categories/create')
                 ->type('name', $testContent)
                 ->select('parent_id', null);       
-            $browser->press('Submit')
+            $browser->press(__('category.admin.add.submit'))
                 ->pause(1000)
                 ->assertSee(__('category.admin.message'));
             $this->assertDatabaseHas('categories', [
@@ -76,8 +78,8 @@ class CreateCategoryTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('admin/categories/create')
-                ->type('name', '');
-            $browser->press('Submit')
+                ->type('name', null);
+            $browser->press(__('category.admin.add.submit'))
                 ->pause(1000)
                 ->assertSee('The name field is required.');
         });
