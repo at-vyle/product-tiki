@@ -29,6 +29,23 @@ class PostController extends Controller
         return view('admin.pages.posts.index', $data);
     }
 
+
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id post id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $perPage = config('define.post.limit_rows');
+        $comments = Post::find($id)->comments()->with('user')->paginate($perPage);
+        $data['comments'] = $comments;
+        $data['post_id'] = $id;
+        return view('admin.pages.posts.show', $data);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
