@@ -23,9 +23,6 @@ return [
         'dob' => 'Day Of Birth',
         'phone' => 'Phone',
         'indentity_card' => 'Indentity Card',
-        'add' => 'Add',
-        'edit' => 'Edit',
-        'delete' => 'Delete',
         'user_info' => 'User Info',
         'detail' => 'Detail',
         'showuser' => 'Show User',
@@ -34,9 +31,9 @@ return [
         'male' => 'Male',
         'female' => 'Female',
         'title' => 'USERS',
-        'formdesign' => 'Form Design',
-        'cancel' => 'Cancel',
         'reset' => 'Reset',
         'submit' => 'Submit',
+        'createuser' => 'Create User',
+        'edituser' => 'Edit User',
     ]
 ];
