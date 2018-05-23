@@ -33,4 +33,15 @@ class UserController extends Controller
         $data['result'] = $result;
         return view('admin.pages.users.show', $data);
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        return view('admin.pages.users.edit');
+    }
 }
