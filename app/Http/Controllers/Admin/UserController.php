@@ -39,15 +39,17 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
+        dd($id);
         return view('admin.pages.users.edit');
     }
-    
-    /** 
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
