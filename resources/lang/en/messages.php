@@ -15,6 +15,7 @@ return [
     'footer' => 'Product Tiki - Design by ',
     'team' => 'Team AT Intern Spring PHP',
     'create_product_success' => 'Create product successfully',
+<<<<<<< HEAD
     'show_category' => 'Show Categories',
     'add_category' => 'Add Categories',
     'show_product' => 'Show Products',
@@ -22,4 +23,7 @@ return [
     'show_post' => 'Show Posts',
     'show_order' => 'Show Order',
 
+=======
+    'delete_fail' => 'Delete Failed',
+>>>>>>> master
 ];
