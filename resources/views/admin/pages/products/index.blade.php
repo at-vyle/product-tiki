@@ -51,10 +51,10 @@
                       <a href="#"><i class="fa fa-edit"></i></a>
                     </td>
                     <td class=" last">
-                      <form action="{!! route('admin.products.destroy', ['id' => $product['id']]) !!}" method="post">
+                      <form id="delete-prd{{ $product->id }}" action="{!! route('admin.products.destroy', ['id' => $product['id']]) !!}" method="post">
                         @csrf
                         @method('DELETE')
-                        <button type="submit"><i class="fa fa-trash"></i></button>
+                        <button onclick="deleteProduct(event, {{ $product->id }})" type="submit"><i class="fa fa-trash btn-danger"></i></button>
                       </form>
                     </td>
                   </tr>
@@ -69,5 +69,5 @@
     </div>
   </div>
 </div>
-
+<script src="/js/product.js"></script>
 @endsection

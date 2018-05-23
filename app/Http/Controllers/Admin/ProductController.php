@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Image;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProductController extends Controller
 {
@@ -104,7 +105,13 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::findOrFail($id);
+        try {
+            $product = Product::findOrFail($id);
+        }
+        catch (ModelNotFoundException $e) {
+            session()->flash('message', trans('messages.delete_fail'));
+            return back();
+        }
         $product->delete();
         return back();
     }
