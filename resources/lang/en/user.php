@@ -36,5 +36,11 @@ return [
         'update' => 'Update',
         'reset' => 'Reset',
         'updateuser' => 'Update User',
+        'title' => 'USERS',
+        'formdesign' => 'Form Design',
+        'cancel' => 'Cancel',
+        'reset' => 'Reset',
+        'submit' => 'Submit',
+        'requied' => '*'
     ]
 ];
