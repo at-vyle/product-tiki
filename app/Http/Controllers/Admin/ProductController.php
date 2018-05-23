@@ -108,11 +108,10 @@ class ProductController extends Controller
     {
         try {
             $product = Product::findOrFail($id);
+            $product->delete();
         } catch (ModelNotFoundException $e) {
             session()->flash('message', trans('messages.delete_fail'));
-            return back();
         }
-        $product->delete();
         return back();
     }
 }
