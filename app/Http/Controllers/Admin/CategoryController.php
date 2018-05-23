@@ -29,4 +29,17 @@ class CategoryController extends Controller
     {
         return view('admin.pages.categories.create');
     }
+    /**
+     * Display a listing of the resource.
+     * 
+     * @param int $id category's id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $listCategoriesParent = Category::where('parent_id', $id);
+        $data['listCategoriesParent'] = $listCategoriesParent;
+        return view('admin.pages.categories.show', $data);
+    }
 }
