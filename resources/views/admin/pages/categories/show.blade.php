@@ -1,6 +1,7 @@
 @extends('admin.layout.master')
 @section('title', __('category.admin.list.title') )
 @section('content')
+<link href="/css/show.css" rel="stylesheet">
 <div class="right_col" role="main">
   <div class="">
     <div class="row">
@@ -36,8 +37,13 @@
                 <tr class="even pointer">
                   <td>{{ $child->id }}</td>
                   <td></td>
-                  <td>
+                  <td id="showChild">
                   {{ $child->name }}
+                    <ul class="child">
+                    @foreach ($child->categories as $grandchild) 
+                      <li>{{ $grandchild->name }}</li>
+                    @endforeach
+                    </ul>
                   </td>
                   <td>{{ $child->created_at }}</td>
                   <td class="a-right a-right ">{{ $child->updated_at }}</td>

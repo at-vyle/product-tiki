@@ -44,7 +44,6 @@ class CategoryController extends Controller
         }])->where('parent_id', $id)->get();
         $data['itemCategory'] = $itemCategory;
         $data['childCategory'] = $childCategory;
-        dd($data);
         return view('admin.pages.categories.show', $data);
     }
 }
