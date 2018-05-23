@@ -38,8 +38,13 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $listCategoriesParent = Category::where('parent_id', $id);
-        $data['listCategoriesParent'] = $listCategoriesParent;
+        $itemCategory = Category::find($id);
+        $childCategory = Category::find($id)->with(['categories' => function($query) {
+            return $query->with('categories');
+        }])->where('parent_id', $id)->get();
+        $data['itemCategory'] = $itemCategory;
+        $data['childCategory'] = $childCategory;
+        dd($data);
         return view('admin.pages.categories.show', $data);
     }
 }

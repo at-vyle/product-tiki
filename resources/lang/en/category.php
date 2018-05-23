@@ -12,6 +12,7 @@ return [
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'action' => 'Action',
+            'child_category' => 'Child Category',
         ],
         'add' => [
             'title' => 'Add Category',

@@ -28,7 +28,7 @@
                 @foreach ($listCategories as $list)
                 <tr class="even pointer">
                   <td class=" ">{{ $list->id }}</td>
-                  <td class=" ">{{ $list->name }}</td>
+                  <td><a href="{{ route('admin.categories.show', ['id' => $list->id]) }}">{{ $list->name }}</td>
                   <td class=" ">{{ $list->parent_id }}</td>
                   <td class=" ">{{ $list->created_at }}</td>
                   <td class="a-right a-right ">{{ $list->updated_at }}</td>

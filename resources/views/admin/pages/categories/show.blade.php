@@ -17,26 +17,34 @@
                 <tr class="headings">
                   <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.id') }}</th>
                   <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.name') }}</th>
-                  <th class="column-title" style="display: table-cell;">{{ __('category.admin.add.parent_category') }}</th>
+                  <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.child_category') }}</th>
                   <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.created_at') }}</th>
                   <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.updated_at') }}</th>
-                  <th class="column-title no-link last" style="display: table-cell;"><span class="nobr">{{ __('category.admin.table.action') }}</span>
-                  </th>
                 </tr>
               </thead>
               <tbody>
-              dd($listCategoriesParent)
-                @foreach ($listCategories as $list)
+              
                 <tr class="even pointer">
-                  <td class=" ">{{ $list->id }}</td>
-                  <td class=" ">{{ $list->name }}</td>
-                  <td class=" ">{{ $list->parent_id }}</td>
-                  <td class=" ">{{ $list->created_at }}</td>
-                  <td class="a-right a-right ">{{ $list->updated_at }}</td>
-                  <td class=" last"><a href="#">View</a>
+                  <td>{{ $itemCategory->id }}</td>
+                  <td>{{ $itemCategory->name }}</td>
+                  <td></td>
+                  <td>{{ $itemCategory->created_at }}</td>
+                  <td class="a-right a-right ">{{ $itemCategory->updated_at }}</td>
+                  </td>
+                </tr>
+                @foreach ($childCategory as $child)
+                <tr class="even pointer">
+                  <td>{{ $child->id }}</td>
+                  <td></td>
+                  <td>
+                  {{ $child->name }}
+                  </td>
+                  <td>{{ $child->created_at }}</td>
+                  <td class="a-right a-right ">{{ $child->updated_at }}</td>
                   </td>
                 </tr>
                 @endforeach
+                
               </tbody>
             </table>
           </div>
