@@ -19,9 +19,7 @@ class OrderController extends Controller
     {
         $order = Order::find($id);
         $order->status = !$order->status;
-        \DB::enableQueryLog();
         $order->save();
-        $data['querylog'] = \DB::getQueryLog();
         $data['status'] = (int) $order->status;
         $data['msg'] = __('orders.admin.list.updated');
         return $data;
