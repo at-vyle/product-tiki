@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderDetail;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class OrderController extends Controller
 {
@@ -27,5 +29,24 @@ class OrderController extends Controller
         $orders->appends(request()->query());
         $data['orders'] = $orders;
         return view('admin.pages.orders.index', $data);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id order id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        try {
+            $order = Order::findOrFail($id);
+            $orderDetail = OrderDetail::query()->where('order_id', $id)->delete();
+            $order->delete();
+            session(['message' => __('orders.admin.list.deleted')]);
+        } catch (ModelNotFoundException $e) {
+            session(['message' => __('orders.admin.list.id_not_found')]);
+        }
     }
 }
