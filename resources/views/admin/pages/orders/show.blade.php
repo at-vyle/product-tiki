@@ -24,8 +24,8 @@
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th class="col-md-3">{{ __('orders.admin.show.product_img_col') }}</th>
-                    <th class="col-md-5">{{ __('orders.admin.show.product_name_col') }}</th>
+                    <th class="col-md-2">{{ __('orders.admin.show.product_img_col') }}</th>
+                    <th class="col-md-7">{{ __('orders.admin.show.product_name_col') }}</th>
                     <th class="col-md-1">{{ __('orders.admin.show.product_price_col') }}</th>
                     <th class="col-md-1">{{ __('orders.admin.show.quantity_col') }}</th>
                     <th class="col-md-2">{{ __('post.admin.list.action_col') }}</th>
@@ -35,9 +35,9 @@
                   @foreach ($orders as $order )
                   <tr>
                     <td>
-                      @if ($order['product']['img'])
-                        <img src="{{ $order['product']['img']->img_url }}" alt="">
-                      @endif
+                        @if (count($order['product']['images']))
+                          <img style="width:100px;height:100px" src="{{ $order['product']['images'][0]->image_url }}" alt="">
+                        @endif
                     </td>
                     <td>{{ $order['product']->name }}</td>
                     <td>{{ number_format($order->product_price) }}</td>
