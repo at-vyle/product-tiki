@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Image;
+use App\Http\Requests\PostProductRequest;
 
 class ProductController extends Controller
 {
@@ -27,7 +30,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.products.create');
+        $categories = Category::all();
+        $data['categories'] = $categories;
+        return view('admin.pages.products.create', $data);
     }
 
     /**
@@ -37,9 +42,20 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostProductRequest $request)
     {
-        dd($request);
+        $request['status'] = $request->quantity ? 1 : 0;
+        $product = Product::create($request->all());
+
+        $img = request()->file('input_img');
+        $imgName = time() . '-' . $img->getClientOriginalName();
+        $img->move(config('define.product.upload_image_url'), $imgName);
+        Image::create([
+            'product_id' => $product->id,
+            'img_url' => config('define.product.upload_image_url') . $imgName
+        ]);
+
+        return redirect()->route('admin.products.index')->with('message', trans('messages.create_product_success'));
     }
 
     /**

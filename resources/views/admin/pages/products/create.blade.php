@@ -11,16 +11,19 @@
         </div>
         <div class="x_content">
           <br />
-          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+          <form id="demo-form2" data-parsley-validate method="POST" action="{!! route('admin.products.store') !!}" enctype="multipart/form-data" class="form-horizontal form-label-left">
 
             @csrf
+
+            @include('admin.layout.errors')
 
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('product.create.category')</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <select name="category" class="select2_single form-control" tabindex="-1">
-                  <option value=""></option>
-                  <option value=""></option>
+                <select name="category_id" class="select2_single form-control" tabindex="-1">
+                  @foreach ( $categories as $category )
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                  @endforeach
                 </select>
               </div>
             </div>
@@ -46,7 +49,7 @@
                 <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="price" name="price" class="form-control col-md-7 col-xs-12" required="required" type="text">
+                <input id="price" name="price" class="form-control col-md-7 col-xs-12" required="required" type="number">
               </div>
             </div>
 
@@ -55,7 +58,7 @@
                 <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="quantity" name="quantity" class="form-control col-md-7 col-xs-12" required="required" type="text">
+                <input id="quantity" name="quantity" class="form-control col-md-7 col-xs-12" required="required" type="number">
               </div>
             </div>
 
@@ -66,7 +69,7 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div id="image" class="btn-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="imageInput">@lang('product.create.file-input')</label>
-                  <input data-preview="#preview" name="input_img" type="file" id="imageInput">
+                  <input name="input_img" type="file" id="imageInput">
                 </div>
               </div>
             </div>
