@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PostController extends Controller
 {
@@ -76,13 +77,14 @@ class PostController extends Controller
      */
     public function deleteComment($postId, $id)
     {
-        $comment = Comment::findOrFail($id);
-        if ($comment) {
+        try {
+            $comment = Comment::findOrFail($id);
             $comment->delete();
             session(['message' => __('post.admin.form.deleted')]);
-            return redirect()->route('admin.posts.show', ['id' => $postId]);
-        } else {
+        } catch (ModelNotFoundException $e) {
             session(['message' => __('post.admin.form.id_not_found')]);
+        } finally {
+            return redirect()->route('admin.posts.show', ['id' => $postId]);
         }
     }
 }
