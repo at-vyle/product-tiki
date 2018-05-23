@@ -42,16 +42,11 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequests $request)
     {
-        $input = $request->except('_token', '_method');
-        $category = Category::create($input);
+        $category = Category::create($request->all());
         if ($category) {
-            $listCategories = Category::paginate(config('define.category.limit_rows'));
-            $data['listCategories'] = $listCategories;
-            $data['msg'] = __('category.admin.message.add');
-            return view('admin.pages.categories.index', $data);
+            return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.add'));
         } else {
-            $data['msg'] = __('category.admin.message.add_fail');
-            return view('admin.pages.categories.create', $data);
+            return redirect()->route('admin.categories.create')->with('message', __('category.admin.message.add_fail'));
         }
     }
 }
