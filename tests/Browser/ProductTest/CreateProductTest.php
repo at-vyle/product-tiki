@@ -11,7 +11,7 @@ class CreateProductTest extends DuskTestCase
     use DatabaseMigrations;
 
     /**
-     * A Dusk test example.
+     * A Dusk test create product success.
      *
      * @return void
      */
@@ -34,6 +34,11 @@ class CreateProductTest extends DuskTestCase
         });
     }
 
+    /**
+     * A Dusk test input null value.
+     *
+     * @return void
+     */
     public function testNullValue()
     {
         $this->browse(function (Browser $browser) {
@@ -47,6 +52,11 @@ class CreateProductTest extends DuskTestCase
         });
     }
 
+    /**
+     * A Dusk test input invalid value.
+     *
+     * @return void
+     */
     public function testInvalidValue()
     {
         $this->browse(function (Browser $browser) {
@@ -66,6 +76,11 @@ class CreateProductTest extends DuskTestCase
         });
     }
 
+    /**
+     * A Dusk test input invalid format image.
+     *
+     * @return void
+     */
     public function testInvalidImage()
     {
         $this->browse(function (Browser $browser) {
