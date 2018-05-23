@@ -10,6 +10,9 @@
             <h2>{{ __('category.admin.add.title') }}</h2>
             <div class="clearfix"></div>
           </div>
+          @if (isset($msg)) 
+            <p class="alert alert-info">{{ $msg }}</p>
+          @endif
           <div class="x_content">
             <br />
             <form class="form-horizontal form-label-left" method="post" action="{{ route('admin.categories.store') }}">

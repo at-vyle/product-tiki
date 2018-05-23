@@ -24,6 +24,7 @@ return [
         ],
         'message' => [
             'add' => 'Create New Category Successfull!',
+            'add_fail' => 'Can not add New Category. Please check connect database',
             'edit' => 'Update Category Successfull!',
             'del' => 'Delete Category Successfull!',
         ]

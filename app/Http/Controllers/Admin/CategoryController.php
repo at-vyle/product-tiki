@@ -50,7 +50,8 @@ class CategoryController extends Controller
             $data['msg'] = __('category.admin.message.add');
             return view('admin.pages.categories.index', $data);
         } else {
-            return view('admin.pages.categories.create');
+            $data['msg'] = __('category.admin.message.add_fail');
+            return view('admin.pages.categories.create', $data);
         }
     }
 }
