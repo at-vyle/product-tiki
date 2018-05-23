@@ -31,7 +31,7 @@ class CategoryController extends Controller
     }
     /**
      * Display a listing of the resource.
-     * 
+     *
      * @param int $id category's id
      *
      * @return \Illuminate\Http\Response
@@ -39,7 +39,7 @@ class CategoryController extends Controller
     public function show($id)
     {
         $itemCategory = Category::find($id);
-        $childCategory = Category::find($id)->with(['categories' => function($query) {
+        $childCategory = Category::find($id)->with(['categories' => function ($query) {
             return $query->with('categories');
         }])->where('parent_id', $id)->get();
         $data['itemCategory'] = $itemCategory;
