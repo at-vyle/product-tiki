@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Backend;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProduct extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,7 @@ class StoreProduct extends FormRequest
     public function rules()
     {
         return [
-            'category_id' => 'required|integer|min:0',
-            'name' => 'required|string|max:255',
-            'description' => 'string',
-            'price' => 'required|integer|min:0',
-            'quantity' => 'required|integer|min:0',
-            'input_img' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+            'name'=>'required|unique:categories'
         ];
     }
 }

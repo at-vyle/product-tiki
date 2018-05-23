@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateUserRequest;
+use App\Models\User;
+use App\Models\UserInfo;
 
 class UserController extends Controller
 {
@@ -14,7 +17,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.users.index');
+        $result = User::with('userinfo')->paginate(config('define.product.limit_rows'));
+        $data['result'] = $result;
+        return view('admin.pages.users.index', $data);
     }
 
     /**
@@ -26,7 +31,18 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        dd($id);
-        return view('admin.pages.users.show');
+        $result = User::with('userinfo')->find($id);
+        $data['result'] = $result;
+        return view('admin.pages.users.show', $data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin.pages.users.create');
     }
 }
