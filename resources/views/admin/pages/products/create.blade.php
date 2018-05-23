@@ -15,6 +15,8 @@
 
             @csrf
 
+            @include('admin.layout.errors')
+
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('product.create.category')</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -47,7 +49,7 @@
                 <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="price" name="price" class="form-control col-md-7 col-xs-12" required="required" type="text">
+                <input id="price" name="price" class="form-control col-md-7 col-xs-12" required="required" type="number">
               </div>
             </div>
 
@@ -56,7 +58,7 @@
                 <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="quantity" name="quantity" class="form-control col-md-7 col-xs-12" required="required" type="text">
+                <input id="quantity" name="quantity" class="form-control col-md-7 col-xs-12" required="required" type="number">
               </div>
             </div>
 
