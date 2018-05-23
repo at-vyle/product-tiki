@@ -38,5 +38,6 @@ return [
         'cancel' => 'Cancel',
         'reset' => 'Reset',
         'submit' => 'Submit',
+        'requied' => '*'
     ]
 ];
