@@ -22,4 +22,5 @@ return [
     'show_post' => 'Show Posts',
     'show_order' => 'Show Order',
 
+    'delete_fail' => 'Delete Failed',
 ];

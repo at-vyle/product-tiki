@@ -15,7 +15,8 @@ return [
         'created_at' => 'Created At',
         'update_at' => 'Update At',
         'action' => 'Action',
-        'edit' => 'Edit'
+        'edit' => 'Edit',
+        'delete' => 'Delete'
     ],
     'create' => [
         'title' => 'Create Product',
