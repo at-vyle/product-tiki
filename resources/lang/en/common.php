@@ -3,5 +3,6 @@
 return [
     'cancel-btn' => 'Cancel',
     'approve' => 'Approved',
-    'cancel' => 'Canceled'
+    'cancel' => 'Canceled',
+    'pending' => 'Pending'
 ];

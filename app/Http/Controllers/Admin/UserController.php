@@ -68,7 +68,9 @@ class UserController extends Controller
         $userInfo->address = $request->address;
         $userInfo->phone = $request->phone;
         $userInfo->identity_card = $request->identity_card;
-        $userInfo->gender = $request->gender;
+        if ($request->gender) {
+            $userInfo->gender = $request->gender;
+        }
         $userInfo->dob = $request->dob;
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
