@@ -33,5 +33,8 @@ return [
         'userinfo' => 'Detail User Information',
         'male' => 'Male',
         'female' => 'Female',
+        'update' => 'Update',
+        'reset' => 'Reset',
+        'updateuser' => 'Update User',
     ]
 ];
