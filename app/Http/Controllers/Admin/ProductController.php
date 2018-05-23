@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Image;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Http\Requests\PostProductRequest;
 
 class ProductController extends Controller
 {
@@ -41,7 +43,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostProductRequest $request)
     {
         $request['status'] = $request->quantity ? 1 : 0;
         $product = Product::create($request->all());
@@ -104,6 +106,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
+        try {
+            $product = Product::findOrFail($id);
+            $product->delete();
+        } catch (ModelNotFoundException $e) {
+            session()->flash('message', trans('messages.delete_fail'));
+        }
+        return back();
     }
 }
