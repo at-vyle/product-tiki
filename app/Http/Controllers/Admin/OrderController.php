@@ -17,7 +17,7 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $perPage = config('define.post.limit_rows');
+        $perPage = config('define.order.limit_rows');
         $orders = Order::when(isset($request->order_status), function ($query) use ($request) {
             return $query->where('status', '=', $request->order_status);
         })->when(isset($request->order_by_total), function ($query) use ($request) {
