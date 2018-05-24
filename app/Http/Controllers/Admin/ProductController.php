@@ -53,7 +53,7 @@ class ProductController extends Controller
         $img->move(config('define.product.upload_image_url'), $imgName);
         Image::create([
             'product_id' => $product->id,
-            'img_url' => config('define.product.upload_image_url') . $imgName
+            'img_url' => '/' . config('define.product.upload_image_url') . '/' . $imgName
         ]);
 
         return redirect()->route('admin.products.index')->with('message', trans('messages.create_product_success'));
@@ -114,7 +114,7 @@ class ProductController extends Controller
             $img->move(config('define.product.upload_image_url'), $imgName);
             Image::create([
                 'product_id' => $product->id,
-                'img_url' => '/' . config('define.product.upload_image_url') . $imgName
+                'img_url' => '/' . config('define.product.upload_image_url') . '/' . $imgName
             ]);
         }
 
