@@ -31,11 +31,10 @@ class AdminCommentTest extends DuskTestCase
      */
     public function testCommentList()
     {
-        
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/posts')
                     ->press('#view1')
-                    ->assertSee(__('post.admin.show.subtitle'));
+                    ->assertSee('All subcomments of Post ');
         });
     }
 
@@ -51,7 +50,7 @@ class AdminCommentTest extends DuskTestCase
             $browser->visit('/admin/posts')
                     ->press('#view1')
                     ->type('content', $test)
-                    ->press(__('post.admin.list.go'))
+                    ->press('Go!')
                     ->assertQueryStringHas('content')
                     ->assertSee($test);
         });
