@@ -8,7 +8,9 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ListCategoryTest extends DuskTestCase
 {
+    
     use DatabaseMigrations;
+
     /**
      * A Dusk test example.
      *
@@ -21,6 +23,7 @@ class ListCategoryTest extends DuskTestCase
                     ->assertSee('Category');
         });
     }
+
     /**
      * Test data empty.
      *
@@ -36,6 +39,7 @@ class ListCategoryTest extends DuskTestCase
             $this->assertTrue($numRecord == 0);
         });
     }
+
     /**
      * Test pagination.
      *
