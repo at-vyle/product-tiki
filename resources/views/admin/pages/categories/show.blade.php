@@ -54,6 +54,12 @@
               </tbody>
             </table>
           </div>
+          <div class="ln_solid"></div>
+          <div class="form-group">
+            <div class="col-md-12 col-sm-12 col-xs-12 col-md-offset-0">
+              <a href="{{ route('admin.categories.index') }}" class="btn btn-success">Back</a>
+            </div>
+          </div>
         </div>
       </div>
       </div>
