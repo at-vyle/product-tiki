@@ -2,8 +2,9 @@
 
 return [
     'admin' => [
+        'title' => 'Category',
         'list' => [
-            'title' => 'Category'
+            'title' => 'List Categories'
         ],
         'table' => [
             'id' => 'ID',
@@ -19,6 +20,13 @@ return [
             'parent_category' => 'Parent Category',
             'submit' => 'Submit',
             'reset' => 'Reset',
+            'placeholder_name' => 'Name Category',
         ],
+        'message' => [
+            'add' => 'Create New Category Successfull!',
+            'add_fail' => 'Can not add New Category. Please check connect database',
+            'edit' => 'Update Category Successfull!',
+            'del' => 'Delete Category Successfull!',
+        ]
     ]
 ];

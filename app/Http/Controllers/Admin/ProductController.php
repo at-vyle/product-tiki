@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Image;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Http\Requests\PostProductRequest;
 
 class ProductController extends Controller
 {
@@ -27,7 +31,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $data['categories'] = $categories;
+        return view('admin.pages.products.create', $data);
     }
 
     /**
@@ -37,9 +43,20 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostProductRequest $request)
     {
-        dd($request);
+        $request['status'] = $request->quantity ? 1 : 0;
+        $product = Product::create($request->all());
+
+        $img = request()->file('input_img');
+        $imgName = time() . '-' . $img->getClientOriginalName();
+        $img->move(config('define.product.upload_image_url'), $imgName);
+        Image::create([
+            'product_id' => $product->id,
+            'img_url' => config('define.product.upload_image_url') . $imgName
+        ]);
+
+        return redirect()->route('admin.products.index')->with('message', trans('messages.create_product_success'));
     }
 
     /**
@@ -63,7 +80,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        dd($id);
+        $categories = Category::all();
+        $product = Product::find($id);
+        $data['product'] = $product;
+        $data['categories'] = $categories;
+        return view('admin.pages.products.edit', $data);
     }
 
     /**
@@ -89,6 +110,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
+        try {
+            $product = Product::findOrFail($id);
+            $product->delete();
+        } catch (ModelNotFoundException $e) {
+            session()->flash('message', trans('messages.delete_fail'));
+        }
+        return back();
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\Backend\CategoryRequests;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
@@ -15,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $listCategories = Category::paginate(config('define.page_length'));
+        $listCategories = Category::paginate(config('define.category.limit_rows'));
         $data['listCategories'] = $listCategories;
         return view('admin.pages.categories.index', $data);
     }
@@ -27,7 +28,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.categories.create');
+        $listCategoriesParent = Category::get();
+        $data['listCategoriesParent'] = $listCategoriesParent;
+        return view('admin.pages.categories.create', $data);
     }
 
     /**
@@ -37,58 +40,13 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequests $request)
     {
-        dd($request);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id category's id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        dd($id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id category's id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        dd($id);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request get request
-     * @param int                      $id      category's id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        dd($request);
-        dd($id);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id category's id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        dd($id);
+        $category = Category::create($request->all());
+        if ($category) {
+            return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.add'));
+        } else {
+            return redirect()->route('admin.categories.create')->with('message', __('category.admin.message.add_fail'));
+        }
     }
 }

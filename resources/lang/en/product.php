@@ -15,6 +15,24 @@ return [
         'created_at' => 'Created At',
         'update_at' => 'Update At',
         'action' => 'Action',
-        'edit' => 'Edit'
+        'edit' => 'Edit',
+        'delete' => 'Delete'
+    ],
+    'create' => [
+        'title' => 'Create Product',
+        'table-title' => 'Create Product',
+        'category' => 'Category',
+        'name' => 'Name',
+        'description' => 'Description',
+        'price' => 'Price',
+        'quantity' => 'Quantity',
+        'image' => 'Image',
+        'file-input' => 'File Input',
+        'create' => 'Create'
+    ],
+    'update' => [
+        'title' => 'Update Product',
+        'table-title' => 'Update Product',
+        'update' => 'Update'
     ]
 ];
