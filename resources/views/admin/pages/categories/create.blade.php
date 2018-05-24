@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 @section('title', __('category.admin.title') )
 @section('content')
-<div class="right_col" role="main" style="min-height: 1381px;">
+<div class="right_col" role="main">
   <div class="">
     <div class="row">
       <div class="col-md-12 col-xs-12">
@@ -10,9 +10,10 @@
             <h2>{{ __('category.admin.add.title') }}</h2>
             <div class="clearfix"></div>
           </div>
+          @include('admin.layout.message')
           <div class="x_content">
             <br />
-            <form class="form-horizontal form-label-left" method="post" action="/admin/categories">
+            <form class="form-horizontal form-label-left" method="post" action="{{ route('admin.categories.store') }}">
             @if(count($errors))
               <div class="form-group">
                 <div class="alert alert-danger">
