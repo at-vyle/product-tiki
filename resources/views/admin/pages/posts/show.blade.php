@@ -54,7 +54,7 @@
                       <form action="" class="col-md-4">
                         <button class="btn btn-primary" type="submit"><i class="fa fa-edit icon-size" ></i></button>
                       </form>
-                      <form action="{{ route('admin.posts.comment.destroy', [ 'post_id' => $post_id, 'id' => $comment['id']]) }}" class="col-md-4" method="POST" id="delete{{ $comment['id'] }}">
+                      <form action="{{ route('admin.comments.destroy', ['id' => $comment['id']]) }}" class="col-md-4" method="POST" id="delete{{ $comment['id'] }}">
                         @csrf
                         @method('DELETE')
                         <button onclick="deleteComment(event, {{ $comment['id'] }})" class="btn btn-danger" type="submit"><i class="fa fa-trash icon-size" ></i></button>

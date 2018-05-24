@@ -71,25 +71,4 @@ class PostController extends Controller
             session(['message' => __('post.admin.form.id_not_found')]);
         }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $postId post id
-     * @param int $id     comment id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function deleteComment($postId, $id)
-    {
-        try {
-            $comment = Comment::findOrFail($id);
-            $comment->delete();
-            session(['message' => __('post.admin.form.deleted')]);
-        } catch (ModelNotFoundException $e) {
-            session(['message' => __('post.admin.form.id_not_found')]);
-        } finally {
-            return redirect()->route('admin.posts.show', ['id' => $postId]);
-        }
-    }
 }
