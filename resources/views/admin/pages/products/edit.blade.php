@@ -106,4 +106,5 @@
   </div>
 </div>
 <script src="/js/product.js"></script>
+<script src="/js/messages.js"></script>
 @endsection
