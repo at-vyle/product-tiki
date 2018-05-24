@@ -29,5 +29,10 @@ return [
         'image' => 'Image',
         'file-input' => 'File Input',
         'create' => 'Create'
+    ],
+    'update' => [
+        'title' => 'Update Product',
+        'table-title' => 'Update Product',
+        'update' => 'Update'
     ]
 ];
