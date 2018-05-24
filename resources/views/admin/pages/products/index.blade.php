@@ -51,6 +51,7 @@
                       <a href="#"><i class="fa fa-edit"></i></a>
                     </td>
                     <td class=" last">
+                      <a href="{!! route('admin.products.edit', ['id' => $product['id']]) !!}"> @lang('product.index.edit') </a>
                       <form id="delete-prd{{ $product->id }}" action="{!! route('admin.products.destroy', ['id' => $product['id']]) !!}" method="post">
                         @csrf
                         @method('DELETE')

@@ -80,7 +80,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        dd($id);
+        $categories = Category::all();
+        $product = Product::find($id);
+        $data['product'] = $product;
+        $data['categories'] = $categories;
+        return view('admin.pages.products.edit', $data);
     }
 
     /**
