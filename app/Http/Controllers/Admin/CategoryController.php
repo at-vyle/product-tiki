@@ -43,15 +43,11 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequests $request)
     {
-        $input = $request->except('_token', '_method');
-        $category = Category::create($input);
-        if ($category->save()) {
-            $listCategories = Category::paginate(config('define.category.limit_rows'));
-            $data['listCategories'] = $listCategories;
-            $data['msg'] = __('category.admin.message.add');
-            return view('admin.pages.categories.index', $data);
+        $category = Category::create($request->all());
+        if ($category) {
+            return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.add'));
         } else {
-            return view('admin.pages.categories.create');
+            return redirect()->route('admin.categories.create')->with('message', __('category.admin.message.add_fail'));
         }
     }
 
@@ -70,6 +66,7 @@ class CategoryController extends Controller
         $data['categoryParent'] = $categoryParent;
         return view('admin.pages.categories.edit', $data);
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -84,10 +81,9 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->parent_id = $request->parent_id;
         if ($category->save()) {
-            session(['msg' => __('category.admin.message.edit')]);
-            return redirect()->route('admin.categories.index');
+            return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.edit'));
         } else {
-            return view('admin.pages.categories.edit');
+            return view('admin.pages.categories.edit')->with('message', __('category.admin.message.edit_fail'));
         }
     }
 }

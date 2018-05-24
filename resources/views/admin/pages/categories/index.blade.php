@@ -10,12 +10,7 @@
           <h2>{{ __('category.admin.list.title') }}</h2>
           <div class="clearfix"></div>
         </div>
-        @if (isset($msg)) 
-          <p class="alert alert-info">{{ $msg }}</p>
-        @elseif (session()->get('msg'))
-          <p class="alert alert-info">{{ session()->pull('msg') }}</p>
-        @endif
-        
+        @include('admin.layout.message')        
         <div class="x_content">
           <div class="table-responsive">
             <table class="table table-striped jambo_table bulk_action">
