@@ -27,9 +27,9 @@ class AdminPostStatusTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/posts')
                     ->click('#update1')
-                    ->assertSee(__('common.approve'));
+                    ->assertSee('Approved');
             $browser->visit('/admin/posts')
-                    ->assertSee(__('common.approve'));
+                    ->assertSee('Approved');
         });
     }
 
