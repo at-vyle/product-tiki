@@ -12,7 +12,7 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id     comment id
+     * @param int $id comment id
      *
      * @return \Illuminate\Http\Response
      */
