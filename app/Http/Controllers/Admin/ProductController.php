@@ -84,7 +84,6 @@ class ProductController extends Controller
         $product = Product::with('images')->find($id);
         $data['product'] = $product;
         $data['categories'] = $categories;
-        // dd($data['product']);
         return view('admin.pages.products.edit', $data);
     }
 
@@ -109,13 +108,14 @@ class ProductController extends Controller
         $product->save();
 
         if (request()->file('input_img')) {
-            $img = request()->file('input_img');
-            $imgName = time() . '-' . $img->getClientOriginalName();
-            $img->move(config('define.product.upload_image_url'), $imgName);
-            Image::create([
-                'product_id' => $product->id,
-                'img_url' => '/' . config('define.product.upload_image_url') . '/' . $imgName
-            ]);
+            foreach (request()->file('input_img') as $img) {
+                $imgName = time() . '-' . $img->getClientOriginalName();
+                $img->move(config('define.product.upload_image_url'), $imgName);
+                Image::create([
+                    'product_id' => $product->id,
+                    'img_url' => '/' . config('define.product.upload_image_url') . '/' . $imgName
+                ]);
+            }
         }
 
         return back()->with('message', trans('messages.update_product_success'));

@@ -17,7 +17,6 @@ function deleteImage(url, e) {
     url: url,
     data: {},
     success: function (result) {
-      console.log('ok');
       document.getElementById('img-' + result.id).remove();
     }
   });
