@@ -14,5 +14,6 @@ return [
     'footer' => 'Product Tiki - Design by ',
     'team' => 'Team AT Intern Spring PHP',
     'create_product_success' => 'Create product successfully',
-
+    'update_user_success' => 'Update user successfully',
+    'update_user_fail' => 'Update user fail'
 ];
