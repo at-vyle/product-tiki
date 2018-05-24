@@ -1,7 +1,9 @@
 @extends('admin.layout.master')
-@section('title', __('category.admin.list.title') )
+@section('title', __('category.admin.title') )
+@section('css')
+  <link href="/css/show.css" rel="stylesheet">
+@endsection
 @section('content')
-<link href="/css/show.css" rel="stylesheet">
 <div class="right_col" role="main">
   <div class="">
     <div class="row">
@@ -24,7 +26,6 @@
                 </tr>
               </thead>
               <tbody>
-              
                 <tr class="even pointer">
                   <td>{{ $itemCategory->id }}</td>
                   <td>{{ $itemCategory->name }}</td>
@@ -50,7 +51,6 @@
                   </td>
                 </tr>
                 @endforeach
-                
               </tbody>
             </table>
           </div>

@@ -26,6 +26,7 @@ class Category extends Model
     {
         return $this->hasMany('App\Models\Product', 'category_id', 'id');
     }
+    
     /**
      * Get the products for the category.
      *
