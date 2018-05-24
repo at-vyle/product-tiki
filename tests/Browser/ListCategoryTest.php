@@ -20,7 +20,7 @@ class ListCategoryTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/categories')
-                    ->assertSee('Category');
+                    ->assertSee(__('category.admin.list.title'));
         });
     }
 
@@ -33,7 +33,7 @@ class ListCategoryTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/categories')
-                    ->assertSee('Category');
+                    ->assertSee(__('category.admin.list.title'));
             $elements = $browser->elements('.table-responsive table tbody tr');
             $numRecord = count($elements);
             $this->assertTrue($numRecord == 0);
