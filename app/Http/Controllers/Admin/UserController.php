@@ -55,34 +55,29 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-        $user = new User;
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
-
-        $insertedId = $user->id;
-        $userInfo = new UserInfo;
-        $userInfo->user_id = $insertedId;
-        $userInfo->full_name = $request->full_name;
-        $userInfo->address = $request->address;
-        $userInfo->phone = $request->phone;
-        $userInfo->identity_card = $request->identity_card;
-        if ($request->gender) {
-            $userInfo->gender = $request->gender;
-        }
-        $userInfo->dob = $request->dob;
+        $userData = [
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ];
+        $user = User::create($userData);
+        $userInfoData = [
+            'user_id' => $user->id,
+            'full_name' => $request->full_name,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'identity_card' => $request->identity_card,
+            'gender' => $request->gender,
+            'dob' => $request->dob,
+        ];
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
             $nameNew = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $userInfo->avatar = $nameNew;
-            $userInfo->save();
+            $destinationPath = public_path('/images/avatar/');
+            array_push($userInfoData, $request->avatar);
             $image->move($destinationPath, $nameNew);
-        } else {
-            $userInfo->avatar = $request->avatar;
-            $userInfo->save();
         }
+        UserInfo::create($userInfoData);
         return redirect()->route('admin.users.index')->with('message', trans('messages.create_user_success'));
     }
 }
