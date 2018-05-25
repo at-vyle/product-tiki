@@ -15,11 +15,17 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Request $request request content
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(config('define.product.limit_rows'));
+        $products = Product::when(isset($request->content), function ($query) use ($request) {
+            return $query->where('name', 'like', "%$request->content%");
+        })->with('category','images')->paginate(config('define.product.limit_rows'));
+
+        $products->appends(request()->query());
         $data['products'] = $products;
         return view('admin.pages.products.index', $data);
     }
