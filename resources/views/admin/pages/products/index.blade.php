@@ -33,11 +33,11 @@
                   <th class="column-title"> @lang('product.index.id') </th>
                   <th class="column-title"> @lang('product.index.category') </th>
                   <th class="column-title"> @lang('product.index.name') </th>
+                  <th class="column-title col-md-3"> @lang('product.index.description') </th>
                   <th class="column-title"> @lang('product.create.quantity') </th>
                   <th class="column-title"> @lang('product.index.avg_rating') </th>
                   <th class="column-title"> @lang('product.index.price') </th>
                   <th class="column-title"> @lang('product.index.status') </th>
-                  <th class="column-title"> @lang('product.index.image') </th>
                   <th class="column-title no-link last">
                     <span class="nobr"> @lang('product.index.action') </span>
                   </th>
@@ -53,13 +53,11 @@
                     <td class=" ">{{ $product->id }}</td>
                     <td class=" ">{{ $product->category->name }}</td>
                     <td class=" ">{{ $product->name }}</td>
+                    <td class=" ">{{ $product->description }}</td>
                     <td class=" ">{{ $product->quantity }}</td>
                     <td class=" ">{{ $product->avg_rating }}</td>
                     <td class=" ">{{ $product->price }}</td>
                     <td class=" ">{{ $product->status }}</td>
-                    <td class=" ">
-                      <img src="" alt="">
-                    </td>
                     <td class=" ">
                       <a href="#"><i class="fa fa-edit"></i></a>
                     </td>
