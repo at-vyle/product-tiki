@@ -17,9 +17,13 @@ class ImageController extends Controller
      */
     public function destroy($id)
     {
-        $img = Image::find($id);
-        $img->delete();
+        try {
+            $img = Image::findOrFail($id);
+            $img->delete();
 
-        return response()->json($img);
+            return response()->json($img);
+        } catch (ModelNotFoundException $e) {
+            return response()->setStatusCode(400);
+        }
     }
 }

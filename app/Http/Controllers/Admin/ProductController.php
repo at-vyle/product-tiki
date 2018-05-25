@@ -99,23 +99,20 @@ class ProductController extends Controller
     {
         $request['status'] = $request->quantity ? 1 : 0;
         $product = Product::find($id);
-        $product->category_id = $request->category_id;
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->quantity = $request->quantity;
-        $product->status = $request->status;
-        $product->save();
+        $product->update($request->all());
 
         if (request()->file('input_img')) {
+            $imagesData = [];
             foreach (request()->file('input_img') as $img) {
                 $imgName = time() . '-' . $img->getClientOriginalName();
                 $img->move(config('define.product.upload_image_url'), $imgName);
-                Image::create([
+                $image = array(
                     'product_id' => $product->id,
                     'img_url' => '/' . config('define.product.upload_image_url') . '/' . $imgName
-                ]);
+                );
+                array_push($imagesData, $image);
             }
+            $product->images()->createMany($imagesData);
         }
 
         return back()->with('message', trans('messages.update_product_success'));
