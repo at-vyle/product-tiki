@@ -42,10 +42,8 @@ class OrderController extends Controller
     {
         try {
             $order = Order::findOrFail($id);
-            $orderDetail = OrderDetail::query()->where('order_id', $id)->delete();
-            if ($orderDetail) {
-                $order->delete();
-            }
+            $order->orderDetails()->delete();
+            $order->delete();
             session(['message' => __('orders.admin.list.deleted')]);
         } catch (ModelNotFoundException $e) {
             session(['message' => __('orders.admin.list.id_not_found')]);
