@@ -64,8 +64,6 @@ class UserController extends Controller
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
             $nameNew = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/images/avatar/');
-            $image->move($destinationPath, $nameNew);
         }
         $userInfoData = [
             'user_id' => $user->id,
@@ -77,7 +75,10 @@ class UserController extends Controller
             'avatar' => $nameNew,
             'dob' => $request->dob,
         ];
-        UserInfo::create($userInfoData);
+        if (UserInfo::create($userInfoData)) {
+            $destinationPath = public_path('/images/avatar/');
+            $image->move($destinationPath, $nameNew);
+        }
         return redirect()->route('admin.users.index')->with('message', trans('messages.create_user_success'));
     }
 }
