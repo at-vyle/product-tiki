@@ -26,4 +26,14 @@ class Category extends Model
     {
         return $this->hasMany('App\Models\Product', 'category_id', 'id');
     }
+    
+    /**
+     * Get the products for the category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function categories()
+    {
+        return $this->hasMany('App\Models\Category', 'parent_id', 'id');
+    }
 }
