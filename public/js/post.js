@@ -46,7 +46,6 @@ function ajaxUpdate(url, id) {
 function deleteComment(e, id, url) {
     e.preventDefault();
     msg = Lang.get('post.admin.form.delete_comment_msg') + id;
-    console.log(url);
     if (confirm(msg)) {
         ajaxDelete(url, id);
     }
