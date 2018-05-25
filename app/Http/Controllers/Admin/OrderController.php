@@ -32,7 +32,25 @@ class OrderController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Display the specified resource.
+     *
+     * @param int $id order id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $perPage = config('define.order.limit_rows');
+        $orderDetails = Order::find($id)->orderDetails()->with(['product' => function ($query) {
+            return $query->with('images');
+        }])->paginate($perPage);
+        $data['orders'] = $orderDetails;
+        $data['order_id'] = $id;
+        return view('admin.pages.orders.show', $data);
+    }
+
+    /**
+    * Remove the specified resource from storage.
      *
      * @param int $id order id
      *
