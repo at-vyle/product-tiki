@@ -14,6 +14,7 @@ return [
         'status' => 'Status',
         'image' => 'Image',
         'go' => 'Go',
+        'delete_confirm' => 'Do you want to delete Product ID = ',
         'created_at' => 'Created At',
         'update_at' => 'Update At',
         'action' => 'Action',
@@ -35,6 +36,7 @@ return [
     'update' => [
         'title' => 'Update Product',
         'table-title' => 'Update Product',
+        'delete_confirm' => 'Do you want to delete this Image?',
         'update' => 'Update'
     ]
 ];
