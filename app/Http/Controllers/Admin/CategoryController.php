@@ -49,4 +49,20 @@ class CategoryController extends Controller
             return redirect()->route('admin.categories.create')->with('message', __('category.admin.message.add_fail'));
         }
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param int $id category's id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $itemCategory = Category::find($id);
+        $childCategory = Category::with('categories')->where('parent_id', $id)->get();
+        $data['itemCategory'] = $itemCategory;
+        $data['childCategory'] = $childCategory;
+        return view('admin.pages.categories.show', $data);
+    }
 }
