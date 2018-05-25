@@ -38,7 +38,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $perPage = config('define.post.limit_rows');
+        $perPage = config('define.order.limit_rows');
         $orderDetails = Order::find($id)->orderDetails()->with(['product' => function ($query) {
             return $query->with('images');
         }])->paginate($perPage);

@@ -28,7 +28,7 @@ class Image extends Model
     }
 
     /**
-     * Get the user's avatar.
+     * Get the Product's image.
      *
      * @return string
      */
