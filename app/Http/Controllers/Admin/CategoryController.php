@@ -60,7 +60,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::find($id);
-        $categoryParent = Category::where('parent_id', null)->get();
+        $categoryParent = Category::get();
         $data['category'] = $category;
         $data['categoryParent'] = $categoryParent;
         return view('admin.pages.categories.edit', $data);
