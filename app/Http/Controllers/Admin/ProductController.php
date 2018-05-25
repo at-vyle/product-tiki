@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Image;
+use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Requests\PostProductRequest;
 
@@ -15,11 +16,17 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Request $request request content
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(config('define.product.limit_rows'));
+        $products = Product::when(isset($request->content), function ($query) use ($request) {
+            return $query->where('name', 'like', "%$request->content%");
+        })->with('category', 'images')->paginate(config('define.product.limit_rows'));
+
+        $products->appends(request()->query());
         $data['products'] = $products;
         return view('admin.pages.products.index', $data);
     }
@@ -95,7 +102,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductRequest $request, $id)
     {
         $request['status'] = $request->quantity ? 1 : 0;
         $product = Product::find($id);
