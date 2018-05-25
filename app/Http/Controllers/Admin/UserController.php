@@ -61,6 +61,12 @@ class UserController extends Controller
             'password' => bcrypt($request->password)
         ];
         $user = User::create($userData);
+        if ($request->hasFile('avatar')) {
+            $image = $request->file('avatar');
+            $nameNew = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/images/avatar/');
+            $image->move($destinationPath, $nameNew);
+        }
         $userInfoData = [
             'user_id' => $user->id,
             'full_name' => $request->full_name,
@@ -68,15 +74,9 @@ class UserController extends Controller
             'phone' => $request->phone,
             'identity_card' => $request->identity_card,
             'gender' => $request->gender,
+            'avatar' => $nameNew,
             'dob' => $request->dob,
         ];
-        if ($request->hasFile('avatar')) {
-            $image = $request->file('avatar');
-            $nameNew = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/images/avatar/');
-            array_push($userInfoData, $request->avatar);
-            $image->move($destinationPath, $nameNew);
-        }
         UserInfo::create($userInfoData);
         return redirect()->route('admin.users.index')->with('message', trans('messages.create_user_success'));
     }

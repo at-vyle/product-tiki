@@ -34,8 +34,8 @@ class CreateUserRequest extends FormRequest
             'avatar'         => 'image|mimes:png,jpg,jpeg',
             'birthday'       => 'date_format:"Y-m-d"',
             'address'        => 'string|max:255',
-            'phone'          => '/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/|max:15',
-            'identity_card'  => 'string|digits:9|unique:user_info',
+            'phone'          => 'regex:/\(?([0-9]{3})\)?([ . -]?)([0-9]{3})\2([0-9]{4})/',
+            'identity_card'  => 'regex:/\(?([0-9]{3})\)?([ . -]?)([0-9]{3})\2([0-9]{3})/|unique:user_info',
         ];
     }
 }
