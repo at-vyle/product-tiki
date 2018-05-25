@@ -17,6 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'namespace' => 'Api'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.api.' , 'namespace' => 'Api'], function () {
     Route::put('posts/{id}/status', 'PostController@changeStatus')->name('posts.update.status');
+    Route::apiResource('comments', 'CommentController')->parameters(['comments' => 'id']);
 });
