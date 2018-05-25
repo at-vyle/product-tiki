@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Image;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Requests\PostProductRequest;
 
 class ProductController extends Controller
@@ -52,7 +53,7 @@ class ProductController extends Controller
         $img->move(config('define.product.upload_image_url'), $imgName);
         Image::create([
             'product_id' => $product->id,
-            'img_url' => config('define.product.upload_image_url') . $imgName
+            'img_url' => '/' . config('define.product.upload_image_url') . '/' . $imgName
         ]);
 
         return redirect()->route('admin.products.index')->with('message', trans('messages.create_product_success'));
@@ -79,7 +80,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        dd($id);
+        $categories = Category::all();
+        $product = Product::with('images')->find($id);
+        $data['product'] = $product;
+        $data['categories'] = $categories;
+        return view('admin.pages.products.edit', $data);
     }
 
     /**
@@ -92,8 +97,25 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request);
-        dd($id);
+        $request['status'] = $request->quantity ? 1 : 0;
+        $product = Product::find($id);
+        $product->update($request->all());
+
+        if (request()->file('input_img')) {
+            $imagesData = [];
+            foreach (request()->file('input_img') as $img) {
+                $imgName = time() . '-' . $img->getClientOriginalName();
+                $img->move(config('define.product.upload_image_url'), $imgName);
+                $image = array(
+                    'product_id' => $product->id,
+                    'img_url' => '/' . config('define.product.upload_image_url') . '/' . $imgName
+                );
+                array_push($imagesData, $image);
+            }
+            $product->images()->createMany($imagesData);
+        }
+
+        return back()->with('message', trans('messages.update_product_success'));
     }
 
     /**
@@ -105,6 +127,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
+        try {
+            $product = Product::findOrFail($id);
+            $product->delete();
+        } catch (ModelNotFoundException $e) {
+            session()->flash('message', trans('messages.delete_fail'));
+        }
+        return back();
     }
 }

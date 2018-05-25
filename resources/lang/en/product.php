@@ -12,10 +12,12 @@ return [
         'price' => 'Price',
         'status' => 'Status',
         'image' => 'Image',
+        'delete_confirm' => 'Do you want to delete Product ID = ',
         'created_at' => 'Created At',
         'update_at' => 'Update At',
         'action' => 'Action',
-        'edit' => 'Edit'
+        'edit' => 'Edit',
+        'delete' => 'Delete'
     ],
     'create' => [
         'title' => 'Create Product',
@@ -28,5 +30,11 @@ return [
         'image' => 'Image',
         'file-input' => 'File Input',
         'create' => 'Create'
+    ],
+    'update' => [
+        'title' => 'Update Product',
+        'table-title' => 'Update Product',
+        'delete_confirm' => 'Do you want to delete this Image?',
+        'update' => 'Update'
     ]
 ];
