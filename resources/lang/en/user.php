@@ -35,5 +35,6 @@ return [
         'submit' => 'Submit',
         'createuser' => 'Create User',
         'edituser' => 'Edit User',
+        'requied' => '*'
     ]
 ];

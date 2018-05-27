@@ -17,13 +17,12 @@ use App\Models\UserInfo;
 
 $factory->define(UserInfo::class, function (Faker $faker) {
     return [
-        'user_id' => $faker->unique()->randomElement(User::pluck('id')->toArray()),
         'full_name' => $faker->name,
         'avatar' => 'img.jpg',
         'gender' => $faker->numberBetween($min = 0, $max = 1),
         'dob' => $faker->date($format = 'Y-m-d', $max = 'now'),
         'address' => $faker->address,
         'phone' => $faker->phoneNumber,
-        'identity_card' => $faker->numberBetween($min = 1000000000, $max = 999999999),
+        'identity_card' => "1" . $faker->numberBetween(1000,9999) . $faker->unique()->numberBetween(1000,9999),
     ];
 });

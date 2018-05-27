@@ -53,9 +53,8 @@ class ValidateAndCreateUserTest extends DuskTestCase
                 ->assertSee('The email field is required.')
                 ->assertSee('The password field is required.')
                 ->assertSee('The address must be a string.')
-                ->assertSee('The phone must be a string.')
-                ->assertSee('The identity card must be a string.')
-                ->assertSee('The identity card must be 9 digits.');
+                ->assertSee('The phone format is invalid.')
+                ->assertSee('The identity card format is invalid.');
         });
     }
 
