@@ -66,6 +66,8 @@ class UserController extends Controller
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
             $nameNew = time().'.'.$image->getClientOriginalExtension();
+        } else {
+            $nameNew = null;
         }
         $userInfoData = [
             'user_id' => $user->id,
@@ -78,8 +80,12 @@ class UserController extends Controller
             'dob' => $request->dob,
         ];
         if (UserInfo::create($userInfoData)) {
-            $destinationPath = public_path('/images/avatar/');
-            $image->move($destinationPath, $nameNew);
+            if ($nameNew) {
+                $destinationPath = public_path('/images/avatar/');
+                $image->move($destinationPath, $nameNew);
+            } else {
+                $image = null;
+            }
         }
         $data['email'] = $user->email;
         $data['password'] = $request->password;
