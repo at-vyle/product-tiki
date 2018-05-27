@@ -43,7 +43,7 @@
                   <td class="last"><a href="{{ route('admin.users.show', array('id' => $user->id)) }}">{{ __('user.index.detail') }}</a>
                   </td>
                 </tr>
-              @endforeach 
+              @endforeach
             </tbody>
           </table>
           {{ $result->render() }}
