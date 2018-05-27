@@ -57,33 +57,35 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-        $user = new User;
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
-
-        $insertedId = $user->id;
-        $userInfo = new UserInfo;
-        $userInfo->user_id = $insertedId;
-        $userInfo->full_name = $request->full_name;
-        $userInfo->address = $request->address;
-        $userInfo->phone = $request->phone;
-        $userInfo->identity_card = $request->identity_card;
-        if($request->gender) {
-            $userInfo->gender = $request->gender;
-        }
-        $userInfo->dob = $request->dob;
+        $userData = [
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ];
+        $user = User::create($userData);
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
             $nameNew = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $userInfo->avatar = $nameNew;
-            $userInfo->save();
-            $image->move($destinationPath, $nameNew);
         } else {
-            $userInfo->avatar = $request->avatar;
-            $userInfo->save();
+            $nameNew = null;
+        }
+        $userInfoData = [
+            'user_id' => $user->id,
+            'full_name' => $request->full_name,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'identity_card' => $request->identity_card,
+            'gender' => $request->gender,
+            'avatar' => $nameNew,
+            'dob' => $request->dob,
+        ];
+        if (UserInfo::create($userInfoData)) {
+            if ($nameNew) {
+                $destinationPath = public_path('/images/avatar/');
+                $image->move($destinationPath, $nameNew);
+            } else {
+                $image = null;
+            }
         }
         $data['email'] = $user->email;
         $data['password'] = $request->password;
