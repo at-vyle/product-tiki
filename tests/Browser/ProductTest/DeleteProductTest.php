@@ -30,7 +30,7 @@ class DeleteProductTest extends DuskTestCase
                     ->acceptDialog();
 
             $elements = $browser->visit('/admin/products')
-                                ->elements('.table-responsive table tbody');
+                                ->elements('.table-responsive table tbody tr');
             $numRecord = count($elements);
             $this->assertTrue($numRecord == 2);
 
