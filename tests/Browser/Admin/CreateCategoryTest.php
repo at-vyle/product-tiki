@@ -39,7 +39,7 @@ class CreateCategoryTest extends DuskTestCase
                 ->select('parent_id', '1');       
             $browser->press(__('category.admin.add.submit'))
                 ->pause(1000)
-                ->assertSee(__('category.admin.message'));
+                ->assertSee(__('category.admin.message.add'));
             $this->assertDatabaseHas('categories', [
                 'id' => 3,
                 'name' => $testContent,
@@ -61,7 +61,7 @@ class CreateCategoryTest extends DuskTestCase
                 ->select('parent_id', null);       
             $browser->press(__('category.admin.add.submit'))
                 ->pause(1000)
-                ->assertSee(__('category.admin.message'));
+                ->assertSee(__('category.admin.message.add'));
             $this->assertDatabaseHas('categories', [
                 'id' => 1,
                 'name' => $testContent,
