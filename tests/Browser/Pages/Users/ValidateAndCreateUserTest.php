@@ -67,7 +67,7 @@ class ValidateAndCreateUserTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('admin/users/create')
-                ->type('username', 'suongmai')
+                ->type('username', 'suong')
                 ->type('email', 'suongmai@gmail.com')
                 ->type('password', '123456')
                 ->type('full_name', 'luong suong mai')
@@ -79,7 +79,7 @@ class ValidateAndCreateUserTest extends DuskTestCase
                     ->pause(1000)
                     ->assertSee('Create user successfully');
             $this->assertDatabaseHas('users', [
-                'username' => 'suongmai',
+                'username' => 'suong',
                 'email' => 'suongmai@gmail.com',
             ]);
             $this->assertDatabaseHas('user_info', [
