@@ -10,20 +10,11 @@
             <h2>{{ __('category.admin.add.title') }}</h2>
             <div class="clearfix"></div>
           </div>
+          @include('admin.layout.message')
           <div class="x_content">
             <br />
-            <form class="form-horizontal form-label-left" method="post" action="/admin/categories">
-            @if(count($errors))
-              <div class="form-group">
-                <div class="alert alert-danger">
-                  <ul>
-                    @foreach($errors->all() as $error)
-                      <li>{{$error}}</li>
-                    @endforeach
-                  </ul>
-                </div>
-              </div>
-            @endif
+            <form class="form-horizontal form-label-left" method="post" action="{{ route('admin.categories.store') }}">
+            @include('admin.layout.errors')
             @csrf
             @method('POST')
               <div class="form-group">

@@ -13,6 +13,7 @@ return [
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'action' => 'Action',
+            'child_category' => 'Child Category',
         ],
         'add' => [
             'title' => 'Add Category',
@@ -20,8 +21,17 @@ return [
             'parent_category' => 'Parent Category',
             'submit' => 'Submit',
             'reset' => 'Reset',
-            'placeholder_name' => 'Name Category',
+            'placeholder_name' => 'Category Name',
         ],
-        'message' => 'Create Category successfull!',
+        'edit' => [
+            'title' => 'Edit Category',
+        ],
+        'message' => [
+            'add' => 'Create New Category Successfull!',
+            'add_fail' => 'Can not add New Category. Please check connect database',
+            'edit' => 'Update Category Successfull!',
+            'del' => 'Delete Category Successfull!',
+        ]
+    
     ]
 ];

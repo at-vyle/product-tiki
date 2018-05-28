@@ -31,5 +31,13 @@ return [
         'showuser' => 'Show User',
         'back' => 'Back',
         'userinfo' => 'Detail User Information',
+        'male' => 'Male',
+        'female' => 'Female',
+        'title' => 'USERS',
+        'formdesign' => 'Form Design',
+        'cancel' => 'Cancel',
+        'reset' => 'Reset',
+        'submit' => 'Submit',
+        'requied' => '*'
     ]
 ];

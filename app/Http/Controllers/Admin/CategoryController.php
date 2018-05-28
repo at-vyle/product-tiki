@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Http\Requests\Backend\CategoryRequest;
+use App\Http\Requests\Backend\CategoryRequests;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
@@ -28,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $listCategoriesParent = Category::where('parent_id', null)->get();
+        $listCategoriesParent = Category::get();
         $data['listCategoriesParent'] = $listCategoriesParent;
         return view('admin.pages.categories.create', $data);
     }
@@ -40,17 +40,45 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(CategoryRequests $request)
     {
-        $input = $request->except('_token', '_method');
-        $category = Category::insert($input);
+        $category = Category::create($request->all());
         if ($category) {
-            $listCategories = Category::paginate(config('define.category.limit_rows'));
-            $data['listCategories'] = $listCategories;
-            $data['msg'] = 'Create Category successfull!';
-            return view('admin.pages.categories.index', $data);
+            return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.add'));
         } else {
-            return view('admin.pages.categories.create');
+            return redirect()->route('admin.categories.create')->with('message', __('category.admin.message.add_fail'));
         }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id category's id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $selfCat = Category::find($id);
+        $parentCat = Category::where('level', '<=', $selfCat->level)->get();
+        $data['selfCat'] = $selfCat;
+        $data['parentCat'] = $parentCat;
+        return view('admin.pages.categories.edit', $data);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param int $id category's id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $itemCategory = Category::find($id);
+        $childCategory = Category::with('categories')->where('parent_id', $id)->get();
+        $data['itemCategory'] = $itemCategory;
+        $data['childCategory'] = $childCategory;
+        return view('admin.pages.categories.show', $data);
     }
 }
