@@ -60,10 +60,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-        $categoryParent = Category::get();
-        $data['category'] = $category;
-        $data['categoryParent'] = $categoryParent;
+        $selfCat = Category::find($id);
+        $parentCat = Category::where('level', '<=', $selfCat->level)->get();
+        $data['selfCat'] = $selfCat;
+        $data['parentCat'] = $parentCat;
         return view('admin.pages.categories.edit', $data);
     }
 
@@ -77,13 +77,37 @@ class CategoryController extends Controller
      */
     public function update(EditCategoryRequest $request, $id)
     {
+        // dd($request->parent_id);
         $category = Category::find($id);
         $category->name = $request->name;
-        $category->parent_id = $request->parent_id;
+        if (!$request->parent_id) {
+            $category->parent_id = null;
+            $category->level = 0;
+        } else {
+            $category->parent_id = $request->parent_id;
+            $parentLvl = Category::find($request->parent_id)->level;
+            $category->level = $parentLvl + 1;
+        }
         if ($category->save()) {
             return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.edit'));
         } else {
             return view('admin.pages.categories.edit')->with('message', __('category.admin.message.edit_fail'));
         }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param int $id category's id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $itemCategory = Category::find($id);
+        $childCategory = Category::with('categories')->where('parent_id', $id)->get();
+        $data['itemCategory'] = $itemCategory;
+        $data['childCategory'] = $childCategory;
+        return view('admin.pages.categories.show', $data);
     }
 }

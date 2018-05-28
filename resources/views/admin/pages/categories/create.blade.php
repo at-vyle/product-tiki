@@ -14,17 +14,7 @@
           <div class="x_content">
             <br />
             <form class="form-horizontal form-label-left" method="post" action="{{ route('admin.categories.store') }}">
-            @if(count($errors))
-              <div class="form-group">
-                <div class="alert alert-danger">
-                  <ul>
-                    @foreach($errors->all() as $error)
-                      <li>{{$error}}</li>
-                    @endforeach
-                  </ul>
-                </div>
-              </div>
-            @endif
+            @include('admin.layout.errors')
             @csrf
             @method('POST')
               <div class="form-group">

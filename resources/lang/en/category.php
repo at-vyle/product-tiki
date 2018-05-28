@@ -13,6 +13,7 @@ return [
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'action' => 'Action',
+            'child_category' => 'Child Category',
         ],
         'add' => [
             'title' => 'Add Category',
@@ -20,7 +21,8 @@ return [
             'parent_category' => 'Parent Category',
             'submit' => 'Submit',
             'reset' => 'Reset',
-            'placeholder_name' => 'Name Category',
+            'cancel' => 'Cancel',
+            'placeholder_name' => 'Category Name',
         ],
         'edit' => [
             'title' => 'Edit Category',
@@ -33,5 +35,6 @@ return [
             'del' => 'Delete Category Successfull!',
             'del_fail' => 'Can not delete Category. Please check connect database',
         ]
+    
     ]
 ];
