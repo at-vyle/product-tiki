@@ -91,10 +91,8 @@ class UserController extends Controller
         ];
         if (UserInfo::create($userInfoData)) {
             if ($nameNew) {
-                $destinationPath = public_path('/images/avatar/');
+                $destinationPath = public_path(config('define.images_path_users'));
                 $image->move($destinationPath, $nameNew);
-            } else {
-                $image = null;
             }
         }
         $data['email'] = $user->email;
