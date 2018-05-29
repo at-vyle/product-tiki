@@ -10,6 +10,8 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const ADMIN_ROLE = 1;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -57,7 +59,7 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Post', 'user_id', 'id');
     }
-    
+
     /**
      * Get Order of User
      *
@@ -75,6 +77,6 @@ class User extends Authenticatable
      */
     public function isAdmin()
     {
-        return $this->role;
+        return $this->role == $this::ADMIN_ROLE;
     }
 }
