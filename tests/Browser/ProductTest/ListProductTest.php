@@ -62,4 +62,28 @@ class ListProductTest extends DuskTestCase
             $this->assertTrue($numRecord == 0);
         });
     }
+
+    /**
+     * Test search product.
+     *
+     * @return void
+     */
+    public function testSearchProduct()
+    {
+        $this->browse(function (Browser $browser) {
+
+            $name = 'lorem';
+            factory('App\Models\Category', 5)->create();
+            factory('App\Models\Product', 10)->create();
+            factory('App\Models\Product', 1)->create([
+                'name' => $name
+            ]);
+
+            $elements = $browser->visit('/admin/products')
+                                ->type('content', $name)
+                                ->press('Go')
+                                ->assertSee($name);
+
+        });
+    }
 }
