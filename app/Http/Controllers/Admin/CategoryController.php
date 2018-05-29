@@ -42,8 +42,13 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequests $request)
     {
-        $category = Category::create($request->all());
-        if ($category) {
+        if (!$request->parent_id) {
+            $request['level'] = 0;
+        } else {
+            $parentLvl = Category::find($request->parent_id)->level;
+            $request['level'] = $parentLvl + 1;
+        }
+        if ( Category::create($request->all()) ) {
             return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.add'));
         } else {
             return redirect()->route('admin.categories.create')->with('message', __('category.admin.message.add_fail'));
