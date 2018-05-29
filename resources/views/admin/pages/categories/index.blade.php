@@ -33,7 +33,7 @@
                   <td class=" ">{{ $list->parent_id }}</td>
                   <td class=" ">{{ $list->created_at }}</td>
                   <td class="a-right a-right ">{{ $list->updated_at }}</td>
-                  <td class="last"><a href="#">View</a>
+                  <td class="last "><a href="{{ route('admin.categories.edit', ['id' => $list->id] ) }}"><i class="fa fa-edit"></i></a> | <a href=""><i class="fa fa-trash"></i></a>
                   </td>
                 </tr>
                 @endforeach

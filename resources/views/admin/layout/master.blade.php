@@ -22,6 +22,7 @@
 
     <!-- Custom Theme Style -->
     <link href="/bower_components/gentelella/build/css/custom.min.css" rel="stylesheet">
+
     @yield('css')
   </head>
 
@@ -89,8 +90,8 @@
                     </ul>
                   </li>
                 </ul>
-                
-              </div> 
+
+              </div>
             </div>
             <!-- /sidebar menu -->
 
@@ -252,7 +253,7 @@
     <!-- bootstrap-daterangepicker -->
     <script src="/bower_components/gentelella/vendors/moment/min/moment.min.js"></script>
     <script src="/bower_components/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-    
+
     <!-- Custom Theme Scripts -->
     <script src="/bower_components/gentelella/build/js/custom.min.js"></script>
   </body>
