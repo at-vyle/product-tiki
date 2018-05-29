@@ -3,6 +3,7 @@
 @section('content')
 <div class="right_col" role="main">
   <div class="col-md-12 col-sm-12 col-xs-12">
+    @include('admin.layout.message')
     <div class="x_panel">
       <div class="x_title">
         <h2>{{ __('user.index.showuser') }}</h2>
@@ -38,7 +39,7 @@
                     <td class="a-right a-right ">{{ __('user.index.male') }}</td>
                   @endif
                   <td class=" ">0</td>
-                  <td class="last"><a href="#"><i class="fa fa-edit"></i></a>|<a href=""><i class="fa fa-trash"></i></a>
+                  <td class="last"><a href="{{ route('admin.users.edit', array('id' => $user->id)) }}"><button class="btn-success"><i class="fa fa-edit"></i></button></a>|<button class="btn-danger"><a href=""><i class="fa fa-trash"></i></a></button>
                   <td class="last"><a href="{{ route('admin.users.show', array('id' => $user->id)) }}">{{ __('user.index.detail') }}</a>
                   </td>
                 </tr>
