@@ -21,4 +21,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.api.' , 'namespace' => 'Api'],
     Route::put('posts/{id}/status', 'PostController@changeStatus')->name('posts.update.status');
     Route::put('orders/{id}/status', 'OrderController@changeStatus')->name('orders.update.status');
     Route::apiResource('comments', 'CommentController')->parameters(['comments' => 'id']);
+    Route::get('/', 'HomeController@index')->name('home');
 });
