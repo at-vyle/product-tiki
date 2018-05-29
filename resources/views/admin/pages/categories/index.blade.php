@@ -31,7 +31,6 @@
                   <td class=" ">{{ $list->id }}</td>
                   <td><a href="{{ route('admin.categories.show', ['id' => $list->id]) }}">{{ $list->name }}</td>
                   <td class=" ">{{ $list->parent_id }}</td>
-                  <td class=" ">{{ $list->level }}</td>
                   <td class=" ">{{ $list->created_at }}</td>
                   <td class="a-right a-right ">{{ $list->updated_at }}</td>
                   <td class="last"><a href="{{ route('admin.categories.edit', ['id' => $list->id]) }}"><i class="fa fa-edit"></i></a> | <a href=""><i class="fa fa-trash"></i></a>

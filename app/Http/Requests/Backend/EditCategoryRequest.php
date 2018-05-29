@@ -24,8 +24,7 @@ class EditCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'parent_id' => 'required'
+            'name' => 'required'
         ];
     }
 }

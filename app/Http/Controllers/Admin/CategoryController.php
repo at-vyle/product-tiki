@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Http\Requests\Backend\CategoryRequests;
 use App\Http\Requests\Backend\EditCategoryRequest;
+use App\Http\Requests\Backend\CategoryRequest;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
@@ -41,10 +41,15 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequests $request)
+    public function store(CategoryRequest $request)
     {
-        $category = Category::create($request->all());
-        if ($category) {
+        if (!$request->parent_id) {
+            $request['level'] = 0;
+        } else {
+            $parentLvl = Category::find($request->parent_id)->level;
+            $request['level'] = $parentLvl + 1;
+        }
+        if (Category::create($request->all())) {
             return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.add'));
         } else {
             return redirect()->route('admin.categories.create')->with('message', __('category.admin.message.add_fail'));
@@ -77,21 +82,21 @@ class CategoryController extends Controller
      */
     public function update(EditCategoryRequest $request, $id)
     {
-        // dd($request->parent_id);
-        $category = Category::find($id);
-        $category->name = $request->name;
-        if (!$request->parent_id) {
-            $category->parent_id = null;
-            $category->level = 0;
-        } else {
-            $category->parent_id = $request->parent_id;
-            $parentLvl = Category::find($request->parent_id)->level;
-            $category->level = $parentLvl + 1;
-        }
-        if ($category->save()) {
+        try {
+            $category = Category::findOrFail($id);
+            $category->name = $request->name;
+            if (!$request->parent_id) {
+                $category->parent_id = null;
+                $category->level = 0;
+            } else {
+                $category->parent_id = $request->parent_id;
+                $parentLvl = Category::find($request->parent_id)->level;
+                $category->level = $parentLvl + 1;
+            }
+            $category->save();
             return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.edit'));
-        } else {
-            return view('admin.pages.categories.edit')->with('message', __('category.admin.message.edit_fail'));
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->with('message', __('category.admin.message.edit_fail'));
         }
     }
 
