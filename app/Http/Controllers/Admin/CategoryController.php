@@ -51,6 +51,22 @@ class CategoryController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id category's id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $selfCat = Category::find($id);
+        $parentCat = Category::where('level', '<=', $selfCat->level)->get();
+        $data['selfCat'] = $selfCat;
+        $data['parentCat'] = $parentCat;
+        return view('admin.pages.categories.edit', $data);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param int $id category's id
