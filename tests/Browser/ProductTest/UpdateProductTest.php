@@ -20,8 +20,8 @@ class UpdateProductTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             factory('App\Models\Category', 5)->create();
-            factory('App\Models\Product', 3)->create();
-            $product = Product::find(2);
+            factory('App\Models\Product', 5)->create();
+            $product = Product::find(1);
 
             $browser->visit('/admin/products/' . $product->id . '/edit')
                     ->assertSee('Update Product')
@@ -54,7 +54,7 @@ class UpdateProductTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             factory('App\Models\Category', 5)->create();
-            factory('App\Models\Product', 3)->create();
+            factory('App\Models\Product', 5)->create();
             $product = Product::find(2);
 
             $browser->visit('/admin/products/' . $product->id . '/edit')
@@ -86,8 +86,8 @@ class UpdateProductTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             factory('App\Models\Category', 5)->create();
-            factory('App\Models\Product', 3)->create();
-            $product = Product::find(2);
+            factory('App\Models\Product', 5)->create();
+            $product = Product::find(3);
 
             $browser->visit('/admin/products/' . $product->id . '/edit')
                     ->assertSee('Update Product')
@@ -120,8 +120,8 @@ class UpdateProductTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             factory('App\Models\Category', 5)->create();
-            factory('App\Models\Product', 3)->create();
-            $product = Product::find(2);
+            factory('App\Models\Product', 5)->create();
+            $product = Product::find(4);
 
             $browser->visit('/admin/products/' . $product->id . '/edit')
                     ->assertSee('Update Product')
@@ -141,6 +141,74 @@ class UpdateProductTest extends DuskTestCase
                 'description' => $product->description,
                 'price' => $product->price,
                 'quantity' => $product->quantity,
+            ]);
+        });
+    }
+
+    /**
+     * A Dusk test delete image success.
+     *
+     * @return void
+     */
+    public function testDeleteImage()
+    {
+        $this->browse(function (Browser $browser) {
+            factory('App\Models\Category', 5)->create();
+            factory('App\Models\Product', 5)->create();
+            $product = Product::find(5);
+            $browser->visit('/admin/products/' . $product->id . '/edit')
+                    ->assertSee('Update Product')
+                    ->attach('input_img[]', __DIR__.'/testing/iphone1.jpg')
+                    ->press('Update')
+                    ->attach('input_img[]', __DIR__.'/testing/iphone1.jpg')
+                    ->press('Update');
+
+            $product = Product::with('images')->find(5);
+            $image = $product->images[0];
+
+            $browser->visit('/admin/products/' . $product->id . '/edit')
+                    ->assertSee('Update Product')
+                    ->click('#img-' . $image->id . ' > button')
+                    ->acceptDialog()
+                    ->pause(1000);
+
+            $this->assertDatabaseMissing('images', [
+                'id' => $image->id,
+                'product_id' => $image->product_id,
+                'img_url' => $image->img_url,
+            ]);
+        });
+    }
+
+    /**
+     * A Dusk test delete the last image.
+     *
+     * @return void
+     */
+    public function testDeleteLastImage()
+    {
+        $this->browse(function (Browser $browser) {
+            factory('App\Models\Category', 5)->create();
+            factory('App\Models\Product', 5)->create();
+            $product = Product::find(5);
+            $browser->visit('/admin/products/' . $product->id . '/edit')
+                    ->assertSee('Update Product')
+                    ->attach('input_img[]', __DIR__.'/testing/iphone1.jpg')
+                    ->press('Update');
+
+            $product = Product::with('images')->find(5);
+            $image = $product->images[0];
+
+            $browser->visit('/admin/products/' . $product->id . '/edit')
+                    ->assertSee('Update Product')
+                    ->click('#img-' . $image->id . ' > button')
+                    ->acceptDialog()
+                    ->pause(1000);
+
+            $this->assertDatabaseHas('images', [
+                'id' => $image->id,
+                'product_id' => $image->product_id,
+                'img_url' => $image->img_url,
             ]);
         });
     }
