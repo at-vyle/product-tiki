@@ -70,6 +70,7 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="file" id="avatar" name="avatar" value="{{ $result->userInfo['avatar_url'] }}" class="form-control col-md-7 col-xs-12">
                 <img src="{{ $result->userInfo['avatar_url'] }}" alt="" >
+                <button class="btn-danger"><i class="fa fa-trash"></i></button>
               </div>
             </div>
             <div class="form-group">
