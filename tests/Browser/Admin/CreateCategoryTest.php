@@ -4,6 +4,7 @@ namespace Tests\Browser\Admin;
 
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
+use App\Models\Category;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CreateCategoryTest extends DuskTestCase
@@ -59,17 +60,18 @@ class CreateCategoryTest extends DuskTestCase
     {
         $testContent = 'Iphone';
         factory('App\Models\Category', 1)->create();
-        $this->browse(function (Browser $browser) use ($testContent) {
+        $itemCategory = Category::find(1);
+        $this->browse(function (Browser $browser) use ($testContent, $itemCategory) {
             $browser->visit('admin/categories/create')
                 ->type('name', $testContent)
-                ->select('parent_id', 1);       
+                ->select('parent_id', $itemCategory->id);       
             $browser->press('Submit')
                 ->pause(1000)
                 ->assertSee('Create New Category Successfull!');
             $this->assertDatabaseHas('categories', [
                 'id' => 2,
                 'name' => $testContent,
-                'parent_id' => 1,
+                'parent_id' => $itemCategory->id,
                 'level' => 1,
             ]);
         });
