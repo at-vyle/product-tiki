@@ -25,22 +25,20 @@ class PostController extends Controller
         })
         ->with(['user' => function ($query) {
             return $query->with('userInfo');
-        },'product']);
-        \DB::enableQueryLog();
+        }, 'product']);
+
         if (isset($request->sortBy) && isset($request->dir)) {
             $postSort = $posts->join('users', 'posts.user_id', 'users.id')
                         ->join('products', 'posts.product_id', 'products.id')
                         ->orderBy($request->sortBy, $request->dir)
                         ->paginate($perPage);
             $postSort->appends(request()->query());
-            // dd($postSort);
             $data['posts'] = $postSort;
         } else {
             $posts = $posts->orderBy('id', 'desc')->paginate($perPage);
             $posts->appends(request()->query());
             $data['posts'] = $posts;
         }
-        // dd(\DB::getQueryLog());
 
         return view('admin.pages.posts.index', $data);
     }
