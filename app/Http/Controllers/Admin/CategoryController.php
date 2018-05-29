@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Http\Requests\Backend\CategoryRequests;
+use App\Http\Requests\Backend\CategoryRequest;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
@@ -40,10 +40,15 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequests $request)
+    public function store(CategoryRequest $request)
     {
-        $category = Category::create($request->all());
-        if ($category) {
+        if (!$request->parent_id) {
+            $request['level'] = 0;
+        } else {
+            $parentLvl = Category::find($request->parent_id)->level;
+            $request['level'] = $parentLvl + 1;
+        }
+        if (Category::create($request->all())) {
             return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.add'));
         } else {
             return redirect()->route('admin.categories.create')->with('message', __('category.admin.message.add_fail'));

@@ -27,7 +27,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('category.admin.add.parent_category') }}</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                   <select class="form-control" name="parent_id">
-                    <option></option>
+                    <option value=""></option>
                     @foreach ($listCategoriesParent as $list)
                     <option value="{{ $list->id }}">{{ $list->name }}</option>
                     @endforeach

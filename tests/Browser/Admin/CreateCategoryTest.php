@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 class CreateCategoryTest extends DuskTestCase
 {
     use DatabaseMigrations;
+
     /**
      * Test url create category
      *
@@ -18,35 +19,13 @@ class CreateCategoryTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/categories')
-                ->clickLink(__('messages.add'))
+                ->clickLink('Add Categories')
                 ->pause(1000)
                 ->assertPathIs('/admin/categories/create')
-                ->assertSee(__('category.admin.add.title'));
+                ->assertSee('Add Category');
         });
     }
-    /**
-     * Dusk test create category success.
-     *
-     * @return void
-     */
-    public function testCreatesCategoryHasParentCategorySuccess()
-    {
-        $testContent = 'dasdjsahdjsahdkjsad'; 
-        $this->browse(function (Browser $browser) use ($testContent) {
-            factory('App\Models\Category', 2)->create();
-            $browser->visit('admin/categories/create')
-                ->type('name', $testContent)
-                ->select('parent_id', '1');       
-            $browser->press(__('category.admin.add.submit'))
-                ->pause(1000)
-                ->assertSee(__('category.admin.message.add'));
-            $this->assertDatabaseHas('categories', [
-                'id' => 3,
-                'name' => $testContent,
-                'parent_id' => '1',
-            ]);
-        });
-    }
+
     /**
      * Dusk test create category success.
      *
@@ -54,21 +33,48 @@ class CreateCategoryTest extends DuskTestCase
      */
     public function testCreatesCategoryNoParentCategorySuccess()
     {
-        $testContent = 'Iphone'; 
+        $testContent = 'Smart Phone'; 
         $this->browse(function (Browser $browser) use ($testContent) {
             $browser->visit('admin/categories/create')
                 ->type('name', $testContent)
                 ->select('parent_id', null);       
-            $browser->press(__('category.admin.add.submit'))
+            $browser->press('Submit')
                 ->pause(1000)
-                ->assertSee(__('category.admin.message.add'));
+                ->assertSee('Create New Category Successfull!');
             $this->assertDatabaseHas('categories', [
                 'id' => 1,
                 'name' => $testContent,
                 'parent_id' => null,
+                'level' => 0
             ]);
         });
     }
+
+    /**
+     * Dusk test create category success.
+     *
+     * @return void
+     */
+    public function testCreatesCategoryHasParentCategorySuccess()
+    {
+        $testContent = 'Iphone';
+        factory('App\Models\Category', 1)->create();
+        $this->browse(function (Browser $browser) use ($testContent) {
+            $browser->visit('admin/categories/create')
+                ->type('name', $testContent)
+                ->select('parent_id', 1);       
+            $browser->press('Submit')
+                ->pause(1000)
+                ->assertSee('Create New Category Successfull!');
+            $this->assertDatabaseHas('categories', [
+                'id' => 2,
+                'name' => $testContent,
+                'parent_id' => 1,
+                'level' => 1,
+            ]);
+        });
+    }
+
     /**
      * List case for Test validate for input Create Category
      *
@@ -79,7 +85,7 @@ class CreateCategoryTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('admin/categories/create')
                 ->type('name', null);
-            $browser->press(__('category.admin.add.submit'))
+            $browser->press('Submit')
                 ->pause(1000)
                 ->assertSee('The name field is required.');
         });
