@@ -67,9 +67,10 @@ class AdminCommentTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($test) {
             $browser->visit('/admin/posts')
                     ->press('#view1')
-                    ->click('.btn-danger')
+                    ->click('#delete1 .btn-danger')
                     ->acceptDialog()
-                    ->assertDontSee($test);
+                    ->pause(1000)
+                    ->assertDontSee('$test');
         });
     }
 }
