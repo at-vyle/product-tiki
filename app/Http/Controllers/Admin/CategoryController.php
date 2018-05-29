@@ -29,7 +29,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $listCategoriesParent = Category::where('parent_id', null)->get();
+        $listCategoriesParent = Category::get();
         $data['listCategoriesParent'] = $listCategoriesParent;
         return view('admin.pages.categories.create', $data);
     }
@@ -43,15 +43,16 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $input = $request->except('_token', '_method');
-        $category = Category::create($input);
-        if ($category->save()) {
-            $listCategories = Category::paginate(config('define.category.limit_rows'));
-            $data['listCategories'] = $listCategories;
-            $data['msg'] = __('category.admin.message.add');
-            return view('admin.pages.categories.index', $data);
+        if (!$request->parent_id) {
+            $request['level'] = 0;
         } else {
-            return view('admin.pages.categories.create');
+            $parentLvl = Category::find($request->parent_id)->level;
+            $request['level'] = $parentLvl + 1;
+        }
+        if (Category::create($request->all())) {
+            return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.add'));
+        } else {
+            return redirect()->route('admin.categories.create')->with('message', __('category.admin.message.add_fail'));
         }
     }
 
@@ -64,12 +65,13 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-        $categoryParent = Category::where('parent_id', null)->get();
-        $data['category'] = $category;
-        $data['categoryParent'] = $categoryParent;
+        $selfCat = Category::find($id);
+        $parentCat = Category::where('level', '<=', $selfCat->level)->get();
+        $data['selfCat'] = $selfCat;
+        $data['parentCat'] = $parentCat;
         return view('admin.pages.categories.edit', $data);
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -100,9 +102,28 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::find($id)->delete();
-        Category::where('parent_id', $id)->delete();
-        session(['msg' => __('category.admin.message.del')]);
-        return redirect()->route('admin.categories.index');
+        try {
+            Category::findOrFail($id)->delete();
+            session()->flash('message', __('category.admin.message.del'));
+        } catch (ModelNotFoundException $e) {
+            session()->flash('message', __('category.admin.message.del_fail'));
+        }
+        return back();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param int $id category's id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $itemCategory = Category::find($id);
+        $childCategory = Category::with('categories')->where('parent_id', $id)->get();
+        $data['itemCategory'] = $itemCategory;
+        $data['childCategory'] = $childCategory;
+        return view('admin.pages.categories.show', $data);
     }
 }

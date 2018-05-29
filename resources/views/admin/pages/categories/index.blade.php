@@ -11,12 +11,7 @@
           <h2>{{ __('category.admin.list.title') }}</h2>
           <div class="clearfix"></div>
         </div>
-        @if (isset($msg)) 
-          <p class="alert alert-info">{{ $msg }}</p>
-        @elseif (session()->get('msg'))
-          <p class="alert alert-info">{{ session()->pull('msg') }}</p>
-        @endif
-        
+        @include('admin.layout.message')        
         <div class="x_content">
           <div class="table-responsive">
             <table class="table table-striped jambo_table bulk_action">
@@ -35,7 +30,7 @@
                 @foreach ($listCategories as $list)
                 <tr class="even pointer">
                   <td>{{ $list->id }}</td>
-                  <td>{{ $list->name }}</td>
+                  <td><a href="{{ route('admin.categories.show', ['id' => $list->id]) }}">{{ $list->name }}</td>
                   <td>{{ $list->parent_id }}</td>
                   <td>{{ $list->created_at }}</td>
                   <td class="a-right a-right ">{{ $list->updated_at }}</td>

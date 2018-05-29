@@ -12,7 +12,12 @@ return [
             'type_comments' => 'Comments',
             'product_id' => 'Product ID',
             'user_id' => 'User ID',
-            'rate' => 'Reviews Rating'
+            'rate' => 'Reviews Rating',
+            'updated' => 'Updated!!!!',
+            'deleted' => 'Deleted!!!!',
+            'delete_msg' => 'Do you want to delete posts with ID ',
+            'id_not_found' => 'ID not found',
+            'delete_comment_msg' => 'Do you want to delete comments with ID '
         ],
         'list' => [
             'title' => 'Admin Posts Management',
@@ -28,6 +33,11 @@ return [
             'approved_post' => 'Approved Post',
             'unapproved_post' => 'Unapproved Post',
             'select_title' => 'Status Option'
+        ],
+        'show' => [
+            'title' => 'Subcomments List',
+            'subtitle' => 'All subcomments of Post ',
+            'post_col' => 'Post ID'
         ]
     ]
 ];
