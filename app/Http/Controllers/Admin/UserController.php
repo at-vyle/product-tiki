@@ -87,4 +87,13 @@ class UserController extends Controller
     {
         return view('admin.pages.users.create');
     }
+
+    public function deleteAvt(Request $request, $id)
+    {
+        $userInfo = UserInfo::find($id);
+        $userInfo->avatar = null;
+        $userInfo->save();
+        $data['userInfo'] = $userInfo;
+        return response($data);
+    }
 }
