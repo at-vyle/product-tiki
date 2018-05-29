@@ -22,14 +22,14 @@ class HomeController extends Controller
     */
     public function index(Request $request)
     {
-        $time_str = 'last ';
+        $timeStr = 'last ';
         if ($request->time) {
-            $time_str .= $request->time;
+            $timeStr .= $request->time;
         } else {
-            $time_str = 'first day of January 2001';
+            $timeStr = 'first day of January 2001';
             $request->time = 'all';
         }
-        $time = new Carbon($time_str);
+        $time = new Carbon($timeStr);
 
         if ($request->type == 'user') {
             $users = User::with('userInfo')->withCount(['comments' => function ($query) use ($time) {

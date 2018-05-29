@@ -22,13 +22,13 @@ class HomeController extends Controller
     */
     public function index(Request $request)
     {
-        $time_str = 'last ';
+        $timeStr = 'last ';
         if ($request->time) {
-            $time_str .= $request->time;
+            $timeStr .= $request->time;
         } else {
-            $time_str .= 'month';
+            $timeStr .= 'month';
         }
-        $time = new Carbon($time_str);
+        $time = new Carbon($timeStr);
 
         $data['newUsers'] = User::where('created_at', '>', $time)->count();
         $data['newPosts'] = Post::where('created_at', '>', $time)->count();
