@@ -23,7 +23,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $time_str = 'last ';
-        if($request->time) {
+        if ($request->time) {
             $time_str .= $request->time;
         } else {
             $time_str .= 'month';
@@ -40,7 +40,7 @@ class HomeController extends Controller
 
         $data['topRating'] = Product::where('created_at', '>', $time)->with('category')->orderBy('avg_rating', 'desc')->take(5)->get();
         $users = User::with('userInfo')->withCount(['comments', 'posts'])->get();
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $pointCalculated = $user->comments_count + $user->posts_count;
             $user['point'] = $pointCalculated;
         }

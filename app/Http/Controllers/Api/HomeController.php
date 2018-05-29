@@ -38,7 +38,7 @@ class HomeController extends Controller
                 return $query->where('created_at', '>', $time);
             }])->get();
 
-            foreach($users as $user) {
+            foreach ($users as $user) {
                 $pointCalculated = $user->comments_count + $user->posts_count;
                 $user['point'] = $pointCalculated;
                 $user['routes'] = route('admin.users.show', array('id' => $user->id));
