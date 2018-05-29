@@ -14,7 +14,7 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'parent_id'
+        'name', 'parent_id', 'level'
     ];
     
     /**
@@ -25,5 +25,15 @@ class Category extends Model
     public function products()
     {
         return $this->hasMany('App\Models\Product', 'category_id', 'id');
+    }
+    
+    /**
+     * Get the products for the category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function categories()
+    {
+        return $this->hasMany('App\Models\Category', 'parent_id', 'id');
     }
 }
