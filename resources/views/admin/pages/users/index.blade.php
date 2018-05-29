@@ -38,7 +38,12 @@
                   @else 
                     <td class="a-right a-right ">{{ __('user.index.male') }}</td>
                   @endif
-                  <td class=" ">0</td>
+
+                  @if ( $user->userInfo['is_active'] == 0 )
+                    <td class=""><i class="fa fa-times-circle icon-size fa-2x"></i></td>
+                  @else
+                    <td class=""><i class="fa fa-check-circle icon-size fa-2x"></i></td>
+                  @endif
                   <td class="last"><a href="{{ route('admin.users.edit', array('id' => $user->id)) }}"><button class="btn-success"><i class="fa fa-edit"></i></button></a>|<button class="btn-danger"><a href=""><i class="fa fa-trash"></i></a></button>
                   <td class="last"><a href="{{ route('admin.users.show', array('id' => $user->id)) }}">{{ __('user.index.detail') }}</a>
                   </td>
