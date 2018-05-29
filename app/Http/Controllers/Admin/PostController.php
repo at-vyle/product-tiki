@@ -20,9 +20,7 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $perPage = config('define.post.limit_rows');
-        $posts = Post::when(isset($request->content), function ($query) use ($request) {
-            return $query->where('content', 'like', "%$request->content%");
-        })->when(isset($request->post_status), function ($query) use ($request) {
+        $posts = Post::when(isset($request->post_status), function ($query) use ($request) {
             return $query->where('status', '=', $request->post_status);
         })
         ->with(['user' => function ($query) {

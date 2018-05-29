@@ -14,15 +14,12 @@
           <div class="col-md-10 col-sm-10 col-xs-12 form-group pull-right top_search">
             <form action="{{ route('admin.posts.index') }}" method="GET">
               <div class="input-group">
-                <div class="col-md-6">
+                <div class="col-md-offset-4">
                   <select name="post_status" class="form-control">
                     <option value="">{{ __('post.admin.list.subtitle_index') }}</option>
                     <option value="{{ App\Models\Post::UNAPPROVED }}">{{ __('post.admin.list.unapproved_post') }}</option>
                     <option value="{{ App\Models\Post::APPROVED }}">{{ __('post.admin.list.approved_post') }}</option>
                   </select>
-                </div>
-                <div class="col-md-6">
-                  <input type="text" name="content" class="form-control" placeholder="{{ __('post.admin.list.search') }}">
                 </div>
                 <span class="input-group-btn">
                   <button class="btn btn-default" type="submit">{{ __('post.admin.list.go') }}</button>
