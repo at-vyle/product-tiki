@@ -11,16 +11,42 @@
 
       <div class="clearfix"></div>
       <div class="row">
-      
+
         <div class="clearfix"></div>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-              <h2>{{ __('orders.admin.show.subtitle') }}{{ $order_id }}</h2>
+
+              <h2>{{ __('orders.admin.show.subtitle') }}{{ $orderInfo->id }}</h2>
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th class="col-md-3">{{ __('post.admin.list.user_col') }}</th>
+                    <th class="col-md-3">{{ __('orders.admin.list.total_product') }}</th>
+                    <th class="col-md-3">{{ __('orders.admin.list.total_col') }}</th>
+                    <th class="col-md-3">{{ __('post.admin.list.status_col') }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ $orderInfo['user']->username }}</td>
+                    <td>{{ $orderInfo->orderdetails_count }}</td>
+                    <td>{{ number_format($orderInfo->total) }}</td>
+                    <td class="input-group">
+                      <select class="form-control" name="">
+                        <option value="{{ App\Models\Order::UNAPPROVED }} @if ($orderInfo->status == APP\Models\Order::UNAPPROVED) selected @endif" >{{ __('common.pending') }}</option>
+                        <option value="{{ App\Models\Order::APPROVED }}" @if ($orderInfo->status == APP\Models\Order::APPROVED) selected @endif>{{ __('common.approve') }}</option>
+                        <option value="{{ App\Models\Order::ON_DELIVERY }}" @if ($orderInfo->status == APP\Models\Order::ON_DELIVERY) selected @endif>{{ __('orders.admin.show.on_delivery') }}</option>
+                        <option value="{{ App\Models\Order::CANCELED }}" @if ($orderInfo->status == APP\Models\Order::CANCELED) selected @endif>{{ __('orders.admin.show.canceled') }}</option>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
               <div class="clearfix"></div>
             </div>
-            <div class="x_content" class="list-table">
+            <div class="col-md-offset-1" class="list-table">
               <table class="table table-hover">
                 <thead>
                   <tr>
@@ -55,7 +81,7 @@
           </div>
         </div>
         {{ $orders->render() }}
-        <div class="clearfix"></div>       
+        <div class="clearfix"></div>
       </div>
     </div>
   </div>

@@ -22,10 +22,13 @@ class OrderController extends Controller
         $perPage = config('define.order.limit_rows');
         $orders = Order::when(isset($request->order_status), function ($query) use ($request) {
             return $query->where('status', '=', $request->order_status);
-        })->when(isset($request->order_by_total), function ($query) use ($request) {
-            return $query->orderBy('total', $request->order_by_total);
+        })->when(isset($request->sortBy) && isset($request->dir), function ($query) use ($request) {
+            return $query->orderBy($request->sortBy, $request->dir);
         })
-        ->with(['user'])->paginate($perPage);
+        ->with(['user' => function ($query) {
+            return $query->with('userInfo');
+        }])->withCount('orderdetails')->paginate($perPage);
+
         $orders->appends(request()->query());
         $data['orders'] = $orders;
         return view('admin.pages.orders.index', $data);
@@ -41,11 +44,15 @@ class OrderController extends Controller
     public function show($id)
     {
         $perPage = config('define.order.limit_rows');
+        $order = Order::with(['user' => function ($query) {
+            return $query->with('userInfo');
+        }])->withCount('orderdetails')->find($id);
+
         $orderDetails = Order::find($id)->orderDetails()->with(['product' => function ($query) {
             return $query->with('images');
         }])->paginate($perPage);
+        $data['orderInfo'] = $order;
         $data['orders'] = $orderDetails;
-        $data['order_id'] = $id;
         return view('admin.pages.orders.show', $data);
     }
 

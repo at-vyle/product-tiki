@@ -13,7 +13,9 @@ return [
             'updated' => 'Updated!!!!',
             'deleted' => 'Deleted!!!!',
             'delete_msg' => 'Do you want to delete Order with ID ',
-            'id_not_found' => 'ID not found'
+            'id_not_found' => 'ID not found',
+            'avatar_col' => 'Avatar',
+            'total_product' => '# of Product(s)'
         ],
         'show' => [
             'title' => 'Order Details',
@@ -23,6 +25,8 @@ return [
             'product_name_col' => 'Product Name',
             'product_price_col' => 'Price',
             'quantity_col' => 'Quantity',
+            'on_delivery' => 'On Delivery',
+            'canceled' => 'Canceled',
         ]
     ]
 ];

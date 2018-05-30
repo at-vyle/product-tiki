@@ -14,20 +14,14 @@
         <div class="title_right">
           <div class="col-md-10 col-sm-10 col-xs-12 form-group pull-right top_search">
             <form action="{{ route('admin.orders.index') }}" method="GET">
-              <div class="input-group">   
-                <div class="col-md-5">
+              <div class="input-group">
+                <div class="col-md-offset-4">
                   <select name="order_status" class="form-control">
                     <option value="">{{ __('orders.admin.list.subtitle') }}</option>
                     <option value="{{ App\Models\Order::UNAPPROVED }}">{{ __('orders.admin.list.unapproved_order') }}</option>
                     <option value="{{ App\Models\Order::APPROVED }}">{{ __('orders.admin.list.approved_order') }}</option>
                   </select>
-                </div>          
-                <div class="col-md-7">
-                  <select name="order_by_total" class="form-control">
-                    <option value="{{ App\Models\Order::ORDER_ASC }}">{{ __('orders.admin.list.order_by_total_asc') }}</option>
-                    <option value="{{ App\Models\Order::ORDER_DESC }}">{{ __('orders.admin.list.order_by_total_desc') }}</option>
-                  </select>
-                </div>        
+                </div>
                 <span class="input-group-btn">
                   <button class="btn btn-default" type="submit">{{ __('post.admin.list.go') }}</button>
                 </span>
@@ -40,7 +34,7 @@
       <div class="clearfix"></div>
 
       <div class="row">
-      
+
         <div class="clearfix"></div>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -52,29 +46,55 @@
               <div class="clearfix"></div>
             </div>
               <h2 id="info-message">@if (session()->has('message')) {{ session()->pull('message', 'default') }} @endif</h2>
-            
-            <div class="x_content" class="list-table">
+
+            <div class="col-md-10 col-md-offset-1" class="list-table">
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th class="col-md-3">{{ __('post.admin.list.user_col') }}</th>
+                    <th class="col-md-2">{{ __('orders.admin.list.avatar_col') }}</th>
+                    <th class="col-md-2">{{ __('post.admin.list.user_col') }}</th>
+                    <th class="col-md-2">
+                      {{ __('orders.admin.list.total_product') }}
+                      @if (app('request')->input('dir') == 'ASC' && app('request')->input('sortBy') == 'orderdetails_count')
+                        <a href="{{ route('admin.orders.index', ['sortBy' => 'orderdetails_count', 'dir' => 'DESC']) }}">
+                          <i class="fa fa-sort-up"></i>
+                        </a>
+                      @else
+                        <a href="{{ route('admin.orders.index', ['sortBy' => 'orderdetails_count', 'dir' => 'ASC']) }}">
+                          <i class="fa fa-sort-down"></i>
+                        </a>
+                      @endif
+                    </th>
+                    <th class="col-md-2">
+                      {{ __('orders.admin.list.total_col') }}
+                      @if (app('request')->input('dir') == 'ASC' && app('request')->input('sortBy') == 'total')
+                        <a href="{{ route('admin.orders.index', ['sortBy' => 'total', 'dir' => 'DESC']) }}">
+                          <i class="fa fa-sort-up"></i>
+                        </a>
+                      @else
+                        <a href="{{ route('admin.orders.index', ['sortBy' => 'total', 'dir' => 'ASC']) }}">
+                          <i class="fa fa-sort-down"></i>
+                        </a>
+                      @endif
+                    </th>
                     <th class="col-md-2">{{ __('post.admin.list.status_col') }}</th>
-                    <th class="col-md-3">{{ __('orders.admin.list.total_col') }}</th>
-                    <th class="col-md-4">{{ __('post.admin.list.action_col') }}</th>
+                    <th class="col-md-2">{{ __('post.admin.list.action_col') }}</th>
                   </tr>
                 </thead>
                 <tbody>
                   @foreach ($orders as $order)
                   <tr>
+                    <td><img style="width:100px;height:100px" src="{{ $order['user']['userInfo']['avatar_url'] }}" alt=""></td>
                     <td>{{ $order['user']->username }}</td>
+                    <td>{{ $order->orderdetails_count }}</td>
+                    <td>{{ number_format($order['total']) }}</td>
                     <td id='status{{ $order['id'] }}'>
-                        @if ($order['status'] ) 
+                        @if ($order['status'] == App\Models\Order::APPROVED)
                           {{ __('common.approve') }}
-                        @else
+                        @elseif ($order['status'] == App\Models\Order::UNAPPROVED)
                           {{ __('common.pending') }}
                         @endif
                     </td>
-                    <td>{{ number_format($order['total']) }}</td>
                     <td>
                       <form action="" class="col-md-4" method="POST">
                         @method('PUT')
@@ -104,7 +124,7 @@
           </div>
         </div>
         {{ $orders->render() }}
-        <div class="clearfix"></div>       
+        <div class="clearfix"></div>
       </div>
     </div>
   </div>
