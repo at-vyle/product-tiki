@@ -26,7 +26,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('category.admin.add.parent_category') }}</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                   <select class="form-control" name="parent_id">
-                    <option value="">Null</option>
+                    <option value=""></option>
                     @foreach ($parentCat as $parent)
                       <option value="{{ $parent->id }}" @if ($parent->id == $selfCat->parent_id) selected @endif>{{ $parent->name }}</option>
                     @endforeach
@@ -35,7 +35,7 @@
               </div>
               <div class="form-group">
                 <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                  <a href="{{ route('admin.categories.index') }}" class="btn btn-success">Back</a>
+                  <a href="{{ route('admin.categories.index') }}" class="btn btn-success">{{ __('category.admin.add.back') }}</a>
                   <button type="submit" class="btn btn-success">{{ __('category.admin.add.submit') }}</button>
                 </div>
               </div>

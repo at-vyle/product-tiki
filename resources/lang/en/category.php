@@ -21,6 +21,7 @@ return [
             'parent_category' => 'Parent Category',
             'submit' => 'Submit',
             'reset' => 'Reset',
+            'back' => 'Back',
             'cancel' => 'Cancel',
             'placeholder_name' => 'Category Name',
         ],
