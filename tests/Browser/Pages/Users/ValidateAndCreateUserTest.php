@@ -54,6 +54,7 @@ class ValidateAndCreateUserTest extends DuskTestCase
                 ->assertSee('The password field is required.')
                 ->assertSee('The address must be a string.')
                 ->assertSee('The phone format is invalid.')
+                ->assertSee('The gender field is required.')
                 ->assertSee('The identity card format is invalid.');
         });
     }
@@ -72,6 +73,7 @@ class ValidateAndCreateUserTest extends DuskTestCase
                 ->type('password', '123456')
                 ->type('full_name', 'luong suong mai')
                 ->type('address', 'Quang Nam')
+                ->type('gender', 'Male')
                 ->type('phone', '0121324356')
                 ->type('identity_card', '205454545')
                 ->keys('#dob', '07-07-2000');
@@ -86,6 +88,7 @@ class ValidateAndCreateUserTest extends DuskTestCase
                 'full_name' => 'luong suong mai',
                 'address' => 'Quang Nam',
                 'phone' => '0121324356',
+                'gender' => '0',
                 'identity_card' => '205454545',
                 'dob' => '2000-07-07',
              ]);
