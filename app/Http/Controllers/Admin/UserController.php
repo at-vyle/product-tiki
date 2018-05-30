@@ -45,9 +45,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        $result = User::with('userinfo')->find($id);
+        $result = User::with('userinfo')->find($user->id);
         $data['result'] = $result;
         return view('admin.pages.users.edit', $data);
     }
