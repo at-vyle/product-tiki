@@ -43,14 +43,13 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $user user
+     * @param App\Models\User $user user
      *
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
     {
-        $result = User::with('userinfo')->find($user->id);
-        $data['result'] = $result;
+        $data['user'] = $user;
         return view('admin.pages.users.edit', $data);
     }
 
