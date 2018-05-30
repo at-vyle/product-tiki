@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Http\Requests\Backend\CategoryRequest;
 use App\Http\Requests\Backend\EditCategoryRequest;
+use App\Http\Requests\Backend\CategoryRequest;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
@@ -59,38 +59,36 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id category's id
+     * @param App\Models\Category $category category
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $selfCat = Category::find($id);
-        $parentCat = Category::where('level', '<=', $selfCat->level)->get();
-        $data['selfCat'] = $selfCat;
-        $data['parentCat'] = $parentCat;
+        $categories = Category::where('level', '<=', $category->level)->get();
+        $data['category'] = $category;
+        $data['categories'] = $categories;
         return view('admin.pages.categories.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request get request
-     * @param int                      $id      category's id
+     * @param \Illuminate\Http\Request $request  get request
+     * @param App\Models\Category      $category category
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(EditCategoryRequest $request, $id)
+    public function update(EditCategoryRequest $request, Category $category)
     {
-        $category = Category::find($id);
         $category->name = $request->name;
         $category->parent_id = $request->parent_id;
-        if ($category->save()) {
-            session(['msg' => __('category.admin.message.edit')]);
-            return redirect()->route('admin.categories.index');
-        } else {
-            return view('admin.pages.categories.edit');
+        if ($request->parent_id) {
+            $parentLvl = Category::find($request->parent_id)->level;
+            $category->level = $parentLvl++;
         }
+        $category->save();
+        return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.edit'));
     }
 
     /**
