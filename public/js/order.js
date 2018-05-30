@@ -25,6 +25,11 @@ $(document).ready(function () {
                 success: function (data) {
                     $('#alert-update').text(data['msg']);
                     $('#alert-update').attr('hidden' , null);
+                },
+                error: function (data) {
+                    $(this).val(old_val);
+                    $('#alert-update').text(JSON.parse(data.responseText).message);
+                    $('#alert-update').attr('hidden' , null);
                 }
             })
         } else {
