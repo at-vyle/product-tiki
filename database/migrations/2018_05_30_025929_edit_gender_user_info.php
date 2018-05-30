@@ -26,7 +26,7 @@ class EditGenderUserInfo extends Migration
     public function down()
     {
         Schema::table('user_info', function (Blueprint $table) {
-            $table->boolean('gender')->nullable()->change();
+            $table->dropColumn('gender');
         });
     }
 }
