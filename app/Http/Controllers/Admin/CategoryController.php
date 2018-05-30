@@ -59,15 +59,14 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id category's id
+     * @param App\Models\Category $category category
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $selfCat = Category::find($id);
-        $parentCat = Category::where('level', '<=', $selfCat->level)->get();
-        $data['selfCat'] = $selfCat;
+        $parentCat = Category::where('level', '<=', $category->level)->get();
+        $data['selfCat'] = $category;
         $data['parentCat'] = $parentCat;
         return view('admin.pages.categories.edit', $data);
     }
@@ -75,15 +74,14 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request get request
-     * @param int                      $id      category's id
+     * @param \Illuminate\Http\Request $request  get request
+     * @param App\Models\Category      $category category
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(EditCategoryRequest $request, $id)
+    public function update(EditCategoryRequest $request, Category $category)
     {
         try {
-            $category = Category::findOrFail($id);
             $category->name = $request->name;
             if (!$request->parent_id) {
                 $category->parent_id = null;
