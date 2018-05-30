@@ -23,8 +23,9 @@ class EditCategoryRequest extends FormRequest
      */
     public function rules()
     {
+        $category = $this->route()->parameter('category');
         return [
-            'name' => 'required'
+            'name' => 'required|unique:categories,name,' . $category->name . ',name'
         ];
     }
 }

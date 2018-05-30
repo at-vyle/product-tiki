@@ -81,21 +81,17 @@ class CategoryController extends Controller
      */
     public function update(EditCategoryRequest $request, Category $category)
     {
-        try {
-            $category->name = $request->name;
-            if (!$request->parent_id) {
-                $category->parent_id = null;
-                $category->level = 0;
-            } else {
-                $category->parent_id = $request->parent_id;
-                $parentLvl = Category::find($request->parent_id)->level;
-                $category->level = $parentLvl + 1;
-            }
-            $category->save();
-            return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.edit'));
-        } catch (ModelNotFoundException $e) {
-            return redirect()->back()->with('message', __('category.admin.message.edit_fail'));
+        $category->name = $request->name;
+        if (!$request->parent_id) {
+            $category->parent_id = null;
+            $category->level = 0;
+        } else {
+            $category->parent_id = $request->parent_id;
+            $parentLvl = Category::find($request->parent_id)->level;
+            $category->level = $parentLvl + 1;
         }
+        $category->save();
+        return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.edit'));
     }
 
     /**
