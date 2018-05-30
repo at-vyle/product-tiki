@@ -1,81 +1,98 @@
 .sub-images-list {
-	margin-top: 10px;
+  margin-top: 10px;
+}
 
-}
 .sub-images-list::after {
-	content: "";
-	display: block;
-	clear: both;
+  content: "";
+  display: block;
+  clear: both;
 }
+
 .sub-images-item {
-	list-style: none;
-	text-align: center;
-	margin-top: 10px;
+  list-style: none;
+  text-align: center;
+  margin-top: 10px;
 }
-.sub-images-item > div {
-	box-shadow: 0px 0px 5px #b2afaf;
+
+.sub-images-item>div {
+  box-shadow: 0px 0px 5px #b2afaf;
 }
 
 .review-background {
-    background: #f5f5f5;
-    padding: 30px;
+  background: #f5f5f5;
+  padding: 30px;
 }
+
 .review-filter {
-	margin-bottom: 15px;
+  margin-bottom: 15px;
 }
+
 .review .action {
-	text-align: right;
+  text-align: right;
 }
+
 .product-review-box {
-	margin: 2em 0;
+  margin: 2em 0;
 }
-.product-col-1 .image{
-    border-radius: 50%;
-    overflow: hidden;
-    height: 155px;
+
+.product-col-1 .image {
+  border-radius: 50%;
+  overflow: hidden;
+  height: 155px;
 }
+
 .product-col-1 img {
-	width: 100%;
+  width: 100%;
 }
+
 .user-info {
-	text-align: center;
-    margin: 10px 0;
+  text-align: center;
+  margin: 10px 0;
 }
+
 .replies {
-	margin-top: 20px;
+  margin-top: 20px;
 }
+
 .replies-image {
-	width: 70px;
-    height: 70px;
-    overflow: hidden;
-    border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  border-radius: 50%;
 }
-.replies-image > img {
-	width: 100%;
-} 
+
+.replies-image>img {
+  width: 100%;
+}
+
 .rep-custom {
-	display: inline-block;
+  display: inline-block;
 }
+
 .rep-info-user {
-	position: relative;
+  position: relative;
 }
+
 .replies-name {
-    position: absolute;
-    top: 50%;
-    left: 10%;
-    transform: translateY(-50%);
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
 }
+
 .replies-text {
-	background: #fff;
-    margin-left: 10%;
-    padding: 1%;
-    box-shadow: 0px 0px 5px #b2afaf;
-    border-radius: 4px;
+  background: #fff;
+  margin-left: 10%;
+  padding: 1%;
+  box-shadow: 0px 0px 5px #b2afaf;
+  border-radius: 4px;
 }
+
 .font-14 {
-	font-size: 14px !important;
+  font-size: 14px !important;
 }
+
 .review_detail {
-	margin: 0;
-	margin-bottom: 10px;
+  margin: 0;
+  margin-bottom: 10px;
 }
