@@ -73,11 +73,10 @@ class UserController extends Controller
             'password' => bcrypt($request->password)
         ];
         $user = User::create($userData);
+        $newImage = '';
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
-            $nameNew = time().'.'.$image->getClientOriginalExtension();
-        } else {
-            $nameNew = null;
+            $newImage = time() . '-' . str_random(8) . '.' . $image->getClientOriginalExtension();
         }
         $userInfoData = [
             'user_id' => $user->id,
@@ -86,13 +85,13 @@ class UserController extends Controller
             'phone' => $request->phone,
             'identity_card' => $request->identity_card,
             'gender' => $request->gender,
-            'avatar' => $nameNew,
+            'avatar' => $newImage,
             'dob' => $request->dob,
         ];
         if (UserInfo::create($userInfoData)) {
-            if ($nameNew) {
+            if ($newImage) {
                 $destinationPath = public_path(config('define.images_path_users'));
-                $image->move($destinationPath, $nameNew);
+                $image->move($destinationPath, $newImage);
             }
         }
         $data['email'] = $user->email;
