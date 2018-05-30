@@ -43,7 +43,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id id
+     * @param int $user user
      *
      * @return \Illuminate\Http\Response
      */
@@ -58,7 +58,7 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request request
-     * @param int                      $id      id
+     * @param int                      $user    user
      *
      * @return \Illuminate\Http\Response
      */
@@ -73,7 +73,7 @@ class UserController extends Controller
                 $updatedUser['avatar'] = $newImage;
                 $image->move($destinationPath, $newImage);
             }
-            UserInfo::updateOrCreate(['user_id' => $user->id] ,$updatedUser);
+            UserInfo::updateOrCreate(['user_id' => $user->id], $updatedUser);
             return redirect()->route('admin.users.index')->with('message', trans('messages.update_user_success'));
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('message', trans('messages.update_user_fail'));
