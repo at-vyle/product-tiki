@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Sortable;
 
     /**
      * The attributes that are mass assignable.
@@ -67,4 +68,6 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Order', 'user_id', 'id');
     }
+
+    public $sortable = ['id'];    
 }

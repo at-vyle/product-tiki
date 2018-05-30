@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $result = User::with('userinfo')->paginate(config('define.product.limit_rows'));
+        $result = User::with('userinfo')->sortable()->paginate(config('define.product.limit_rows'));
         $data['result'] = $result;
         return view('admin.pages.users.index', $data);
     }
