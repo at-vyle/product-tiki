@@ -47,9 +47,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $result = User::with('userinfo')->find($user->id);
-        $data['result'] = $result;
+        $data['user'] = $user;
         return view('admin.pages.users.edit', $data);
+        
     }
 
     /**
