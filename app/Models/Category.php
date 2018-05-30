@@ -19,8 +19,6 @@ class Category extends Model
         'name', 'parent_id', 'level'
     ];
     
-    protected $dates = ['deleted_at'];
-    
     /**
      * Get the products for the category.
      *

@@ -35,6 +35,7 @@ return [
             'edit_fail' => 'Can not edit Category. Please check connect database!',
             'del' => 'Delete Category Successfull!',
             'del_fail' => 'Can not Delete Category. Please check connect database!',
+            'msg_del' => 'Do you want to delete this Category?',
         ]
     
     ]

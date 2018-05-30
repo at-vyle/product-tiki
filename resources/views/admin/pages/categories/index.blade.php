@@ -1,7 +1,8 @@
 @extends('admin.layout.master')
 @section('title', __('category.admin.title') )
 @section('content')
-<script src="/js/deleteCategory.js"></script>
+<script src="/js/category.js"></script>
+<script src="/js/messages.js"></script>
 <div class="right_col" role="main">
   <div class="">
     <div class="row">

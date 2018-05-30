@@ -94,14 +94,14 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id category's id
+     * @param App\Models\Category $category category
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
         try {
-            Category::findOrFail($id)->delete();
+            $category->delete();
             session()->flash('message', __('category.admin.message.del'));
         } catch (ModelNotFoundException $e) {
             session()->flash('message', __('category.admin.message.del_fail'));
