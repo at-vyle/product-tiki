@@ -16,10 +16,12 @@
             <form action="{{ route('admin.orders.index') }}" method="GET">
               <div class="input-group">
                 <div class="col-md-offset-4">
-                  <select name="order_status" class="form-control">
+                  <select name="order_status" class="form-control order-status">
                     <option value="">{{ __('orders.admin.list.subtitle') }}</option>
                     <option value="{{ App\Models\Order::UNAPPROVED }}">{{ __('orders.admin.list.unapproved_order') }}</option>
                     <option value="{{ App\Models\Order::APPROVED }}">{{ __('orders.admin.list.approved_order') }}</option>
+                    <option value="{{ App\Models\ORDER::ON_DELIVERY }}">{{ __('orders.admin.show.on_delivery') }}</option>
+                    <option value="{{ App\Models\ORDER::CANCELED }}">{{ __('orders.admin.show.canceled') }}</option>
                   </select>
                 </div>
                 <span class="input-group-btn">
@@ -89,24 +91,17 @@
                     <td>{{ $order->orderdetails_count }}</td>
                     <td>{{ number_format($order['total']) }}</td>
                     <td id='status{{ $order['id'] }}'>
-                        @if ($order['status'] == App\Models\Order::APPROVED)
-                          {{ __('common.approve') }}
-                        @elseif ($order['status'] == App\Models\Order::UNAPPROVED)
+                        @if ($order['status'] == App\Models\Order::UNAPPROVED)
                           {{ __('common.pending') }}
+                        @elseif ($order['status'] == App\Models\Order::APPROVED)
+                          {{ __('common.approve') }}
+                        @elseif ($order['status'] == App\Models\Order::ON_DELIVERY)
+                          {{ __('orders.admin.show.on_delivery') }}
+                        @elseif ($order['status'] == App\Models\Order::CANCELED)
+                          {{ __('orders.admin.show.canceled') }}
                         @endif
                     </td>
                     <td>
-                      <form action="" class="col-md-4" method="POST">
-                        @method('PUT')
-                        @csrf
-                        <button id="update{{ $order['id'] }}" onclick="updateStatus(event, {{ $order['id'] }}, '{{ route('admin.api.orders.update.status', ['id' => $order['id']]) }}')" class="btn btn-primary update-btn" type="button">
-                          @if ($order['status'])
-                            <i class="fa fa-times-circle icon-size" ></i>
-                          @else
-                            <i class="fa fa-check-circle icon-size" ></i>
-                          @endif
-                        </button>
-                      </form>
                       <form action="{{ route('admin.orders.destroy', ['id' => $order['id']]) }}" class="col-md-4" method="POST" id="delete{{ $order['id'] }}">
                         @csrf
                         @method('DELETE')

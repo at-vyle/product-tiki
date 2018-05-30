@@ -17,15 +17,19 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-
               <h2>{{ __('orders.admin.show.subtitle') }}{{ $orderInfo->id }}</h2>
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th class="col-md-3">{{ __('post.admin.list.user_col') }}</th>
-                    <th class="col-md-3">{{ __('orders.admin.list.total_product') }}</th>
-                    <th class="col-md-3">{{ __('orders.admin.list.total_col') }}</th>
-                    <th class="col-md-3">{{ __('post.admin.list.status_col') }}</th>
+                    <th id="alert-update" class="alert alert-warning" colspan="5" hidden>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="col-md-1">{{ __('post.admin.list.user_col') }}</th>
+                    <th class="col-md-2">{{ __('orders.admin.list.total_product') }}</th>
+                    <th class="col-md-2">{{ __('orders.admin.list.total_col') }}</th>
+                    <th class="col-md-2">{{ __('post.admin.list.status_col') }}</th>
+                    <th class="col-md-5">{{ __('orders.admin.list.note_col') }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -34,13 +38,14 @@
                     <td>{{ $orderInfo->orderdetails_count }}</td>
                     <td>{{ number_format($orderInfo->total) }}</td>
                     <td class="input-group">
-                      <select class="form-control" name="">
+                      <select id="order-status" class="form-control" name="order-status" data-id="{{ $orderInfo->id }}">
                         <option value="{{ App\Models\Order::UNAPPROVED }} @if ($orderInfo->status == APP\Models\Order::UNAPPROVED) selected @endif" >{{ __('common.pending') }}</option>
                         <option value="{{ App\Models\Order::APPROVED }}" @if ($orderInfo->status == APP\Models\Order::APPROVED) selected @endif>{{ __('common.approve') }}</option>
                         <option value="{{ App\Models\Order::ON_DELIVERY }}" @if ($orderInfo->status == APP\Models\Order::ON_DELIVERY) selected @endif>{{ __('orders.admin.show.on_delivery') }}</option>
                         <option value="{{ App\Models\Order::CANCELED }}" @if ($orderInfo->status == APP\Models\Order::CANCELED) selected @endif>{{ __('orders.admin.show.canceled') }}</option>
                       </select>
                     </td>
+                    <td>{{ $orderInfo->note }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -85,5 +90,8 @@
       </div>
     </div>
   </div>
-
+@section('js')
+  <script src="/js/messages.js"></script>
+  <script src="/js/order.js"></script>
+@endsection
 @endsection

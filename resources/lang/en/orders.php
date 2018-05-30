@@ -15,7 +15,8 @@ return [
             'delete_msg' => 'Do you want to delete Order with ID ',
             'id_not_found' => 'ID not found',
             'avatar_col' => 'Avatar',
-            'total_product' => '# of Product(s)'
+            'total_product' => '# of Product(s)',
+            'note_col' => 'Note',
         ],
         'show' => [
             'title' => 'Order Details',
@@ -27,6 +28,7 @@ return [
             'quantity_col' => 'Quantity',
             'on_delivery' => 'On Delivery',
             'canceled' => 'Canceled',
+            'update_msg' => 'Confirm Status Change For This Order',
         ]
     ]
 ];
