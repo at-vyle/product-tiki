@@ -41,7 +41,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $user user
+     * @param App\Models\User $user user
      *
      * @return \Illuminate\Http\Response
      */
