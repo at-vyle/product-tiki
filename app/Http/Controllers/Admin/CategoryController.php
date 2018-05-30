@@ -92,6 +92,24 @@ class CategoryController extends Controller
     }
 
     /**
+     * Remove the specified resource from storage.
+     *
+     * @param App\Models\Category $category category
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Category $category)
+    {
+        try {
+            $category->delete();
+            session()->flash('message', __('category.admin.message.del'));
+        } catch (ModelNotFoundException $e) {
+            session()->flash('message', __('category.admin.message.del_fail'));
+        }
+        return back();
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param int $id category's id
