@@ -14,7 +14,7 @@
           <table class="table table-striped jambo_table bulk_action">
             <thead>
               <tr class="headings">
-                <th class="column-title">{{ __('user.index.id') }}</th>
+                <th class="column-title">{{ __('user.index.id') }}<i class="fa fa-fw fa-sort-down"></i></th>
                 <th class="column-title">{{ __('user.index.username') }}</th>
                 <th class="column-title">{{ __('user.index.email') }} </th>
                 <th class="column-title">{{ __('user.index.fullname') }}</th>
