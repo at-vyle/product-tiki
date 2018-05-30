@@ -12,14 +12,14 @@
           </div>
           <div class="x_content">
             <br />
-            <form class="form-horizontal form-label-left" method="POST" action="{{ route('admin.categories.update', ['id' => $selfCat['id']]) }}">
-            @include('admin.layout.errors')
-            {{ csrf_field() }}
-            @method('PUT')
+            <form class="form-horizontal form-label-left" method="POST" action="{{ route('admin.categories.update', ['id' => $category['id']]) }}">
+              @include('admin.layout.errors')
+              {{ csrf_field() }}
+              @method('PUT')
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('category.admin.add.name') }}</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                  <input type="text" class="form-control" value="{{ $selfCat->name }}" name="name">
+                  <input type="text" class="form-control" value="{{ $category->name }}" name="name">
                 </div>
               </div>
               <div class="form-group">
@@ -27,8 +27,8 @@
                 <div class="col-md-9 col-sm-9 col-xs-12">
                   <select class="form-control" name="parent_id">
                     <option value=""></option>
-                    @foreach ($parentCat as $parent)
-                      <option value="{{ $parent->id }}" @if ($parent->id == $selfCat->parent_id) selected @endif>{{ $parent->name }}</option>
+                    @foreach ($categories as $parentCategory)
+                      <option value="{{ $parentCategory->id }}" @if ($parentCategory->id == $category->parent_id) selected @endif>{{ $parentCategory->name }}</option>
                     @endforeach
                   </select>
                 </div>

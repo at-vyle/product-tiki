@@ -65,9 +65,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $parentCat = Category::where('level', '<=', $category->level)->get();
-        $data['selfCat'] = $category;
-        $data['parentCat'] = $parentCat;
+        $categories = Category::where('level', '<=', $category->level)->get();
+        $data['category'] = $category;
+        $data['categories'] = $categories;
         return view('admin.pages.categories.edit', $data);
     }
 
@@ -82,13 +82,10 @@ class CategoryController extends Controller
     public function update(EditCategoryRequest $request, Category $category)
     {
         $category->name = $request->name;
-        if (!$request->parent_id) {
-            $category->parent_id = null;
-            $category->level = 0;
-        } else {
-            $category->parent_id = $request->parent_id;
+        $category->parent_id = $request->parent_id;
+        if ($request->parent_id) {
             $parentLvl = Category::find($request->parent_id)->level;
-            $category->level = $parentLvl + 1;
+            $category->level = $parentLvl++;
         }
         $category->save();
         return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.edit'));
