@@ -85,8 +85,7 @@ class CreateCategoryTest extends DuskTestCase
     public function testCategoryValidateForInput()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('admin/categories/create')
-                ->type('name', null);
+            $browser->visit('admin/categories/create');
             $browser->press('Submit')
                 ->pause(1000)
                 ->assertSee('The name field is required.');
