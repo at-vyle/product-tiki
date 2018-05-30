@@ -28,7 +28,7 @@ class UpdateUserRequest extends FormRequest
         $user = $this->route()->parameter('user');
         $userInfo = User::with('userInfo')->where('id', $user->id)->get();
         return [
-            'fullname'       => 'string|max:255',
+            'full_name'       => 'string|max:255',
             'avatar'         => 'image|mimes:png,jpg,jpeg',
             'birthday'       => 'date_format:"Y-m-d"',
             'address'        => 'string|max:255',
