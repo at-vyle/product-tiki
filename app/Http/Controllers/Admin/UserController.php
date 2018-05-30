@@ -49,7 +49,6 @@ class UserController extends Controller
     {
         $data['user'] = $user;
         return view('admin.pages.users.edit', $data);
-        
     }
 
     /**
