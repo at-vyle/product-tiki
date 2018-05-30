@@ -43,11 +43,13 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param int $id id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(User $user)
     {
-        $result = User::with('userinfo')->find($id);
+        $result = User::with('userinfo')->find($user->id);
         $data['result'] = $result;
         return view('admin.pages.users.edit', $data);
     }
@@ -60,18 +62,18 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
         $updatedUser = $request->except(["_token", "_method", "submit", "username", "email"]);
         try {
             if ($request->hasFile('avatar')) {
                 $image = $request->file('avatar');
-                $nameNew = time().'.'.$image->getClientOriginalExtension();
-                $destinationPath = public_path('/images/avatar/');
-                $updatedUser['avatar'] = $nameNew;
-                $image->move($destinationPath, $nameNew);
+                $newImage = time() . '-' . str_random(8) . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path(config('define.images_path_users'));
+                $updatedUser['avatar'] = $newImage;
+                $image->move($destinationPath, $newImage);
             }
-            UserInfo::updateOrCreate(['user_id' => $id] ,$updatedUser);
+            UserInfo::updateOrCreate(['user_id' => $user->id] ,$updatedUser);
             return redirect()->route('admin.users.index')->with('message', trans('messages.update_user_success'));
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('message', trans('messages.update_user_fail'));
