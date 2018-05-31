@@ -8,7 +8,7 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Models\UserInfo;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Exeption;
 use App\Mail\SendMailUser;
 use Mail;
 
