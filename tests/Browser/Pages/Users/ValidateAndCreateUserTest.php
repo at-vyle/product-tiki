@@ -32,7 +32,6 @@ class ValidateAndCreateUserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/users')
                 ->clickLink(__('messages.adduser'))
-                ->pause(1000)
                 ->assertPathIs('/admin/users/create')
                 ->assertSee(__('user.index.createuser'));
         });
@@ -48,7 +47,6 @@ class ValidateAndCreateUserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('admin/users/create');
             $browser->press('Submit')
-                ->pause(1000)
                 ->assertSee('The username field is required.')
                 ->assertSee('The email field is required.')
                 ->assertSee('The password field is required.')
@@ -73,12 +71,11 @@ class ValidateAndCreateUserTest extends DuskTestCase
                 ->type('password', '123456')
                 ->type('full_name', 'luong suong mai')
                 ->type('address', 'Quang Nam')
-                ->type('gender', 'Male')
+                ->radio('#gender', '0')
                 ->type('phone', '0121324356')
                 ->type('identity_card', '205454545')
                 ->keys('#dob', '07-07-2000');
             $browser->press('Submit')
-                    ->pause(1000)
                     ->assertSee('Create user successfully');
             $this->assertDatabaseHas('users', [
                 'username' => 'suong',

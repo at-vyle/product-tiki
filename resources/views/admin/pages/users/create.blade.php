@@ -80,10 +80,10 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div id="gender" class="btn-group" data-toggle="buttons">
                   <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                    <input type="radio" name="gender" value="0" data-parsley-multiple="gender"> &nbsp; {{ __('user.index.male') }} &nbsp;
+                    <input type="radio" name="gender" value="1" data-parsley-multiple="gender"> &nbsp; {{ __('user.index.male') }} &nbsp;
                   </label>
                   <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                    <input type="radio" name="gender" value="1" data-parsley-multiple="gender"> {{ __('user.index.female') }}</label>
+                    <input type="radio" name="gender"  value="0" data-parsley-multiple="gender"> {{ __('user.index.female') }}</label>
                 </div>
               </div>
             </div>
