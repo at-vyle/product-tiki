@@ -33,7 +33,7 @@ class ListProductTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/products')
                     ->assertSee('Product List');
-            $elements = $browser->elements('.table-responsive table tbody');
+            $elements = $browser->elements('.table-responsive table tbody tr');
             $numRecord = count($elements);
             $this->assertTrue($numRecord == 0);
         });
@@ -52,12 +52,12 @@ class ListProductTest extends DuskTestCase
             factory('App\Models\Product', 10)->create();
 
             $elements = $browser->visit('/admin/products')
-                ->elements('.table-responsive table tbody');
+                ->elements('.table-responsive table tbody tr');
             $numRecord = count($elements);
             $this->assertTrue($numRecord == 5);
 
             $elements = $browser->visit('/admin/products?page=3')
-                ->elements('.table-responsive table tbody');
+                ->elements('.table-responsive table tbody tr');
             $numRecord = count($elements);
             $this->assertTrue($numRecord == 0);
         });

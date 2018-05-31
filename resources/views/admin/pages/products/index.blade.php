@@ -47,8 +47,8 @@
                 </tr>
               </thead>
 
-              @foreach ($products as $product)
-                <tbody>
+              <tbody>
+                @foreach ($products as $product)
                   <tr class="odd pointer">
                     <td class=" ">{{ $product->id }}</td>
                     <td class=" ">{{ $product->category->name }}</td>
@@ -69,8 +69,8 @@
                       </form>
                     </td>
                   </tr>
-                </tbody>
-              @endforeach
+                @endforeach
+              </tbody>
 
             </table>
           </div>
