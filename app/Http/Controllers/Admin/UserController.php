@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use App\Models\User;
 use App\Models\UserInfo;
+use App\Mail\SendMailUser;
+use Mail;
 
 class UserController extends Controller
 {
@@ -39,11 +41,14 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param App\Models\User $user user
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(User $user)
     {
-        return view('admin.pages.users.edit');
+        $data['user'] = $user;
+        return view('admin.pages.users.edit', $data);
     }
 
     /**
@@ -71,9 +76,10 @@ class UserController extends Controller
             'password' => bcrypt($request->password)
         ];
         $user = User::create($userData);
+        $newImage = '';
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
-            $nameNew = time().'.'.$image->getClientOriginalExtension();
+            $newImage = time() . '-' . str_random(8) . '.' . $image->getClientOriginalExtension();
         }
         $userInfoData = [
             'user_id' => $user->id,
@@ -82,13 +88,18 @@ class UserController extends Controller
             'phone' => $request->phone,
             'identity_card' => $request->identity_card,
             'gender' => $request->gender,
-            'avatar' => $nameNew,
+            'avatar' => $newImage,
             'dob' => $request->dob,
         ];
         if (UserInfo::create($userInfoData)) {
-            $destinationPath = public_path('/images/avatar/');
-            $image->move($destinationPath, $nameNew);
+            if ($newImage) {
+                $destinationPath = public_path(config('define.images_path_users'));
+                $image->move($destinationPath, $newImage);
+            }
         }
+        $data['email'] = $user->email;
+        $data['password'] = $request->password;
+        Mail::to($user->email)->send(new SendMailUser($data));
         return redirect()->route('admin.users.index')->with('message', trans('messages.create_user_success'));
     }
 }
