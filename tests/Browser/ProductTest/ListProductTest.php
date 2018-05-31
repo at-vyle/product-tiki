@@ -45,7 +45,7 @@ class ListProductTest extends DuskTestCase
             $browser->loginAs($this->user)
                     ->visit('/admin/products')
                     ->assertSee('Product List');
-            $elements = $browser->elements('.table-responsive table tbody');
+            $elements = $browser->elements('.table-responsive table tbody tr');
             $numRecord = count($elements);
             $this->assertTrue($numRecord == 0);
         });
@@ -73,6 +73,30 @@ class ListProductTest extends DuskTestCase
                                 ->elements('.table-responsive table tbody');
             $numRecord = count($elements);
             $this->assertTrue($numRecord == 0);
+        });
+    }
+
+    /**
+     * Test search product.
+     *
+     * @return void
+     */
+    public function testSearchProduct()
+    {
+        $this->browse(function (Browser $browser) {
+
+            $name = 'lorem';
+            factory('App\Models\Category', 5)->create();
+            factory('App\Models\Product', 10)->create();
+            factory('App\Models\Product', 1)->create([
+                'name' => $name
+            ]);
+
+            $elements = $browser->visit('/admin/products')
+                                ->type('content', $name)
+                                ->press('Go')
+                                ->assertSee($name);
+
         });
     }
 }
