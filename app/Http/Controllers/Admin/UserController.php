@@ -39,6 +39,19 @@ class UserController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param App\Models\User $user user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(User $user)
+    {
+        $data['user'] = $user;
+        return view('admin.pages.users.edit', $data);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -63,11 +76,10 @@ class UserController extends Controller
             'password' => bcrypt($request->password)
         ];
         $user = User::create($userData);
+        $newImage = '';
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
-            $nameNew = time().'.'.$image->getClientOriginalExtension();
-        } else {
-            $nameNew = null;
+            $newImage = time() . '-' . str_random(8) . '.' . $image->getClientOriginalExtension();
         }
         $userInfoData = [
             'user_id' => $user->id,
@@ -76,15 +88,13 @@ class UserController extends Controller
             'phone' => $request->phone,
             'identity_card' => $request->identity_card,
             'gender' => $request->gender,
-            'avatar' => $nameNew,
+            'avatar' => $newImage,
             'dob' => $request->dob,
         ];
         if (UserInfo::create($userInfoData)) {
-            if ($nameNew) {
-                $destinationPath = public_path('/images/avatar/');
-                $image->move($destinationPath, $nameNew);
-            } else {
-                $image = null;
+            if ($newImage) {
+                $destinationPath = public_path(config('define.images_path_users'));
+                $image->move($destinationPath, $newImage);
             }
         }
         $data['email'] = $user->email;

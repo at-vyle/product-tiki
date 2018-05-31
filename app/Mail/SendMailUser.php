@@ -31,9 +31,9 @@ class SendMailUser extends Mailable
     public function build()
     {
         return $this->view('admin.pages.users.mail')
-                    ->with([
-                        'email' => $this->data['email'],
-                        'password' => $this->data['password']
-                    ]);
+            ->with([
+                'email' => $this->data['email'],
+                'password' => $this->data['password']
+            ]);
     }
 }
