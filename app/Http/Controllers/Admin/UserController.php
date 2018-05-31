@@ -74,7 +74,7 @@ class UserController extends Controller
             }
             UserInfo::updateOrCreate(['user_id' => $user->id], $updatedUser);
             return redirect()->route('admin.users.index')->with('message', trans('messages.update_user_success'));
-        } catch (ModelNotFoundException $e) {
+        } catch (Exception $e) {
             return redirect()->back()->with('message', trans('messages.update_user_fail'));
         }
     }
