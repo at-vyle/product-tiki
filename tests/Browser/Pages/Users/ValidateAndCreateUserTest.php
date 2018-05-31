@@ -33,27 +33,45 @@ class ValidateAndCreateUserTest extends DuskTestCase
             $browser->visit('/admin/users')
                 ->clickLink(__('messages.adduser'))
                 ->assertPathIs('/admin/users/create')
-                ->assertSee(__('user.index.createuser'));
+                ->assertSee(__('Create User'));
         });
     }
 
     /**
-     * Test validate for input Create User
+     * List case for test validate for input
      *
      * @return array
      */
-    public function testUserValidateForInput()
+    public function listCaseTestValidateForInput()
     {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('admin/users/create');
-            $browser->press('Submit')
-                ->assertSee('The username field is required.')
-                ->assertSee('The email field is required.')
-                ->assertSee('The password field is required.')
-                ->assertSee('The address must be a string.')
-                ->assertSee('The phone format is invalid.')
-                ->assertSee('The gender field is required.')
-                ->assertSee('The identity card format is invalid.');
+        return [
+            ['username', '', 'The username field is required.'],
+            ['email', '', 'The email field is required.'],
+            ['password', '', 'The password field is required.'],
+            ['gender', '', 'The gender field is required.'],
+            ['address', '', 'The address must be a string.'],
+            ['phone', '', 'The phone format is invalid.'],
+            ['identity_card', '', 'The identity card format is invalid.'],
+        ];
+    }
+
+    /**
+     * Dusk test validate for input
+     *
+     * @param string $name name of field
+     * @param string $content content
+     * @param string $message message show when validate
+     *
+     * @dataProvider listCaseTestValidateForInput
+     *
+     * @return void
+     */
+    public function testValidateForInput($name, $content, $message)
+    {
+        $this->browse(function (Browser $browser) use ($name, $content, $message) {
+            $browser->visit('admin/users/create')
+                    ->press('Submit')
+                    ->assertSee($message);
         });
     }
 
