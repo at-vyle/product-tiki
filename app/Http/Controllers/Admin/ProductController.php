@@ -22,15 +22,11 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $searchContent = $request->query('content');
-        $data['searchContent'] = $searchContent;
-
         $products = Product::when(isset($request->content), function ($query) use ($request) {
             return $query->where('name', 'like', "%$request->content%");
         })->when(isset($request->sortBy) && isset($request->dir), function ($query) use ($request) {
             return $query->orderBy($request->sortBy, $request->dir);
-        })
-        ->with('category', 'images')->paginate(config('define.product.limit_rows'));
+        })->with('category', 'images')->paginate(config('define.product.limit_rows'));
 
         $products->appends(request()->query());
         $data['products'] = $products;
