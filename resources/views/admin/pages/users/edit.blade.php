@@ -44,31 +44,31 @@
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fullname">{{ __('user.index.fullname') }}<span class="required">{{ __('user.index.requied') }}</span></label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="full_name" name="full_name" value="{{ $user->userInfo['full_name'] }}" class="form-control col-md-7 col-xs-12">
+                <input type="text" id="full_name" name="full_name" value="{{ old('full_name', $user->userInfo['full_name']) }}" class="form-control col-md-7 col-xs-12">
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">{{ __('user.index.address') }}<span class="required">{{ __('user.index.requied') }}</span></label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="address" name="address" value="{{ $user->userInfo['address'] }}" class="form-control col-md-7 col-xs-12">
+                <input type="text" id="address" name="address" value="{{ old('address', $user->userInfo['address']) }}" class="form-control col-md-7 col-xs-12">
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="phone">{{ __('user.index.phone') }}<span class="required">{{ __('user.index.requied') }}</span></label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="phone" name="phone" value="{{ $user->userInfo['phone'] }}" class="form-control col-md-7 col-xs-12">
+                <input type="text" id="phone" name="phone" value="{{ old('phone', $user->userInfo['phone']) }}" class="form-control col-md-7 col-xs-12">
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="identity_card">{{ __('user.index.indentity_card') }}<span class="required">{{ __('user.index.requied') }}</span></label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" id="identity_card" name="identity_card" value="{{ $user->userInfo['identity_card'] }}" class="form-control col-md-7 col-xs-12">
+                <input type="text" id="identity_card" name="identity_card" value="{{ old('identity_card', $user->userInfo['identity_card']) }}" class="form-control col-md-7 col-xs-12">
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="avatar">{{ __('user.index.avatar') }}</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="file" id="avatar" name="avatar" value="{{ $user->userInfo['avatar_url'] }}" class="form-control col-md-7 col-xs-12">
+                <input type="file" id="avatar" name="avatar" value="{{ old('avatar', $user->userInfo['avatar_url']) }}" class="form-control col-md-7 col-xs-12">
                 <img src="{{ $user->userInfo['avatar_url'] }}" alt="" >
               </div>
             </div>
@@ -78,11 +78,11 @@
                 <div id="gender" class="btn-group" data-toggle="buttons">
                   @if ($user->userInfo['gender'] == 0)
                     <label class="btn btn-default active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                      <input type="radio" name="gender" value="{{ $user->userInfo['gender'] }}" data-parsley-multiple="gender">&nbsp; {{ __('user.index.male') }}&nbsp; 
+                      <input type="radio" name="gender" value="{{ old('gender', $user->userInfo['gender']) }}" data-parsley-multiple="gender">&nbsp; {{ __('user.index.male') }}&nbsp; 
                     </label>
                   @else
                     <label class="btn btn-default active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                      <input type="radio" name="gender" value="{{ $user->userInfo['gender'] }}" data-parsley-multiple="gender"> {{ __('user.index.female') }}
+                      <input type="radio" name="gender" value="{{ old('gender', $user->userInfo['gender']) }}" data-parsley-multiple="gender"> {{ __('user.index.female') }}
                     </label>
                   @endif
                 </div>
@@ -91,7 +91,7 @@
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('user.index.dob') }}</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="dob" name="dob" value="{{ $user->userInfo['dob'] }}" class="form-control col-md-7 col-xs-12" type="date">
+                <input id="dob" name="dob" value="{{ old('dob', $user->userInfo['dob']) }}" class="form-control col-md-7 col-xs-12" type="date">
               </div>
             </div>
             <div class="ln_solid"></div>
