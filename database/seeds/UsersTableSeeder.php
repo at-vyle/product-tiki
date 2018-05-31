@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
             'username' => 'test',
             'email' => 'admin@test.co',
             'password' => bcrypt('12345'), // secret
-            'role' => USER::ADMIN_ROLE,
+            'role' => App\Models\User::ADMIN_ROLE,
             'old_password' => '',
             'api_token' => '',
         ]);

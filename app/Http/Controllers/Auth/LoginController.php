@@ -5,10 +5,14 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\User;
 use Auth;
 
 class LoginController extends Controller
 {
+
+    public $successStatus = 200;
+
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -27,7 +31,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin';
 
     /**
      * Create a new controller instance.
