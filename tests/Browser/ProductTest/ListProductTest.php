@@ -63,14 +63,16 @@ class ListProductTest extends DuskTestCase
             factory('App\Models\Category', 5)->create();
             factory('App\Models\Product', 10)->create();
 
-            $elements = $browser->loginAs($this->user)
-                                ->visit('/admin/products')
-                                ->elements('.table-responsive table tbody');
+            $browser->loginAs($this->user);
+
+            $elements = $browser->visit('/admin/products')
+                                ->elements('.table-responsive table tbody tr');
             $numRecord = count($elements);
+
             $this->assertTrue($numRecord == 5);
 
             $elements = $browser->visit('/admin/products?page=3')
-                                ->elements('.table-responsive table tbody');
+                                ->elements('.table-responsive table tbody tr');
             $numRecord = count($elements);
             $this->assertTrue($numRecord == 0);
         });
@@ -92,7 +94,8 @@ class ListProductTest extends DuskTestCase
                 'name' => $name
             ]);
 
-            $elements = $browser->visit('/admin/products')
+            $elements = $browser->loginAs($this->user)
+                                ->visit('/admin/products')
                                 ->type('content', $name)
                                 ->press('Go')
                                 ->assertSee($name);
