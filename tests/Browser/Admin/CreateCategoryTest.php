@@ -28,6 +28,38 @@ class CreateCategoryTest extends DuskTestCase
     }
 
     /**
+     * List case for Test validate for input Create User
+     *
+     * @return array
+     */
+    public function listCaseTestValidateForInput()
+    {
+        return [
+            ['name', '', 'The name field is required.'],
+        ];
+    }
+
+    /**
+     * List case for Test validate for input Create Category
+     *
+     * @param string $name name of field
+     * @param string $content content
+     * @param string $message message show when validate
+     *
+     * @dataProvider listCaseTestValidateForInput
+     *
+     * @return array
+     */
+    public function testCategoryValidateForInput($name, $content, $message)
+    {
+        $this->browse(function (Browser $browser) use ($name, $content, $message) {
+            $browser->visit('admin/categories/create');
+            $browser->press('Submit')
+                ->assertSee($message);
+        });
+    }
+
+    /**
      * Dusk test create category success.
      *
      * @return void
@@ -40,7 +72,6 @@ class CreateCategoryTest extends DuskTestCase
                 ->type('name', $testContent)
                 ->select('parent_id', null);       
             $browser->press('Submit')
-                ->pause(1000)
                 ->assertSee('Create New Category Successfull!');
             $this->assertDatabaseHas('categories', [
                 'id' => 1,
@@ -66,7 +97,6 @@ class CreateCategoryTest extends DuskTestCase
                 ->type('name', $testContent)
                 ->select('parent_id', $itemCategory->id);       
             $browser->press('Submit')
-                ->pause(1000)
                 ->assertSee('Create New Category Successfull!');
             $this->assertDatabaseHas('categories', [
                 'id' => 2,
@@ -78,17 +108,19 @@ class CreateCategoryTest extends DuskTestCase
     }
 
     /**
-     * List case for Test validate for input Create Category
+     * Dusk test create category success.
      *
-     * @return array
+     * @return void
      */
-    public function testCategoryValidateForInput()
+    public function testCreatesCategoryWithExistCategory()
     {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('admin/categories/create');
+        factory('App\Models\Category', 1)->create();
+        $itemCategory = Category::find(1);
+        $this->browse(function (Browser $browser) use ($itemCategory) {
+            $browser->visit('admin/categories/create')
+                ->type('name', $itemCategory->name);   
             $browser->press('Submit')
-                ->pause(1000)
-                ->assertSee('The name field is required.');
+                ->assertSee('The name has already been taken.');
         });
     }
 }
