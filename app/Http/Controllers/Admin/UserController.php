@@ -76,7 +76,7 @@ class UserController extends Controller
             return redirect()->route('admin.users.index')->with('message', trans('messages.update_user_success'));
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('message', trans('messages.update_user_fail'));
-        }  
+        }
     }
 
     /**
