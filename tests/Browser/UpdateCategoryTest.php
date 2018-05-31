@@ -15,7 +15,11 @@ class UpdateCategoryTest extends DuskTestCase
     {
         parent::setUp();
         factory('App\Models\Category', 2)->create();
+        factory('App\Models\Category', 1)->create([
+            'name' => 'Iphone'
+        ]);
     }
+
     /**
      * Test url create category
      *
@@ -23,9 +27,80 @@ class UpdateCategoryTest extends DuskTestCase
      */
     public function testUpdateCategoryUrl()
     {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/categories/1/edit')
-                ->assertSee(__('category.admin.edit.title'));
+        $category = Category::find(1);
+        $this->browse(function (Browser $browser) use ($category) {
+            $browser->visit('/admin/categories/' . $category->id . '/edit')
+                    ->assertSee('Edit Category');
+        });
+    }
+
+    /**
+     * List case for Test validate for input Update Category
+     *
+     * @return array
+     */
+    public function listCaseTestValidateForInput()
+    {
+        return [
+            ['name', '', 'The name field is required.'],
+        ];
+    }
+
+    /**
+     * List case for Test validate for input Update Category
+     *
+     * @param string $name name of field
+     * @param string $content content
+     * @param string $message message show when validate
+     *
+     * @dataProvider listCaseTestValidateForInput
+     * 
+     * @return array
+     */
+    public function testCategoryValidateForInput($name, $content, $message)
+    {
+        $category = Category::find(1);
+        $this->browse(function (Browser $browser) use ($category, $name, $content, $message) {
+            $browser->visit('admin/categories/' . $category->id . '/edit');
+            $browser->press('Submit')
+                    ->type('name', null)
+                    ->assertSee($message);
+        });
+    }
+
+    /**
+     * List case for Test validate for input Update Category Exist Category
+     *
+     * @return array
+     */
+    public function listCaseTestValidateForInputExistCategory()
+    {
+        return [
+            ['name', 'Iphone', 'The name has already been taken.'],
+        ];
+    }
+
+    /**
+     * List case for Test validate for input Update Category Exist Category.
+     *
+     * @param string $name name of field
+     * @param string $content content
+     * @param string $message message show when validate
+     *
+     * @dataProvider listCaseTestValidateForInputExistCategory
+     * 
+     * @return void
+     */
+    public function testCategoryValidateForInputExistCategory($name, $content, $message)
+    {
+        $testName = 'Iphone';
+        $category = Category::find(1);
+        $this->browse(function (Browser $browser) use ($category, $name, $content, $message) {
+            $browser->visit('/admin/categories/' . $category->id . '/edit')
+                    ->assertSee('Edit Category')
+                    ->type('name', $testName)
+                    ->press('Submit')
+                    ->assertSee($message);
         });
     }
 
@@ -36,34 +111,22 @@ class UpdateCategoryTest extends DuskTestCase
      */
     public function testEditCategorySuccess()
     {
-        $category = Category::find(1);
-        $this->browse(function (Browser $browser) use ($category) {
-            $browser->visit('/admin/categories/'.$category->id.'/edit')
-                    ->assertSee(__('category.admin.edit.title'))
-                    ->type('name', $category->name)
-                    ->select('parent_id', 2)
-                    ->press(__('category.admin.add.submit'))
-                    ->assertSee(__('category.admin.message.edit'))
+        $testName = 'Laptop';
+        $categoryCurrent = Category::find(1);
+        $categoryOther = Category::find(2);
+        $this->browse(function (Browser $browser) use ($testName, $categoryCurrent ,$categoryOther) {
+            $browser->visit('/admin/categories/' . $categoryCurrent->id . '/edit')
+                    ->assertSee('Edit Category')
+                    ->type('name', $testName)
+                    ->select('parent_id', $categoryOther->id)
+                    ->press('Submit')
+                    ->assertSee('Update Category Successfull!')
                     ->assertPathIs('/admin/categories');
         });
         $this->assertDatabaseHas('categories', [
-                    'name' => $category->name,
-                    'parent_id' => 2
-                ]);
-    }
-    /**
-     * List case for Test validate for input Create Category
-     *
-     * @return array
-     */
-    public function testCategoryValidateForInput()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('admin/categories/1/edit')
-                ->type('name', null);
-            $browser->press(__('category.admin.add.submit'))
-                ->pause(1000)
-                ->assertSee('The name field is required.');
-        });
+            'name' => $testName,
+            'parent_id' => $categoryOther->id,
+            'level' => $categoryOther->level++,
+        ]);
     }
 }
