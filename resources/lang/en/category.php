@@ -22,6 +22,8 @@ return [
             'parent_category' => 'Parent Category',
             'submit' => 'Submit',
             'reset' => 'Reset',
+            'back' => 'Back',
+            'cancel' => 'Cancel',
             'placeholder_name' => 'Category Name',
         ],
         'edit' => [
@@ -32,9 +34,12 @@ return [
         ],
         'message' => [
             'add' => 'Create New Category Successfull!',
-            'add_fail' => 'Can not add New Category. Please check connect database',
+            'add_fail' => 'Can not add New Category. Please check connect database!',
             'edit' => 'Update Category Successfull!',
+            'edit_fail' => 'Can not edit Category. Please check connect database!',
             'del' => 'Delete Category Successfull!',
+            'del_fail' => 'Can not Delete Category. Please check connect database!',
+            'msg_del' => 'Do you want to delete this Category?',
         ]
     
     ]
