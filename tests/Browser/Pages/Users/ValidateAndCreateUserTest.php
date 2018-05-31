@@ -71,7 +71,7 @@ class ValidateAndCreateUserTest extends DuskTestCase
                 ->type('password', '123456')
                 ->type('full_name', 'luong suong mai')
                 ->type('address', 'Quang Nam')
-                ->radio('#gender', '0')
+                ->radio('#gender', '1')
                 ->type('phone', '0121324356')
                 ->type('identity_card', '205454545')
                 ->keys('#dob', '07-07-2000');
@@ -85,7 +85,7 @@ class ValidateAndCreateUserTest extends DuskTestCase
                 'full_name' => 'luong suong mai',
                 'address' => 'Quang Nam',
                 'phone' => '0121324356',
-                'gender' => '0',
+                'gender' => '1',
                 'identity_card' => '205454545',
                 'dob' => '2000-07-07',
              ]);
