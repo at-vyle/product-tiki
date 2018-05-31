@@ -16,6 +16,9 @@ return [
     ],
     'order' => [
         'limit_rows' => 5
+    ],
+    'homepage' => [
+        'numberOfRecords' => '5'
     ]
 
 ];

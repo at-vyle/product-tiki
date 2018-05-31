@@ -12,7 +12,7 @@ $( document ).ready(function() {
             url: url,
             success: function (data) {
                 $('#order_time').text(data.time);
-                for (let i = 0; i < 5; i++) {
+                for (let i = 0; i < data.numberOfRecords; i++) {
                     id = i + 1;
                     $('#order_route_' + id).attr('href', data['topOrders'][i].routes);
                     $('#order_username_' + id).text(data['topOrders'][i]['user'].username);
@@ -30,7 +30,7 @@ $( document ).ready(function() {
             url: url,
             success: function (data) {
                 $('#user_time').text(data.time);
-                for (let i = 0; i < 5; i++) {
+                for (let i = 0; i < data.numberOfRecords; i++) {
                     id = i + 1;
                     $('#user_route_' + id).attr('href', data['users'][i].routes);
                     $('#user_name_' + id).text(data['users'][i]['user_info'].full_name);
