@@ -77,13 +77,13 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div id="gender" class="btn-group" data-toggle="buttons">
                   @if ($user->userInfo['gender'] == 0)
-                  <label class="btn btn-default @if (!$user->userInfo['gender']) active @endif" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                    <input type="radio" name="gender" value="0" data-parsley-multiple="gender">&nbsp; {{ __('user.index.male') }}&nbsp; 
-                  </label>
+                    <label class="btn btn-default active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                      <input type="radio" name="gender" value="0" data-parsley-multiple="gender">&nbsp; {{ __('user.index.male') }}&nbsp; 
+                    </label>
                   @else
-                  <label class="btn btn-default @if ($user->userInfo['gender']) active @endif" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                    <input type="radio" name="gender" value="1" data-parsley-multiple="gender"> {{ __('user.index.female') }}
-                  </label>
+                    <label class="btn btn-default active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                      <input type="radio" name="gender" value="1" data-parsley-multiple="gender"> {{ __('user.index.female') }}
+                    </label>
                   @endif
                 </div>
               </div>

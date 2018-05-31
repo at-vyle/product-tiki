@@ -64,20 +64,15 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $updatedUser = $request->except(["_token", "_method", "submit", "username", "email"]);
-        try {
-            if ($request->hasFile('avatar')) {
-                $image = $request->file('avatar');
-                $newImage = time() . '-' . str_random(8) . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path(config('define.images_path_users'));
-                $updatedUser['avatar'] = $newImage;
-                $image->move($destinationPath, $newImage);
-            }
-            UserInfo::updateOrCreate(['user_id' => $user->id], $updatedUser);
-            return redirect()->route('admin.users.index')->with('message', trans('messages.update_user_success'));
-        } catch (ModelNotFoundException $e) {
-            return redirect()->back()->with('message', trans('messages.update_user_fail'));
+        if ($request->hasFile('avatar')) {
+            $image = $request->file('avatar');
+            $newImage = time() . '-' . str_random(8) . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path(config('define.images_path_users'));
+            $updatedUser['avatar'] = $newImage;
+            $image->move($destinationPath, $newImage);
         }
-        return view('admin.pages.users.edit');
+        UserInfo::updateOrCreate(['user_id' => $user->id], $updatedUser);
+        return redirect()->route('admin.users.index')->with('message', trans('messages.update_user_success'));
     }
 
     /**

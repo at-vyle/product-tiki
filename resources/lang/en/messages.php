@@ -16,7 +16,6 @@ return [
     'team' => 'Team AT Intern Spring PHP',
     'create_product_success' => 'Create product successfully',
     'update_user_success' => 'Update user successfully',
-    'update_user_fail' => 'Update user fail',
     'create_user_success' => 'Create user successfully',
     'update_product_success' => 'Update product successfully',
     'show_category' => 'Show Categories',
