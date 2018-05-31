@@ -55,13 +55,17 @@ class ProductController extends Controller
         $request['status'] = $request->quantity ? 1 : 0;
         $product = Product::create($request->all());
 
-        $img = request()->file('input_img');
-        $imgName = time() . '-' . $img->getClientOriginalName();
-        $img->move(config('define.product.upload_image_url'), $imgName);
-        Image::create([
-            'product_id' => $product->id,
-            'img_url' => '/' . config('define.product.upload_image_url') . $imgName
-        ]);
+        $imagesData = [];
+        foreach (request()->file('input_img') as $img) {
+            $imgName = time() . '-' . $img->getClientOriginalName();
+            $img->move(config('define.product.upload_image_url'), $imgName);
+            $image = array(
+                'product_id' => $product->id,
+                'img_url' => $imgName
+            );
+            array_push($imagesData, $image);
+        }
+        $product->images()->createMany($imagesData);
 
         return redirect()->route('admin.products.index')->with('message', trans('messages.create_product_success'));
     }
@@ -115,7 +119,7 @@ class ProductController extends Controller
                 $img->move(config('define.product.upload_image_url'), $imgName);
                 $image = array(
                     'product_id' => $product->id,
-                    'img_url' => '/' . config('define.product.upload_image_url') . $imgName
+                    'img_url' => $imgName
                 );
                 array_push($imagesData, $image);
             }
