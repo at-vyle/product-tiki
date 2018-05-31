@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Http\Requests\Backend\CategoryRequests;
 use App\Http\Requests\Backend\EditCategoryRequest;
+use App\Http\Requests\Backend\CategoryRequest;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
@@ -41,53 +41,87 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequests $request)
+    public function store(CategoryRequest $request)
     {
-        $input = $request->except('_token', '_method');
-        $category = Category::create($input);
-        if ($category->save()) {
-            $listCategories = Category::paginate(config('define.category.limit_rows'));
-            $data['listCategories'] = $listCategories;
-            $data['msg'] = __('category.admin.message.add');
-            return view('admin.pages.categories.index', $data);
+        if (!$request->parent_id) {
+            $request['level'] = 0;
         } else {
-            return view('admin.pages.categories.create');
+            $parentLvl = Category::find($request->parent_id)->level;
+            $request['level'] = $parentLvl + 1;
+        }
+        if (Category::create($request->all())) {
+            return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.add'));
+        } else {
+            return redirect()->route('admin.categories.create')->with('message', __('category.admin.message.add_fail'));
         }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
+     * @param App\Models\Category $category category
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Category $category)
+    {
+        $categories = Category::where('level', '<=', $category->level)->get();
+        $data['category'] = $category;
+        $data['categories'] = $categories;
+        return view('admin.pages.categories.edit', $data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request  get request
+     * @param App\Models\Category      $category category
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(EditCategoryRequest $request, Category $category)
+    {
+        $category->name = $request->name;
+        $category->parent_id = $request->parent_id;
+        if ($request->parent_id) {
+            $parentLvl = Category::find($request->parent_id)->level;
+            $category->level = $parentLvl++;
+        }
+        $category->save();
+        return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.edit'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param App\Models\Category $category category
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Category $category)
+    {
+        try {
+            $category->delete();
+            session()->flash('message', __('category.admin.message.del'));
+        } catch (ModelNotFoundException $e) {
+            session()->flash('message', __('category.admin.message.del_fail'));
+        }
+        return back();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
      * @param int $id category's id
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function show($id)
     {
-        $category = Category::find($id);
-        $categoryParent = Category::get();
-        $data['category'] = $category;
-        $data['categoryParent'] = $categoryParent;
-        return view('admin.pages.categories.edit', $data);
-    }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request get request
-     * @param int                      $id      category's id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(EditCategoryRequest $request, $id)
-    {
-        $category = Category::find($id);
-        $category->name = $request->name;
-        $category->parent_id = $request->parent_id;
-        if ($category->save()) {
-            session(['msg' => __('category.admin.message.edit')]);
-            return redirect()->route('admin.categories.index');
-        } else {
-            return view('admin.pages.categories.edit');
-        }
+        $itemCategory = Category::find($id);
+        $childCategory = Category::with('categories')->where('parent_id', $id)->get();
+        $data['itemCategory'] = $itemCategory;
+        $data['childCategory'] = $childCategory;
+        return view('admin.pages.categories.show', $data);
     }
 }
