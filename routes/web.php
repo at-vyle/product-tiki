@@ -21,6 +21,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'namespace' => 'Admin'], f
     Route::resource('categories', 'CategoryController');
     Route::resource('products', 'ProductController')->parameters(['products' => 'id']);
     Route::resource('posts', 'PostController')->parameters(['posts' => 'id']);
-    Route::resource('users', 'UserController')->parameters(['users' => 'id']);
+    Route::resource('users', 'UserController');
     Route::resource('orders', 'OrderController')->parameters(['orders' => 'id']);
 });

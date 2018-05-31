@@ -41,11 +41,14 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param App\Models\User $user user
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(User $user)
     {
-        return view('admin.pages.users.edit');
+        $data['user'] = $user;
+        return view('admin.pages.users.edit', $data);
     }
 
     /**

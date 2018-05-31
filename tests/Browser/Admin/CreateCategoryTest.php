@@ -21,7 +21,6 @@ class CreateCategoryTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/categories')
                 ->clickLink('Add Categories')
-                ->pause(1000)
                 ->assertPathIs('/admin/categories/create')
                 ->assertSee('Add Category');
         });
@@ -69,8 +68,7 @@ class CreateCategoryTest extends DuskTestCase
         $testContent = 'Smart Phone'; 
         $this->browse(function (Browser $browser) use ($testContent) {
             $browser->visit('admin/categories/create')
-                ->type('name', $testContent)
-                ->select('parent_id', null);       
+                ->type('name', $testContent);       
             $browser->press('Submit')
                 ->assertSee('Create New Category Successfull!');
             $this->assertDatabaseHas('categories', [
