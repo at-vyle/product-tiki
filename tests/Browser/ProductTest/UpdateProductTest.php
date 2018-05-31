@@ -194,7 +194,8 @@ class UpdateProductTest extends DuskTestCase
             $browser->visit('/admin/products/' . $product->id . '/edit')
                     ->assertSee('Update Product')
                     ->attach('input_img[]', __DIR__.'/testing/iphone1.jpg')
-                    ->press('Update');
+                    ->press('Update')
+                    ->pause(1000);
 
             $product = Product::with('images')->find(5);
             $image = $product->images[0];

@@ -21,7 +21,7 @@ function deleteImage(url, e) {
         document.getElementById('img-' + result.id).remove();
       },
       statusCode: {
-        400: function(result) {
+        400: function (result) {
           alert(result.responseText);
         }
       }
