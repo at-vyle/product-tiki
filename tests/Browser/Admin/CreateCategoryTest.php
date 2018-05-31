@@ -59,6 +59,43 @@ class CreateCategoryTest extends DuskTestCase
     }
 
     /**
+     * List case for Test validate for input Create User
+     *
+     * @return array
+     */
+    public function listCaseTestValidateForInputExist()
+    {
+        return [
+            ['name', 'Iphone', 'The name has already been taken.'],
+        ];
+    }
+
+    /**
+     * List case for Test validate for input Create Category Exist Category
+     *
+     * @param string $name name of field
+     * @param string $content content
+     * @param string $message message show when validate
+     *
+     * @dataProvider listCaseTestValidateForInputExist
+     *
+     * @return array
+     */
+    public function testCategoryValidateForInputExist($name, $content, $message)
+    {
+        factory('App\Models\Category', 1)->create([
+            'name' => 'Iphone'
+        ]);
+        $category = Category::find(1);
+        $this->browse(function (Browser $browser) use ($name, $content, $message) {
+            $browser->visit('admin/categories/create')
+                    ->type('name', 'Iphone');
+            $browser->press('Submit')
+                    ->assertSee($message);
+        });
+    }
+
+    /**
      * Dusk test create category success.
      *
      * @return void
@@ -102,23 +139,6 @@ class CreateCategoryTest extends DuskTestCase
                 'parent_id' => $itemCategory->id,
                 'level' => 1,
             ]);
-        });
-    }
-
-    /**
-     * Dusk test create category success.
-     *
-     * @return void
-     */
-    public function testCreatesCategoryWithExistCategory()
-    {
-        factory('App\Models\Category', 1)->create();
-        $itemCategory = Category::find(1);
-        $this->browse(function (Browser $browser) use ($itemCategory) {
-            $browser->visit('admin/categories/create')
-                ->type('name', $itemCategory->name);   
-            $browser->press('Submit')
-                ->assertSee('The name has already been taken.');
         });
     }
 }
