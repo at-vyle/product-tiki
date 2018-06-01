@@ -24,14 +24,14 @@ class HomeController extends Controller
     {
 
         if ($request->time) {
-            $timeStr = 'last '.$request->time;
+            $timeStr = config('define.homepage.request.time.'.$request->time);
             $time = new Carbon($timeStr);
         } else {
             $time = new Carbon(Carbon::minValue());
-            $request->time = 'all';
+            $request->time = $timeStr = config('define.homepage.request.time.all');
         }
 
-        if ($request->type == 'user') {
+        if ($request->type == config('define.homepage.type.user')) {
             $users = User::with('userInfo')->withCount(['comments' => function ($query) use ($time) {
                 return $query->where('created_at', '>', $time);
             }, 'posts' => function ($query) use ($time) {
@@ -43,10 +43,10 @@ class HomeController extends Controller
                 $user['point'] = $pointCalculated;
                 $user['routes'] = route('admin.users.show', array('id' => $user->id));
             }
-            $data['users'] = array_values($users->sortByDesc('point')->take(config('define.homepage.numberOfRecords'))->toArray());
+            $data['users'] = $users->sortByDesc('point')->take(config('define.homepage.numberOfRecords'))->values();
         }
 
-        if ($request->type == 'order') {
+        if ($request->type == config('define.homepage.type.order')) {
             $topOrders = Order::where('created_at', '>', $time)->with('user')->withCount('orderdetails')
                                 ->orderBy('total', 'desc')->take(config('define.homepage.numberOfRecords'))->get();
             foreach ($topOrders as $order) {

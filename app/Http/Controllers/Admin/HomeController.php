@@ -22,11 +22,10 @@ class HomeController extends Controller
     */
     public function index(Request $request)
     {
-        $timeStr = 'last ';
         if ($request->time) {
-            $timeStr .= $request->time;
+            $timeStr = config('define.homepage.request.time.'.$request->time);
         } else {
-            $timeStr .= 'month';
+            $timeStr = config('define.homepage.request.time.month');
         }
         $time = new Carbon($timeStr);
 
@@ -44,7 +43,8 @@ class HomeController extends Controller
             $pointCalculated = $user->comments_count + $user->posts_count;
             $user['point'] = $pointCalculated;
         }
-        $data['users'] = $users->sortByDesc('point')->take(config('define.homepage.numberOfRecords'));
+
+        $data['users'] = $users->sortByDesc('point')->take(config('define.homepage.numberOfRecords'))->values();
         $data['topOrders'] = Order::with('user')->withCount('orderdetails')->orderBy('total', 'desc')->take(config('define.homepage.numberOfRecords'))->get();
         $data['numberOfRecords'] = config('define.homepage.numberOfRecords');
 

@@ -18,7 +18,24 @@ return [
         'limit_rows' => 5
     ],
     'homepage' => [
-        'numberOfRecords' => '5'
+        'numberOfRecords' => '5',
+        'time' => [
+            'month' => 'month',
+            'year' => 'year',
+            'week' => 'week'
+        ],
+        'type' => [
+            'user' => 'user',
+            'order' => 'order'
+        ],
+        'request' => [
+            'time' => [
+                'month' => 'last month',
+                'year' => 'last year',
+                'week' => 'last week',
+                'all' => 'all'
+            ]
+        ]
     ]
 
 ];

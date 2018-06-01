@@ -9,9 +9,9 @@
   <div class="">
     <div class="row top_tiles">
       <div class="x_title col-md-12">
-        <a class="btn col-md-3 @if (app('request')->input('time') == null || app('request')->input('time') == 'month') active-filter @endif" href="{{ route('admin.home', ['time' => 'month']) }}">{{ __('homepage.admin.statistic.monthly') }}</a>
-        <a class="btn col-md-3 @if (app('request')->input('time') == 'year') active-filter @endif" href="{{ route('admin.home', ['time' => 'year']) }}">{{ __('homepage.admin.statistic.annually') }}</a>
-        <a class="btn col-md-3 @if (app('request')->input('time') == 'week') active-filter @endif" href="{{ route('admin.home', ['time' => 'week']) }}">{{ __('homepage.admin.statistic.weekly') }}</a>
+        <a class="btn col-md-3 @if (app('request')->input('time') == config('define.homepage.time.month') || !app('request')->input('time')) active-filter @endif" href="{{ route('admin.home', ['time' => 'month']) }}">{{ __('homepage.admin.statistic.monthly') }}</a>
+        <a class="btn col-md-3 @if (app('request')->input('time') == config('define.homepage.time.year')) active-filter @endif" href="{{ route('admin.home', ['time' => 'year']) }}">{{ __('homepage.admin.statistic.annually') }}</a>
+        <a class="btn col-md-3 @if (app('request')->input('time') == config('define.homepage.time.week')) active-filter @endif" href="{{ route('admin.home', ['time' => 'week']) }}">{{ __('homepage.admin.statistic.weekly') }}</a>
       </div>
       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="tile-stats">
@@ -57,12 +57,11 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-            @php $i = 0 @endphp
-            @foreach ($topRating as $product)
+            @foreach ($topRating as $index => $product)
               <div class="media event">
                 <a class="pull-left date">
                   <p class="month">{{ __('homepage.admin.top_text') }}</p>
-                  <p class="day">{{ ++$i }}</p>
+                  <p class="day">{{ ++$index }}</p>
                 </a>
                 <div class="media-body">
                   <a class="title" href="{!! route('admin.products.edit', ['id' => $product['id']]) !!}">
@@ -90,10 +89,18 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-hourglass"></i></a>
                 <ul class="dropdown-menu dropdown-user" role="menu">
-                  <li><a href="{{ route('admin.api.home', ['type' => 'user']) }}">{{ __('homepage.admin.time.all') }}</a></li>
-                  <li><a href="{{ route('admin.api.home', ['type' => 'user', 'time' => 'week']) }}">{{ __('homepage.admin.time.week') }}</a></li>
-                  <li><a href="{{ route('admin.api.home', ['type' => 'user', 'time' => 'month']) }}">{{ __('homepage.admin.time.month') }}</a></li>
-                  <li><a href="{{ route('admin.api.home', ['type' => 'user', 'time' => 'year']) }}">{{ __('homepage.admin.time.year') }}</a></li>
+                  <li>
+                    <a href="{{ route('admin.api.home', ['type' => config('define.homepage.type.user')]) }}">{{ __('homepage.admin.time.all') }}</a>
+                  </li>
+                  <li>
+                    <a href="{{ route('admin.api.home', ['type' => config('define.homepage.type.user'), 'time' => config('define.homepage.time.week')]) }}">{{ __('homepage.admin.time.week') }}</a>
+                  </li>
+                  <li>
+                    <a href="{{ route('admin.api.home', ['type' => config('define.homepage.type.user'), 'time' => config('define.homepage.time.month')]) }}">{{ __('homepage.admin.time.month') }}</a>
+                  </li>
+                  <li>
+                    <a href="{{ route('admin.api.home', ['type' => config('define.homepage.type.user'), 'time' => config('define.homepage.time.year')]) }}">{{ __('homepage.admin.time.year') }}</a>
+                  </li>
                 </ul>
               </li>
             </ul>
@@ -101,19 +108,18 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-            @php $i = 0 @endphp
-            @foreach ($users as $user)
+            @foreach ($users as $index => $user)
               <div class="media event">
                 <a class="pull-left date">
                   <p class="month">{{ __('homepage.admin.top_text') }}</p>
-                  <p class="day">{{ ++$i }}</p>
+                  <p class="day">{{ ++$index }}</p>
                 </a>
                 <div class="media-body">
-                  <a id="user_route_{{ $i }}" data-id="user_route_{{ $i }}" class="title user_route" href="{{ route('admin.users.show', array('id' => $user->id)) }}">
+                  <a id="user_route_{{ $index }}" data-id="user_route_{{ $index }}" class="title user_route" href="{{ route('admin.users.show', array('id' => $user->id)) }}">
                     <div class="details">
-                      <p id="user_name_{{ $i }}">{{ $user->userInfo->full_name }}</p>
-                      <p id="user_email_{{ $i }}">{{ $user->email }}</p>
-                      <p ><span id="user_point_{{ $i }}">{{ $user->point }} </span> {{ __('homepage.admin.post_comments') }}</p>
+                      <p id="user_name_{{ $index }}">{{ $user->userInfo->full_name }}</p>
+                      <p id="user_email_{{ $index }}">{{ $user->email }}</p>
+                      <p ><span id="user_point_{{ $index }}">{{ $user->point }} </span> {{ __('homepage.admin.post_comments') }}</p>
                     </div>
                   </a>
                 </div>
@@ -134,10 +140,10 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-hourglass"></i></a>
                 <ul class="dropdown-menu dropdown-order" role="menu">
-                  <li><a href="{{ route('admin.api.home', ['type' => 'order']) }}">{{ __('homepage.admin.time.all') }}</a></li>
-                  <li><a href="{{ route('admin.api.home', ['type' => 'order', 'time' => 'week']) }}">{{ __('homepage.admin.time.week') }}</a></li>
-                  <li><a href="{{ route('admin.api.home', ['type' => 'order', 'time' => 'month']) }}">{{ __('homepage.admin.time.month') }}</a></li>
-                  <li><a href="{{ route('admin.api.home', ['type' => 'order', 'time' => 'year']) }}">{{ __('homepage.admin.time.year') }}</a></li>
+                  <li><a href="{{ route('admin.api.home', ['type' => config('define.homepage.type.order')]) }}">{{ __('homepage.admin.time.all') }}</a></li>
+                  <li><a href="{{ route('admin.api.home', ['type' => config('define.homepage.type.order'), 'time' => config('define.homepage.time.week')]) }}">{{ __('homepage.admin.time.week') }}</a></li>
+                  <li><a href="{{ route('admin.api.home', ['type' => config('define.homepage.type.order'), 'time' => config('define.homepage.time.month')]) }}">{{ __('homepage.admin.time.month') }}</a></li>
+                  <li><a href="{{ route('admin.api.home', ['type' => config('define.homepage.type.order'), 'time' => config('define.homepage.time.year')]) }}">{{ __('homepage.admin.time.year') }}</a></li>
                 </ul>
               </li>
             </ul>
@@ -145,19 +151,18 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-            @php $i = 0 @endphp
-            @foreach ($topOrders as $order)
+            @foreach ($topOrders as $index => $order)
               <div class="media event">
                 <a class="pull-left date">
                   <p class="month">{{ __('homepage.admin.top_text') }}</p>
-                  <p class="day">{{ ++$i }}</p>
+                  <p class="day">{{ ++$index }}</p>
                 </a>
                 <div class="media-body">
-                  <a id="order_route_{{ $i }}" data-id="order_route_{{ $i }}" class="title order_route" href="{{ route('admin.orders.show', ['id' => $order['id']]) }}">
+                  <a id="order_route_{{ $index }}" data-id="order_route_{{ $index }}" class="title order_route" href="{{ route('admin.orders.show', ['id' => $order['id']]) }}">
                     <div class="details">
-                      <p id="order_username_{{ $i }}">{{ $order->user->username }}</p>
-                      <p id="order_total_{{ $i }}">{{ number_format($order->total) }}</p>
-                      <p ><span id="order_product_count_{{ $i }}">{{ $order->orderdetails_count }}</span> {{ __('homepage.admin.product_count') }}</p>
+                      <p id="order_username_{{ $index }}">{{ $order->user->username }}</p>
+                      <p id="order_total_{{ $index }}">{{ number_format($order->total) }}</p>
+                      <p ><span id="order_product_count_{{ $index }}">{{ $order->orderdetails_count }}</span> {{ __('homepage.admin.product_count') }}</p>
                     </div>
                   </a>
                 </div>
