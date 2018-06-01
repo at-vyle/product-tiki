@@ -102,7 +102,7 @@
             </div>
           </div>
         </div>
-
+        {{ $comments->render() }}
         <div class="clearfix"></div>
       </div>
     </div>

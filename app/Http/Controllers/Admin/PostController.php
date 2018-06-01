@@ -77,13 +77,14 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::findOrFail($id);
-        if ($post) {
+        try {
+            $post = Post::findOrFail($id);
             $post->delete();
             session(['message' => __('post.admin.form.deleted')]);
-            return redirect()->route('admin.posts.index');
-        } else {
+        } catch (ModelNotFoundException $e) {
             session(['message' => __('post.admin.form.id_not_found')]);
+        } finally {
+            return redirect()->route('admin.posts.index');
         }
     }
 }
