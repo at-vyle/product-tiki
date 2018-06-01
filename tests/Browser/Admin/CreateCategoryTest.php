@@ -20,9 +20,9 @@ class CreateCategoryTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/categories')
-                ->clickLink('Add Categories')
-                ->assertPathIs('/admin/categories/create')
-                ->assertSee('Add Category');
+                    ->clickLink('Add Categories')
+                    ->assertPathIs('/admin/categories/create')
+                    ->assertSee('Add Category');
         });
     }
 
@@ -52,7 +52,7 @@ class CreateCategoryTest extends DuskTestCase
      */
     public function testCategoryValidateForInput($name, $content, $message)
     {
-        factory('App\Models\Category', 1)->create([
+        factory('App\Models\Category')->create([
             'name' => 'Iphone'
         ]);
         $this->browse(function (Browser $browser) use ($name, $content, $message) {
@@ -73,9 +73,9 @@ class CreateCategoryTest extends DuskTestCase
         $testContent = 'Smart Phone'; 
         $this->browse(function (Browser $browser) use ($testContent) {
             $browser->visit('admin/categories/create')
-                ->type('name', $testContent);       
+                    ->type('name', $testContent);       
             $browser->press('Submit')
-                ->assertSee('Create New Category Successfull!');
+                    ->assertSee('Create New Category Successfull!');
             $this->assertDatabaseHas('categories', [
                 'id' => 1,
                 'name' => $testContent,
@@ -93,14 +93,13 @@ class CreateCategoryTest extends DuskTestCase
     public function testCreatesCategoryHasParentCategorySuccess()
     {
         $testContent = 'Iphone';
-        factory('App\Models\Category', 1)->create();
-        $category = Category::find(1);
+        $category = factory('App\Models\Category')->create();
         $this->browse(function (Browser $browser) use ($testContent, $category) {
             $browser->visit('admin/categories/create')
-                ->type('name', $testContent)
-                ->select('parent_id', $category->id);       
+                    ->type('name', $testContent)
+                    ->select('parent_id', $category->id);       
             $browser->press('Submit')
-                ->assertSee('Create New Category Successfull!');
+                    ->assertSee('Create New Category Successfull!');
             $this->assertDatabaseHas('categories', [
                 'id' => 2,
                 'name' => $testContent,
