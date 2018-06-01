@@ -61,9 +61,6 @@ class ValidateAndCreateUserTest extends DuskTestCase
      * @param string $name name of field
      * @param string $content content
      * @param string $message message show when validate
-     * @param string $testUsername username already of user
-     * @param string $testEmail email already of user
-     * @param string $listUser list info user
      * 
      * @dataProvider listCaseTestValidateForInput
      *
@@ -97,7 +94,6 @@ class ValidateAndCreateUserTest extends DuskTestCase
      * @param string $name name of field
      * @param string $content content
      * @param string $message message show when validate
-     * @param string $listUser list info user
      * 
      * @dataProvider listCaseAlreadyTestValidateForInput
      *
