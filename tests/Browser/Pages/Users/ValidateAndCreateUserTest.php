@@ -106,10 +106,9 @@ class ValidateAndCreateUserTest extends DuskTestCase
     public function testValidateaAlreadyForInput($name, $content, $message)
     {
         factory('App\Models\User', 1)->create([
-                        'username' => 'stoy',
-                        'email' => 'greynolds@example.com',
-                    ]);
-        
+            'username' => 'stoy',
+            'email' => 'greynolds@example.com',
+        ]);       
         $this->browse(function (Browser $browser) use ($name, $content, $message) {
             $browser->visit('admin/users/create')
                 ->type('username', $content)
@@ -138,7 +137,7 @@ class ValidateAndCreateUserTest extends DuskTestCase
                 ->type('identity_card', '205454545')
                 ->keys('#dob', '07-07-2000');
             $browser->press('Submit')
-                    ->assertSee('Create user successfully');
+                ->assertSee('Create user successfully');
             $this->assertDatabaseHas('users', [
                 'username' => 'suong',
                 'email' => 'suongmai@gmail.com',
@@ -150,7 +149,7 @@ class ValidateAndCreateUserTest extends DuskTestCase
                 'gender' => '1',
                 'identity_card' => '205454545',
                 'dob' => '2000-07-07',
-             ]);
+            ]);
         });
     }
 
