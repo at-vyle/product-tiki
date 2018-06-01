@@ -61,7 +61,10 @@ class ValidateAndCreateUserTest extends DuskTestCase
      * @param string $name name of field
      * @param string $content content
      * @param string $message message show when validate
-     *
+     * @param string $testUsername username already of user
+     * @param string $testEmail email already of user
+     * @param string $listUser list info user
+     * 
      * @dataProvider listCaseTestValidateForInput
      *
      * @return void
@@ -70,8 +73,49 @@ class ValidateAndCreateUserTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) use ($name, $content, $message) {
             $browser->visit('admin/users/create')
-                    ->press('Submit')
-                    ->assertSee($message);
+                ->press('Submit')                   
+                ->assertSee($message);
+        });
+    }
+
+    /**
+     * List case for test validate for input
+     *
+     * @return array
+     */
+    public function listCaseAlreadyTestValidateForInput()
+    {
+        return [
+            ['username', 'stoy', 'The username has already been taken.'],
+            ['email', 'greynolds@example.com', 'The email has already been taken.'],
+        ];
+    }
+
+    /**
+     * Dusk test validate for input
+     *
+     * @param string $name name of field
+     * @param string $content content
+     * @param string $message message show when validate
+     * @param string $listUser list info user
+     * 
+     * @dataProvider listCaseAlreadyTestValidateForInput
+     *
+     * @return void
+     */
+    public function testValidateaAlreadyForInput($name, $content, $message)
+    {
+        factory('App\Models\User', 1)->create([
+                        'username' => 'stoy',
+                        'email' => 'greynolds@example.com',
+                    ]);
+        
+        $this->browse(function (Browser $browser) use ($name, $content, $message) {
+            $browser->visit('admin/users/create')
+                ->type('username', $content)
+                ->type('email', $content)
+                ->press('Submit')                   
+                ->assertSee($message);
         });
     }
 
