@@ -35,6 +35,7 @@ class CreateCategoryTest extends DuskTestCase
     {
         return [
             ['name', '', 'The name field is required.'],
+            ['name', 'Iphone', 'The name has already been taken.'],
         ];
     }
 
@@ -51,45 +52,12 @@ class CreateCategoryTest extends DuskTestCase
      */
     public function testCategoryValidateForInput($name, $content, $message)
     {
-        $this->browse(function (Browser $browser) use ($name, $content, $message) {
-            $browser->visit('admin/categories/create');
-            $browser->press('Submit')
-                ->assertSee($message);
-        });
-    }
-
-    /**
-     * List case for Test validate for input Create User
-     *
-     * @return array
-     */
-    public function listCaseTestValidateForInputExist()
-    {
-        return [
-            ['name', 'Iphone', 'The name has already been taken.'],
-        ];
-    }
-
-    /**
-     * List case for Test validate for input Create Category Exist Category
-     *
-     * @param string $name name of field
-     * @param string $content content
-     * @param string $message message show when validate
-     *
-     * @dataProvider listCaseTestValidateForInputExist
-     *
-     * @return array
-     */
-    public function testCategoryValidateForInputExist($name, $content, $message)
-    {
         factory('App\Models\Category', 1)->create([
             'name' => 'Iphone'
         ]);
-        $category = Category::find(1);
         $this->browse(function (Browser $browser) use ($name, $content, $message) {
             $browser->visit('admin/categories/create')
-                    ->type('name', 'Iphone');
+                    ->type('name', $content);
             $browser->press('Submit')
                     ->assertSee($message);
         });
@@ -126,18 +94,18 @@ class CreateCategoryTest extends DuskTestCase
     {
         $testContent = 'Iphone';
         factory('App\Models\Category', 1)->create();
-        $itemCategory = Category::find(1);
-        $this->browse(function (Browser $browser) use ($testContent, $itemCategory) {
+        $category = Category::find(1);
+        $this->browse(function (Browser $browser) use ($testContent, $category) {
             $browser->visit('admin/categories/create')
                 ->type('name', $testContent)
-                ->select('parent_id', $itemCategory->id);       
+                ->select('parent_id', $category->id);       
             $browser->press('Submit')
                 ->assertSee('Create New Category Successfull!');
             $this->assertDatabaseHas('categories', [
                 'id' => 2,
                 'name' => $testContent,
-                'parent_id' => $itemCategory->id,
-                'level' => 1,
+                'parent_id' => $category->id,
+                'level' => $category->level + 1,
             ]);
         });
     }
