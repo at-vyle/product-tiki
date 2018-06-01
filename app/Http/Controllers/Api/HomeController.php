@@ -24,10 +24,10 @@ class HomeController extends Controller
     {
 
         if ($request->time) {
-            $timeStr = config('define.homepage.request.time.'.$request->time);
+            $timeStr = config('define.homepage.request.time.' . $request->time);
             $time = new Carbon($timeStr);
         } else {
-            $time = new Carbon(Carbon::minValue());
+            $time = Carbon::minValue();
             $request->time = $timeStr = config('define.homepage.request.time.all');
         }
 
@@ -56,7 +56,7 @@ class HomeController extends Controller
         }
 
         $data['numberOfRecords'] = config('define.homepage.numberOfRecords');
-        $data['time'] = __('homepage.admin.time.'.$request->time);
+        $data['time'] = __('homepage.admin.time.' . $request->time);
 
         return $data;
     }

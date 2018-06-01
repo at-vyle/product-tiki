@@ -23,15 +23,15 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         if ($request->time) {
-            $timeStr = config('define.homepage.request.time.'.$request->time);
+            $timeStr = config('define.homepage.request.time.' . $request->time);
         } else {
             $timeStr = config('define.homepage.request.time.month');
         }
         $time = new Carbon($timeStr);
 
-        $data['newUsers'] = User::where('created_at', '>', $time)->count();
-        $data['newPosts'] = Post::where('created_at', '>', $time)->count();
-        $data['newOrders'] = Order::where('created_at', '>', $time)->count();
+        $data['countNewUsers'] = User::where('created_at', '>', $time)->count();
+        $data['countNewPosts'] = Post::where('created_at', '>', $time)->count();
+        $data['countNewOrders'] = Order::where('created_at', '>', $time)->count();
 
         $data['productSold'] = OrderDetail::whereHas('order', function ($query) {
             return $query->where('status', Order::APPROVED);
