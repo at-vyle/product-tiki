@@ -11,7 +11,7 @@
       </div>
       <div class="x_content">
         <div class="table-responsive">
-          <table class="table table-striped jambo_table bulk_action">
+          <table class="table table-striped jambo_table bulk_action" id="table-user">
             <thead>
               <tr class="headings">
                 <th class="column-title" id="sort-link-id">@sortablelink('id', __('user.index.id'))</th>
