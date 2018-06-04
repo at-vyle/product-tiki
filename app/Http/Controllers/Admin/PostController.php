@@ -23,9 +23,7 @@ class PostController extends Controller
         $posts = Post::when(isset($request->post_status), function ($query) use ($request) {
             return $query->where('status', '=', $request->post_status);
         })
-        ->with(['user' => function ($query) {
-            return $query->with('userInfo');
-        }, 'product']);
+        ->with(['user.userInfo', 'product']);
 
         if (isset($request->sortBy) && isset($request->dir)) {
             $posts = $posts->join('users', 'posts.user_id', 'users.id')
@@ -53,9 +51,7 @@ class PostController extends Controller
     public function show(Request $request, $id)
     {
         $perPage = config('define.post.limit_rows');
-        $post = Post::with(['user' => function ($query) {
-            return $query->with('userInfo');
-        }, 'product'])->find($id);
+        $post = Post::with(['user.userInfo', 'product'])->find($id);
         $comments = $post->comments()->when(isset($request->content), function ($query) use ($request) {
             return $query->where('content', 'like', "%$request->content%");
         })
