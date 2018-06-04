@@ -6,8 +6,9 @@ use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\User;
+use App\Models\UserInfo;
 
-class ValidateAndCreateUserTest extends DuskTestCase
+class CreateUserTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
@@ -74,6 +75,7 @@ class ValidateAndCreateUserTest extends DuskTestCase
         return [
             ['username', 'stoy', 'The username has already been taken.'],
             ['email', 'greynolds@example.com', 'The email has already been taken.'],
+            // ['identity_card', '154599812', 'The identity card has already been taken.'],
         ];
     }
 
@@ -90,9 +92,13 @@ class ValidateAndCreateUserTest extends DuskTestCase
      */
     public function testValidateaAlreadyForInput($name, $content, $message)
     {
-        factory('App\Models\User')->create([
+        $users = factory('App\Models\User')->create([
             'username' => 'stoy',
             'email' => 'greynolds@example.com',
+        ]);
+        factory(UserInfo::class)->create([
+            'user_id' => $users->id,    
+            'identity_card' => '154599812'
         ]);       
         $this->browse(function (Browser $browser) use ($name, $content, $message) {
             $browser->visit('admin/users/create')
