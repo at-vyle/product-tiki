@@ -19,7 +19,6 @@ class ValidateAndCreateUserTest extends DuskTestCase
     public function setUp()
     {
         parent::setUp();
-        factory(User::class)->create();
     }
 
     /**
