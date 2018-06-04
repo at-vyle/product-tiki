@@ -28,17 +28,15 @@ class PostController extends Controller
         }, 'product']);
 
         if (isset($request->sortBy) && isset($request->dir)) {
-            $postSort = $posts->join('users', 'posts.user_id', 'users.id')
+            $posts = $posts->join('users', 'posts.user_id', 'users.id')
                         ->join('products', 'posts.product_id', 'products.id')
                         ->orderBy($request->sortBy, $request->dir)
                         ->paginate($perPage);
-            $postSort->appends(request()->query());
-            $data['posts'] = $postSort;
         } else {
             $posts = $posts->orderBy('id', 'desc')->paginate($perPage);
-            $posts->appends(request()->query());
-            $data['posts'] = $posts;
         }
+        $posts->appends(request()->query());
+        $data['posts'] = $posts;
 
         return view('admin.pages.posts.index', $data);
     }
@@ -63,8 +61,10 @@ class PostController extends Controller
         })
         ->with('user')->paginate($perPage);
         $comments->appends(request()->query());
-        $data['post'] = $post;
+
         $data['comments'] = $comments;
+        $data['post'] = $post;
+
         return view('admin.pages.posts.show', $data);
     }
 
