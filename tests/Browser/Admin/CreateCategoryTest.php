@@ -35,12 +35,14 @@ class CreateCategoryTest extends DuskTestCase
     {
         return [
             ['name', '', 'The name field is required.'],
+            ['name', '    ', 'The name field is required.'],
+            ['name', '.-=+{}()[]^$@#', 'The name format is invalid.'],
             ['name', 'Iphone', 'The name has already been taken.'],
         ];
     }
 
     /**
-     * List case for Test validate for input Create Category
+     * List case for Test validate for input Create Category Exist
      *
      * @param string $name name of field
      * @param string $content content
@@ -57,7 +59,7 @@ class CreateCategoryTest extends DuskTestCase
         ]);
         $this->browse(function (Browser $browser) use ($name, $content, $message) {
             $browser->visit('admin/categories/create')
-                    ->type('name', $content);
+                    ->type($name, $content);
             $browser->press('Submit')
                     ->assertSee($message);
         });
