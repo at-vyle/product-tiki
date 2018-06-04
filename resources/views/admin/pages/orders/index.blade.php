@@ -1,9 +1,7 @@
 @extends('admin.layout.master')
 @section('title', __('orders.admin.list.title') )
 @section('content')
-<script src="/js/messages.js"></script>
-<script src="/js/order.js"></script>
-<script src="/js/post.js"></script>
+
   <div class="right_col" role="main" class="index-main">
     <div class="">
       <div class="page-title">
@@ -57,24 +55,24 @@
                     <th class="col-md-2">{{ __('post.admin.list.user_col') }}</th>
                     <th class="col-md-2">
                       {{ __('orders.admin.list.total_product') }}
-                      @if (app('request')->input('dir') == 'ASC' && app('request')->input('sortBy') == 'orderdetails_count')
-                        <a href="{{ route('admin.orders.index', ['sortBy' => 'orderdetails_count', 'dir' => 'DESC']) }}">
+                      @if (app('request')->input('dir') == config('define.dir_asc') && app('request')->input('sortBy') == config('define.order.sort_orderdetails_count'))
+                        <a href="{{ route('admin.orders.index', ['sortBy' => config('define.order.sort_orderdetails_count'), 'dir' => config('define.dir_desc')]) }}">
                           <i class="fa fa-sort-up"></i>
                         </a>
                       @else
-                        <a href="{{ route('admin.orders.index', ['sortBy' => 'orderdetails_count', 'dir' => 'ASC']) }}">
+                        <a href="{{ route('admin.orders.index', ['sortBy' => config('define.order.sort_orderdetails_count'), 'dir' => config('define.dir_asc')]) }}">
                           <i class="fa fa-sort-down"></i>
                         </a>
                       @endif
                     </th>
                     <th class="col-md-2">
                       {{ __('orders.admin.list.total_col') }}
-                      @if (app('request')->input('dir') == 'ASC' && app('request')->input('sortBy') == 'total')
-                        <a href="{{ route('admin.orders.index', ['sortBy' => 'total', 'dir' => 'DESC']) }}">
+                      @if (app('request')->input('dir') == config('define.dir_asc') && app('request')->input('sortBy') == config('define.order.sort_total'))
+                        <a href="{{ route('admin.orders.index', ['sortBy' => config('define.order.sort_total'), 'dir' => config('define.dir_desc')]) }}">
                           <i class="fa fa-sort-up"></i>
                         </a>
                       @else
-                        <a href="{{ route('admin.orders.index', ['sortBy' => 'total', 'dir' => 'ASC']) }}">
+                        <a href="{{ route('admin.orders.index', ['sortBy' => config('define.order.sort_total'), 'dir' => config('define.dir_asc')]) }}">
                           <i class="fa fa-sort-down"></i>
                         </a>
                       @endif
@@ -123,5 +121,9 @@
       </div>
     </div>
   </div>
-
+@section('js')
+  <script src="/js/messages.js"></script>
+  <script src="/js/order.js"></script>
+  <script src="/js/post.js"></script>
+@endsection
 @endsection
