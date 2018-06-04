@@ -17,7 +17,7 @@
                 <th class="column-title" id="sort-link-id">@sortablelink('id', __('user.index.id'))</th>
                 <th class="column-title">{{ __('user.index.username') }}</th>
                 <th class="column-title">{{ __('user.index.email') }} </th>
-                <th class="column-title" id="sort-link-fullname">@sortablelink('userinfo.full_name', __('user.index.fullname'))</th>
+                <th class="column-title" id="sort-link-full_name">@sortablelink('userinfo.full_name', __('user.index.fullname'))</th>
                 <th class="column-title">{{ __('user.index.gender') }}</th>
                 <th class="column-title">{{ __('user.index.is_active') }}</th>
                 <th class="column-title no-link last"><span class="nobr">{{ __('user.index.action') }}</span>
