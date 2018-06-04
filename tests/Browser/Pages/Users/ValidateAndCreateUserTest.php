@@ -48,10 +48,9 @@ class ValidateAndCreateUserTest extends DuskTestCase
             ['username', '', 'The username field is required.'],
             ['email', '', 'The email field is required.'],
             ['password', '', 'The password field is required.'],
-            ['gender', '', 'The gender field is required.'],
             ['address', '', 'The address must be a string.'],
-            ['phone', 'dgfhf', 'The phone format is invalid.'],
-            ['identity_card', 'hffgfg', 'The identity card format is invalid.'],
+            ['phone', '', 'The phone format is invalid.'],
+            ['identity_card', '', 'The identity card format is invalid.'],
         ];
     }
 
@@ -68,10 +67,9 @@ class ValidateAndCreateUserTest extends DuskTestCase
      */
     public function testValidateForInput($name, $content, $message)
     {
-        $this->browse(function (Browser $browser) use ($content, $message) {
+        $this->browse(function (Browser $browser) use ($name, $content, $message) {
             $browser->visit('admin/users/create')
-                ->type('phone', $content)
-                ->type('identity_card', $content)
+                ->type($name, $content)
                 ->press('Submit')                   
                 ->assertSee($message);
         });
@@ -107,10 +105,9 @@ class ValidateAndCreateUserTest extends DuskTestCase
             'username' => 'stoy',
             'email' => 'greynolds@example.com',
         ]);       
-        $this->browse(function (Browser $browser) use ($content, $message) {
+        $this->browse(function (Browser $browser) use ($name, $content, $message) {
             $browser->visit('admin/users/create')
-                ->type('username', $content)
-                ->type('email', $content)
+                ->type($name, $content)
                 ->press('Submit')                   
                 ->assertSee($message);
         });
