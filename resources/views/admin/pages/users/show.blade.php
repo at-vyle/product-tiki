@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title', 'HOME')
+@section('title', __('user.index.title'))
 @section('content')
   <div class="right_col" role="main">
     <div class="col-md-12 col-xs-12">
@@ -39,9 +39,9 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('user.index.gender') }}</label>
               <div class="col-md-9 col-sm-9 col-xs-12">
                 @if ( $result->userInfo['gender'] == 1)
-                <input type="text" class="form-control" readonly="readonly" placeholder="{{ __('user.index.female') }}">
+                  <input type="text" class="form-control" readonly="readonly" placeholder="{{ __('user.index.female') }}">
                 @else
-                <input type="text" class="form-control" readonly="readonly" placeholder="{{ __('user.index.male') }}">
+                  <input type="text" class="form-control" readonly="readonly" placeholder="{{ __('user.index.male') }}">
                 @endif
               </div>
             </div>

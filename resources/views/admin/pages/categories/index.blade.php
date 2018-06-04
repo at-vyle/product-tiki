@@ -1,7 +1,8 @@
 @extends('admin.layout.master')
 @section('title', __('category.admin.title') )
 @section('content')
-<script src="/js/deleteCategory.js"></script>
+<script src="/js/category.js"></script>
+<script src="/js/messages.js"></script>
 <div class="right_col" role="main">
   <div class="">
     <div class="row">
@@ -11,12 +12,7 @@
           <h2>{{ __('category.admin.list.title') }}</h2>
           <div class="clearfix"></div>
         </div>
-        @if (isset($msg)) 
-          <p class="alert alert-info">{{ $msg }}</p>
-        @elseif (session()->get('msg'))
-          <p class="alert alert-info">{{ session()->pull('msg') }}</p>
-        @endif
-        
+        @include('admin.layout.message')        
         <div class="x_content">
           <div class="table-responsive">
             <table class="table table-striped jambo_table bulk_action">
@@ -35,12 +31,12 @@
                 @foreach ($listCategories as $list)
                 <tr class="even pointer">
                   <td>{{ $list->id }}</td>
-                  <td>{{ $list->name }}</td>
+                  <td><a href="{{ route('admin.categories.show', ['id' => $list->id]) }}">{{ $list->name }}</td>
                   <td>{{ $list->parent_id }}</td>
                   <td>{{ $list->created_at }}</td>
                   <td class="a-right a-right ">{{ $list->updated_at }}</td>
                   <td class="last">
-                    <a href="{{ route('admin.categories.edit', ['id' => $list->id]) }}" ><button class="btn-success"><i class="fa fa-edit"></i></button></a>| 
+                    <a href="{{ route('admin.categories.edit', ['id' => $list->id]) }}" id="edit{{ $list->id }}"><button class="btn-success"><i class="fa fa-edit"></i></button></a>| 
                     <form method="POST" action="{{ route('admin.categories.destroy', ['id' => $list->id]) }}" style="display:inline;" id="deleted{{ $list->id }}">
                       @method('DELETE')
                       {{ csrf_field() }}

@@ -1,6 +1,6 @@
 function deleteCategory(e, id) {
   e.preventDefault();
-  msg = "Do you want to delete Category Id= " + id;
+  msg = Lang.get('category.admin.message.msg_del');
   if (confirm(msg)) {
     document.getElementById('deleted'+id).submit();
   }
