@@ -12,6 +12,16 @@ class CreateCategoryTest extends DuskTestCase
     use DatabaseMigrations;
 
     /**
+     * Override function setUp() for make user login
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+    }
+
+    /**
      * Test url create category
      *
      * @return void
@@ -19,7 +29,8 @@ class CreateCategoryTest extends DuskTestCase
     public function testCreateCategoriesUrl()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/categories')
+            $browser->loginAs($this->user)
+                    ->visit('/admin/categories')
                     ->clickLink('Add Categories')
                     ->assertPathIs('/admin/categories/create')
                     ->assertSee('Add Category');
@@ -58,7 +69,8 @@ class CreateCategoryTest extends DuskTestCase
             'name' => 'Iphone'
         ]);
         $this->browse(function (Browser $browser) use ($name, $content, $message) {
-            $browser->visit('admin/categories/create')
+            $browser->loginAs($this->user)
+                    ->visit('admin/categories/create')
                     ->type($name, $content);
             $browser->press('Submit')
                     ->assertSee($message);
@@ -72,10 +84,11 @@ class CreateCategoryTest extends DuskTestCase
      */
     public function testCreatesCategoryNoParentCategorySuccess()
     {
-        $testContent = 'Smart Phone'; 
+        $testContent = 'Smart Phone';
         $this->browse(function (Browser $browser) use ($testContent) {
-            $browser->visit('admin/categories/create')
-                    ->type('name', $testContent);       
+            $browser->loginAs($this->user)
+                    ->visit('admin/categories/create')
+                    ->type('name', $testContent);
             $browser->press('Submit')
                     ->assertSee('Create New Category Successfull!');
             $this->assertDatabaseHas('categories', [
@@ -97,9 +110,10 @@ class CreateCategoryTest extends DuskTestCase
         $testContent = 'Iphone';
         $category = factory('App\Models\Category')->create();
         $this->browse(function (Browser $browser) use ($testContent, $category) {
-            $browser->visit('admin/categories/create')
+            $browser->loginAs($this->user)
+                    ->visit('admin/categories/create')
                     ->type('name', $testContent)
-                    ->select('parent_id', $category->id);       
+                    ->select('parent_id', $category->id);
             $browser->press('Submit')
                     ->assertSee('Create New Category Successfull!');
             $this->assertDatabaseHas('categories', [
