@@ -42,12 +42,14 @@ class UpdateCategoryTest extends DuskTestCase
     {
         return [
             ['name', '', 'The name field is required.'],
+            ['name', '    ', 'The name field is required.'],
+            ['name', '.-=+{}()[]^$@#', 'The name format is invalid.'],
             ['name', 'Iphone', 'The name has already been taken.'],
         ];
     }
 
     /**
-     * List case for Test validate for input Update Category Exist Category
+     * List case for Test validate for input Update Category
      *
      * @param string $name name of field
      * @param string $content content
@@ -59,14 +61,14 @@ class UpdateCategoryTest extends DuskTestCase
      */
     public function testCategoryValidateForInput($name, $content, $message)
     {
-        $categoryOther = factory('App\Models\Category', 1)->create([
+        factory('App\Models\Category', 1)->create([
             'name' => 'Iphone'
         ]);
         $categoryCurrent = Category::find(1);
-        $this->browse(function (Browser $browser) use ($categoryCurrent, $categoryOther, $name, $content, $message) {
+        $this->browse(function (Browser $browser) use ($categoryCurrent, $name, $content, $message) {
             $browser->visit('admin/categories/' . $categoryCurrent->id . '/edit')
                     ->assertSee('Edit Category')
-                    ->type('name', $content);
+                    ->type($name, $content);
             $browser->press('Submit')
                     ->assertSee($message);
         });
