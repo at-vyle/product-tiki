@@ -60,7 +60,7 @@ class UpdateCategoryTest extends DuskTestCase
      */
     public function testCategoryValidateForInput($name, $content, $message)
     {
-        factory('App\Models\Category', 1)->create([
+        factory('App\Models\Category')->create([
             'name' => 'Iphone'
         ]);
         $this->browse(function (Browser $browser) use ($name, $content, $message) {

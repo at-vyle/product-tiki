@@ -83,9 +83,11 @@ class CategoryController extends Controller
     {
         $category->name = $request->name;
         $category->parent_id = $request->parent_id;
-        if ($request->parent_id) {
-            $parentLvl = Category::find($request->parent_id)->level;
-            $category->level = $parentLvl++;
+        $parentLvl = Category::findorFail($request->parent_id)->level;
+        if ($request->parent_id && $category->level > $parentLvl) {
+            $category->level = ++$parentLvl;
+        } else {
+            return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.edit_fail'));
         }
         $category->save();
         return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.edit'));
