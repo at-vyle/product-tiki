@@ -75,7 +75,7 @@ class CreateUserTest extends DuskTestCase
         return [
             ['username', 'stoy', 'The username has already been taken.'],
             ['email', 'greynolds@example.com', 'The email has already been taken.'],
-            // ['identity_card', '154599812', 'The identity card has already been taken.'],
+            ['identity_card', '154599812', 'The identity card has already been taken.'],
         ];
     }
 
