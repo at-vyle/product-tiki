@@ -24,11 +24,10 @@ class UpdateCategoryTest extends DuskTestCase
      */
     public function testUpdateCategoryUrl()
     {
-        $category = Category::find(1);
-        $this->browse(function (Browser $browser) use ($category) {
+        $this->browse(function (Browser $browser) {
             $browser->visit('/admin/categories')
-                    ->click('#edit'.$category->id);
-            $browser->assertPathIs('/admin/categories/' . $category->id . '/edit')
+                    ->click('#edit1');
+            $browser->assertPathIs('/admin/categories/1/edit')
                     ->assertSee('Edit Category');
         });
     }
@@ -64,9 +63,8 @@ class UpdateCategoryTest extends DuskTestCase
         factory('App\Models\Category', 1)->create([
             'name' => 'Iphone'
         ]);
-        $categoryCurrent = Category::find(1);
-        $this->browse(function (Browser $browser) use ($categoryCurrent, $name, $content, $message) {
-            $browser->visit('admin/categories/' . $categoryCurrent->id . '/edit')
+        $this->browse(function (Browser $browser) use ($name, $content, $message) {
+            $browser->visit('admin/categories/1/edit')
                     ->assertSee('Edit Category')
                     ->type($name, $content);
             $browser->press('Submit')
@@ -82,10 +80,9 @@ class UpdateCategoryTest extends DuskTestCase
     public function testEditCategorySuccess()
     {
         $testName = 'Laptop';
-        $categoryCurrent = Category::find(1);
         $categoryOther = Category::find(2);
-        $this->browse(function (Browser $browser) use ($testName, $categoryCurrent ,$categoryOther) {
-            $browser->visit('/admin/categories/' . $categoryCurrent->id . '/edit')
+        $this->browse(function (Browser $browser) use ($testName, $categoryOther) {
+            $browser->visit('/admin/categories/1/edit')
                     ->assertSee('Edit Category')
                     ->type('name', $testName)
                     ->select('parent_id', $categoryOther->id)
