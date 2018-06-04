@@ -27,7 +27,7 @@ class ImageController extends Controller
                 return response(trans('product.update.delete_last_file_fail'), Response::HTTP_BAD_REQUEST);
             }
             $img->delete();
-            unlink(config('define.product.upload_image_url') . $img->img_url);
+            unlink(public_path(config('define.product.upload_image_url') . $img->img_url));
 
             return response()->json($img);
         } catch (ModelNotFoundException $e) {
