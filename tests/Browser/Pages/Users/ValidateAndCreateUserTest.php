@@ -31,9 +31,9 @@ class ValidateAndCreateUserTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/users')
-                ->clickLink(__('messages.adduser'))
+                ->clickLink('Add User')
                 ->assertPathIs('/admin/users/create')
-                ->assertSee(__('Create User'));
+                ->assertSee('Create User');
         });
     }
 
@@ -147,5 +147,4 @@ class ValidateAndCreateUserTest extends DuskTestCase
             ]);
         });
     }
-
 }
