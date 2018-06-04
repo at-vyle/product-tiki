@@ -12,16 +12,6 @@ class ValidateAndCreateUserTest extends DuskTestCase
     use DatabaseMigrations;
 
     /**
-     * Override function set up database
-     *
-     * @return void
-     */
-    public function setUp()
-    {
-        parent::setUp();
-    }
-
-    /**
      * Test url create user
      *
      * @return void
