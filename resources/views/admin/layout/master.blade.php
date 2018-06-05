@@ -59,7 +59,7 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li>
-                    <a href="{{ route('admin.home') }}"><i class="fa fa-home"></i>{{ __('messages.home') }}</a>
+                    <a href="{{ route('admin.homepage') }}"><i class="fa fa-home"></i>{{ __('messages.home') }}</a>
                   </li>
                   <li class=""><a><i class="fa fa-table"></i> {{ __('messages.categories') }} <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none;">
