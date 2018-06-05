@@ -14,7 +14,19 @@ class UpdateCategoryTest extends DuskTestCase
     public function setUp()
     {
         parent::setUp();
-        factory('App\Models\Category', 2)->create();
+        factory('App\Models\Category')->create([
+            'name' => 'Smart Phone',
+        ]);
+        factory('App\Models\Category')->create([
+            'name' => 'IPhone',
+            'parent_id' => 1,
+            'level' => 1
+        ]);
+        factory('App\Models\Category')->create([
+            'name' => 'IPhone X',
+            'parent_id' => 2,
+            'level' => 2
+        ]);
     }
 
     /**
@@ -60,9 +72,6 @@ class UpdateCategoryTest extends DuskTestCase
      */
     public function testCategoryValidateForInput($name, $content, $message)
     {
-        factory('App\Models\Category')->create([
-            'name' => 'Iphone'
-        ]);
         $this->browse(function (Browser $browser) use ($name, $content, $message) {
             $browser->visit('admin/categories/1/edit')
                     ->assertSee('Edit Category')
@@ -73,16 +82,38 @@ class UpdateCategoryTest extends DuskTestCase
     }
 
     /**
+     * Test Category Edit By This Child Fail.
+     *
+     * @return void
+     */
+    public function testEditCategoryByThisChildFail()
+    {
+        $categoryOther = Category::find(1);
+        $this->browse(function (Browser $browser) use ($categoryOther) {
+            $browser->visit('/admin/categories/2/edit')
+                    ->assertSee('Edit Category')
+                    ->select('parent_id', $categoryOther->id);
+            $categoryOther->update([
+                'parent_id' => 3,
+                'level' => 2,
+            ]);
+            $browser->press('Submit')
+                    ->assertSee('Can not edit Category by this Child!')
+                    ->assertPathIs('/admin/categories/2/edit');
+        });
+    }
+
+    /**
      * Test Category Edit Success.
      *
      * @return void
      */
     public function testEditCategorySuccess()
     {
-        $testName = 'Laptop';
-        $categoryOther = Category::find(2);
+        $testName = 'SamSung';
+        $categoryOther = Category::find(1);
         $this->browse(function (Browser $browser) use ($testName, $categoryOther) {
-            $browser->visit('/admin/categories/1/edit')
+            $browser->visit('/admin/categories/2/edit')
                     ->assertSee('Edit Category')
                     ->type('name', $testName)
                     ->select('parent_id', $categoryOther->id)
@@ -91,9 +122,31 @@ class UpdateCategoryTest extends DuskTestCase
                     ->assertPathIs('/admin/categories');
         });
         $this->assertDatabaseHas('categories', [
+            'id' => 2,
             'name' => $testName,
             'parent_id' => $categoryOther->id,
-            'level' => $categoryOther->level++,
+            'level' => ++$categoryOther->level,
+        ]);
+    }
+
+    /**
+     * Test Category Edit No Parent Success.
+     *
+     * @return void
+     */
+    public function testEditCategoryNoParentSuccess()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/admin/categories/2/edit')
+                    ->assertSee('Edit Category')
+                    ->select('parent_id', null)
+                    ->press('Submit')
+                    ->assertSee('Update Category Successfull!')
+                    ->assertPathIs('/admin/categories');
+        });
+        $this->assertDatabaseHas('categories', [
+            'parent_id' => null,
+            'level' => 0,
         ]);
     }
 }
