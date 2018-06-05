@@ -32,3 +32,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Auth'], fun
     Route::get('logout', 'LoginController@logout')->middleware(['auth:web'])->name('logout');
     Route::get('/home', 'HomeController@index')->name('home');
 });
+
+Route::get('/api-docs', function () {
+    return view('api-docs');
+});
+Route::get('/api-doc-builders', function () {
+    return view('api-doc-builders.index');
+});
