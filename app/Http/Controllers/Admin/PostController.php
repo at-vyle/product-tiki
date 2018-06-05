@@ -20,14 +20,22 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $perPage = config('define.post.limit_rows');
-        $posts = Post::when(isset($request->content), function ($query) use ($request) {
-            return $query->where('content', 'like', "%$request->content%");
-        })->when(isset($request->post_status), function ($query) use ($request) {
+        $posts = Post::when(isset($request->post_status), function ($query) use ($request) {
             return $query->where('status', '=', $request->post_status);
         })
-        ->with(['user','product'])->paginate($perPage);
+        ->with(['user.userInfo', 'product']);
+
+        if (isset($request->sortBy) && isset($request->dir)) {
+            $posts = $posts->join('users', 'posts.user_id', 'users.id')
+                        ->join('products', 'posts.product_id', 'products.id')
+                        ->orderBy($request->sortBy, $request->dir)
+                        ->paginate($perPage);
+        } else {
+            $posts = $posts->orderBy('id', 'desc')->paginate($perPage);
+        }
         $posts->appends(request()->query());
         $data['posts'] = $posts;
+
         return view('admin.pages.posts.index', $data);
     }
 
@@ -43,13 +51,16 @@ class PostController extends Controller
     public function show(Request $request, $id)
     {
         $perPage = config('define.post.limit_rows');
-        $comments = Post::find($id)->comments()->when(isset($request->content), function ($query) use ($request) {
+        $post = Post::with(['user.userInfo', 'product'])->find($id);
+        $comments = $post->comments()->when(isset($request->content), function ($query) use ($request) {
             return $query->where('content', 'like', "%$request->content%");
         })
         ->with('user')->paginate($perPage);
         $comments->appends(request()->query());
+
         $data['comments'] = $comments;
-        $data['post_id'] = $id;
+        $data['post'] = $post;
+
         return view('admin.pages.posts.show', $data);
     }
 
