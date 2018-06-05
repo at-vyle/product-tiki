@@ -22,11 +22,11 @@ class UpdateUserTest extends DuskTestCase
         parent::setUp();
         $users = factory(User::class, 2)->create();
         factory(UserInfo::class)->create([
-            'user_id' => $users->id = 1,
+            'user_id' => 1,
             'identity_card' => '154599812'
         ]);
         $userInfo = factory(UserInfo::class)->create([
-            'user_id' => $users->id = 2
+            'user_id' => 2,
         ]);
     }
 
@@ -56,6 +56,7 @@ class UpdateUserTest extends DuskTestCase
             ['address', '', 'The address must be a string.'],
             ['phone', '', 'The phone format is invalid'],
             ['identity_card', 'hgfg', 'The identity card format is invalid.'],
+            ['identity_card', '154599812', 'The identity card has already been taken.'],
         ];
     }
 
@@ -72,39 +73,6 @@ class UpdateUserTest extends DuskTestCase
      */
     public function testUpdateValidateForInput($name, $content, $message)
     {
-        $this->browse(function (Browser $browser) use ($name, $content, $message) {
-            $browser->visit('/admin/users/1/edit')
-                ->type($name, $content)
-                ->press('Update')                   
-                ->assertSee($message);
-        });
-    }
-
-    /**
-     * Case for test validate for input
-     *
-     * @return array
-     */
-    public function CaseAlreadyTestValidateForInput()
-    {
-        return [
-            ['identity_card', '154599812', 'The identity card has already been taken.'],
-        ];
-    }
-
-    /**
-     * Dusk test validate for input
-     *
-     * @param string $name name of field
-     * @param string $content content
-     * @param string $message message show when validate
-     * 
-     * @dataProvider CaseAlreadyTestValidateForInput
-     *
-     * @return void
-     */
-    public function testValidateaAlreadyForInput($name, $content, $message)
-    { 
         $this->browse(function (Browser $browser) use ($name, $content, $message) {
             $browser->visit('/admin/users/2/edit')
                 ->type($name, $content)
