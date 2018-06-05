@@ -22,8 +22,6 @@ class User extends Authenticatable
         'username', 'email', 'password', 'role' , 'api_token' , 'old_password' , 'is_active'
     ];
 
-    protected $dates = ['deleted_at'];
-
     /**
      * The attributes that should be hidden for arrays.
      *

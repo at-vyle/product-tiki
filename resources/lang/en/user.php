@@ -41,6 +41,7 @@ return [
         'edituser' => 'Edit User',
         'reset' => 'Reset',
         'submit' => 'Submit',
-        'requied' => '*'
+        'requied' => '*',
+        'messages_delete_js' => 'Do you want to delete ?',
     ]
 ];
