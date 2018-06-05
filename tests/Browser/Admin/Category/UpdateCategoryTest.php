@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\Admin\Category;
 
 use Tests\DuskTestCase;
 use App\Models\Category;
@@ -38,9 +38,9 @@ class UpdateCategoryTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/categories')
-                    ->click('#edit1');
+                ->click('#edit1');
             $browser->assertPathIs('/admin/categories/1/edit')
-                    ->assertSee('Edit Category');
+                ->assertSee('Edit Category');
         });
     }
 
@@ -74,10 +74,10 @@ class UpdateCategoryTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) use ($name, $content, $message) {
             $browser->visit('admin/categories/1/edit')
-                    ->assertSee('Edit Category')
-                    ->type($name, $content);
+                ->assertSee('Edit Category')
+                ->type($name, $content);
             $browser->press('Submit')
-                    ->assertSee($message);
+                ->assertSee($message);
         });
     }
 
@@ -91,15 +91,15 @@ class UpdateCategoryTest extends DuskTestCase
         $categoryOther = Category::find(1);
         $this->browse(function (Browser $browser) use ($categoryOther) {
             $browser->visit('/admin/categories/2/edit')
-                    ->assertSee('Edit Category')
-                    ->select('parent_id', $categoryOther->id);
+                ->assertSee('Edit Category')
+                ->select('parent_id', $categoryOther->id);
             $categoryOther->update([
                 'parent_id' => 3,
                 'level' => 2,
             ]);
             $browser->press('Submit')
-                    ->assertSee('Can not edit Category by this Child!')
-                    ->assertPathIs('/admin/categories/2/edit');
+                ->assertSee('Can not edit Category by this Child!')
+                ->assertPathIs('/admin/categories/2/edit');
         });
     }
 
@@ -114,12 +114,12 @@ class UpdateCategoryTest extends DuskTestCase
         $categoryOther = Category::find(1);
         $this->browse(function (Browser $browser) use ($testName, $categoryOther) {
             $browser->visit('/admin/categories/2/edit')
-                    ->assertSee('Edit Category')
-                    ->type('name', $testName)
-                    ->select('parent_id', $categoryOther->id)
-                    ->press('Submit')
-                    ->assertSee('Update Category Successfull!')
-                    ->assertPathIs('/admin/categories');
+                ->assertSee('Edit Category')
+                ->type('name', $testName)
+                ->select('parent_id', $categoryOther->id)
+                ->press('Submit')
+                ->assertSee('Update Category Successfull!')
+                ->assertPathIs('/admin/categories');
         });
         $this->assertDatabaseHas('categories', [
             'id' => 2,
@@ -138,11 +138,11 @@ class UpdateCategoryTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/categories/2/edit')
-                    ->assertSee('Edit Category')
-                    ->select('parent_id', null)
-                    ->press('Submit')
-                    ->assertSee('Update Category Successfull!')
-                    ->assertPathIs('/admin/categories');
+                ->assertSee('Edit Category')
+                ->select('parent_id', null)
+                ->press('Submit')
+                ->assertSee('Update Category Successfull!')
+                ->assertPathIs('/admin/categories');
         });
         $this->assertDatabaseHas('categories', [
             'parent_id' => null,
