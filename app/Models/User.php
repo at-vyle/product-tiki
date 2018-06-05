@@ -11,6 +11,8 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes;
 
+    const ADMIN_ROLE = 1;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -60,7 +62,7 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Post', 'user_id', 'id');
     }
-    
+
     /**
      * Get Order of User
      *
@@ -69,5 +71,15 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany('App\Models\Order', 'user_id', 'id');
+    }
+
+    /**
+     * Check if user is Admin
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function isAdmin()
+    {
+        return $this->role == $this::ADMIN_ROLE;
     }
 }
