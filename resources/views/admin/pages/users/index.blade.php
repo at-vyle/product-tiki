@@ -57,8 +57,16 @@
     </div>
   </div>
 </div>
+<script>
+  function deleteUser(e, id) {
+    e.preventDefault();
+    msg = Lang.get('user.index.messages_delete_js');
+    if (confirm(msg)) {
+        document.getElementById('delete-user'+id).submit();
+    }
+  }
+</script>
 @section('js')
-  <script src="/js/messages.js"></script>
-  <script src="/js/user.js"></script>
+<script src="/js/messages.js"></script>
 @endsection
 @endsection
