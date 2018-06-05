@@ -16,6 +16,7 @@ class DeleteCategoryTest extends DuskTestCase
         parent::setUp();
         factory('App\Models\Category')->create();
     }
+
     /**
      * Test button delete category in List Categories
      *
@@ -29,9 +30,10 @@ class DeleteCategoryTest extends DuskTestCase
                 ->press('#deleted1')
                 ->assertDialogOpened('Do you want to delete this Category?')
                 ->dismissDialog();
-            $this->assertDatabaseHas('categories',['deleted_at' => null]);
+            $this->assertDatabaseHas('categories', ['deleted_at' => null]);
         });
     }
+
     /**
      * Test click button Delete
      *
@@ -45,7 +47,25 @@ class DeleteCategoryTest extends DuskTestCase
                 ->assertDialogOpened('Do you want to delete this Category?')
                 ->acceptDialog()
                 ->assertSee('Delete Category Successfull!');
-            $this->assertDatabaseMissing('categories',['deleted_at'=>null]);
+            $this->assertDatabaseMissing('categories', ['deleted_at' => null]);
+        });
+    }
+
+    /**
+     * Test click button Delete Category Already Delete
+     *
+     * @return void
+     */
+    public function testDeleteCatgoryAlreadyDelete()
+    {
+        $category = Category::find(1);
+        $this->browse(function (Browser $browser) use ($category) {
+            $browser->visit('/admin/categories');
+            $category->delete();
+            $browser->press('#deleted1')
+                ->assertDialogOpened('Do you want to delete this Category?')
+                ->acceptDialog()
+                ->assertSee('Sorry, the page you are looking for could not be found.');
         });
     }
 }
