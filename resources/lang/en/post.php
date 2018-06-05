@@ -32,7 +32,8 @@ return [
             'go' => 'Go!',
             'approved_post' => 'Approved Post',
             'unapproved_post' => 'Unapproved Post',
-            'select_title' => 'Status Option'
+            'select_title' => 'Status Option',
+            'avatar_col' => 'Avatar',
         ],
         'show' => [
             'title' => 'Subcomments List',

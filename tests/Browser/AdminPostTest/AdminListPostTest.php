@@ -33,27 +33,4 @@ class AdminListPostTest extends DuskTestCase
                     ->assertSee('All Posts');
         });
     }
-
-    /**
-     * test if search post work.
-     *
-     * @return void
-     */
-    public function testSearchPost()
-    {
-        $testContent = 'dkashkdjhdasndjkashdkjah';
-        factory('App\Models\Category', 1)->create();
-        factory('App\Models\Product', 1)->create();
-        factory('App\Models\User', 1)->create();
-        factory('App\Models\Post', 1)->states('rating')->create([
-            'content' => $testContent
-        ]);
-        $this->browse(function (Browser $browser) use ($testContent) {
-            $browser->loginAs($this->user)
-                    ->visit('/admin/posts')
-                    ->type('content', $testContent)
-                    ->press('Go!')
-                    ->assertSee($testContent);
-        });
-    }
 }
