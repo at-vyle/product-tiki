@@ -25,5 +25,24 @@ return [
     ],
     'dir_desc' => 'DESC',
     'dir_asc' => 'ASC',
-
+    'homepage' => [
+        'numberOfRecords' => '5',
+        'time' => [
+            'month' => 'month',
+            'year' => 'year',
+            'week' => 'week'
+        ],
+        'type' => [
+            'user' => 'user',
+            'order' => 'order'
+        ],
+        'request' => [
+            'time' => [
+                'month' => 'last month',
+                'year' => 'last year',
+                'week' => 'last week',
+                'all' => 'all'
+            ]
+        ]
+    ]
 ];
