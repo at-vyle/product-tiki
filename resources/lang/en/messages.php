@@ -28,6 +28,7 @@ return [
     'adduser' => 'Add User',
     'delete_user_success' => 'Delete User Successfully',
     'delete_user_fail' => 'Delete User Fail',
+    'delete_not' => 'You do not have permission to delete this user !!!',
 
     'delete_fail' => 'Delete Failed',
 ];

@@ -140,11 +140,14 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        try {
-            $user->delete();
-        } catch (Exception $e) {
-            session()->flash('message', trans('messages.delete_user_fail'));
+        if (!$user->role == User::ADMIN_ROLE) {
+            try {
+                $user->delete();
+            } catch (Exception $e) {
+                session()->flash('message', trans('messages.delete_user_fail'));
+            }
+            return redirect()->route('admin.users.index')->with('message', trans('messages.delete_user_success'));
         }
-        return redirect()->route('admin.users.index')->with('message', trans('messages.delete_user_success'));
+        return redirect()->route('admin.users.index')->with('message', trans('messages.delete_not'));
     }
 }
