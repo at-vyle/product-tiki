@@ -19,8 +19,12 @@ return [
         'limit_rows' => 10
     ],
     'order' => [
-        'limit_rows' => 5
+        'limit_rows' => 5,
+        'sort_orderdetails_count' => 'orderdetails_count',
+        'sort_total' => 'total'
     ],
+    'dir_desc' => 'DESC',
+    'dir_asc' => 'ASC',
     'homepage' => [
         'numberOfRecords' => '5',
         'time' => [
@@ -41,5 +45,4 @@ return [
             ]
         ]
     ]
-
 ];

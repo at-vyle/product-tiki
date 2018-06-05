@@ -12,9 +12,12 @@ class Order extends Model
 
     const APPROVED = 1;
     const UNAPPROVED = 0;
+    const CANCELED = 3;
+    const ON_DELIVERY = 2;
+    
     const ORDER_DESC = 'DESC';
     const ORDER_ASC = 'ASC';
-    
+
     protected $dates = ['deleted_at'];
 
     /**
@@ -35,7 +38,7 @@ class Order extends Model
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
-    
+
     /**
      * Get OrderDetail for Order
      *
