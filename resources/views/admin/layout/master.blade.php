@@ -32,7 +32,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="{{ route('admin.home') }}" class="site_title"><i class="fa fa-paw"></i>
+              <a href="{{ route('admin.homepage') }}" class="site_title"><i class="fa fa-paw"></i>
                 <span>{{ __('messages.title') }}</span>
               </a>
             </div>
