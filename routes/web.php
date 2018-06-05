@@ -17,14 +17,19 @@ Route::get('/', function () {
 
 // Todo: add middleware for admin authenticate
 Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'namespace' => 'Admin'], function () {
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/', 'HomeController@index')->name('homepage');
     Route::resource('categories', 'CategoryController');
     Route::resource('products', 'ProductController')->parameters(['products' => 'id']);
     Route::resource('posts', 'PostController')->parameters(['posts' => 'id']);
     Route::resource('users', 'UserController');
     Route::resource('orders', 'OrderController')->parameters(['orders' => 'id']);
+
 });
 
-Auth::routes();
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Auth'], function () {
+    Route::get('login', 'LoginController@showLoginForm')->name('login');
+    Route::post('login', 'LoginController@login');
+    Route::get('logout', 'LoginController@logout')->middleware(['auth:web'])->name('logout');
 
+});
 Route::get('/home', 'HomeController@index')->name('home');
