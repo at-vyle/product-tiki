@@ -65,7 +65,8 @@ class AdminLoginTest extends DuskTestCase
                     ->click('.dropdown-toggle')
                     ->clickLink('Log Out')
                     ->assertPathIs('/');
-                    // ->assertSee('Admin Dashboard');
+            $browser->visit('/admin')
+                    ->assertPathIs('/admin/login');
         });
     }
 
