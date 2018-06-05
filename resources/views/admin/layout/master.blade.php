@@ -32,7 +32,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="{{ route('admin.home') }}" class="site_title"><i class="fa fa-paw"></i>
+              <a href="{{ route('admin.homepage') }}" class="site_title"><i class="fa fa-paw"></i>
                 <span>{{ __('messages.title') }}</span>
               </a>
             </div>
@@ -59,7 +59,7 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li>
-                    <a href="{{ route('admin.home') }}"><i class="fa fa-home"></i>{{ __('messages.home') }}</a>
+                    <a href="{{ route('admin.homepage') }}"><i class="fa fa-home"></i>{{ __('messages.home') }}</a>
                   </li>
                   <li class=""><a><i class="fa fa-table"></i> {{ __('messages.categories') }} <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none;">
@@ -81,7 +81,7 @@
                   <li class=""><a><i class="fa fa-users"></i> {{ __('messages.users') }} <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: none;">
                       <li class=""><a href="{{ route('admin.users.index') }}"> @lang('messages.show_all') <i class="fa fa-th-list"></i></a></li>
-                      <li class=""><a href="{{ route('admin.users.create') }}"> @lang('messages.add') <i class="fa fa-plus-circle"></i></a></li>
+                      <li class=""><a href="{{ route('admin.users.create') }}"> @lang('messages.adduser') <i class="fa fa-plus-circle"></i></a></li>
                     </ul>
                   </li>
                   <li class=""><a><i class="fa fa-list-alt"></i> {{ __('messages.orders') }} <span class="fa fa-chevron-down"></span></a>
@@ -106,7 +106,7 @@
               <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="{{ route('admin.logout') }}">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
@@ -137,7 +137,7 @@
                       </a>
                     </li>
                     <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="{{ route('admin.logout') }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
@@ -256,5 +256,7 @@
 
     <!-- Custom Theme Scripts -->
     <script src="/bower_components/gentelella/build/js/custom.min.js"></script>
+
+    @yield('js')
   </body>
 </html>
