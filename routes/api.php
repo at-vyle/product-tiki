@@ -22,4 +22,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.api.' , 'namespace' => 'Api'],
     Route::apiResource('images', 'ImageController')->parameters(['images' => 'id']);
     Route::put('orders/{order}/status', 'OrderController@changeStatus')->name('orders.update.status');
     Route::apiResource('comments', 'CommentController')->parameters(['comments' => 'id']);
+    Route::get('/', 'HomeController@index')->name('home');
 });
