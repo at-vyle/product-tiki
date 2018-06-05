@@ -130,4 +130,21 @@ class UserController extends Controller
         Mail::to($user->email)->send(new SendMailUser($data));
         return redirect()->route('admin.users.index')->with('message', trans('messages.create_user_success'));
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param App\Models\User $user user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $user)
+    {
+        try {
+            $user->delete();
+        } catch (Exception $e) {
+            session()->flash('message', trans('messages.delete_user_fail'));
+        }
+        return redirect()->route('admin.users.index')->with('message', trans('messages.delete_user_success'));
+    }
 }
