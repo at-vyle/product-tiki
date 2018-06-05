@@ -38,7 +38,7 @@ class CreateProductTest extends DuskTestCase
                     ->type('description', 'This is a Smart Phone')
                     ->type('price', '10000000')
                     ->type('quantity', '100')
-                    ->attach('input_img', __DIR__.'/testing/iphone1.jpg')
+                    ->attach('input_img[]', __DIR__.'/testing/iphone1.jpg')
                     ->press('Create')
                     ->assertPathIs('/admin/products')
                     ->assertSee('Create product successfully');
@@ -82,7 +82,7 @@ class CreateProductTest extends DuskTestCase
                     ->type('description', 'This is a Smart Phone')
                     ->type('price', '1.5')
                     ->type('quantity', '1.5')
-                    ->attach('input_img', __DIR__.'/testing/iphone1.jpg')
+                    ->attach('input_img[]', __DIR__.'/testing/iphone1.jpg')
                     ->press('Create')
                     ->assertPathIs('/admin/products/create')
                     ->assertDontSee('Create product successfully');
@@ -107,7 +107,7 @@ class CreateProductTest extends DuskTestCase
                     ->type('description', 'This is a Smart Phone')
                     ->type('price', '1000000')
                     ->type('quantity', '10')
-                    ->attach('input_img', __DIR__.'/testing/iphone1.zip')
+                    ->attach('input_img[]', __DIR__.'/testing/iphone1.zip')
                     ->press('Create')
                     ->assertPathIs('/admin/products/create')
                     ->assertDontSee('Create product successfully');

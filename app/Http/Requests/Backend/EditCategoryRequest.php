@@ -29,7 +29,8 @@ class EditCategoryRequest extends FormRequest
                 'required',
                 'regex:/(^[A-Za-z0-9 ]+$)+/',
                 'unique:categories,name,' . $category->name . ',name'
-            ]
+            ],
+            'parent_id' => 'nullable|exists:categories,id'
         ];
     }
 }

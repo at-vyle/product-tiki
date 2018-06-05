@@ -85,7 +85,7 @@
               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                 @foreach($product->images as $image)
                   <div id="img-{{ $image->id }}" class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="update-img"><img class="img-responsive" src="{{ $image->img_url }}" alt=""></div>
+                    <div class="update-img"><img class="img-responsive" src="{{ $image->getImageUrlAttribute() }}" alt=""></div>
                     <button onclick="deleteImage('{{ route('admin.api.images.destroy', ['id' => $image->id]) }}', event)" class="delete-img-btn"><i class="fa fa-trash btn-danger"></i></button>
                   </div>
                 @endforeach
