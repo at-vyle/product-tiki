@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\Admin\Category;
 
 use Tests\DuskTestCase;
 use App\Models\Category;
@@ -14,7 +14,7 @@ class DeleteCategoryTest extends DuskTestCase
     public function setUp()
     {
         parent::setUp();
-        factory('App\Models\Category', 1)->create();
+        factory('App\Models\Category')->create();
     }
     /**
      * Test button delete category in List Categories
@@ -25,9 +25,9 @@ class DeleteCategoryTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/categories')
-                ->assertSee(__('category.admin.list.title'))
+                ->assertSee('List Categories')
                 ->press('#deleted1')
-                ->assertDialogOpened('Do you want to delete Category Id= 1')
+                ->assertDialogOpened('Do you want to delete this Category?')
                 ->dismissDialog();
             $this->assertDatabaseHas('categories',['deleted_at' => null]);
         });
@@ -42,9 +42,9 @@ class DeleteCategoryTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/categories')
                 ->press('#deleted1')
-                ->assertDialogOpened('Do you want to delete Category Id= 1')
+                ->assertDialogOpened('Do you want to delete this Category?')
                 ->acceptDialog()
-                ->assertSee(__('category.admin.message.del'));
+                ->assertSee('Delete Category Successfull!');
             $this->assertDatabaseMissing('categories',['deleted_at'=>null]);
         });
     }
