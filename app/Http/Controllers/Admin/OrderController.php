@@ -25,9 +25,7 @@ class OrderController extends Controller
         })->when(isset($request->sortBy) && isset($request->dir), function ($query) use ($request) {
             return $query->orderBy($request->sortBy, $request->dir);
         })
-        ->with(['user' => function ($query) {
-            return $query->with('userInfo');
-        }])->withCount('orderdetails')->paginate($perPage);
+        ->with(['user.userInfo'])->withCount('orderdetails')->paginate($perPage);
 
         $orders->appends(request()->query());
         $data['orders'] = $orders;
@@ -44,9 +42,7 @@ class OrderController extends Controller
     public function show($id)
     {
         $perPage = config('define.order.limit_rows');
-        $order = Order::with(['user' => function ($query) {
-            return $query->with('userInfo');
-        }])->withCount('orderdetails')->find($id);
+        $order = Order::with(['user.userInfo'])->withCount('orderdetails')->find($id);
 
         $orderDetails = Order::find($id)->orderDetails()->with(['product' => function ($query) {
             return $query->with('images');
