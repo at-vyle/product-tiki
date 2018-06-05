@@ -27,4 +27,5 @@ return [
     'adduser' => 'Add User',
 
     'delete_fail' => 'Delete Failed',
+    'delete_success' => 'Delete Successfully',
 ];
