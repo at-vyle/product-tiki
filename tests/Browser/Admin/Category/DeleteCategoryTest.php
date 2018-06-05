@@ -52,7 +52,7 @@ class DeleteCategoryTest extends DuskTestCase
     }
 
     /**
-     * Test click button Delete Category Already Delete
+     * Case test Delete Category Already Delete
      *
      * @return void
      */
