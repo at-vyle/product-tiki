@@ -45,7 +45,7 @@ class DeleteUserTest extends DuskTestCase
      *
      * @return void
      */
-    public function testClickDeleleUser()
+    public function testCancelConfirmDelete()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/users')
@@ -62,7 +62,7 @@ class DeleteUserTest extends DuskTestCase
      *
      * @return void
      */
-    public function testButtonDelete()
+    public function testAcceptConfirmDelete()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/users')
