@@ -1,8 +1,6 @@
 @extends('admin.layout.master')
 @section('title', __('category.admin.title') )
 @section('content')
-<script src="/js/category.js"></script>
-<script src="/js/messages.js"></script>
 <div class="right_col" role="main">
   <div class="">
     <div class="row">
@@ -41,7 +39,7 @@
                     <form class="col-md-4" method="POST" action="{{ route('admin.categories.destroy', ['id' => $list->id]) }}" style="display:inline;" id="deleted{{ $list->id }}">
                       @method('DELETE')
                       {{ csrf_field() }}
-                      <button class="btn btn-danger" type="submit"onclick="deleteCategory(event, {{ $list->id }})"><i class="fa fa-trash icon-size" ></i></button>
+                      <button class="btn btn-danger" type="submit"onclick="deleteRecord(event, {{ $list->id }})"><i class="fa fa-trash icon-size" ></i></button>
                     </form>
                     <form class="col-md-4">
                       <a class="btn btn-primary" href="{{ route('admin.categories.show', ['id' => $list->id]) }}"><i class="fa fa-eye icon-size" ></i></a>
@@ -59,4 +57,8 @@
     </div>
   </div>
 </div>
+@section('js')
+<script src="/js/messages.js"></script>
+<script src="/js/main.js"></script>
+@endsection
 @endsection

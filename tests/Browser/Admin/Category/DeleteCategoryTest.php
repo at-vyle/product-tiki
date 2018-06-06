@@ -22,13 +22,13 @@ class DeleteCategoryTest extends DuskTestCase
      *
      * @return void
      */
-    public function testClickButtonDeleleUser()
+    public function testClickButtonDeleleCategory()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/categories')
                 ->assertSee('List Categories')
-                ->press('#deleted1')
-                ->assertDialogOpened('Do you want to delete this Category?')
+                ->press('#deleted1 > button')
+                ->assertDialogOpened('Do you want to delete ?')
                 ->dismissDialog();
             $this->assertDatabaseHas('categories', ['deleted_at' => null]);
         });
@@ -43,8 +43,8 @@ class DeleteCategoryTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/categories')
-                ->press('#deleted1')
-                ->assertDialogOpened('Do you want to delete this Category?')
+                ->press('#deleted1 > button')
+                ->assertDialogOpened('Do you want to delete ?')
                 ->acceptDialog()
                 ->assertSee('Delete Category Successfull!');
             $this->assertDatabaseMissing('categories', ['deleted_at' => null]);
@@ -62,8 +62,8 @@ class DeleteCategoryTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($category) {
             $browser->visit('/admin/categories');
             $category->delete();
-            $browser->press('#deleted1')
-                ->assertDialogOpened('Do you want to delete this Category?')
+            $browser->click('#deleted1 > button')
+                ->assertDialogOpened('Do you want to delete ?')
                 ->acceptDialog()
                 ->assertSee('Sorry, the page you are looking for could not be found.');
         });
