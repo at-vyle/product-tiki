@@ -117,14 +117,14 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param App\Models\Category $category category
+     * @param int $id category's id
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        $itemCategory = Category::with('parentCategories')->find($category->id);
-        $childCategory = Category::with('categories')->where('parent_id', $category->id)->get();
+        $itemCategory = Category::with('parentCategories')->find($id);
+        $childCategory = Category::with('categories')->where('parent_id', $id)->get();
         $data['itemCategory'] = $itemCategory;
         $data['childCategory'] = $childCategory;
         return view('admin.pages.categories.show', $data);
