@@ -32,8 +32,8 @@
                   <td class=" ">{{ $user->id }}</td>
                   <td class=" ">{{ $user->username }}</td>
                   <td class=" ">{{ $user->email }}</td>
-                  <td class=" ">{{ $user->userInfo['full_name'] }}</td>
-                  @if ( $user->userInfo['gender'] == 1 )
+                  <td class=" ">{{ $user->userinfo['full_name'] }}</td>
+                  @if ( $user->userinfo['gender'] == 1 )
                     <td class="a-right a-right ">{{ __('user.index.female') }}</td>
                   @else 
                     <td class="a-right a-right ">{{ __('user.index.male') }}</td>
