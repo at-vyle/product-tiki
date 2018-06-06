@@ -27,7 +27,7 @@ class DeleteCategoryTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/categories')
                 ->assertSee('List Categories')
-                ->press('#deleted1 > button')
+                ->click('#deleted1 > button')
                 ->assertDialogOpened('Do you want to delete ?')
                 ->dismissDialog();
             $this->assertDatabaseHas('categories', ['deleted_at' => null]);
@@ -43,7 +43,7 @@ class DeleteCategoryTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/categories')
-                ->press('#deleted1 > button')
+                ->click('#deleted1 > button')
                 ->assertDialogOpened('Do you want to delete ?')
                 ->acceptDialog()
                 ->assertSee('Delete Category Successfull!');

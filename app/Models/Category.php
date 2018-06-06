@@ -34,7 +34,7 @@ class Category extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function categories()
+    public function children()
     {
         return $this->hasMany('App\Models\Category', 'parent_id', 'id');
     }
@@ -44,8 +44,8 @@ class Category extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function parentCategories()
+    public function parent()
     {
-        return $this->hasMany('App\Models\Category', 'id', 'parent_id');
+        return $this->belongsTo('App\Models\Category', 'id', 'parent_id');
     }
 }

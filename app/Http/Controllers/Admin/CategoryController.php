@@ -12,18 +12,19 @@ class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * 
+     *
      * @param \Illuminate\Http\Request $request request
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        $listCategories = Category::when(isset($request->sortBy) && isset($request->dir), function ($query) use ($request) {
-            return $query->orderBy($request->sortBy, $request->dir);
-        })->with('parentCategories')->withCount('products')->when(isset($request->sortBy) && isset($request->dir), function ($query) use ($request) {
-            return $query->orderBy($request->sortBy, $request->dir);
-        })->paginate(config('define.category.limit_rows'));
+        $listCategories = Category::with('parent')
+            ->withCount('products')
+            ->when(isset($request->sortBy) && isset($request->dir), function ($query) use ($request) {
+                return $query->orderBy($request->sortBy, $request->dir);
+            })
+            ->paginate(config('define.category.limit_rows'));
         $data['listCategories'] = $listCategories;
         return view('admin.pages.categories.index', $data);
     }
@@ -123,16 +124,17 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param App\Models\Category $category category
+     * @param int $id category's id
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        $itemCategory = Category::with('parentCategories')->find($category->id);
-        $childCategory = Category::with('categories')->where('parent_id', $category->id)->get();
-        $data['itemCategory'] = $itemCategory;
-        $data['childCategory'] = $childCategory;
+        $category = Category::whereId($id)
+            ->with(['parent', 'children' => function ($query) {
+                $query->with('children');
+            }])->first();
+        $data['category'] = $category;
         return view('admin.pages.categories.show', $data);
     }
 }
