@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes;
+    use Notifiable, SoftDeletes, Sortable;
 
     const ADMIN_ROLE = 1;
 
@@ -71,6 +72,8 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Order', 'user_id', 'id');
     }
 
+    public $sortable = ['id'];
+   
     /**
      * Check if user is Admin
      *
