@@ -25,24 +25,24 @@
               </thead>
               <tbody>
                 <tr class="even pointer">
-                  <td>{{ $itemCategory->name }}</td>
+                  <td>{{ $category->name }}</td>
                   <td></td>
                   <td></td>
                 </tr>
-                @foreach ($itemCategory->parentCategories as $parent)
+                @if($category->parent['name'])
                 <tr class="even pointer">
                   <td></td>
                   <td></td>
-                  <td>{{ $parent->name }}</td>
+                  <td><a href="{{ route('admin.categories.show', ['id' => $category->parent['id']]) }}">{{ $category->parent['name'] }}</a></td>
                 </tr>
-                @endforeach
-                @foreach ($childCategory as $child)
+                @endif
+                @foreach ($category->children as $child)
                 <tr class="even pointer">
                   <td></td>
                   <td id="showChild">
-                  {{ $child->name }}
+                  <a href="{{ route('admin.categories.show', ['id' => $child->id]) }}">{{ $child->name }}</a>
                     <ul class="child">
-                    @foreach ($child->categories as $grandchild) 
+                    @foreach ($child->children as $grandchild) 
                       <li>{{ $grandchild->name }}</li>
                     @endforeach
                     </ul>

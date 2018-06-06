@@ -27,9 +27,7 @@
                 <tr class="even pointer">
                   <td>{{ $list->name }}</td>
                   <td>
-                    @foreach ($list->parentCategories as $cat)
-                      {{ $cat->name }}
-                    @endforeach
+                    {{ $list->parent['name'] }}
                   </td>
                   <td>{{ $list->products_count }}</td>
                   <td>
