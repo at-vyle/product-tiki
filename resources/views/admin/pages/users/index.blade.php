@@ -19,10 +19,7 @@
                 <th class="column-title">{{ __('user.index.email') }} </th>
                 <th class="column-title">@sortablelink('userinfo.full_name', __('user.index.fullname'))</th>
                 <th class="column-title">{{ __('user.index.gender') }}</th>
-                <th class="column-title">{{ __('user.index.is_active') }}</th>
                 <th class="column-title no-link last"><span class="nobr">{{ __('user.index.action') }}</span>
-                </th>
-                <th class="column-title no-link last"><span class="nobr">{{ __('user.index.user_info') }}</span>
                 </th>
               </tr>
             </thead>
@@ -38,14 +35,14 @@
                   @else 
                     <td class="a-right a-right ">{{ __('user.index.male') }}</td>
                   @endif
-                  <td class=""><i class="fa fa-times-circle icon-size fa-2x"></i></td>
-                  <td class="last"><a class="col-md-3" href="{{ route('admin.users.edit', ['id' => $user['id']]) }}"><button class="btn-success"><i class="fa fa-edit"></i></button></a>
-                  <form class="col-md-3" id="deleted{{ $user->id }}" action="{{ route('admin.users.destroy', ['id' => $user['id']]) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn-danger" onclick="deleteRecord(event, {{ $user->id }})" type="submit"><i class="fa fa-trash"></i></button>
-                  </form>
-                  <td class="last"><a href="{{ route('admin.users.show', array('id' => $user->id)) }}">{{ __('user.index.detail') }}</a>
+                  <td class="last">
+                    <a class="col-md-4" href="{{ route('admin.users.edit', ['id' => $user['id']]) }}"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>
+                    <form class="col-md-4" id="deleted{{ $user->id }}" action="{{ route('admin.users.destroy', ['id' => $user['id']]) }}" method="POST">
+                      @csrf
+                      @method('DELETE')
+                      <button class="btn btn-danger" onclick="deleteRecord(event, {{ $user->id }})" type="submit"><i class="fa fa-trash"></i></button>
+                    </form>
+                    <a class="col-md-4" href="{{ route('admin.users.show', array('id' => $user->id)) }}"><button class="btn btn-primary"><i class="fa fa-eye icon-size"></i></button></i></a>
                   </td>
                 </tr>
               @endforeach
