@@ -16,9 +16,29 @@
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                  <th class="column-title col-md-3">{{ __('category.admin.table.name') }}</th>
+                  <th class="column-title col-md-3">{{ __('category.admin.table.name') }}
+                    @if (app('request')->input('sortBy') == trans('category.admin.table.sort_by_name') && app('request')->input('dir') == trans('category.admin.table.dir_desc'))
+                      <a href="{{ route('admin.categories.index', ['sortBy' => trans('category.admin.table.sort_by_name'), 'dir' => trans('category.admin.table.dir_asc')]) }}">
+                        <i class="fa fa-sort-up"></i>
+                      </a>
+                    @else
+                      <a href="{{ route('admin.categories.index', ['sortBy' => trans('category.admin.table.sort_by_name'), 'dir' => trans('category.admin.table.dir_desc')]) }}">
+                        <i class="fa fa-sort-down"></i>
+                      </a>
+                    @endif
+                  </th>
                   <th class="column-title col-md-3">{{ __('category.admin.add.parent_category') }}</th>
-                  <th class="column-title col-md-3">{{ __('category.admin.table.sum_product') }}</th>
+                  <th class="column-title col-md-3">{{ __('category.admin.table.sum_product') }}
+                    @if (app('request')->input('sortBy') == trans('category.admin.table.sort_by_products_count') && app('request')->input('dir') == trans('category.admin.table.dir_desc'))
+                      <a href="{{ route('admin.categories.index', ['sortBy' => trans('category.admin.table.sort_by_products_count'), 'dir' => trans('category.admin.table.dir_asc')]) }}">
+                        <i class="fa fa-sort-up"></i>
+                      </a>
+                    @else
+                      <a href="{{ route('admin.categories.index', ['sortBy' => trans('category.admin.table.sort_by_products_count'), 'dir' => trans('category.admin.table.dir_desc')]) }}">
+                        <i class="fa fa-sort-down"></i>
+                      </a>
+                    @endif
+                  </th>
                   <th class="column-title no-link last"><span class="nobr">{{ __('category.admin.table.action') }}</span></th>
                 </tr>
               </thead>
