@@ -1,4 +1,4 @@
-function deleteMain(e, id) {
+function deleteRecord(e, id) {
     e.preventDefault();
     msg = Lang.get('messages.main_delete');
     if (confirm(msg)) {

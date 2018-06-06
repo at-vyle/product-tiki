@@ -125,7 +125,7 @@
                       <form id="deleted{{ $product->id }}" action="{!! route('admin.products.destroy', ['id' => $product['id']]) !!}" method="post">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-primary" onclick="deleteMain(event, {{ $product->id }})" type="submit"><i class="fa fa-trash btn-danger"></i></button>
+                        <button class="btn btn-primary" onclick="deleteRecord(event, {{ $product->id }})" type="submit"><i class="fa fa-trash btn-danger"></i></button>
                       </form>
                     </td>
                   </tr>

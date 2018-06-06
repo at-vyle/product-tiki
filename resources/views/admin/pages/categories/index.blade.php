@@ -38,7 +38,7 @@
                     <form method="POST" action="{{ route('admin.categories.destroy', ['id' => $list->id]) }}" style="display:inline;" id="deleted{{ $list->id }}">
                       @method('DELETE')
                       {{ csrf_field() }}
-                      <button type="submit" class="btn-danger" onclick="deleteMain(event, {{ $list->id }})"><i class="fa fa-trash"></i></button>
+                      <button type="submit" class="btn-danger" onclick="deleteRecord(event, {{ $list->id }})"><i class="fa fa-trash"></i></button>
                     </form>
                   </td>
                 </tr>
