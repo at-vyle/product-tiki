@@ -10,6 +10,7 @@ use App\Models\Image;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Requests\PostProductRequest;
+use DB;
 
 class ProductController extends Controller
 {
@@ -136,10 +137,17 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        DB::beginTransaction();
         try {
             $product = Product::findOrFail($id);
+            $product->posts()->delete();
             $product->delete();
+            DB::commit();
+            session()->flash('message', trans('messages.delete_success'));
         } catch (ModelNotFoundException $e) {
+            session()->flash('message', trans('messages.delete_fail'));
+        } catch (Exception $e) {
+            DB::rollback();
             session()->flash('message', trans('messages.delete_fail'));
         }
         return back();
