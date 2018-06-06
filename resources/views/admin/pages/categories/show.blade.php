@@ -18,9 +18,9 @@
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                  <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.name') }}</th>
-                  <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.child_category') }}</th>
-                  <th class="column-title" style="display: table-cell;">{{ __('category.admin.add.parent_category') }}</th>
+                  <th class="column-title col-md-4">{{ __('category.admin.table.name') }}</th>
+                  <th class="column-title col-md-4">{{ __('category.admin.table.child_category') }}</th>
+                  <th class="column-title col-md-4">{{ __('category.admin.add.parent_category') }}</th>
                 </tr>
               </thead>
               <tbody>

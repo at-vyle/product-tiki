@@ -28,7 +28,7 @@
                 @foreach ($listCategories as $list)
                 <tr class="even pointer">
                   <td>{{ $list->name }}</td>
-                  <td class=" ">
+                  <td>
                     @foreach ($list->parentCategories as $cat)
                       {{ $cat->name }}
                     @endforeach
@@ -36,9 +36,9 @@
                   <td>{{ $list->products_count }}</td>
                   <td>
                     <form class="col-md-4">
-                      <a class="btn btn-primary" href="{{ route('admin.categories.edit', ['id' => $list->id] ) }}"><i class="fa fa-edit"></i></a>
-                    </form>
-                    <form class="col-md-4" method="POST" action="{{ route('admin.categories.destroy', ['id' => $list->id]) }}" id="deleted{{ $list->id }}">
+                      <a class="btn btn-primary" id="edit{{ $list->id }}" href="{{ route('admin.categories.edit', ['id' => $list->id] ) }}"><i class="fa fa-edit"></i></a>
+                    </form> 
+                    <form class="col-md-4" method="POST" action="{{ route('admin.categories.destroy', ['id' => $list->id]) }}" style="display:inline;" id="deleted{{ $list->id }}">
                       @method('DELETE')
                       {{ csrf_field() }}
                       <button class="btn btn-danger" type="submit"onclick="deleteCategory(event, {{ $list->id }})"><i class="fa fa-trash icon-size" ></i></button>
