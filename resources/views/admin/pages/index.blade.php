@@ -9,9 +9,9 @@
   <div class="">
     <div class="row top_tiles">
       <div class="x_title col-md-12">
-        <a class="btn col-md-3 @if (app('request')->input('time') == config('define.homepage.time.month') || !app('request')->input('time')) active-filter @endif" href="{{ route('admin.home', ['time' => 'month']) }}">{{ __('homepage.admin.statistic.monthly') }}</a>
-        <a class="btn col-md-3 @if (app('request')->input('time') == config('define.homepage.time.year')) active-filter @endif" href="{{ route('admin.home', ['time' => 'year']) }}">{{ __('homepage.admin.statistic.annually') }}</a>
-        <a class="btn col-md-3 @if (app('request')->input('time') == config('define.homepage.time.week')) active-filter @endif" href="{{ route('admin.home', ['time' => 'week']) }}">{{ __('homepage.admin.statistic.weekly') }}</a>
+        <a class="btn col-md-3 @if (app('request')->input('time') == config('define.homepage.time.month') || !app('request')->input('time')) active-filter @endif" href="{{ route('admin.homepage', ['time' => 'month']) }}">{{ __('homepage.admin.statistic.monthly') }}</a>
+        <a class="btn col-md-3 @if (app('request')->input('time') == config('define.homepage.time.year')) active-filter @endif" href="{{ route('admin.homepage', ['time' => 'year']) }}">{{ __('homepage.admin.statistic.annually') }}</a>
+        <a class="btn col-md-3 @if (app('request')->input('time') == config('define.homepage.time.week')) active-filter @endif" href="{{ route('admin.homepage', ['time' => 'week']) }}">{{ __('homepage.admin.statistic.weekly') }}</a>
       </div>
       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="tile-stats">
