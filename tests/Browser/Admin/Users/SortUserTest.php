@@ -22,9 +22,9 @@ class SortUserTest extends DuskTestCase
     {
         parent::setUp();
         factory(User::class, 10)->create();
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             factory(UserInfo::class)->create([
-                'user_id' => $i+1,     
+                'user_id' => $i,     
             ]);
         }
     }
