@@ -50,7 +50,7 @@ class DeleteUserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/users')
                 ->assertSee('Show User')
-                ->click('form #btn-delete')
+                ->click('#deleted2 > button')
                 ->assertDialogOpened('Do you want to delete ?')
                 ->dismissDialog();
             $this->assertDatabaseHas('users', ['id' => 2, 'deleted_at' => null]);
@@ -66,7 +66,7 @@ class DeleteUserTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/users')
-                ->click('form button.btn-danger')
+                ->click('#deleted2 > button')
                 ->assertDialogOpened('Do you want to delete ?')
                 ->acceptDialog()
                 ->assertSee('Delete User Successfully');
@@ -75,5 +75,23 @@ class DeleteUserTest extends DuskTestCase
                 ->assertDatabaseMissing('orders', ['user_id'=> 2, 'deleted_at' => null])
                 ->assertDatabaseMissing('comments', ['user_id'=> 2, 'deleted_at' => null]);
         });
-    }  
+    }
+    
+    /**
+     * Case test Delete User Already Delete
+     *
+     * @return void
+     */
+    public function testDeleteUserAlreadyDelete()
+    {
+        $users = factory(User::class)->create();
+        $this->browse(function (Browser $browser) use ($users) {
+            $browser->visit('/admin/users');
+            $users->delete();
+            $browser->click('#deleted3 > button')
+                ->assertDialogOpened('Do you want to delete ?')
+                ->acceptDialog()
+                ->assertSee('Sorry, the page you are looking for could not be found.');
+        });
+    }
 }

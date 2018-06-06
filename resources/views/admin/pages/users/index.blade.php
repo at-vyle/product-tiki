@@ -43,7 +43,7 @@
                   <form class="col-md-3" id="deleted{{ $user->id }}" action="{{ route('admin.users.destroy', ['id' => $user['id']]) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button class="btn-danger" id="btn-delete" onclick="deleteRecord(event, {{ $user->id }})" type="submit"><i class="fa fa-trash"></i></button>
+                    <button class="btn-danger" onclick="deleteRecord(event, {{ $user->id }})" type="submit"><i class="fa fa-trash"></i></button>
                   </form>
                   <td class="last"><a href="{{ route('admin.users.show', array('id' => $user->id)) }}">{{ __('user.index.detail') }}</a>
                   </td>

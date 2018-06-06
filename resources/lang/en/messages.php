@@ -30,7 +30,7 @@ return [
     'delete_user_fail' => 'Delete User Fail',
     'delete_not' => 'You do not have permission to delete this user !!!',
 
-    'main_delete' => 'Do you want to delete ?',
+    'delete_record' => 'Do you want to delete ?',
     'delete_fail' => 'Delete Failed',
     'delete_success' => 'Delete Successfully',
 ];
