@@ -15,10 +15,6 @@ return [
             'action' => 'Action',
             'child_category' => 'Child Category',
             'sum_product' => 'Sum Product',
-            'sort_by_name' => 'name',
-            'sort_by_products_count' => 'products_count',
-            'dir_asc' => 'ASC',
-            'dir_desc' => 'DESC',
         ],
         'add' => [
             'title' => 'Add Category',

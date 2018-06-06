@@ -16,7 +16,9 @@ return [
         'sort_username' => 'username',
     ],
     'category' => [
-        'limit_rows' => 10
+        'limit_rows' => 10,
+        'sort_by_name' => 'name',
+        'sort_by_products_count' => 'products_count',
     ],
     'order' => [
         'limit_rows' => 5,
