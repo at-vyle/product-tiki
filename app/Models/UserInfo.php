@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 
 class UserInfo extends Model
 {
+    use Sortable;
     protected $table = 'user_info';
     
     /**
@@ -36,4 +38,6 @@ class UserInfo extends Model
     {
         return asset(config('define.images_path_users') . $this->avatar);
     }
+
+    public $sortable = ['full_name'];
 }

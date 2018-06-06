@@ -14,10 +14,10 @@
           <table class="table table-striped jambo_table bulk_action">
             <thead>
               <tr class="headings">
-                <th class="column-title">{{ __('user.index.id') }}</th>
+                <th class="column-title">@sortablelink('id', __('user.index.id'))</th>
                 <th class="column-title">{{ __('user.index.username') }}</th>
                 <th class="column-title">{{ __('user.index.email') }} </th>
-                <th class="column-title">{{ __('user.index.fullname') }}</th>
+                <th class="column-title">@sortablelink('userinfo.full_name', __('user.index.fullname'))</th>
                 <th class="column-title">{{ __('user.index.gender') }}</th>
                 <th class="column-title">{{ __('user.index.is_active') }}</th>
                 <th class="column-title no-link last"><span class="nobr">{{ __('user.index.action') }}</span>
@@ -51,7 +51,7 @@
               @endforeach
             </tbody>
           </table>
-          {{ $result->render() }}
+          {{ $result->appends(\Request::except('page'))->render() }}
         </div>
       </div>
     </div>
