@@ -85,7 +85,12 @@ class CategoryController extends Controller
         $category->parent_id = $request->parent_id;
         if ($request->parent_id) {
             $parentLvl = Category::find($request->parent_id)->level;
-            $category->level = $parentLvl++;
+            if ($category->level < $parentLvl) {
+                return back()->with('message', __('category.admin.message.edit_fail'));
+            }
+            $category->level = ++$parentLvl;
+        } else {
+            $category->level = 0;
         }
         $category->save();
         return redirect()->route('admin.categories.index')->with('message', __('category.admin.message.edit'));
@@ -112,14 +117,14 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param int $id category's id
+     * @param App\Models\Category $category category
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        $itemCategory = Category::with('parentCategories')->find($id);
-        $childCategory = Category::with('categories')->where('parent_id', $id)->get();
+        $itemCategory = Category::with('parentCategories')->find($category->id);
+        $childCategory = Category::with('categories')->where('parent_id', $category->id)->get();
         $data['itemCategory'] = $itemCategory;
         $data['childCategory'] = $childCategory;
         return view('admin.pages.categories.show', $data);

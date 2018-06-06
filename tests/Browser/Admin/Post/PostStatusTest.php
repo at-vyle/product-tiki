@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Browser\AdminPostTest;
+namespace Tests\Browser\Admin\Post;
 
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Models\Post;
 
-class AdminPostStatusTest extends DuskTestCase
+class PostStatusTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
