@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\Order;
 use App\Models\Comment;
 use App\Models\Product;
+use App\Models\Category;
 
 class DeleteUserTest extends DuskTestCase
 {
@@ -29,11 +30,13 @@ class DeleteUserTest extends DuskTestCase
             'username' => 'MaiMai',
             'role' => 0
         ]);
+        factory(Category::class)->create();
         factory(Product::class)->create();
-        factory(Post::class)->create();
-        factory(Order::class)->create([
+        factory(Post::class)->create([
+            'user_id' => 2,
             'product_id' => 1,
         ]);
+        factory(Order::class)->create();
         factory(Comment::class)->create();
     }
 
@@ -50,7 +53,7 @@ class DeleteUserTest extends DuskTestCase
                 ->click('form #btn-delete')
                 ->assertDialogOpened('Do you want to delete ?')
                 ->dismissDialog();
-            $this->assertDatabaseHas('users',['deleted_at' => null]);
+            $this->assertDatabaseHas('users', ['id' => 2, 'deleted_at' => null]);
         });
     }
 
