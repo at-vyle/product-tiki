@@ -40,11 +40,30 @@ Get list all categories with child categories
                             "created_at": "2018-05-31 07:04:58",
                             "updated_at": "2018-05-31 07:04:58",
                             "deleted_at": null
-                        }, ...
+                        },
+                        {
+                            "id": 19,
+                            "parent_id": 7,
+                            "name": "Mrs. Taya Prosacco Jr.",
+                            "level": 2,
+                            "created_at": "2018-05-31 07:04:58",
+                            "updated_at": "2018-05-31 07:04:58",
+                            "deleted_at": null
+                        },
                     ]
-                }, ...
+                },
+                {
+                    "id": 8,
+                    "parent_id": 1,
+                    "name": "Eulalia Bernhard",
+                    "level": 1,
+                    "created_at": "2018-05-31 07:04:58",
+                    "updated_at": "2018-05-31 07:04:58",
+                    "deleted_at": null,
+                    "child_categories": []
+                }
             ]
-        }, ...
+        },
     ],
     "code": 200
 }
