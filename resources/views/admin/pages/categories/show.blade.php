@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 @section('title', __('category.admin.title') )
 @section('css')
-  <link href="/css/show.css" rel="stylesheet">
+  <link href="/css/admin/show.css" rel="stylesheet">
 @endsection
 @section('content')
 <div class="right_col" role="main">
@@ -10,7 +10,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2>{{ __('category.admin.list.title') }}</h2>
+          <h2>{{ __('category.admin.show.title') }}</h2>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -18,37 +18,36 @@
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                  <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.id') }}</th>
-                  <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.name') }}</th>
-                  <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.child_category') }}</th>
-                  <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.created_at') }}</th>
-                  <th class="column-title" style="display: table-cell;">{{ __('category.admin.table.updated_at') }}</th>
+                  <th class="column-title col-md-4">{{ __('category.admin.table.name') }}</th>
+                  <th class="column-title col-md-4">{{ __('category.admin.table.child_category') }}</th>
+                  <th class="column-title col-md-4">{{ __('category.admin.add.parent_category') }}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="even pointer">
-                  <td>{{ $itemCategory->id }}</td>
-                  <td>{{ $itemCategory->name }}</td>
+                  <td>{{ $category->name }}</td>
                   <td></td>
-                  <td>{{ $itemCategory->created_at }}</td>
-                  <td class="a-right a-right ">{{ $itemCategory->updated_at }}</td>
-                  </td>
+                  <td></td>
                 </tr>
-                @foreach ($childCategory as $child)
+                @if($category->parent['name'])
                 <tr class="even pointer">
-                  <td>{{ $child->id }}</td>
+                  <td></td>
+                  <td></td>
+                  <td><a href="{{ route('admin.categories.show', ['id' => $category->parent['id']]) }}">{{ $category->parent['name'] }}</a></td>
+                </tr>
+                @endif
+                @foreach ($category->children as $child)
+                <tr class="even pointer">
                   <td></td>
                   <td id="showChild">
-                  {{ $child->name }}
+                  <a href="{{ route('admin.categories.show', ['id' => $child->id]) }}">{{ $child->name }}</a>
                     <ul class="child">
-                    @foreach ($child->categories as $grandchild) 
+                    @foreach ($child->children as $grandchild) 
                       <li>{{ $grandchild->name }}</li>
                     @endforeach
                     </ul>
                   </td>
-                  <td>{{ $child->created_at }}</td>
-                  <td class="a-right a-right ">{{ $child->updated_at }}</td>
-                  </td>
+                  <td></td>
                 </tr>
                 @endforeach
               </tbody>

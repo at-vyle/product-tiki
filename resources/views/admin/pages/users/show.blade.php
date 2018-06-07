@@ -20,7 +20,7 @@
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('user.index.fullname') }}</label>
               <div class="col-md-9 col-sm-9 col-xs-12">
-                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $result->userInfo['full_name'] }}">
+                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $result->userinfo['full_name'] }}">
               </div>
             </div>
             <div class="form-group">
@@ -32,13 +32,13 @@
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('user.index.address') }}</label>
               <div class="col-md-9 col-sm-9 col-xs-12">
-                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $result->userInfo['address'] }}">
+                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $result->userinfo['address'] }}">
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('user.index.gender') }}</label>
               <div class="col-md-9 col-sm-9 col-xs-12">
-                @if ( $result->userInfo['gender'] == 1)
+                @if ( $result->userinfo['gender'] == 1)
                   <input type="text" class="form-control" readonly="readonly" placeholder="{{ __('user.index.female') }}">
                 @else
                   <input type="text" class="form-control" readonly="readonly" placeholder="{{ __('user.index.male') }}">
@@ -48,25 +48,25 @@
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('user.index.avatar') }}</label>
               <div class="col-md-9 col-sm-9 col-xs-12">
-                <img src="{{ $result->userInfo['avatar_url'] }}" alt="img.jpg" >
+                <img src="{{ $result->userinfo['avatar_url'] }}" alt="img.jpg" >
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('user.index.dob') }}</label>
               <div class="col-md-9 col-sm-9 col-xs-12">
-                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $result->userInfo['dob'] }}">
+                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $result->userinfo['dob'] }}">
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('user.index.phone') }}</label>
               <div class="col-md-9 col-sm-9 col-xs-12">
-                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $result->userInfo['phone'] }}">
+                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $result->userinfo['phone'] }}">
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('user.index.indentity_card') }}</label>
               <div class="col-md-9 col-sm-9 col-xs-12">
-                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $result->userInfo['identity_card'] }}">
+                <input type="text" class="form-control" readonly="readonly" placeholder="{{ $result->userinfo['identity_card'] }}">
               </div>
             </div>
             <div class="ln_solid"></div>
