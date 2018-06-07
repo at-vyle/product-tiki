@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DB;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\Backend\EditCategoryRequest;
@@ -106,16 +107,19 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param App\Models\Category $category category
+     * @param int $id category's id
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
+        DB::beginTransaction();
         try {
-            $category->delete();
+            Category::destroy($id);
+            DB::commit();
             session()->flash('message', __('category.admin.message.del'));
         } catch (ModelNotFoundException $e) {
+            DB::rollback();
             session()->flash('message', __('category.admin.message.del_fail'));
         }
         return back();
