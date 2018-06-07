@@ -130,11 +130,11 @@ class ListProductTest extends DuskTestCase
                 $products = \DB::table('products')->orderBy($sortBy, $dir)->pluck($sortBy)->toArray();
             }
 
-            $browser->visit(route('admin.products.index', ['sortBy' => $sortBy, 'dir' => $dir]));
+            $browser->visit(route('admin.products.index', ['sortBy' => $sortBy, 'dir' => $dir, 'page' => 2]));
 
             for ($i = 1; $i <= 5; $i++) {
                 $elements = ".table-responsive table tbody tr:nth-child($i) td:nth-child($column)";
-                $this->assertEquals($browser->text($elements), $products[$i - 1]);
+                $this->assertEquals($browser->text($elements), $products[$i + 4]);
             }
         });
     }
@@ -171,15 +171,15 @@ class ListProductTest extends DuskTestCase
 
             $products = \DB::table('products')->orderBy($sortBy, $dir)->pluck($sortBy)->toArray();
 
-            $browser->visit(route('admin.products.index', ['sortBy' => $sortBy, 'dir' => $dir]));
+            $browser->visit(route('admin.products.index', ['sortBy' => $sortBy, 'dir' => $dir, 'page' => 2]));
 
             for ($i = 1; $i <= 5; $i++) {
                 $elements = ".table-responsive table tbody tr:nth-child($i) td:nth-child($column)";
-                if($sortBy == 'price') {
-                    $this->assertEquals($browser->text($elements), number_format($products[$i - 1]));
+                if ($sortBy == 'price') {
+                    $this->assertEquals($browser->text($elements), number_format($products[$i + 4]));
                 } else {
-                    $products[$i - 1] = $products[$i - 1] == 0 ? 'Unavailable' : 'Available';
-                    $this->assertEquals($browser->text($elements), $products[$i - 1]);
+                    $products[$i + 4] = $products[$i + 4] == 0 ? 'Unavailable' : 'Available';
+                    $this->assertEquals($browser->text($elements), $products[$i + 4]);
                 }
             }
         });
