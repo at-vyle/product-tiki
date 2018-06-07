@@ -14,7 +14,7 @@ Get list all categories with child categories
 ```json
 {
     "result": [
-            {
+        {
             "id": 1,
             "parent_id": null,
             "name": "Alfreda Purdy Jr.",
