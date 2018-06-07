@@ -14,6 +14,7 @@ return [
             'updated_at' => 'Updated At',
             'action' => 'Action',
             'child_category' => 'Child Category',
+            'sum_product' => 'Sum Product',
         ],
         'add' => [
             'title' => 'Add Category',
@@ -28,11 +29,14 @@ return [
         'edit' => [
             'title' => 'Edit Category',
         ],
+        'show' => [
+            'title' => 'Show Category',
+        ],
         'message' => [
             'add' => 'Create New Category Successfull!',
             'add_fail' => 'Can not add New Category. Please check connect database!',
             'edit' => 'Update Category Successfull!',
-            'edit_fail' => 'Can not edit Category. Please check connect database!',
+            'edit_fail' => 'Can not edit Category by this Child!',
             'del' => 'Delete Category Successfull!',
             'del_fail' => 'Can not Delete Category. Please check connect database!',
             'msg_del' => 'Do you want to delete this Category?',

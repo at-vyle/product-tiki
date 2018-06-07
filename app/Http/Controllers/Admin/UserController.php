@@ -5,8 +5,13 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Models\UserInfo;
+use Exeption;
+use App\Mail\SendMailUser;
+use Mail;
+use DB;
 
 class UserController extends Controller
 {
@@ -17,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $result = User::with('userinfo')->paginate(config('define.product.limit_rows'));
+        $result = User::with('userinfo')->sortable()->paginate(config('define.product.limit_rows'));
         $data['result'] = $result;
         return view('admin.pages.users.index', $data);
     }
@@ -39,11 +44,40 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param App\Models\User $user user
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(User $user)
     {
-        return view('admin.pages.users.edit');
+        $data['user'] = $user;
+        return view('admin.pages.users.edit', $data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request request
+     * @param App\Models\User          $user    user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateUserRequest $request, User $user)
+    {
+        $updatedUser = $request->except(["_token", "_method", "submit", "username", "email"]);
+        try {
+            if ($request->hasFile('avatar')) {
+                $image = $request->file('avatar');
+                $newImage = time() . '-' . str_random(8) . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path(config('define.images_path_users'));
+                $updatedUser['avatar'] = $newImage;
+                $image->move($destinationPath, $newImage);
+            }
+            UserInfo::updateOrCreate(['user_id' => $user->id], $updatedUser);
+            return redirect()->route('admin.users.index')->with('message', trans('messages.update_user_success'));
+        } catch (Exception $e) {
+            return redirect()->back()->with('message', trans('messages.update_user_fail'));
+        }
     }
 
     /**
@@ -71,9 +105,10 @@ class UserController extends Controller
             'password' => bcrypt($request->password)
         ];
         $user = User::create($userData);
+        $newImage = '';
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
-            $nameNew = time().'.'.$image->getClientOriginalExtension();
+            $newImage = time() . '-' . str_random(8) . '.' . $image->getClientOriginalExtension();
         }
         $userInfoData = [
             'user_id' => $user->id,
@@ -82,13 +117,44 @@ class UserController extends Controller
             'phone' => $request->phone,
             'identity_card' => $request->identity_card,
             'gender' => $request->gender,
-            'avatar' => $nameNew,
+            'avatar' => $newImage,
             'dob' => $request->dob,
         ];
         if (UserInfo::create($userInfoData)) {
-            $destinationPath = public_path('/images/avatar/');
-            $image->move($destinationPath, $nameNew);
+            if ($newImage) {
+                $destinationPath = public_path(config('define.images_path_users'));
+                $image->move($destinationPath, $newImage);
+            }
         }
+        $data['email'] = $user->email;
+        $data['password'] = $request->password;
+        Mail::to($user->email)->send(new SendMailUser($data));
         return redirect()->route('admin.users.index')->with('message', trans('messages.create_user_success'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param App\Models\User $user user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $user)
+    {
+        if (!$user->role == User::ADMIN_ROLE) {
+            DB::beginTransaction();
+            try {
+                $user->comments()->delete();
+                $user->posts()->delete();
+                $user->orders()->delete();
+                $user->delete();
+                DB::commit();
+            } catch (Exception $e) {
+                DB::rollback();
+                session()->flash('message', trans('messages.delete_user_fail'));
+            }
+            return redirect()->route('admin.users.index')->with('message', trans('messages.delete_user_success'));
+        }
+        return redirect()->route('admin.users.index')->with('message', trans('messages.delete_not'));
     }
 }

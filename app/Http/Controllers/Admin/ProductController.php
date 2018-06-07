@@ -10,6 +10,7 @@ use App\Models\Image;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Requests\PostProductRequest;
+use DB;
 
 class ProductController extends Controller
 {
@@ -24,6 +25,8 @@ class ProductController extends Controller
     {
         $products = Product::when(isset($request->content), function ($query) use ($request) {
             return $query->where('name', 'like', "%$request->content%");
+        })->when(isset($request->sortBy) && isset($request->dir), function ($query) use ($request) {
+            return $query->orderBy($request->sortBy, $request->dir);
         })->with('category', 'images')->paginate(config('define.product.limit_rows'));
 
         $products->appends(request()->query());
@@ -55,13 +58,15 @@ class ProductController extends Controller
         $request['status'] = $request->quantity ? 1 : 0;
         $product = Product::create($request->all());
 
-        $img = request()->file('input_img');
-        $imgName = time() . '-' . $img->getClientOriginalName();
-        $img->move(config('define.product.upload_image_url'), $imgName);
-        Image::create([
-            'product_id' => $product->id,
-            'img_url' => '/' . config('define.product.upload_image_url') . '/' . $imgName
-        ]);
+        foreach (request()->file('input_img') as $img) {
+            $imgName = time() . '-' . $img->getClientOriginalName();
+            $img->move(public_path(config('define.product.upload_image_url')), $imgName);
+            $imagesData[] = [
+                'product_id' => $product->id,
+                'img_url' => $imgName
+            ];
+        }
+        $product->images()->createMany($imagesData);
 
         return redirect()->route('admin.products.index')->with('message', trans('messages.create_product_success'));
     }
@@ -109,15 +114,13 @@ class ProductController extends Controller
         $product->update($request->all());
 
         if (request()->file('input_img')) {
-            $imagesData = [];
             foreach (request()->file('input_img') as $img) {
                 $imgName = time() . '-' . $img->getClientOriginalName();
-                $img->move(config('define.product.upload_image_url'), $imgName);
-                $image = array(
+                $img->move(public_path(config('define.product.upload_image_url')), $imgName);
+                $imagesData[] = [
                     'product_id' => $product->id,
-                    'img_url' => '/' . config('define.product.upload_image_url') . '/' . $imgName
-                );
-                array_push($imagesData, $image);
+                    'img_url' => $imgName
+                ];
             }
             $product->images()->createMany($imagesData);
         }
@@ -134,10 +137,17 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        DB::beginTransaction();
         try {
             $product = Product::findOrFail($id);
+            $product->posts()->delete();
             $product->delete();
+            DB::commit();
+            session()->flash('message', trans('messages.delete_success'));
         } catch (ModelNotFoundException $e) {
+            session()->flash('message', trans('messages.delete_fail'));
+        } catch (Exception $e) {
+            DB::rollback();
             session()->flash('message', trans('messages.delete_fail'));
         }
         return back();

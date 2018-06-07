@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'required' => '*',
     'index' => [
         'title' => 'Product',
         'table-title' => 'Product List',
@@ -14,7 +15,15 @@ return [
         'status' => 'Status',
         'image' => 'Image',
         'go' => 'Go',
-        'delete_confirm' => 'Do you want to delete Product ID = ',
+        'delete_confirm' => 'Do you want to delete Product',
+        'sort_by_category' => 'category_id',
+        'sort_by_name' => 'name',
+        'sort_by_quantity' => 'quantity',
+        'sort_by_avg_rating' => 'avg_rating',
+        'sort_by_price' => 'price',
+        'sort_by_status' => 'status',
+        'dir_asc' => 'ASC',
+        'dir_desc' => 'DESC',
         'created_at' => 'Created At',
         'update_at' => 'Update At',
         'action' => 'Action',
@@ -36,6 +45,7 @@ return [
     'update' => [
         'title' => 'Update Product',
         'table-title' => 'Update Product',
+        'delete_last_file_fail' => 'Can\'t delete the last image',
         'delete_confirm' => 'Do you want to delete this Image?',
         'update' => 'Update'
     ]
