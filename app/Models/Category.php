@@ -58,7 +58,7 @@ class Category extends Model
     {
         parent::boot();
         static::deleting(function ($category) {
-            foreach ($category->products() as $product) {
+            foreach ($category->products as $product) {
                 $product->posts()->delete();
             }
             $category->products()->delete();

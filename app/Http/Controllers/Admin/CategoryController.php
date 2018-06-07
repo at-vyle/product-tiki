@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Backend\EditCategoryRequest;
 use App\Http\Requests\Backend\CategoryRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CategoryController extends Controller
 {
@@ -107,15 +108,15 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id category's id
+     * @param App\Models\Category $category category
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
         DB::beginTransaction();
         try {
-            Category::destroy($id);
+            $category->delete();
             DB::commit();
             session()->flash('message', __('category.admin.message.del'));
         } catch (ModelNotFoundException $e) {
