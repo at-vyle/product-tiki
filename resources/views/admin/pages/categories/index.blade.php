@@ -16,9 +16,29 @@
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                  <th class="column-title col-md-3">{{ __('category.admin.table.name') }}</th>
+                  <th class="column-title col-md-3">{{ __('category.admin.table.name') }}
+                    @if (app('request')->input('sortBy') == config('define.category.sort_by_name') && app('request')->input('dir') == config('define.dir_desc'))
+                      <a href="{{ route('admin.categories.index', ['sortBy' => config('define.category.sort_by_name'), 'dir' => config('define.dir_asc')]) }}">
+                        <i class="fa fa-sort-up"></i>
+                      </a>
+                    @else
+                      <a href="{{ route('admin.categories.index', ['sortBy' => config('define.category.sort_by_name'), 'dir' => config('define.dir_desc')]) }}">
+                        <i class="fa fa-sort-down"></i>
+                      </a>
+                    @endif
+                  </th>
                   <th class="column-title col-md-3">{{ __('category.admin.add.parent_category') }}</th>
-                  <th class="column-title col-md-3">{{ __('category.admin.table.sum_product') }}</th>
+                  <th class="column-title col-md-3">{{ __('category.admin.table.sum_product') }}
+                    @if (app('request')->input('sortBy') == config('define.category.sort_by_products_count') && app('request')->input('dir') == config('define.dir_desc'))
+                      <a href="{{ route('admin.categories.index', ['sortBy' => config('define.category.sort_by_products_count'), 'dir' => config('define.dir_asc')]) }}">
+                        <i class="fa fa-sort-up"></i>
+                      </a>
+                    @else
+                      <a href="{{ route('admin.categories.index', ['sortBy' => config('define.category.sort_by_products_count'), 'dir' => config('define.dir_desc')]) }}">
+                        <i class="fa fa-sort-down"></i>
+                      </a>
+                    @endif
+                  </th>
                   <th class="column-title no-link last"><span class="nobr">{{ __('category.admin.table.action') }}</span></th>
                 </tr>
               </thead>
@@ -55,8 +75,4 @@
     </div>
   </div>
 </div>
-@section('js')
-<script src="/js/messages.js"></script>
-<script src="/js/main.js"></script>
-@endsection
 @endsection
