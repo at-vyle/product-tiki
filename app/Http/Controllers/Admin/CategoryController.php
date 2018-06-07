@@ -27,6 +27,7 @@ class CategoryController extends Controller
                 return $query->orderBy($request->sortBy, $request->dir);
             })
             ->paginate(config('define.category.limit_rows'));
+        $listCategories->appends(request()->query());
         $data['listCategories'] = $listCategories;
         return view('admin.pages.categories.index', $data);
     }
