@@ -13,7 +13,7 @@
         @include('admin.layout.message')        
         <div class="x_content">
           <div class="table-responsive">
-            <table class="table table-striped jambo_table bulk_action" id="table-list">
+            <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
                   <th class="column-title col-md-3" id="sort-by-name">{{ __('category.admin.table.name') }}
