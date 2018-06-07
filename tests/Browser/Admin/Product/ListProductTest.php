@@ -86,4 +86,102 @@ class ListProductTest extends DuskTestCase
 
         });
     }
+
+    /**
+     * Make cases for test.
+     *
+     * @return array
+     */
+    public function dataForTest()
+    {
+        return [
+            ['name' , 1, 'ASC'],
+            ['category_id' , 2, 'ASC'],
+            ['quantity' , 4, 'ASC'],
+            ['avg_rating' , 5, 'ASC'],
+            ['name' , 1, 'DESC'],
+            ['category_id' , 2, 'DESC'],
+            ['quantity' , 4, 'DESC'],
+            ['avg_rating' , 5, 'DESC'],
+        ];
+    }
+
+    /**
+     * Test sort product.
+     *
+     * @dataProvider dataForTest
+     *
+     * @return void
+     */
+    public function testSortProduct($sortBy, $column, $dir)
+    {
+        $this->browse(function (Browser $browser) use ($sortBy, $column, $dir) {
+
+            factory('App\Models\Category', 5)->create();
+            factory('App\Models\Product', 10)->create();
+
+            if ($sortBy == 'category_id') {
+                $products = \DB::table('products')
+                                    ->join('categories', 'products.category_id' , '=', 'categories.id')
+                                    ->orderBy($sortBy, $dir)
+                                    ->pluck('categories.name')
+                                    ->toArray();
+            } else {
+                $products = \DB::table('products')->orderBy($sortBy, $dir)->pluck($sortBy)->toArray();
+            }
+
+            $browser->visit(route('admin.products.index', ['sortBy' => $sortBy, 'dir' => $dir]));
+
+            for ($i = 1; $i <= 5; $i++) {
+                $elements = ".table-responsive table tbody tr:nth-child($i) td:nth-child($column)";
+                $this->assertEquals($browser->text($elements), $products[$i - 1]);
+            }
+        });
+    }
+
+    /**
+     * Make cases for test.
+     *
+     * @return array
+     */
+    public function dataForSortPriceTest()
+    {
+        return [
+            ['price' , 6, 'ASC'],
+            ['price' , 6, 'DESC'],
+            ['status' , 7, 'ASC'],
+            ['status' , 7, 'DESC'],
+        ];
+    }
+
+    /**
+     * Test sort product by price.
+     * Test sort product by status.
+     *
+     * @dataProvider dataForSortPriceTest
+     *
+     * @return void
+     */
+    public function testSortProductPriceStatus($sortBy, $column, $dir)
+    {
+        $this->browse(function (Browser $browser) use ($sortBy, $column, $dir) {
+
+            factory('App\Models\Category', 5)->create();
+            factory('App\Models\Product', 10)->create();
+
+            $products = \DB::table('products')->orderBy($sortBy, $dir)->pluck($sortBy)->toArray();
+
+            $browser->visit(route('admin.products.index', ['sortBy' => $sortBy, 'dir' => $dir]));
+
+            for ($i = 1; $i <= 5; $i++) {
+                $elements = ".table-responsive table tbody tr:nth-child($i) td:nth-child($column)";
+                if($sortBy == 'price') {
+                    $this->assertEquals($browser->text($elements), number_format($products[$i - 1]));
+                } else {
+                    $products[$i - 1] = $products[$i - 1] == 0 ? 'Unavailable' : 'Available';
+                    $this->assertEquals($browser->text($elements), $products[$i - 1]);
+                }
+            }
+        });
+    }
 }
