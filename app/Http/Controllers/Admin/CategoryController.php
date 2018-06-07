@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DB;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\Backend\EditCategoryRequest;
 use App\Http\Requests\Backend\CategoryRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CategoryController extends Controller
 {
@@ -112,10 +114,13 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        DB::beginTransaction();
         try {
             $category->delete();
+            DB::commit();
             session()->flash('message', __('category.admin.message.del'));
         } catch (ModelNotFoundException $e) {
+            DB::rollback();
             session()->flash('message', __('category.admin.message.del_fail'));
         }
         return back();
