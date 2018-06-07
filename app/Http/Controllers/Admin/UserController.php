@@ -11,6 +11,7 @@ use App\Models\UserInfo;
 use Exeption;
 use App\Mail\SendMailUser;
 use Mail;
+use DB;
 
 class UserController extends Controller
 {
@@ -21,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $result = User::with('userinfo')->paginate(config('define.product.limit_rows'));
+        $result = User::with('userinfo')->sortable()->paginate(config('define.product.limit_rows'));
         $data['result'] = $result;
         return view('admin.pages.users.index', $data);
     }
@@ -129,5 +130,31 @@ class UserController extends Controller
         $data['password'] = $request->password;
         Mail::to($user->email)->send(new SendMailUser($data));
         return redirect()->route('admin.users.index')->with('message', trans('messages.create_user_success'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param App\Models\User $user user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $user)
+    {
+        if (!$user->role == User::ADMIN_ROLE) {
+            DB::beginTransaction();
+            try {
+                $user->comments()->delete();
+                $user->posts()->delete();
+                $user->orders()->delete();
+                $user->delete();
+                DB::commit();
+            } catch (Exception $e) {
+                DB::rollback();
+                session()->flash('message', trans('messages.delete_user_fail'));
+            }
+            return redirect()->route('admin.users.index')->with('message', trans('messages.delete_user_success'));
+        }
+        return redirect()->route('admin.users.index')->with('message', trans('messages.delete_not'));
     }
 }
