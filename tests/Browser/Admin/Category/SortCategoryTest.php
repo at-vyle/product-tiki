@@ -54,10 +54,8 @@ class SortCategoryTest extends DuskTestCase
     public function dataForTest()
     {
         return [
-            ['name', 1, 'asc'],
-            ['products_count', 3, 'asc'],
-            ['name', 1, 'desc'],
-            ['products_count', 3, 'desc'],
+            ['name', 1],
+            ['products_count', 3],
         ];
     }
 
@@ -68,15 +66,27 @@ class SortCategoryTest extends DuskTestCase
      *
      * @return void
      */
-    public function testSortCategory($sortBy, $column, $order)
+    public function testSortCategory($sortBy, $column)
     {
         $perPage = (int) (config('define.category.limit_rows'));
-        $this->browse(function (Browser $browser) use ($sortBy, $column, $order, $perPage) {
+        $this->browse(function (Browser $browser) use ($sortBy, $column, $perPage) {
+            //sort desc
+            $browser->visit(route('admin.categories.index'))
+                ->click("#sort-by-$sortBy a");
             $categories = Category::withCount('products')
-                ->orderBy($sortBy, $order)
+                ->orderBy($sortBy, 'desc')
                 ->pluck($sortBy)
                 ->toArray();
-            $browser->visit(route('admin.categories.index', ['sortBy' => $sortBy, 'dir' => $order]));
+            for ($i = 1; $i <= $perPage; $i++) {
+                $selector = ".table-responsive table tbody tr:nth-child($i) td:nth-child($column)";
+                $this->assertEquals($browser->text($selector), $categories[$i - 1]);
+            }
+            //sort asc
+            $browser->click("#sort-by-$sortBy a");
+            $categories = Category::withCount('products')
+                ->orderBy($sortBy, 'asc')
+                ->pluck($sortBy)
+                ->toArray();
             for ($i = 1; $i <= $perPage; $i++) {
                 $selector = ".table-responsive table tbody tr:nth-child($i) td:nth-child($column)";
                 $this->assertEquals($browser->text($selector), $categories[$i - 1]);
@@ -91,15 +101,42 @@ class SortCategoryTest extends DuskTestCase
      *
      * @return void
      */
-    public function testSortCategoryPaginate($sortBy, $column, $order)
+    public function testSortCategoryPaginate($sortBy, $column)
     {
         $perPage = (int) (config('define.category.limit_rows'));
-        $this->browse(function (Browser $browser) use ($sortBy, $column,$order, $perPage) {
+        $this->browse(function (Browser $browser) use ($sortBy, $column, $perPage) {
+            $browser->visit(route('admin.categories.index'))
+                ->click("#sort-by-$sortBy a");
             $categories = Category::withCount('products')
-                ->orderBy($sortBy, $order)
+                ->orderBy($sortBy, 'desc')
                 ->pluck($sortBy)
                 ->toArray();
-            $browser->visit(route('admin.categories.index', ['sortBy' => $sortBy, 'dir' => $order, 'page' => 2]));
+            $browser->clickLink('2');
+            for ($i = 1; $i <= $perPage; $i++) {
+                $selector = ".table-responsive table tbody tr:nth-child($i) td:nth-child($column)";
+                $this->assertEquals($browser->text($selector), $categories[$i + ($perPage - 1)]);
+            }
+        });
+    }
+
+    /**
+     * Test click sort category after paginate.
+     *
+     * @dataProvider dataForTest
+     *
+     * @return void
+     */
+    public function testSortCategoryAfterPaginate($sortBy, $column)
+    {
+        $perPage = (int) (config('define.category.limit_rows'));
+        $this->browse(function (Browser $browser) use ($sortBy, $column, $perPage) {
+            $browser->visit(route('admin.categories.index'))
+                ->clickLink('2')
+                ->click("#sort-by-$sortBy a");
+            $categories = Category::withCount('products')
+                ->orderBy($sortBy, 'desc')
+                ->pluck($sortBy)
+                ->toArray();
             for ($i = 1; $i <= $perPage; $i++) {
                 $selector = ".table-responsive table tbody tr:nth-child($i) td:nth-child($column)";
                 $this->assertEquals($browser->text($selector), $categories[$i + ($perPage - 1)]);
