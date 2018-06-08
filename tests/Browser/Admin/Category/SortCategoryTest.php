@@ -13,6 +13,18 @@ class SortCategoryTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
+    /**
+    * Override function setUp() for make user login
+    *
+    * @return void
+    */
+    public function setUp()
+    {
+        parent::setUp();
+        factory('App\Models\Category', 20)->create();
+        factory('App\Models\Product', 25)->create();
+    }
+
     /*
      * A Dusk test for click link sort
      *
@@ -22,7 +34,7 @@ class SortCategoryTest extends DuskTestCase
     { 
         $sortCategories = ['name', 'products_count'];
         $this->browse(function (Browser $browser) use ($sortCategories) {
-            $browser->visit('/admin/categories');
+            $browser->visit(route('admin.categories.index'));
             foreach ($sortCategories as $sortBy) {
                 $browser->click("#sort-by-$sortBy a")
                     ->assertQueryStringMissing('sort', $sortBy)
@@ -42,10 +54,10 @@ class SortCategoryTest extends DuskTestCase
     public function dataForTest()
     {
         return [
-            ['name' , 1, 'ASC'],
-            ['products_count' , 3, 'ASC'],
-            ['name' , 1, 'DESC'],
-            ['products_count' , 3, 'DESC'],
+            ['name', 1, 'asc'],
+            ['products_count', 3, 'asc'],
+            ['name', 1, 'desc'],
+            ['products_count', 3, 'desc'],
         ];
     }
 
@@ -56,17 +68,38 @@ class SortCategoryTest extends DuskTestCase
      *
      * @return void
      */
-    public function testSortCategory($sortBy, $column, $dir)
+    public function testSortCategory($sortBy, $column, $order)
     {
         $perPage = (int) (config('define.category.limit_rows'));
-        $this->browse(function (Browser $browser) use ($sortBy, $column, $dir, $perPage) {
-            factory('App\Models\Category', 20)->create();
-            factory('App\Models\Product', 25)->create();
+        $this->browse(function (Browser $browser) use ($sortBy, $column, $order, $perPage) {
             $categories = Category::withCount('products')
-                ->orderBy($sortBy, $dir)
+                ->orderBy($sortBy, $order)
                 ->pluck($sortBy)
                 ->toArray();
-            $browser->visit(route('admin.categories.index', ['sortBy' => $sortBy, 'dir' => $dir, 'page' => 2]));
+            $browser->visit(route('admin.categories.index', ['sortBy' => $sortBy, 'dir' => $order]));
+            for ($i = 1; $i <= $perPage; $i++) {
+                $selector = ".table-responsive table tbody tr:nth-child($i) td:nth-child($column)";
+                $this->assertEquals($browser->text($selector), $categories[$i - 1]);
+            }
+        });
+    }
+
+    /**
+     * Test sort category paginate.
+     *
+     * @dataProvider dataForTest
+     *
+     * @return void
+     */
+    public function testSortCategoryPaginate($sortBy, $column, $order)
+    {
+        $perPage = (int) (config('define.category.limit_rows'));
+        $this->browse(function (Browser $browser) use ($sortBy, $column,$order, $perPage) {
+            $categories = Category::withCount('products')
+                ->orderBy($sortBy, $order)
+                ->pluck($sortBy)
+                ->toArray();
+            $browser->visit(route('admin.categories.index', ['sortBy' => $sortBy, 'dir' => $order, 'page' => 2]));
             for ($i = 1; $i <= $perPage; $i++) {
                 $selector = ".table-responsive table tbody tr:nth-child($i) td:nth-child($column)";
                 $this->assertEquals($browser->text($selector), $categories[$i + ($perPage - 1)]);
