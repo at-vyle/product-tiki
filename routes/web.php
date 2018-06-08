@@ -14,6 +14,14 @@ Route::group(['namespace' => 'Home'], function () {
     Route::get('/', 'HomeController@index');
 });
 
+//Api Doc
+Route::get('/api-docs', function () {
+    return view('api-docs');
+});
+Route::get('/api-doc-builders', function () {
+    return view('api-doc-builders.index');
+});
+
 // Todo: add middleware for admin authenticate
 Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'namespace' => 'Admin'], function () {
     Route::get('/', 'HomeController@index')->name('homepage');
