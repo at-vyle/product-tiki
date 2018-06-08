@@ -10,21 +10,23 @@ Get list product
 |---|---|
 |Accept|application/json
 
-#### Request Headers
+#### Query Param
 | Key | Value | Description |
 |---|---|---|
 | limit | number | Top Product |
-| category | int | Get Products By Category |
-| sort | string | Top New Product, Top Rating Product, Top Selling Product 'selling = order_detail(Sum(quantity))' of product |
-| sort_type | string | Sort Product (ASC, DESC) |
+| category | int | Get Products belong to Category |
+| sortBy | string | Top New Product, Top Rating Product, Top Selling Product 'selling = order_detail.quantity(Sum(quantity))' of product |
+| order | string | Sort Product (ASC, DESC) |
+| perpage | int | paginate for page Product |
 
 ##### Example
 | URL | Description |
 |---|---|
-| /api/products?sort=created_at&limit=9 | Get Top 9 New Products |
-| /api/products?sort=avg_rating&limit=9 | Get Top 9 Rating Products |
-| /api/products?sort=selling&limit=4 | Get Top 4 Selling Products |
-| /api/products?category=1 | Get Products By Category  |
+| /api/products?sortBy=created_at&limit=9 | Get Top 9 New Products |
+| /api/products?sortBy=avg_rating&limit=9 | Get Top 9 Rating Products |
+| /api/products?sortBy=selling&limit=4 | Get Top 4 Selling Products |
+| /api/products?category=1 | Get Products belong to Category  |
+| /api/products?category=1&sortBy=name&order=DESC&perpage=1 | Get Products belong to Category and sort for page |
 
 #### Response
 ```json
