@@ -18,11 +18,11 @@
                 <tr class="headings">
                   <th class="column-title col-md-3">{{ __('category.admin.table.name') }}
                     @if (app('request')->input('sortBy') == config('define.category.sort_by_name') && app('request')->input('dir') == config('define.dir_desc'))
-                      <a href="{{ route('admin.categories.index', ['sortBy' => config('define.category.sort_by_name'), 'dir' => config('define.dir_asc')]) }}">
+                      <a href="{{ route('admin.categories.index', ['sortBy' => config('define.category.sort_by_name'), 'dir' => config('define.dir_asc'), 'page' => request('page')]) }}">
                         <i class="fa fa-sort-up"></i>
                       </a>
                     @else
-                      <a href="{{ route('admin.categories.index', ['sortBy' => config('define.category.sort_by_name'), 'dir' => config('define.dir_desc')]) }}">
+                      <a href="{{ route('admin.categories.index', ['sortBy' => config('define.category.sort_by_name'), 'dir' => config('define.dir_desc'), 'page' => request('page')]) }}">
                         <i class="fa fa-sort-down"></i>
                       </a>
                     @endif
@@ -30,11 +30,11 @@
                   <th class="column-title col-md-3">{{ __('category.admin.add.parent_category') }}</th>
                   <th class="column-title col-md-3">{{ __('category.admin.table.sum_product') }}
                     @if (app('request')->input('sortBy') == config('define.category.sort_by_products_count') && app('request')->input('dir') == config('define.dir_desc'))
-                      <a href="{{ route('admin.categories.index', ['sortBy' => config('define.category.sort_by_products_count'), 'dir' => config('define.dir_asc')]) }}">
+                      <a href="{{ route('admin.categories.index', ['sortBy' => config('define.category.sort_by_products_count'), 'dir' => config('define.dir_asc'), 'page' => request('page')]) }}">
                         <i class="fa fa-sort-up"></i>
                       </a>
                     @else
-                      <a href="{{ route('admin.categories.index', ['sortBy' => config('define.category.sort_by_products_count'), 'dir' => config('define.dir_desc')]) }}">
+                      <a href="{{ route('admin.categories.index', ['sortBy' => config('define.category.sort_by_products_count'), 'dir' => config('define.dir_desc'), 'page' => request('page')]) }}">
                         <i class="fa fa-sort-down"></i>
                       </a>
                     @endif
