@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 @section('css')
-<link rel="stylesheet" href="/css/product-admin.css">
+<link rel="stylesheet" href="/css/admin/product-admin.css">
 @endsection
 @section('title', __('product.index.title'))
 @section('content')
