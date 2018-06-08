@@ -46,7 +46,7 @@ class Category extends Model
      */
     public function parent()
     {
-        return $this->belongsTo('App\Models\Category', 'id', 'parent_id');
+        return $this->belongsTo('App\Models\Category', 'parent_id');
     }
 
     /**
