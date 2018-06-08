@@ -15,8 +15,8 @@ Get list product
 |---|---|---|
 | limit | number | Top Product |
 | category | int | Get Products By Category |
-| sort | string | Sort Product |
-| sort_type | string | Top New Product, Top Rating Product, Top Selling Product 'selling = order_detail(Sum(quantity))' of product |
+| sort | string | Top New Product, Top Rating Product, Top Selling Product 'selling = order_detail(Sum(quantity))' of product |
+| sort_type | string | Sort Product (ASC, DESC) |
 
 ##### Example
 | URL | Description |
