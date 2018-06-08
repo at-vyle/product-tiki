@@ -10,9 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['namespace' => 'Home'], function () {
+    Route::get('/', 'HomeController@index');
+});
 
-Route::get('/', function () {
-    return view('welcome');
+//Api Doc
+Route::get('/api-docs', function () {
+    return view('api-docs');
+});
+Route::get('/api-doc-builders', function () {
+    return view('api-doc-builders.index');
 });
 
 // Todo: add middleware for admin authenticate
