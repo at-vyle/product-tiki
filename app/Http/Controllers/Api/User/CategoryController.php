@@ -20,6 +20,8 @@ class CategoryController extends ApiController
         $categoriesAll = Category::all();
         $categories = Category::where('level', 0)->get();
         $categories = $this->getCategoryChilds($categories, $categoriesAll);
+        $maxLevel = Category::max('level');
+        $categories['max_level'] = $maxLevel;
 
         return $this->showAll($categories, Response::HTTP_OK);
     }
