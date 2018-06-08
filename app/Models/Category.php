@@ -48,4 +48,20 @@ class Category extends Model
     {
         return $this->belongsTo('App\Models\Category', 'id', 'parent_id');
     }
+
+    /**
+     * Delete one category.
+     *
+     * @return message
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($category) {
+            foreach ($category->products as $product) {
+                $product->posts()->delete();
+            }
+            $category->products()->delete();
+        });
+    }
 }
