@@ -95,14 +95,14 @@ class ListProductTest extends DuskTestCase
     public function dataForTest()
     {
         return [
-            ['name' , 1, 'ASC'],
-            ['category_id' , 2, 'ASC'],
-            ['quantity' , 4, 'ASC'],
-            ['avg_rating' , 5, 'ASC'],
-            ['name' , 1, 'DESC'],
-            ['category_id' , 2, 'DESC'],
-            ['quantity' , 4, 'DESC'],
-            ['avg_rating' , 5, 'DESC'],
+            ['name', 1, 'ASC'],
+            ['category_id', 2, 'ASC'],
+            ['quantity', 4, 'ASC'],
+            ['avg_rating', 5, 'ASC'],
+            ['name', 1, 'DESC'],
+            ['category_id', 2, 'DESC'],
+            ['quantity', 4, 'DESC'],
+            ['avg_rating', 5, 'DESC'],
         ];
     }
 
@@ -119,10 +119,11 @@ class ListProductTest extends DuskTestCase
 
             factory('App\Models\Category', 5)->create();
             factory('App\Models\Product', 10)->create();
+            $perPages = config('define.product.limit_rows');
 
             if ($sortBy == 'category_id') {
                 $products = \DB::table('products')
-                                    ->join('categories', 'products.category_id' , '=', 'categories.id')
+                                    ->join('categories', 'products.category_id', '=', 'categories.id')
                                     ->orderBy($sortBy, $dir)
                                     ->pluck('categories.name')
                                     ->toArray();
@@ -132,9 +133,9 @@ class ListProductTest extends DuskTestCase
 
             $browser->visit(route('admin.products.index', ['sortBy' => $sortBy, 'dir' => $dir, 'page' => 2]));
 
-            for ($i = 1; $i <= 5; $i++) {
+            for ($i = 1; $i <= $perPages; $i++) {
                 $elements = ".table-responsive table tbody tr:nth-child($i) td:nth-child($column)";
-                $this->assertEquals($browser->text($elements), $products[$i + 4]);
+                $this->assertEquals($browser->text($elements), $products[$i + $perPages - 1]);
             }
         });
     }
@@ -147,10 +148,10 @@ class ListProductTest extends DuskTestCase
     public function dataForSortPriceTest()
     {
         return [
-            ['price' , 6, 'ASC'],
-            ['price' , 6, 'DESC'],
-            ['status' , 7, 'ASC'],
-            ['status' , 7, 'DESC'],
+            ['price', 6, 'ASC'],
+            ['price', 6, 'DESC'],
+            ['status', 7, 'ASC'],
+            ['status', 7, 'DESC'],
         ];
     }
 
@@ -168,18 +169,19 @@ class ListProductTest extends DuskTestCase
 
             factory('App\Models\Category', 5)->create();
             factory('App\Models\Product', 10)->create();
+            $perPages = config('define.product.limit_rows');
 
             $products = \DB::table('products')->orderBy($sortBy, $dir)->pluck($sortBy)->toArray();
 
             $browser->visit(route('admin.products.index', ['sortBy' => $sortBy, 'dir' => $dir, 'page' => 2]));
 
-            for ($i = 1; $i <= 5; $i++) {
+            for ($i = 1; $i <= $perPages; $i++) {
                 $elements = ".table-responsive table tbody tr:nth-child($i) td:nth-child($column)";
                 if ($sortBy == 'price') {
-                    $this->assertEquals($browser->text($elements), number_format($products[$i + 4]));
+                    $this->assertEquals($browser->text($elements), number_format($products[$i + $perPages - 1]));
                 } else {
-                    $products[$i + 4] = $products[$i + 4] == 0 ? 'Unavailable' : 'Available';
-                    $this->assertEquals($browser->text($elements), $products[$i + 4]);
+                    $products[$i + $perPages - 1] = $products[$i + $perPages - 1] == 0 ? 'Unavailable' : 'Available';
+                    $this->assertEquals($browser->text($elements), $products[$i + $perPages - 1]);
                 }
             }
         });
