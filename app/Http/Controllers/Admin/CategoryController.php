@@ -2,22 +2,32 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DB;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\Backend\EditCategoryRequest;
 use App\Http\Requests\Backend\CategoryRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Request $request request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $listCategories = Category::paginate(config('define.category.limit_rows'));
+        $listCategories = Category::with('parent')
+            ->withCount('products')
+            ->when(isset($request->sortBy) && isset($request->dir), function ($query) use ($request) {
+                return $query->orderBy($request->sortBy, $request->dir);
+            })
+            ->paginate(config('define.category.limit_rows'));
+        $listCategories->appends(request()->query());
         $data['listCategories'] = $listCategories;
         return view('admin.pages.categories.index', $data);
     }
@@ -105,10 +115,13 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        DB::beginTransaction();
         try {
             $category->delete();
+            DB::commit();
             session()->flash('message', __('category.admin.message.del'));
         } catch (ModelNotFoundException $e) {
+            DB::rollback();
             session()->flash('message', __('category.admin.message.del_fail'));
         }
         return back();
@@ -123,10 +136,11 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $itemCategory = Category::find($id);
-        $childCategory = Category::with('categories')->where('parent_id', $id)->get();
-        $data['itemCategory'] = $itemCategory;
-        $data['childCategory'] = $childCategory;
+        $category = Category::whereId($id)
+            ->with(['parent', 'children' => function ($query) {
+                $query->with('children');
+            }])->first();
+        $data['category'] = $category;
         return view('admin.pages.categories.show', $data);
     }
 }

@@ -1,0 +1,17 @@
+.update-img {
+  overflow: hidden;
+  height: 100px;
+}
+
+.delete-img-btn {
+  margin-top: 10px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.description-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
