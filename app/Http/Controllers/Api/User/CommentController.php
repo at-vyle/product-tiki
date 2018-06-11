@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
 use App\Models\Comment;
 use App\Models\Post;
+use Illuminate\Http\Response;
 
 class CommentController extends ApiController
 {
@@ -23,8 +24,8 @@ class CommentController extends ApiController
 
         $comments = Comment::with(['user.userInfo'])->where('post_id', $post->id)->orderBy('id', 'DESC')->paginate($perPage);
 
-        $data = $this->formatPaginate($comments)->toArray();
+        $data = $this->formatPaginate($comments);
 
-        return $this->showAll(collect($data), 200);
+        return $this->showAll($data, Response::HTTP_OK);
     }
 }
