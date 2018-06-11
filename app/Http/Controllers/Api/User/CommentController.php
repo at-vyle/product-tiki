@@ -4,21 +4,24 @@ namespace App\Http\Controllers\Api\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
-use App\Models\Post;
 use App\Models\Comment;
+use App\Models\Post;
 
 class CommentController extends ApiController
 {
     /**
      * Display a listing of the resource.
      *
-     * @param App\Models\Post $post post to get commments
+     * @param \App\Models\Post         $post    post to get commments
+     * @param \Illuminate\Http\Request $request request
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Post $post)
+    public function index(Post $post, Request $request)
     {
-        $comments = Comment::with(['user.userInfo'])->where('post_id', $post->id)->orderBy('id', 'DESC')->paginate(config('define.post.limit_rows'));
+        $perPage = isset($request->perpage) ? $request->perpage : config('define.post.limit_rows');
+
+        $comments = Comment::with(['user.userInfo'])->where('post_id', $post->id)->orderBy('id', 'DESC')->paginate($perPage);
 
         $data = $this->formatPaginate($comments)->toArray();
 
