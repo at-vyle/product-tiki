@@ -20,8 +20,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link href="/css/public/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="/css/public/style.css" rel="stylesheet" type="text/css" media="all" />
     <!-- font-awesome icons -->
-    <link href="/css/public/font-awesome.css" rel="stylesheet">
-    <link href="/css/public/custom.css" rel="stylesheet"> 
+    <link href="/css/public/font-awesome.css" rel="stylesheet"> 
     <!-- //font-awesome icons -->
     <!-- js -->
     <script src="/js/public/jquery-1.11.1.min.js"></script>
@@ -104,7 +103,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
           <ul class="nav navbar-nav">
             <li class="active"><a href="index.html" class="act">Home</a></li>  
             <!-- Mega Menu -->
-            
+
           </ul>
         </div>
         </nav>

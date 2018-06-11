@@ -38,7 +38,8 @@ class UpdateUserTest extends DuskTestCase
     public function testUpdateUserUrl()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/users')
+            $browser->loginAs($this->user)
+                    ->visit('/admin/users')
                     ->visit('/admin/users/1/edit')
                     ->assertSee('Update User');
         });
@@ -66,7 +67,7 @@ class UpdateUserTest extends DuskTestCase
      * @param string $name name of field
      * @param string $content content
      * @param string $message message show when validate
-     * 
+     *
      * @dataProvider listCaseTestUpdateValidateForInput
      *
      * @return void
@@ -74,9 +75,10 @@ class UpdateUserTest extends DuskTestCase
     public function testUpdateValidateForInput($name, $content, $message)
     {
         $this->browse(function (Browser $browser) use ($name, $content, $message) {
-            $browser->visit('/admin/users/2/edit')
+            $browser->loginAs($this->user)
+                ->visit('/admin/users/2/edit')
                 ->type($name, $content)
-                ->press('Update')                   
+                ->press('Update')
                 ->assertSee($message);
         });
     }
@@ -89,7 +91,8 @@ class UpdateUserTest extends DuskTestCase
     public function testUpdateUserSuccess()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/users/1/edit')
+            $browser->loginAs($this->user)
+                ->visit('/admin/users/1/edit')
                 ->assertSee('Update User')
                 ->type('full_name', 'mai luong')
                 ->type('address', 'quang nam')
@@ -97,7 +100,7 @@ class UpdateUserTest extends DuskTestCase
                 ->type('identity_card', '347368362')
                 ->press('Update')
                 ->assertPathIs('/admin/users')
-                ->assertSee('Update user successfully');                
+                ->assertSee('Update user successfully');
             $this->assertDatabaseHas('user_info', [
                 'full_name' => 'mai luong',
                 'address' => 'quang nam',

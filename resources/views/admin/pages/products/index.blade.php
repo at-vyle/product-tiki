@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 @section('css')
-<link rel="stylesheet" href="/css/product-admin.css">
+<link rel="stylesheet" href="/css/admin/product-admin.css">
 @endsection
 @section('title', __('product.index.title'))
 @section('content')
@@ -36,22 +36,22 @@
                 <tr class="headings">
                   <th class="column-title"> @lang('product.index.name')
                     @if (app('request')->input('sortBy') == trans('product.index.sort_by_name') && app('request')->input('dir') == trans('product.index.dir_desc'))
-                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'sortBy' => trans('product.index.sort_by_name'), 'dir' => trans('product.index.dir_asc')]) }}">
+                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'page' => request('page'), 'sortBy' => trans('product.index.sort_by_name'), 'dir' => trans('product.index.dir_asc')]) }}">
                         <i class="fa fa-sort-up"></i>
                       </a>
                     @else
-                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'sortBy' => trans('product.index.sort_by_name'), 'dir' => trans('product.index.dir_desc')]) }}">
+                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'page' => request('page'), 'sortBy' => trans('product.index.sort_by_name'), 'dir' => trans('product.index.dir_desc')]) }}">
                         <i class="fa fa-sort-down"></i>
                       </a>
                     @endif
                   </th>
                   <th class="column-title"> @lang('product.index.category')
                     @if (app('request')->input('sortBy') == trans('product.index.sort_by_category') && app('request')->input('dir') == trans('product.index.dir_desc'))
-                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'sortBy' => trans('product.index.sort_by_category'), 'dir' => trans('product.index.dir_asc')]) }}">
+                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'page' => request('page'), 'sortBy' => trans('product.index.sort_by_category'), 'dir' => trans('product.index.dir_asc')]) }}">
                         <i class="fa fa-sort-up"></i>
                       </a>
                     @else
-                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'sortBy' => trans('product.index.sort_by_category'), 'dir' => trans('product.index.dir_desc')]) }}">
+                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'page' => request('page'), 'sortBy' => trans('product.index.sort_by_category'), 'dir' => trans('product.index.dir_desc')]) }}">
                         <i class="fa fa-sort-down"></i>
                       </a>
                     @endif
@@ -59,44 +59,44 @@
                   <th class="column-title col-md-3"> @lang('product.index.description') </th>
                   <th class="column-title"> @lang('product.create.quantity')
                     @if (app('request')->input('sortBy') == trans('product.index.sort_by_quantity') && app('request')->input('dir') == trans('product.index.dir_desc'))
-                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'sortBy' => trans('product.index.sort_by_quantity'), 'dir' => trans('product.index.dir_asc')]) }}">
+                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'page' => request('page'), 'sortBy' => trans('product.index.sort_by_quantity'), 'dir' => trans('product.index.dir_asc')]) }}">
                         <i class="fa fa-sort-up"></i>
                       </a>
                     @else
-                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'sortBy' => trans('product.index.sort_by_quantity'), 'dir' => trans('product.index.dir_desc')]) }}">
+                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'page' => request('page'), 'sortBy' => trans('product.index.sort_by_quantity'), 'dir' => trans('product.index.dir_desc')]) }}">
                         <i class="fa fa-sort-down"></i>
                       </a>
                     @endif
                   </th>
                   <th class="column-title"> @lang('product.index.avg_rating')
                     @if (app('request')->input('sortBy') == trans('product.index.sort_by_avg_rating') && app('request')->input('dir') == trans('product.index.dir_desc'))
-                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'sortBy' => trans('product.index.sort_by_avg_rating'), 'dir' => trans('product.index.dir_asc')]) }}">
+                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'page' => request('page'), 'sortBy' => trans('product.index.sort_by_avg_rating'), 'dir' => trans('product.index.dir_asc')]) }}">
                         <i class="fa fa-sort-up"></i>
                       </a>
                     @else
-                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'sortBy' => trans('product.index.sort_by_avg_rating'), 'dir' => trans('product.index.dir_desc')]) }}">
+                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'page' => request('page'), 'sortBy' => trans('product.index.sort_by_avg_rating'), 'dir' => trans('product.index.dir_desc')]) }}">
                         <i class="fa fa-sort-down"></i>
                       </a>
                     @endif
                   </th>
                   <th class="column-title"> @lang('product.index.price')
                     @if (app('request')->input('sortBy') == trans('product.index.sort_by_price') && app('request')->input('dir') == trans('product.index.dir_desc'))
-                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'sortBy' => trans('product.index.sort_by_price'), 'dir' => trans('product.index.dir_asc')]) }}">
+                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'page' => request('page'), 'sortBy' => trans('product.index.sort_by_price'), 'dir' => trans('product.index.dir_asc')]) }}">
                         <i class="fa fa-sort-up"></i>
                       </a>
                     @else
-                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'sortBy' => trans('product.index.sort_by_price'), 'dir' => trans('product.index.dir_desc')]) }}">
+                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'page' => request('page'), 'sortBy' => trans('product.index.sort_by_price'), 'dir' => trans('product.index.dir_desc')]) }}">
                         <i class="fa fa-sort-down"></i>
                       </a>
                     @endif
                   </th>
                   <th class="column-title"> @lang('product.index.status')
                     @if (app('request')->input('sortBy') == trans('product.index.sort_by_status') && app('request')->input('dir') == trans('product.index.dir_desc'))
-                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'sortBy' => trans('product.index.sort_by_status'), 'dir' => trans('product.index.dir_asc')]) }}">
+                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'page' => request('page'), 'sortBy' => trans('product.index.sort_by_status'), 'dir' => trans('product.index.dir_asc')]) }}">
                         <i class="fa fa-sort-up"></i>
                       </a>
                     @else
-                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'sortBy' => trans('product.index.sort_by_status'), 'dir' => trans('product.index.dir_desc')]) }}">
+                      <a href="{{ route('admin.products.index', ['content' => request('content'), 'page' => request('page'), 'sortBy' => trans('product.index.sort_by_status'), 'dir' => trans('product.index.dir_desc')]) }}">
                         <i class="fa fa-sort-down"></i>
                       </a>
                     @endif

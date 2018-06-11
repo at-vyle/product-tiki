@@ -12,6 +12,16 @@ class UpdateProductTest extends DuskTestCase
     use DatabaseMigrations;
 
     /**
+     * Override function setUp() for make user login
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+    }
+
+    /**
      * A Dusk test update product success.
      *
      * @return void
@@ -23,7 +33,8 @@ class UpdateProductTest extends DuskTestCase
             factory('App\Models\Product', 5)->create();
             $product = Product::find(1);
 
-            $browser->visit('/admin/products/' . $product->id . '/edit')
+            $browser->loginAs($this->user)
+                    ->visit('/admin/products/' . $product->id . '/edit')
                     ->assertSee('Update Product')
                     ->select('category_id')
                     ->type('name', 'Iphone')
@@ -57,7 +68,8 @@ class UpdateProductTest extends DuskTestCase
             factory('App\Models\Product', 5)->create();
             $product = Product::find(2);
 
-            $browser->visit('/admin/products/' . $product->id . '/edit')
+            $browser->loginAs($this->user)
+                    ->visit('/admin/products/' . $product->id . '/edit')
                     ->assertSee('Update Product')
                     ->type('name', ' ')
                     ->type('description', ' ')
@@ -89,7 +101,8 @@ class UpdateProductTest extends DuskTestCase
             factory('App\Models\Product', 5)->create();
             $product = Product::find(3);
 
-            $browser->visit('/admin/products/' . $product->id . '/edit')
+            $browser->loginAs($this->user)
+                    ->visit('/admin/products/' . $product->id . '/edit')
                     ->assertSee('Update Product')
                     ->select('category_id')
                     ->type('name', 'Iphone')
@@ -123,7 +136,8 @@ class UpdateProductTest extends DuskTestCase
             factory('App\Models\Product', 5)->create();
             $product = Product::find(4);
 
-            $browser->visit('/admin/products/' . $product->id . '/edit')
+            $browser->loginAs($this->user)
+                    ->visit('/admin/products/' . $product->id . '/edit')
                     ->assertSee('Update Product')
                     ->select('category_id')
                     ->type('name', 'Iphone7')
@@ -156,7 +170,8 @@ class UpdateProductTest extends DuskTestCase
             factory('App\Models\Category', 5)->create();
             factory('App\Models\Product', 5)->create();
             $product = Product::find(5);
-            $browser->visit('/admin/products/' . $product->id . '/edit')
+            $browser->loginAs($this->user)
+                    ->visit('/admin/products/' . $product->id . '/edit')
                     ->assertSee('Update Product')
                     ->attach('input_img[]', __DIR__.'/testing/iphone1.jpg')
                     ->press('Update')
@@ -191,7 +206,8 @@ class UpdateProductTest extends DuskTestCase
             factory('App\Models\Category', 5)->create();
             factory('App\Models\Product', 5)->create();
             $product = Product::find(5);
-            $browser->visit('/admin/products/' . $product->id . '/edit')
+            $browser->loginAs($this->user)
+                    ->visit('/admin/products/' . $product->id . '/edit')
                     ->assertSee('Update Product')
                     ->attach('input_img[]', __DIR__.'/testing/iphone1.jpg')
                     ->press('Update')
@@ -200,7 +216,8 @@ class UpdateProductTest extends DuskTestCase
             $product = Product::with('images')->find(5);
             $image = $product->images[0];
 
-            $browser->visit('/admin/products/' . $product->id . '/edit')
+            $browser->loginAs($this->user)
+                    ->visit('/admin/products/' . $product->id . '/edit')
                     ->assertSee('Update Product')
                     ->click('#img-' . $image->id . ' > button')
                     ->acceptDialog()
