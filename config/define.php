@@ -16,7 +16,9 @@ return [
         'sort_username' => 'username',
     ],
     'category' => [
-        'limit_rows' => 10
+        'limit_rows' => 10,
+        'sort_by_name' => 'name',
+        'sort_by_products_count' => 'products_count',
     ],
     'order' => [
         'limit_rows' => 5,
@@ -25,5 +27,24 @@ return [
     ],
     'dir_desc' => 'DESC',
     'dir_asc' => 'ASC',
-
+    'homepage' => [
+        'numberOfRecords' => '5',
+        'time' => [
+            'month' => 'month',
+            'year' => 'year',
+            'week' => 'week'
+        ],
+        'type' => [
+            'user' => 'user',
+            'order' => 'order'
+        ],
+        'request' => [
+            'time' => [
+                'month' => 'last month',
+                'year' => 'last year',
+                'week' => 'last week',
+                'all' => 'all'
+            ]
+        ]
+    ]
 ];

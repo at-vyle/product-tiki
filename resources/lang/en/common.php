@@ -4,5 +4,7 @@ return [
     'cancel-btn' => 'Cancel',
     'approve' => 'Approved',
     'cancel' => 'Canceled',
-    'pending' => 'Pending'
+    'pending' => 'Pending',
+    'available' => 'Available',
+    'unavailable' => 'Unavailable',
 ];

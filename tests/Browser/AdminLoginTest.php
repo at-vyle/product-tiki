@@ -18,6 +18,9 @@ class AdminLoginTest extends DuskTestCase
     public function setUp()
     {
         parent::setUp();
+        factory('App\Models\UserInfo')->create([
+            'user_id' => $this->user->id,
+        ]);
     }
 
     /**
