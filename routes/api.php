@@ -27,4 +27,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.api.' , 'namespace' => 'Api\Ad
 
 Route::group(['as' => 'api.', 'namespace' => 'Api\User'], function () {
     Route::apiResource('products', 'ProductController');
+    Route::apiResource('posts/{post}/comments', 'CommentController');
 });
