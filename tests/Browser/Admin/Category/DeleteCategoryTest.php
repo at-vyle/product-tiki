@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 class DeleteCategoryTest extends DuskTestCase
 {
     use DatabaseMigrations;
-    
+
     public function setUp()
     {
         parent::setUp();
@@ -25,7 +25,8 @@ class DeleteCategoryTest extends DuskTestCase
     public function testClickButtonDeleleCategory()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/categories')
+            $browser->loginAs($this->user)
+                ->visit('/admin/categories')
                 ->assertSee('List Categories')
                 ->click('#deleted1 > button')
                 ->assertDialogOpened('Do you want to delete ?')
@@ -42,7 +43,8 @@ class DeleteCategoryTest extends DuskTestCase
     public function testConfirmDeleteOnPopup()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/categories')
+            $browser->loginAs($this->user)
+                ->visit('/admin/categories')
                 ->click('#deleted1 > button')
                 ->assertDialogOpened('Do you want to delete ?')
                 ->acceptDialog()
@@ -60,7 +62,7 @@ class DeleteCategoryTest extends DuskTestCase
     {
         $category = Category::find(1);
         $this->browse(function (Browser $browser) use ($category) {
-            $browser->visit('/admin/categories');
+            $browser->loginAs($this->user)->visit('/admin/categories');
             $category->delete();
             $browser->click('#deleted1 > button')
                 ->assertDialogOpened('Do you want to delete ?')
