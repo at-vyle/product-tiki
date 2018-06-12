@@ -13,12 +13,12 @@ Get item product
 #### Query Param
 | Key | Value | Description |
 |---|---|---|
-| product | int | Id of Product |
+| product | int | Get details of Product (require) |
 
 ##### Example
 | URL | Description |
 |---|---|
-| /api/products/1 | Get Details Of Products |
+| /api/products/1 | Get details of Product |
 
 
 #### Response
@@ -66,18 +66,6 @@ Get item product
                 "updated_at": "2018-06-08 08:45:50",
                 }
             ],
-            "order_detail": [
-                {
-                "id": 8,
-                "product_id": 1,
-                "order_id": 3,
-                "quantity": 5,
-                "product_price": 7474311,
-                "created_at": "2018-06-08 08:45:50",
-                "updated_at": "2018-06-08 08:45:50",
-                "deleted_at": null,
-                }
-            ]
         }
     ],
     "code": 200

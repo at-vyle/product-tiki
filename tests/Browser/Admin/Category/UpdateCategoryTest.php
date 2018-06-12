@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 class UpdateCategoryTest extends DuskTestCase
 {
     use DatabaseMigrations;
-    
+
     public function setUp()
     {
         parent::setUp();
@@ -37,7 +37,8 @@ class UpdateCategoryTest extends DuskTestCase
     public function testUpdateCategoryUrl()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/categories')
+            $browser->loginAs($this->user)
+                ->visit('/admin/categories')
                 ->click('#edit1');
             $browser->assertPathIs('/admin/categories/1/edit')
                 ->assertSee('Edit Category');
@@ -73,7 +74,8 @@ class UpdateCategoryTest extends DuskTestCase
     public function testCategoryValidateForInput($name, $content, $message)
     {
         $this->browse(function (Browser $browser) use ($name, $content, $message) {
-            $browser->visit('admin/categories/1/edit')
+            $browser->loginAs($this->user)
+                ->visit('admin/categories/1/edit')
                 ->assertSee('Edit Category')
                 ->type($name, $content);
             $browser->press('Submit')
@@ -90,7 +92,8 @@ class UpdateCategoryTest extends DuskTestCase
     {
         $categoryOther = Category::find(1);
         $this->browse(function (Browser $browser) use ($categoryOther) {
-            $browser->visit('/admin/categories/2/edit')
+            $browser->loginAs($this->user)
+                ->visit('/admin/categories/2/edit')
                 ->assertSee('Edit Category')
                 ->select('parent_id', $categoryOther->id);
             $categoryOther->update([
@@ -113,7 +116,8 @@ class UpdateCategoryTest extends DuskTestCase
         $testName = 'SamSung';
         $categoryOther = Category::find(1);
         $this->browse(function (Browser $browser) use ($testName, $categoryOther) {
-            $browser->visit('/admin/categories/2/edit')
+            $browser->loginAs($this->user)
+                ->visit('/admin/categories/2/edit')
                 ->assertSee('Edit Category')
                 ->type('name', $testName)
                 ->select('parent_id', $categoryOther->id)
@@ -137,7 +141,8 @@ class UpdateCategoryTest extends DuskTestCase
     public function testEditCategoryNoParentSuccess()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/categories/2/edit')
+            $browser->loginAs($this->user)
+                ->visit('/admin/categories/2/edit')
                 ->assertSee('Edit Category')
                 ->select('parent_id', null)
                 ->press('Submit')
