@@ -111,14 +111,14 @@ class ListProductTest extends DuskTestCase
     public function dataForTest()
     {
         return [
-            ['name', 1, 'ASC'],
-            ['category_id', 2, 'ASC'],
-            ['quantity', 4, 'ASC'],
-            ['avg_rating', 5, 'ASC'],
-            ['name', 1, 'DESC'],
-            ['category_id', 2, 'DESC'],
-            ['quantity', 4, 'DESC'],
-            ['avg_rating', 5, 'DESC'],
+            ['name', 1, 'asc'],
+            ['category_id', 2, 'asc'],
+            ['quantity', 4, 'asc'],
+            ['avg_rating', 5, 'asc'],
+            ['name', 1, 'desc'],
+            ['category_id', 2, 'desc'],
+            ['quantity', 4, 'desc'],
+            ['avg_rating', 5, 'desc'],
         ];
     }
 
@@ -147,7 +147,14 @@ class ListProductTest extends DuskTestCase
                 $products = \DB::table('products')->orderBy($sortBy, $dir)->pluck($sortBy)->toArray();
             }
 
-            $browser->visit(route('admin.products.index', ['sortBy' => $sortBy, 'dir' => $dir, 'page' => 2]));
+            $browser->visit(route('admin.products.index'))
+                    ->clicklink('2');
+            if ($dir == 'asc') {
+                $browser->click("#sort-$sortBy-desc")
+                        ->click("#sort-$sortBy-asc");
+            } else {
+                $browser->click("#sort-$sortBy-desc");
+            }
 
             for ($i = 1; $i <= $perPages; $i++) {
                 $elements = ".table-responsive table tbody tr:nth-child($i) td:nth-child($column)";
@@ -161,13 +168,13 @@ class ListProductTest extends DuskTestCase
      *
      * @return array
      */
-    public function dataForSortPriceTest()
+    public function dataForSortChangedValueTest()
     {
         return [
-            ['price', 6, 'ASC'],
-            ['price', 6, 'DESC'],
-            ['status', 7, 'ASC'],
-            ['status', 7, 'DESC'],
+            ['price', 6, 'asc'],
+            ['price', 6, 'desc'],
+            ['status', 7, 'asc'],
+            ['status', 7, 'desc'],
         ];
     }
 
@@ -175,11 +182,11 @@ class ListProductTest extends DuskTestCase
      * Test sort product by price.
      * Test sort product by status.
      *
-     * @dataProvider dataForSortPriceTest
+     * @dataProvider dataForSortChangedValueTest
      *
      * @return void
      */
-    public function testSortProductPriceStatus($sortBy, $column, $dir)
+    public function testSortProductChangedValue($sortBy, $column, $dir)
     {
         $this->browse(function (Browser $browser) use ($sortBy, $column, $dir) {
 
@@ -189,7 +196,14 @@ class ListProductTest extends DuskTestCase
 
             $products = \DB::table('products')->orderBy($sortBy, $dir)->pluck($sortBy)->toArray();
 
-            $browser->visit(route('admin.products.index', ['sortBy' => $sortBy, 'dir' => $dir, 'page' => 2]));
+            $browser->visit(route('admin.products.index'))
+                    ->clicklink('2');
+            if ($dir == 'asc') {
+                $browser->click("#sort-$sortBy-desc")
+                        ->click("#sort-$sortBy-asc");
+            } else {
+                $browser->click("#sort-$sortBy-desc");
+            }
 
             for ($i = 1; $i <= $perPages; $i++) {
                 $elements = ".table-responsive table tbody tr:nth-child($i) td:nth-child($column)";
