@@ -50,7 +50,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="agile-login">
           <ul>
             <li><a href="registered.html"> Create Account </a></li>
-            <li><a href="{{ route('user.login') }}">Login</a></li>
+            <li><a href="{{ route('user.login') }}">{{ __('user/layout.login') }}</a></li>
           </ul>
         </div>
         <div class="product_list_header">
