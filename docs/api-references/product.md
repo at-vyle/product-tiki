@@ -15,7 +15,7 @@ Get list product
 |---|---|---|
 | limit | number | Top Product |
 | category | int | Get Products belong to Category |
-| sortBy | string | Top New Product, Top Rating Product, Top Selling Product 'selling = order_detail.quantity(Sum(quantity))' of product |
+| sortBy | string | Top New Product, Top Rating Product, Top selling Product 'quantity_sold = order_detail.quantity(Sum(quantity))' of product |
 | order | string | Sort Product (ASC, DESC) |
 | perpage | int | paginate for page Product |
 
@@ -60,41 +60,28 @@ Get list product
                 "created_at": "2018-05-30 07:37:35",
                 "updated_at": "2018-06-05 09:42:43",
                 "deleted_at": "2018-06-05 09:42:43",
-                "categories": [
-                    {
-                        "id": 11,
-                        "parent_id": 3,
-                        "name": "Dr. Citlalli Berge I",
-                        "level": 1,
-                        "created_at": "2018-05-30 07:37:34",
-                        "updated_at": "2018-05-30 07:37:34",
-                        "deleted_at": null,
-                    }
-                ],
+                "quantity_sold": "6",
+                "categories": {
+                    "id": 11,
+                    "parent_id": 3,
+                    "name": "Dr. Citlalli Berge I",
+                    "level": 1,
+                    "created_at": "2018-05-30 07:37:34",
+                    "updated_at": "2018-05-30 07:37:34",
+                    "deleted_at": null
+                },
                 "images": [
                     {
                         "id": 41,
                         "product_id": 1,
                         "img_url": "img.jpg",
                         "created_at": "2018-05-30 07:37:36",
-                        "updated_at": "2018-05-30 07:37:36",
+                        "updated_at": "2018-05-30 07:37:36"
                     }
-                ],
-                "order_detail": [
-                    {
-                        "id": 2,
-                        "product_id": 1,
-                        "order_id": 8,
-                        "quantity": 10,
-                        "product_price": 5462485,
-                        "created_at": "2018-05-30 07:37:35",
-                        "updated_at": "2018-05-30 07:37:35",
-                        "deleted_at": null,
-                    }
-                ],
+                ]
             }
-        ],
-        "code": 200
-    }
+        ]
+    },
+    "code": 200
 }
 ```
