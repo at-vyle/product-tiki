@@ -16,7 +16,7 @@ class CategoryController extends ApiController
      */
     public function index()
     {
-        $categories = Category::where('level', Category::BASELEVEL)->with('children.children')->get();
+        $categories = Category::where('level', Category::BASELEVEL)->with('children')->get();
 
         return $this->showAll($categories, Response::HTTP_OK);
     }
