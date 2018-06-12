@@ -11,13 +11,13 @@
       </div>
       <div class="x_content">
         <div class="table-responsive">
-          <table class="table table-striped jambo_table bulk_action">
+          <table class="table table-striped jambo_table bulk_action" id="table-user">
             <thead>
               <tr class="headings">
-                <th class="column-title">@sortablelink('id', __('user.index.id'))</th>
+                <th class="column-title" id="sort-link-id">@sortablelink('id', __('user.index.id'))</th>
                 <th class="column-title">{{ __('user.index.username') }}</th>
                 <th class="column-title">{{ __('user.index.email') }} </th>
-                <th class="column-title">@sortablelink('userinfo.full_name', __('user.index.fullname'))</th>
+                <th class="column-title" id="sort-link-full_name">@sortablelink('userinfo.full_name', __('user.index.fullname'))</th>
                 <th class="column-title">{{ __('user.index.gender') }}</th>
                 <th class="column-title no-link last"><span class="nobr">{{ __('user.index.action') }}</span>
                 </th>

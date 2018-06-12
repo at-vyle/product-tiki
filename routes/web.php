@@ -10,9 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['namespace' => 'Home'], function () {
+    Route::get('/', 'HomeController@index');
 });
 
 //Api Doc
@@ -24,7 +23,7 @@ Route::get('/api-doc-builders', function () {
 });
 
 // Todo: add middleware for admin authenticate
-Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'namespace' => 'Admin'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'namespace' => 'Admin', 'middleware' => ['auth:web', 'admin']], function () {
     Route::get('/', 'HomeController@index')->name('homepage');
     Route::resource('categories', 'CategoryController');
     Route::resource('products', 'ProductController')->parameters(['products' => 'id']);
@@ -37,8 +36,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'namespace' => 'Admin'], f
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Auth'], function () {
     Route::get('login', 'LoginController@showLoginForm')->name('login');
     Route::post('login', 'LoginController@login');
-    Route::get('logout', 'LoginController@logout')->middleware(['auth:web'])->name('logout');
-
+    Route::get('logout', 'LoginController@logout')->middleware(['auth:web', 'admin'])->name('logout');
 });
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('home', 'HomeController@index')->name('home');
