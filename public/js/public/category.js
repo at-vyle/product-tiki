@@ -10,6 +10,7 @@ $.ajax({
                     childsHtml += '<li><a href="#">'+ childsCategory.name +'</a></li>';
                 });
             }
+            
             html += '<li class="dropdown">\
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">' + category.name + '<b class="caret"></b></a>\
                         <ul class="dropdown-menu multi-column columns-3">\
