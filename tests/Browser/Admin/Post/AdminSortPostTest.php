@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser\AdminPostTest;
+namespace Tests\Browser\Admin\Post;
 
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
@@ -28,7 +28,8 @@ class AdminSortPostTest extends DuskTestCase
     public function testSortPostByUsername()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/posts')
+            $browser->loginAs($this->user)
+                    ->visit('/admin/posts')
                     ->click('#sort-by-username');
 
             $postsSortDesc = Post::join('users', 'posts.user_id', 'users.id')
@@ -58,7 +59,8 @@ class AdminSortPostTest extends DuskTestCase
     public function testSortPostByProductName()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/posts')
+            $browser->loginAs($this->user)
+                    ->visit('/admin/posts')
                     ->click('#sort-by-product-name');
 
             $postsSortDesc = Post::join('products', 'posts.product_id', 'products.id')
