@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
     protected $table = 'products';
+    use FilterTrait;
     use SoftDeletes;
     const AVAILABLE = 1;
 

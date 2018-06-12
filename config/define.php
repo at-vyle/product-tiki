@@ -8,7 +8,8 @@ return [
     'dir_desc' => 'DESC',
     'product' => [
         'limit_rows' => 5,
-        'upload_image_url' => 'images/upload/'
+        'upload_image_url' => 'images/upload/',
+        'limit_item' => 9,
     ],
     'post' => [
         'limit_rows' => 5,

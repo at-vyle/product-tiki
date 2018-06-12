@@ -76,6 +76,8 @@ trait ApiResponser
     {
         $paginator = $paginator->toArray();
 
+        
+
         $result = [
             'paginator' => array_except($paginator, ['data']),
             'data' => $paginator['data']

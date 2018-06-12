@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\User;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Api\ApiController;
 use App\Models\Product;
 
@@ -13,11 +14,15 @@ class ProductController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = $this->formatPaginate(Product::paginate(5));
+        $perPage = isset($request->perpage) ? $request->perpage : config('define.product.limit_item');
+        $products = Product::filter($request)->paginate($perPage);
 
-        return $this->showAll($products, 200);
+        $products->appends(request()->query());
+        $products = $this->formatPaginate($products);
+
+        return $this->showAll($products, Response::HTTP_OK);
     }
 
     /**
