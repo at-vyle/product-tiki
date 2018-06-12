@@ -31,10 +31,10 @@ class SortCategoryTest extends DuskTestCase
      * @return void
      */
     public function testClickLinksSort()
-    { 
+    {
         $sortCategories = ['name', 'products_count'];
         $this->browse(function (Browser $browser) use ($sortCategories) {
-            $browser->visit(route('admin.categories.index'));
+            $browser->loginAs($this->user)->visit(route('admin.categories.index'));
             foreach ($sortCategories as $sortBy) {
                 $browser->click("#sort-by-$sortBy a")
                     ->assertQueryStringMissing('sort', $sortBy)
@@ -71,7 +71,7 @@ class SortCategoryTest extends DuskTestCase
         $perPage = (int) (config('define.category.limit_rows'));
         $this->browse(function (Browser $browser) use ($sortBy, $column, $perPage) {
             //sort desc
-            $browser->visit(route('admin.categories.index'))
+            $browser->loginAs($this->user)->visit(route('admin.categories.index'))
                 ->click("#sort-by-$sortBy a");
             $categories = Category::withCount('products')
                 ->orderBy($sortBy, 'desc')
@@ -105,7 +105,7 @@ class SortCategoryTest extends DuskTestCase
     {
         $perPage = (int) (config('define.category.limit_rows'));
         $this->browse(function (Browser $browser) use ($sortBy, $column, $perPage) {
-            $browser->visit(route('admin.categories.index'))
+            $browser->loginAs($this->user)->visit(route('admin.categories.index'))
                 ->click("#sort-by-$sortBy a");
             $categories = Category::withCount('products')
                 ->orderBy($sortBy, 'desc')
@@ -130,7 +130,7 @@ class SortCategoryTest extends DuskTestCase
     {
         $perPage = (int) (config('define.category.limit_rows'));
         $this->browse(function (Browser $browser) use ($sortBy, $column, $perPage) {
-            $browser->visit(route('admin.categories.index'))
+            $browser->loginAs($this->user)->visit(route('admin.categories.index'))
                 ->clickLink('2')
                 ->click("#sort-by-$sortBy a");
             $categories = Category::withCount('products')
