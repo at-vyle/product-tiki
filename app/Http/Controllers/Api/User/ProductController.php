@@ -42,7 +42,7 @@ class ProductController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function getPost(Product $product, Request $request)
+    public function getPosts(Product $product, Request $request)
     {
         $perPage = isset($request->perpage) ? $request->perpage : config('define.post.limit_rows');
         $sortBy = isset($request->sortBy) ? $request->sortBy : 'id';
