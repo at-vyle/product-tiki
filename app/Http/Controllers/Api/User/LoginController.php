@@ -37,8 +37,7 @@ class LoginController extends ApiController
     public function details()
     {
         $user = Auth::user();
-        $data['user'] = $user;
-        $data['userInfo'] = $user->userInfo()->get();
+        $data['user'] = $user->load('userInfo');
         return $this->successResponse($data, Response::HTTP_OK);
     }
 
