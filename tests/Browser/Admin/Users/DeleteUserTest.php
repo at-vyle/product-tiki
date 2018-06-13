@@ -48,7 +48,8 @@ class DeleteUserTest extends DuskTestCase
     public function testCancelConfirmDelete()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/users')
+            $browser->loginAs($this->user)
+                ->visit('/admin/users')
                 ->assertSee('Show User')
                 ->click('#deleted2 > button')
                 ->assertDialogOpened('Do you want to delete ?')
@@ -65,7 +66,8 @@ class DeleteUserTest extends DuskTestCase
     public function testAcceptConfirmDelete()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/users')
+            $browser->loginAs($this->user)
+                ->visit('/admin/users')
                 ->click('#deleted2 > button')
                 ->assertDialogOpened('Do you want to delete ?')
                 ->acceptDialog()
@@ -76,7 +78,7 @@ class DeleteUserTest extends DuskTestCase
                 ->assertDatabaseMissing('comments', ['user_id'=> 2, 'deleted_at' => null]);
         });
     }
-    
+
     /**
      * Case test Delete User Already Delete
      *
@@ -86,7 +88,8 @@ class DeleteUserTest extends DuskTestCase
     {
         $users = factory(User::class)->create();
         $this->browse(function (Browser $browser) use ($users) {
-            $browser->visit('/admin/users');
+            $browser->loginAs($this->user)
+                    ->visit('/admin/users');
             $users->delete();
             $browser->click('#deleted3 > button')
                 ->assertDialogOpened('Do you want to delete ?')

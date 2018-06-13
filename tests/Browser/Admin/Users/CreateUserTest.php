@@ -13,6 +13,17 @@ class CreateUserTest extends DuskTestCase
     use DatabaseMigrations;
 
     /**
+     * Override function setUp() for make user login
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+    }
+
+
+    /**
      * Test url create user
      *
      * @return void
@@ -20,7 +31,8 @@ class CreateUserTest extends DuskTestCase
     public function testCreateUserUrl()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/users')
+            $browser->loginAs($this->user)
+                ->visit('/admin/users')
                 ->clickLink('Add User')
                 ->assertPathIs('/admin/users/create')
                 ->assertSee('Create User');
@@ -50,7 +62,7 @@ class CreateUserTest extends DuskTestCase
      * @param string $name name of field
      * @param string $content content
      * @param string $message message show when validate
-     * 
+     *
      * @dataProvider listCaseTestValidateForInput
      *
      * @return void
@@ -58,9 +70,10 @@ class CreateUserTest extends DuskTestCase
     public function testValidateForInput($name, $content, $message)
     {
         $this->browse(function (Browser $browser) use ($name, $content, $message) {
-            $browser->visit('admin/users/create')
+            $browser->loginAs($this->user)
+                ->visit('admin/users/create')
                 ->type($name, $content)
-                ->press('Submit')                   
+                ->press('Submit')
                 ->assertSee($message);
         });
     }
@@ -85,7 +98,7 @@ class CreateUserTest extends DuskTestCase
      * @param string $name name of field
      * @param string $content content
      * @param string $message message show when validate
-     * 
+     *
      * @dataProvider listCaseAlreadyTestValidateForInput
      *
      * @return void
@@ -97,13 +110,14 @@ class CreateUserTest extends DuskTestCase
             'email' => 'greynolds@example.com',
         ]);
         factory(UserInfo::class)->create([
-            'user_id' => $users->id,    
+            'user_id' => $users->id,
             'identity_card' => '154599812'
-        ]);       
+        ]);
         $this->browse(function (Browser $browser) use ($name, $content, $message) {
-            $browser->visit('admin/users/create')
+            $browser->loginAs($this->user)
+                ->visit('admin/users/create')
                 ->type($name, $content)
-                ->press('Submit')                   
+                ->press('Submit')
                 ->assertSee($message);
         });
     }
@@ -116,7 +130,8 @@ class CreateUserTest extends DuskTestCase
     public function testCreatesUserSuccess()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('admin/users/create')
+            $browser->loginAs($this->user)
+                ->visit('admin/users/create')
                 ->type('username', 'suong')
                 ->type('email', 'suongmai@gmail.com')
                 ->type('password', '123456')

@@ -21,10 +21,10 @@ class SortUserTest extends DuskTestCase
     public function setUp()
     {
         parent::setUp();
-        factory(User::class, 10)->create();
+        factory(User::class, 9)->create();
         for ($i = 1; $i <= 10; $i++) {
             factory(UserInfo::class)->create([
-                'user_id' => $i,     
+                'user_id' => $i,
             ]);
         }
     }
@@ -35,10 +35,10 @@ class SortUserTest extends DuskTestCase
      * @return void
      */
     public function testClickLinksSort()
-    { 
+    {
         $sortUsers = ['id', 'full_name'];
         $this->browse(function (Browser $browser) use ($sortUsers) {
-            $browser->visit('/admin/users');
+            $browser->loginAs($this->user)->visit('/admin/users');
             foreach ($sortUsers as $sortUser) {
                 $browser->click("#sort-link-$sortUser")
                     ->assertQueryStringMissing('sort', $sortUser)
@@ -77,7 +77,8 @@ class SortUserTest extends DuskTestCase
     public function testSortUser($name, $order, $column)
     {
         $this->browse(function (Browser $browser) use ($name, $order, $column) {
-            $browser->visit('admin/users')
+            $browser->loginAs($this->user)
+                ->visit('admin/users')
                 ->click("#sort-link-$name a");
 
             //Test user Asc
@@ -111,7 +112,8 @@ class SortUserTest extends DuskTestCase
     public function testSortUsersPanigate($name, $order, $column)
     {
         $this->browse(function (Browser $browser) use ($name, $order, $column) {
-            $browser->visit('admin/users')
+            $browser->loginAs($this->user)
+                ->visit('admin/users')
                 ->click("#sort-link-$name a")
                 ->clickLink("2");
 
