@@ -47,28 +47,28 @@
               <h2 id="info-message">@if (session()->has('message')) {{ session()->pull('message', 'default') }} @endif</h2>
 
             <div class="x_content" class="list-table">
-              <table class="table table-hover">
+              <table class="table table-hover" id="post-table">
                 <thead>
                   <tr>
                     <th class="col-md-2">{{ __('post.admin.list.avatar_col') }}</th>
                     <th class="col-md-2">{{ __('post.admin.list.user_col') }}
                       @if (app('request')->input('dir') == config('define.dir_desc') && app('request')->input('sortBy') == config('define.post.sort_username'))
-                        <a href="{{ route('admin.posts.index', ['sortBy' => config('define.post.sort_username'), 'dir' => config('define.dir_asc')]) }}">
+                        <a id="sort-by-username" href="{{ route('admin.posts.index', ['sortBy' => config('define.post.sort_username'), 'dir' => config('define.dir_asc')]) }}">
                           <i class="fa fa-sort-up"></i>
                         </a>
                       @else
-                        <a href="{{ route('admin.posts.index', ['sortBy' => config('define.post.sort_username'), 'dir' => config('define.dir_desc')]) }}">
+                        <a id="sort-by-username" href="{{ route('admin.posts.index', ['sortBy' => config('define.post.sort_username'), 'dir' => config('define.dir_desc')]) }}">
                           <i class="fa fa-sort-down"></i>
                         </a>
                       @endif
                     </th>
                     <th class="col-md-3">{{ __('post.admin.list.product_col') }}
                       @if (app('request')->input('dir') == config('define.dir_desc') && app('request')->input('sortBy') == config('define.post.sort_product_name'))
-                        <a href="{{ route('admin.posts.index', ['sortBy' => config('define.post.sort_product_name'), 'dir' => config('define.dir_asc')]) }}">
+                        <a id='sort-by-product-name' href="{{ route('admin.posts.index', ['sortBy' => config('define.post.sort_product_name'), 'dir' => config('define.dir_asc')]) }}">
                           <i class="fa fa-sort-up"></i>
                         </a>
                       @else
-                        <a href="{{ route('admin.posts.index', ['sortBy' => config('define.post.sort_product_name'), 'dir' => config('define.dir_desc')]) }}">
+                        <a id='sort-by-product-name' href="{{ route('admin.posts.index', ['sortBy' => config('define.post.sort_product_name'), 'dir' => config('define.dir_desc')]) }}">
                           <i class="fa fa-sort-down"></i>
                         </a>
                       @endif
