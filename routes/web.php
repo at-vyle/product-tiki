@@ -12,6 +12,7 @@
 */
 Route::group(['namespace' => 'Home'], function () {
     Route::get('/', 'HomeController@index');
+    Route::get('/register', 'RegisterController@index')->name('user.register');
 });
 
 //Api Doc
