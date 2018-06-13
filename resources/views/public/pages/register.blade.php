@@ -36,7 +36,7 @@
 				</form>
 			</div>
 			<div class="register-home">
-				<a href="index.html">Home</a>
+				<a href="{{ route('user.home') }}">{{ __('user/layout.home') }}</a>
 			</div>
 		</div>
 	</div>
