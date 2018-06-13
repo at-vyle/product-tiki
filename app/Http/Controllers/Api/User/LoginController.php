@@ -35,6 +35,8 @@ class LoginController extends ApiController
     /**
      * Register user
      *
+     * @param App\Http\Requests\CreateUserRequest $request validated request
+     *
      * @return json authentication code with user info
      */
     public function register(CreateUserRequest $request)
