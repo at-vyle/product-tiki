@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Validator;
+use App\Http\Requests\CreateUserRequest;
 
 class LoginController extends ApiController
 {
@@ -27,6 +28,35 @@ class LoginController extends ApiController
         } else {
             return $this->errorResponse(config('define.login.unauthorised'), Response::HTTP_UNAUTHORIZED);
         }
+    }
+
+    public function register(CreateUserRequest $request)
+    {
+        $input = $request->get(['username', 'email', 'password']);
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
+
+        $userInfoData = [
+            'user_id' => $user->id,
+            'full_name' => $request->full_name,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'identity_card' => $request->identity_card,
+            'gender' => $request->gender,
+            'avatar' => $newImage,
+            'dob' => $request->dob,
+        ];
+        
+        UserInfo::create($userInfoData);
+
+        $data['email'] = $user->email;
+        $data['password'] = $request->password;
+        Mail::to($user->email)->send(new SendMailUser($data));
+
+        $data['token'] =  $user->createToken('token')-> accessToken;
+        $data['user'] =  $user->load('userInfo');
+
+        return $this->successResponse($data, Response::HTTP_OK);
     }
 
     /**
@@ -58,7 +88,7 @@ class LoginController extends ApiController
         $accessToken->revoke();
         $user->last_logined_at = Carbon::now();
         $user->save();
-        
+
         return $this->successResponse(null, Response::HTTP_NO_CONTENT);
     }
 }
