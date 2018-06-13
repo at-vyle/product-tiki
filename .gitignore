@@ -16,5 +16,6 @@ storage/debugbar/
 /public/bower_components
 .env.testing.local
 .env.test
+.env.testing
 public/images/upload
 public/images/avatar
