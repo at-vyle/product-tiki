@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\FilterTrait;
 
 class Product extends Model
 {
-    protected $table = 'products';
+    use FilterTrait;
     use SoftDeletes;
+    protected $table = 'products';
     const AVAILABLE = 1;
 
     /**
