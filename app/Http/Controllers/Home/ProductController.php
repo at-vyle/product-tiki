@@ -21,11 +21,9 @@ class ProductController extends Controller
     /**
     * Display detail of product.
     *
-    * @param int $id product's id
-    *
     * @return \Illuminate\Http\Response
     */
-    public function show($id)
+    public function show()
     {
         return view('public.pages.detail');
     }

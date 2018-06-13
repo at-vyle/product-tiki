@@ -11,8 +11,9 @@
 |
 */
 Route::group(['namespace' => 'Home'], function () {
-    Route::get('/', 'HomeController@index');
-    Route::resource('products', 'ProductController');;
+    Route::resource('products', 'ProductController');
+    Route::get('/', 'HomeController@index')->name('user.home');
+    Route::get('login', 'LoginController@showLoginForm')->name('user.login');
 });
 
 //Api Doc
