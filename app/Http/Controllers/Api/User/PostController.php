@@ -10,6 +10,7 @@ use Illuminate\Http\Response;
 
 class PostController extends ApiController
 {
+    
     /**
      * Display a listing of the resource.
      *
