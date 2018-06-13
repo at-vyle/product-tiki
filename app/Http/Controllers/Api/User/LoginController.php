@@ -85,6 +85,7 @@ class LoginController extends ApiController
             ->update([
                 'revoked' => true
             ]);
+            
         $accessToken->revoke();
         $user->last_logined_at = Carbon::now();
         $user->save();
