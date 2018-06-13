@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Validator;
 use App\Http\Requests\CreateUserRequest;
+use App\Mail\SendMailUser;
+use Mail;
 
 class LoginController extends ApiController
 {
@@ -30,30 +32,26 @@ class LoginController extends ApiController
         }
     }
 
+    /**
+     * Register user
+     *
+     * @return json authentication code with user info
+     */
     public function register(CreateUserRequest $request)
     {
-        $input = $request->get(['username', 'email', 'password']);
+        $input = $request->only(['username', 'email', 'password']);
         $input['password'] = bcrypt($input['password']);
+        $userInfoData = $request->except(['username', 'email', 'password']);
+
         $user = User::create($input);
 
-        $userInfoData = [
-            'user_id' => $user->id,
-            'full_name' => $request->full_name,
-            'address' => $request->address,
-            'phone' => $request->phone,
-            'identity_card' => $request->identity_card,
-            'gender' => $request->gender,
-            'avatar' => $newImage,
-            'dob' => $request->dob,
-        ];
-        
+        $userInfoData['user_id'] = $user->id;
+
         UserInfo::create($userInfoData);
 
-        $data['email'] = $user->email;
-        $data['password'] = $request->password;
-        Mail::to($user->email)->send(new SendMailUser($data));
+        Mail::to($user->email)->send(new SendMailUser($input));
 
-        $data['token'] =  $user->createToken('token')-> accessToken;
+        $data['token'] =  $user->createToken('token')->accessToken;
         $data['user'] =  $user->load('userInfo');
 
         return $this->successResponse($data, Response::HTTP_OK);
