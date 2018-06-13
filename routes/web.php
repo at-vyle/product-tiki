@@ -11,7 +11,8 @@
 |
 */
 Route::group(['namespace' => 'Home'], function () {
-    Route::get('/', 'HomeController@index');
+    Route::get('/', 'HomeController@index')->name('user.home');
+    Route::get('login', 'LoginController@showLoginForm')->name('user.login');
     Route::get('/register', 'RegisterController@index')->name('user.register');
 });
 

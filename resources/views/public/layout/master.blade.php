@@ -52,7 +52,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="agile-login">
           <ul>
             <li><a href="registered.html"> Create Account </a></li>
-            <li><a href="login.html">Login</a></li>
+            <li><a href="{{ route('user.login') }}">{{ __('user/layout.login') }}</a></li>
           </ul>
         </div>
         <div class="product_list_header">
@@ -103,7 +103,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
         <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html" class="act">Home</a></li>
+            <li class="active"><a href="{{ route('user.home') }}" class="act">{{ __('user/layout.home') }}</a></li>
             <!-- Mega Menu -->
 
           </ul>
