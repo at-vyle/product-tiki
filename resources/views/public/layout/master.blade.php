@@ -220,6 +220,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     });
   </script>
   <!-- //main slider-banner -->
+  <script src="/js/messages.js"></script>
   <script src="/js/public/category.js"></script>
+  <script src="/js/public/main.js"></script>
   </body>
 </html>
