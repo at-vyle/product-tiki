@@ -29,4 +29,10 @@ Route::group(['as' => 'api.', 'namespace' => 'Api\User'], function () {
     Route::apiResource('products', 'ProductController');
     Route::apiResource('posts/{post}/comments', 'CommentController');
     Route::apiResource('categories', 'CategoryController');
+    Route::post('login', 'LoginController@login');
+    Route::post('register', 'LoginController@register');
+    Route::group(['middleware' => 'auth:api'], function(){
+        Route::post('details', 'LoginController@details');
+        Route::post('logout', 'LoginController@logout');
+    });
 });

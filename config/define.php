@@ -46,5 +46,8 @@ return [
                 'all' => 'all'
             ]
         ]
+    ],
+    'login' => [
+        'unauthorised' => 'Unauthorised'
     ]
 ];
