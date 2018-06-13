@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ApiController;
 use App\Models\UserInfo;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use Validator;
 
 class LoginController extends ApiController
@@ -20,9 +21,8 @@ class LoginController extends ApiController
     {
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
-            $userInfo = $user->userInfo()->get();
             $data['token'] =  $user->createToken('token')->accessToken;
-            $data['user'] = $userInfo;
+            $data['user'] = $user->load('userInfo');
             return $this->successResponse($data, Response::HTTP_OK);
         } else {
             return $this->errorResponse(config('define.login.unauthorised'), Response::HTTP_UNAUTHORIZED);
@@ -48,13 +48,17 @@ class LoginController extends ApiController
      */
     public function logout()
     {
-        $accessToken = Auth::user()->token();
+        $user = Auth::user();
+        $accessToken = $user->token();
         \DB::table('oauth_refresh_tokens')
             ->where('access_token_id', $accessToken->id)
             ->update([
                 'revoked' => true
             ]);
         $accessToken->revoke();
+        $user->last_logined_at = Carbon::now();
+        $user->save();
+        
         return $this->successResponse(null, Response::HTTP_NO_CONTENT);
     }
 }
