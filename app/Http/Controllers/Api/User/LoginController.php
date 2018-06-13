@@ -20,10 +20,12 @@ class LoginController extends ApiController
     {
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
-            $success['token'] =  $user->createToken('token')-> accessToken;
-            return response()->json(['success' => $success], Response::HTTP_OK);
+            $userInfo = $user->userInfo()->get();
+            $data['token'] =  $user->createToken('token')->accessToken;
+            $data['user'] = $userInfo;
+            return $this->successResponse($data, Response::HTTP_OK);
         } else {
-            return response()->json(['error' => config('define.login.unauthorised')], Response::HTTP_UNAUTHORIZED);
+            return $this->errorResponse(config('define.login.unauthorised'), Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -35,7 +37,10 @@ class LoginController extends ApiController
     public function details()
     {
         $user = Auth::user();
-        return response()->json(['success' => $user, 'info' => $user->userInfo()->get()], Response::HTTP_OK);
+        // return response()->json(['success' => $user, 'info' => $user->userInfo()->get()], Response::HTTP_OK);
+        $data['user'] = $user;
+        $data['userInfo'] = $user->userInfo()->get();
+        return $this->successResponse($data, Response::HTTP_OK);
     }
 
     /**
@@ -52,6 +57,6 @@ class LoginController extends ApiController
                 'revoked' => true
             ]);
         $accessToken->revoke();
-        return response()->json(null, Response::HTTP_NO_CONTENT);
+        return $this->successResponse(null, Response::HTTP_NO_CONTENT);
     }
 }
