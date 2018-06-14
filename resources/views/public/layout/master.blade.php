@@ -20,6 +20,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="/css/public/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="/css/public/style.css" rel="stylesheet" type="text/css" media="all" />
+    @yield('css')
     <!-- font-awesome icons -->
     <link href="/css/public/font-awesome.css" rel="stylesheet">
     <!-- //font-awesome icons -->
@@ -51,7 +52,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
         <div class="agile-login">
           <ul>
-            <li><a href="registered.html"> Create Account </a></li>
+            <li><a href="{{ route('user.register') }}"> {{ __('user/layout.register') }} </a></li>
             <li><a href="{{ route('user.login') }}">{{ __('user/layout.login') }}</a></li>
           </ul>
         </div>

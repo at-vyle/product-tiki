@@ -1,0 +1,15 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+#dob {
+    background: url(../images/img-sp.png) no-repeat 5px -259px #fff;
+    margin: 1em;
+    outline: none;
+    border: 1px solid #DBDBDB;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #999;
+    width: 65%;
+}
