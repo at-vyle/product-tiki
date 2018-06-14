@@ -23,6 +23,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- font-awesome icons -->
     <link href="/css/public/font-awesome.css" rel="stylesheet">
     <!-- //font-awesome icons -->
+
     <!-- js -->
     <script src="/js/public/jquery-1.11.1.min.js"></script>
     <!-- //js -->
