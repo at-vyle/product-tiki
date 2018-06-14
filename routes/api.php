@@ -36,5 +36,4 @@ Route::group(['as' => 'api.', 'namespace' => 'Api\User'], function () {
         Route::post('details', 'LoginController@details');
         Route::post('logout', 'LoginController@logout');
     });
-    Route::get('products/{product}', 'ProductController@show');
 });
