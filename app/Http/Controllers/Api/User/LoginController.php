@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Validator;
+use Illuminate\Auth\AuthenticationException;
 
 class LoginController extends ApiController
 {
@@ -58,7 +59,24 @@ class LoginController extends ApiController
         $accessToken->revoke();
         $user->last_logined_at = Carbon::now();
         $user->save();
-        
+
         return $this->successResponse(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Check access token api
+     *
+     * @param \Illuminate\Auth\AuthenticationException $exception exception
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function checkAccessToken(AuthenticationException $exception)
+    {
+        if (Auth::user()) {
+            $user = Auth::user();
+            return response()->json($user);
+        } else {
+            return response()->json(['error' => $exception->getMessage()], Response::HTTP_UNAUTHORIZED);
+        }
     }
 }

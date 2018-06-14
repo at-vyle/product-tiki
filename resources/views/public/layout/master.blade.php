@@ -235,7 +235,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     });
   </script>
   <!-- //main slider-banner -->
-  <script src="/js/public/logout.js"></script>
+  <script src="/js/public/masterpage.js"></script>
   <script src="/js/public/category.js"></script>
+  @yield('js')
   </body>
 </html>
