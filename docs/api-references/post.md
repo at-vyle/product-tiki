@@ -98,6 +98,7 @@ Get list all product's posts
 | Param | Type | Description |
 |---|---|---|
 | type | int | Get posts by type |
+| rating | int | Get rating of type review|
 | content | text | Post's content |
 
 #### Response
