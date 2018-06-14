@@ -30,6 +30,7 @@ Route::group(['as' => 'api.', 'namespace' => 'Api\User'], function () {
     Route::apiResource('posts/{post}/comments', 'CommentController');
     Route::apiResource('categories', 'CategoryController');
     Route::apiResource('orders', 'OrderController')->middleware('auth:api');
+    Route::get('products/{product}/posts', 'ProductController@getPosts');
     Route::post('login', 'LoginController@login');
     Route::post('register', 'LoginController@register');
     Route::group(['middleware' => 'auth:api'], function(){
