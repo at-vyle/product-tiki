@@ -47,10 +47,16 @@ class ProductController extends ApiController
         $perPage = isset($request->perpage) ? $request->perpage : config('define.post.limit_rows');
         $sortBy = isset($request->sortBy) ? $request->sortBy : 'id';
         $order = isset($request->order) ? $request->order : 'asc';
+
         $posts = Post::with('user.userInfo')->where('product_id', $product->id)
                 ->when(isset($request->status), function ($query) use ($request) {
                     return $query->where('status', $request->status);
                 })->orderBy($sortBy, $order)->paginate($perPage);
+        
+        foreach ($posts as $post) {
+            $post['image_path'] = config('app.url').config('define.images_path_users');
+        }
+
         $data = $this->formatPaginate($posts);
         return $this->showAll($data, Response::HTTP_OK);
     }
