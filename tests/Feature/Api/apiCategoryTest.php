@@ -17,7 +17,8 @@ class apiCategoryTest extends TestCase
         parent::setUp();
         factory('App\Models\Category', 1)->create();
         factory('App\Models\Category', 1)->create([
-            'parent_id' => 1
+            'parent_id' => 1,
+            'level' => 1
         ]);
     }
 
@@ -75,6 +76,9 @@ class apiCategoryTest extends TestCase
     /**
      * @dataProvider jsonStructureListCategories
      *
+     * @param string $url url of api caterogy 
+     * @param array  $structure structure of json 
+     *
      * Test api structure
      *
      * @return void
@@ -103,4 +107,3 @@ class apiCategoryTest extends TestCase
         }
     }
 }
-
