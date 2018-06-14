@@ -21,9 +21,10 @@ class ProductController extends ApiController
     {
         $perPage = isset($request->perpage) ? $request->perpage : config('define.product.limit_rows');
         $request->order = isset($request->order) ? $request->order : config('define.dir_asc');
+        $sortBySelling = 'selling';
 
-        $products = Product::filter($request)->with("category", "images")
-            ->when(isset($request->sortBy) &&  $request->sortBy != 'selling', function ($query) use ($request) {
+        $products = Product::filter($request)->with('category', 'images')
+            ->when(isset($request->sortBy) &&  $request->sortBy != $sortBySelling, function ($query) use ($request) {
                 return $query->orderBy($request->sortBy, $request->order);
             })
             ->when(isset($request->limit), function ($query) use ($request) {
@@ -37,7 +38,7 @@ class ProductController extends ApiController
             $product['image_path'] = config('app.url') . $urlEnd . config('define.product.upload_image_url');
         }
 
-        if (isset($request->sortBy) && $request->sortBy == 'selling') {
+        if (isset($request->sortBy) && $request->sortBy == $sortBySelling) {
             $products = $products->sortByDesc('quantity_sold')->values();
         }
 
