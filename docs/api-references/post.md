@@ -84,6 +84,53 @@ Get list all product's posts
     "code": 200
 }
 ```
+
+### `POST` Posts
+```
+/api/products/{product}/posts
+```
+| Key | Value |
+|---|---|
+|Accept|application/json
+|Authorization| Bearer $token
+
+#### Query Param
+| Param | Type | Description |
+|---|---|---|
+| type | int | Get posts by type |
+| content | text | Post's content |
+
+#### Response
+* _Success_
+``` json
+{
+    "result": {
+        "success":
+    },
+    "code": 200
+}
+```
+
+* _Error_
+``` json
+{
+    "message": "The given data was invalid.",
+    "errors": {
+        "type": [
+            "The username has already been taken."
+        ],
+        "content": [
+            "The email has already been taken."
+        ]
+    },
+    "code": 422,
+    "request": {
+        "type": null,
+        "content": null,
+    }
+}
+```
+
 ### `GET` Posts of logged in user
 ```
 /api/posts
