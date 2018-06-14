@@ -29,6 +29,10 @@ class ProductController extends ApiController
      */
     public function show(Product $product)
     {
+        $product['price_formated'] = number_format($product->price);
+        $product['image_path'] = config('app.url') . config('define.product.upload_image_url');
+        $product->category;
+        $product->images;
         return $this->showOne($product);
     }
 }
