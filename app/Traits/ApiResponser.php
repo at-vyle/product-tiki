@@ -17,7 +17,7 @@ trait ApiResponser
      *
      * @return \Illuminate\Http\Response
      */
-    protected function successResponse($data, $code)
+    public function successResponse($data, $code)
     {
         return response()->json(['result' => $data, 'code' => $code], $code);
     }
@@ -30,7 +30,7 @@ trait ApiResponser
      *
      * @return \Illuminate\Http\Response
      */
-    protected function errorResponse($message, $code)
+    public function errorResponse($message, $code)
     {
         return response()->json(['error' => $message, 'code' => $code], $code);
     }

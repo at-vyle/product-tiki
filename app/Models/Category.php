@@ -9,6 +9,7 @@ class Category extends Model
 {
     protected $table = 'categories';
     use SoftDeletes;
+    const BASELEVEL = 0;
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +19,7 @@ class Category extends Model
     protected $fillable = [
         'name', 'parent_id', 'level'
     ];
-    
+
     /**
      * Get the products for the category.
      *
@@ -28,7 +29,7 @@ class Category extends Model
     {
         return $this->hasMany('App\Models\Product', 'category_id', 'id');
     }
-    
+
     /**
      * Get the products for the category.
      *

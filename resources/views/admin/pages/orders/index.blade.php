@@ -56,11 +56,11 @@
                     <th class="col-md-2">
                       {{ __('orders.admin.list.total_product') }}
                       @if (app('request')->input('dir') == config('define.dir_asc') && app('request')->input('sortBy') == config('define.order.sort_orderdetails_count'))
-                        <a href="{{ route('admin.orders.index', ['sortBy' => config('define.order.sort_orderdetails_count'), 'dir' => config('define.dir_desc')]) }}">
+                        <a id="sort-by-product-count" href="{{ route('admin.orders.index', ['sortBy' => config('define.order.sort_orderdetails_count'), 'dir' => config('define.dir_desc')]) }}">
                           <i class="fa fa-sort-up"></i>
                         </a>
                       @else
-                        <a href="{{ route('admin.orders.index', ['sortBy' => config('define.order.sort_orderdetails_count'), 'dir' => config('define.dir_asc')]) }}">
+                        <a id="sort-by-product-count" href="{{ route('admin.orders.index', ['sortBy' => config('define.order.sort_orderdetails_count'), 'dir' => config('define.dir_asc')]) }}">
                           <i class="fa fa-sort-down"></i>
                         </a>
                       @endif
@@ -68,11 +68,11 @@
                     <th class="col-md-2">
                       {{ __('orders.admin.list.total_col') }}
                       @if (app('request')->input('dir') == config('define.dir_asc') && app('request')->input('sortBy') == config('define.order.sort_total'))
-                        <a href="{{ route('admin.orders.index', ['sortBy' => config('define.order.sort_total'), 'dir' => config('define.dir_desc')]) }}">
+                        <a id="sort-by-total" href="{{ route('admin.orders.index', ['sortBy' => config('define.order.sort_total'), 'dir' => config('define.dir_desc')]) }}">
                           <i class="fa fa-sort-up"></i>
                         </a>
                       @else
-                        <a href="{{ route('admin.orders.index', ['sortBy' => config('define.order.sort_total'), 'dir' => config('define.dir_asc')]) }}">
+                        <a id="sort-by-total" href="{{ route('admin.orders.index', ['sortBy' => config('define.order.sort_total'), 'dir' => config('define.dir_asc')]) }}">
                           <i class="fa fa-sort-down"></i>
                         </a>
                       @endif

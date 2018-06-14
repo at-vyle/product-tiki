@@ -21,6 +21,7 @@
 .review-background {
   background: #f5f5f5;
   padding: 30px;
+  margin-bottom: 30px;
 }
 
 .review-filter {
@@ -39,6 +40,7 @@
   border-radius: 50%;
   overflow: hidden;
   height: 155px;
+  background: #fff;
 }
 
 .product-col-1 img {
@@ -59,6 +61,7 @@
   height: 70px;
   overflow: hidden;
   border-radius: 50%;
+  background: #fff;
 }
 
 .replies-image>img {
