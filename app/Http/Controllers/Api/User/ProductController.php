@@ -22,17 +22,14 @@ class ProductController extends ApiController
         $perPage = isset($request->perpage) ? $request->perpage : config('define.product.limit_rows');
         $request->order = isset($request->order) ? $request->order : config('define.dir_asc');
 
-        $products = Product::filter($request)->with("category", "images");
+        $products = Product::filter($request)->with("category", "images")
+            ->when(isset($request->sortBy) &&  $request->sortBy != 'selling', function ($query) use ($request) {
+                return $query->orderBy($request->sortBy, $request->order);
+            })
+            ->when(isset($request->limit), function ($query) use ($request) {
+                return $query->limit($request->limit);
+            })->get();
 
-        if (isset($request->sortBy) &&  $request->sortBy != 'selling') {
-            $products = $products->orderBy($request->sortBy, $request->order);
-        }
-
-        if (isset($request->limit)) {
-            $products = $products->limit($request->limit);
-        }
-
-        $products = $products->get();
         $urlEnd = ends_with(config('app.url'), '/') ? '' : '/';
         foreach ($products as $product) {
             $product['price_formated'] = number_format($product['price']);
@@ -46,7 +43,6 @@ class ProductController extends ApiController
 
         $products = $this->paginate($products, $perPage);
         $products = $this->formatPaginate($products);
-
         return $this->showAll($products, Response::HTTP_OK);
     }
 

@@ -65,7 +65,7 @@ Get list product
                 "price_formated": "6,321,000",
                 "quantity_sold": "6",
                 "image_path": "http://product-tiki.show/images/upload/",
-                "categories": {
+                "category": {
                     "id": 11,
                     "parent_id": 3,
                     "name": "Dr. Citlalli Berge I",
