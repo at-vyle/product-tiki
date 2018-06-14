@@ -15,6 +15,19 @@ Get list all user's order
 ```json
 {
     "result": {
+        "paginate": {
+            "current_page": 1,
+            "first_page_url": "http://192.168.21.12/api/orders?page=1",
+            "from": 1,
+            "last_page": 2,
+            "last_page_url": "http://192.168.21.12/api/orders?page=2",
+            "next_page_url": "http://192.168.21.12/api/orders?page=2",
+            "path": "http://192.168.21.12/api/orders",
+            "per_page": 5,
+            "prev_page_url": null,
+            "to": 5,
+            "total": 10
+        },
         "data": [
             {
                 "id": 1,
@@ -24,6 +37,7 @@ Get list all user's order
                 "created_at": "2018-05-31 07:04:58",
                 "updated_at": "2018-05-31 07:04:58",
                 "deleted_at": null,
+                "order_details_count": 1,
                 "user": {
                     "id": 1,
                     "username": "kyran",
