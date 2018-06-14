@@ -105,7 +105,14 @@ Get list all product's posts
 ``` json
 {
     "result": {
-        "success":
+        "type": "1",
+        "content": "asdasdasdasd",
+        "rating": "3",
+        "user_id": 17,
+        "product_id": 2,
+        "updated_at": "2018-06-14 09:26:12",
+        "created_at": "2018-06-14 09:26:12",
+        "id": 85
     },
     "code": 200
 }
@@ -117,10 +124,10 @@ Get list all product's posts
     "message": "The given data was invalid.",
     "errors": {
         "type": [
-            "The username has already been taken."
+            "The username cannot be greater than 2"
         ],
         "content": [
-            "The email has already been taken."
+            "The email is required."
         ]
     },
     "code": 422,
