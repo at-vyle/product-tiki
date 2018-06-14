@@ -1,6 +1,7 @@
 @extends('public.layout.master')
 @section('title', __('user/login.form.login'))
 @section('content')
+<script src="/js/public/login.js"></script>
   <!-- login -->
   	<div class="login">
   		<div class="container">
@@ -21,3 +22,4 @@
   	</div>
   <!-- //login -->
 @endsection
+

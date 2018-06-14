@@ -51,8 +51,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
         <div class="agile-login">
           <ul>
-            <li><a href="registered.html"> Create Account </a></li>
-            <li><a href="{{ route('user.login') }}">{{ __('user/layout.login') }}</a></li>
+            <li>
+              <div id="header-login">
+                <ul>
+                  <li><a href="registered.html">{{ __('user/layout.create_account') }}</a></li>
+                  <li><a href="{{ route('user.login') }}">{{ __('user/layout.login') }}</a></li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div id="header-logout">
+                <ul>
+                  <li><a href="#">{{ __('user/layout.profile') }}</a></li>
+                  <li><a id="btn-logout" href="#">{{ __('user/layout.logout') }}</a></li>
+                </ul>
+              </div>
+            </li>
           </ul>
         </div>
         <div class="product_list_header">
@@ -221,6 +235,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     });
   </script>
   <!-- //main slider-banner -->
+  <script src="/js/public/logout.js"></script>
   <script src="/js/public/category.js"></script>
   </body>
 </html>

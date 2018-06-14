@@ -6,7 +6,7 @@ return [
         'register' => 'Register Here',
         'forgot_password' => 'Forgot Password?',
         'login' => 'Login',
-        'or_go_back' => '(Or) go back to'
+        'or_go_back' => '(Or) go back to',
         'email_hint' => 'Email Address',
         'password_hint' => 'Password',
     ]
