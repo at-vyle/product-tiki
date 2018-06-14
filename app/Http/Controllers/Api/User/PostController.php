@@ -15,13 +15,20 @@ class PostController extends ApiController
     /**
      * Display a listing of the resource.
      *
+     * @param \App\Models\Product                  $product product of this post
+     * @param \App\Http\Requests\CreatePostRequest $request request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Product $product, CreatePostRequest $request)
     {
         $user = Auth::user();
 
-        $input = $request->all();
+        $input = $request->only('type', 'content');
+
+        if ($input['type'] == Post::TYPE_REVIEW) {
+            $input['rating'] = $request->rating;
+        }
         $input['user_id'] = $user->id;
         $input['product_id'] = $product->id;
 

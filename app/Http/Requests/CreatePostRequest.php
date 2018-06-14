@@ -26,6 +26,7 @@ class CreatePostRequest extends FormRequest
     {
         return [
             'type'             => 'required|numeric|min:1|max:2',
+            'rating'           => 'numeric|min:1|max:5',
             'content'          => 'required|string',
         ];
     }
