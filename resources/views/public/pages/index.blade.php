@@ -1,5 +1,5 @@
 @extends('public.layout.master')
-@section('title', 'Trang chủ')
+@section('title', __('user/master.title.index'))
 @section('content')
   <!-- main-slider -->
      <!-- Carousel
