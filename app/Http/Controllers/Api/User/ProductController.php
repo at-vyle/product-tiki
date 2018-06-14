@@ -25,13 +25,18 @@ class ProductController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Product $product show product
+     * @param \App\Models\Product $product show detail product
      *
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
     {
-        return $this->showOne($product);
+        $product->category;
+        $product->images;
+        $product['price_formated'] = number_format($product['price']);
+        $urlEnd = ends_with(config('app.url'), '/') ? '' : '/';
+        $product['image_path'] = config('app.url') . $urlEnd . config('define.product.upload_image_url');
+        return $this->showOne($product, Response::HTTP_OK);
     }
 
     /**
