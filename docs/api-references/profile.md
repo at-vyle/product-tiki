@@ -2,7 +2,7 @@
 
 ### `GET` Profile User
 ```
-/api/profile
+/api/users/profile
 ```
 Get profile user
 #### Request Headers
@@ -14,7 +14,7 @@ Get profile user
 ##### Example
 | URL | Description |
 |---|---|
-| /api/profile | Get profile of user |
+| /api/users/profile | Get profile of user |
 
 
 #### Response
