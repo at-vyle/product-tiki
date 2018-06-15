@@ -1,8 +1,6 @@
 @extends('admin.layout.master')
 @section('title', __('category.admin.title') )
 @section('content')
-<script src="/js/category.js"></script>
-<script src="/js/messages.js"></script>
 <div class="right_col" role="main">
   <div class="">
     <div class="row">
@@ -18,29 +16,51 @@
             <table class="table table-striped jambo_table bulk_action">
               <thead>
                 <tr class="headings">
-                  <th class="column-title">{{ __('category.admin.table.id') }}</th>
-                  <th class="column-title">{{ __('category.admin.table.name') }}</th>
-                  <th class="column-title">{{ __('category.admin.table.parent_id') }}</th>
-                  <th class="column-title">{{ __('category.admin.table.created_at') }}</th>
-                  <th class="column-title">{{ __('category.admin.table.updated_at') }}</th>
-                  <th class="column-title no-link last"><span class="nobr">{{ __('category.admin.table.action') }}</span>
+                  <th class="column-title col-md-3" id="sort-by-name">{{ __('category.admin.table.name') }}
+                    @if (app('request')->input('sortBy') == config('define.category.sort_by_name') && app('request')->input('dir') == config('define.dir_desc'))
+                      <a href="{{ route('admin.categories.index', ['sortBy' => config('define.category.sort_by_name'), 'dir' => config('define.dir_asc'), 'page' => request('page')]) }}">
+                        <i class="fa fa-sort-up"></i>
+                      </a>
+                    @else
+                      <a href="{{ route('admin.categories.index', ['sortBy' => config('define.category.sort_by_name'), 'dir' => config('define.dir_desc'), 'page' => request('page')]) }}">
+                        <i class="fa fa-sort-down"></i>
+                      </a>
+                    @endif
                   </th>
+                  <th class="column-title col-md-3">{{ __('category.admin.add.parent_category') }}</th>
+                  <th class="column-title col-md-3" id="sort-by-products_count">{{ __('category.admin.table.sum_product') }}
+                    @if (app('request')->input('sortBy') == config('define.category.sort_by_products_count') && app('request')->input('dir') == config('define.dir_desc'))
+                      <a href="{{ route('admin.categories.index', ['sortBy' => config('define.category.sort_by_products_count'), 'dir' => config('define.dir_asc'), 'page' => request('page')]) }}">
+                        <i class="fa fa-sort-up"></i>
+                      </a>
+                    @else
+                      <a href="{{ route('admin.categories.index', ['sortBy' => config('define.category.sort_by_products_count'), 'dir' => config('define.dir_desc'), 'page' => request('page')]) }}">
+                        <i class="fa fa-sort-down"></i>
+                      </a>
+                    @endif
+                  </th>
+                  <th class="column-title no-link last"><span class="nobr">{{ __('category.admin.table.action') }}</span></th>
                 </tr>
               </thead>
               <tbody>
                 @foreach ($listCategories as $list)
                 <tr class="even pointer">
-                  <td>{{ $list->id }}</td>
-                  <td><a href="{{ route('admin.categories.show', ['id' => $list->id]) }}">{{ $list->name }}</td>
-                  <td>{{ $list->parent_id }}</td>
-                  <td>{{ $list->created_at }}</td>
-                  <td class="a-right a-right ">{{ $list->updated_at }}</td>
-                  <td class="last">
-                    <a href="{{ route('admin.categories.edit', ['id' => $list->id]) }}" ><button class="btn-success"><i class="fa fa-edit"></i></button></a>| 
-                    <form method="POST" action="{{ route('admin.categories.destroy', ['id' => $list->id]) }}" style="display:inline;" id="deleted{{ $list->id }}">
+                  <td>{{ $list->name }}</td>
+                  <td>
+                    {{ $list->parent['name'] }}
+                  </td>
+                  <td>{{ $list->products_count }}</td>
+                  <td>
+                    <form class="col-md-4">
+                      <a class="btn btn-primary" id="edit{{ $list->id }}" href="{{ route('admin.categories.edit', ['id' => $list->id] ) }}"><i class="fa fa-edit"></i></a>
+                    </form> 
+                    <form class="col-md-4" method="POST" action="{{ route('admin.categories.destroy', ['id' => $list->id]) }}" id="deleted{{ $list->id }}">
                       @method('DELETE')
                       {{ csrf_field() }}
-                      <button type="submit" class="btn-danger" onclick="deleteCategory(event, {{ $list->id }})"><i class="fa fa-trash"></i></button>
+                      <button class="btn btn-danger" type="submit"onclick="deleteRecord(event, {{ $list->id }})"><i class="fa fa-trash icon-size" ></i></button>
+                    </form>
+                    <form class="col-md-4">
+                      <a class="btn btn-primary" href="{{ route('admin.categories.show', ['id' => $list->id]) }}"><i class="fa fa-eye icon-size" ></i></a>
                     </form>
                   </td>
                 </tr>

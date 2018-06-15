@@ -9,6 +9,7 @@ class Category extends Model
 {
     protected $table = 'categories';
     use SoftDeletes;
+    const BASELEVEL = 0;
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +19,7 @@ class Category extends Model
     protected $fillable = [
         'name', 'parent_id', 'level'
     ];
-    
+
     /**
      * Get the products for the category.
      *
@@ -28,14 +29,40 @@ class Category extends Model
     {
         return $this->hasMany('App\Models\Product', 'category_id', 'id');
     }
-    
+
     /**
      * Get the products for the category.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function categories()
+    public function children()
     {
         return $this->hasMany('App\Models\Category', 'parent_id', 'id');
+    }
+
+    /**
+     * Get the products for the category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Category', 'parent_id');
+    }
+
+    /**
+     * Delete one category.
+     *
+     * @return message
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($category) {
+            foreach ($category->products as $product) {
+                $product->posts()->delete();
+            }
+            $category->products()->delete();
+        });
     }
 }

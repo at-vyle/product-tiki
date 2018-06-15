@@ -10,20 +10,36 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['namespace' => 'Home'], function () {
+    Route::resource('products', 'ProductController');
+    Route::get('/', 'HomeController@index')->name('user.home');
+    Route::get('login', 'LoginController@showLoginForm')->name('user.login');
+    Route::get('/register', 'RegisterController@index')->name('user.register');
+});
 
-Route::get('/', function () {
-    return view('welcome');
+//Api Doc
+Route::get('/api-docs', function () {
+    return view('api-docs');
+});
+Route::get('/api-doc-builders', function () {
+    return view('api-doc-builders.index');
 });
 
 // Todo: add middleware for admin authenticate
-Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'namespace' => 'Admin'], function () {
-    Route::get('/', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'namespace' => 'Admin', 'middleware' => ['auth:web', 'admin']], function () {
+    Route::get('/', 'HomeController@index')->name('homepage');
     Route::resource('categories', 'CategoryController');
     Route::resource('products', 'ProductController')->parameters(['products' => 'id']);
     Route::resource('posts', 'PostController')->parameters(['posts' => 'id']);
-    Route::get('posts/comments' , 'PostController@showComments')->name('posts.comments');
-    Route::get('posts/reviews' , 'PostController@showReviews')->name('posts.reviews');
     Route::post('avatar/{id}', 'UserController@deleteAvt')->name('avatar.update');
     Route::resource('users', 'UserController');
     Route::resource('orders', 'OrderController')->parameters(['orders' => 'id']);
+
 });
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Auth'], function () {
+    Route::get('login', 'LoginController@showLoginForm')->name('login');
+    Route::post('login', 'LoginController@login');
+    Route::get('logout', 'LoginController@logout')->middleware(['auth:web', 'admin'])->name('logout');
+});
+Route::get('home', 'HomeController@index')->name('home');

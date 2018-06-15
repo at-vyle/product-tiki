@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
+use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes, Sortable, HasApiTokens;
+
+    const ADMIN_ROLE = 1;
 
     /**
      * The attributes that are mass assignable.
@@ -57,7 +62,7 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Post', 'user_id', 'id');
     }
-    
+
     /**
      * Get Order of User
      *
@@ -66,5 +71,17 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany('App\Models\Order', 'user_id', 'id');
+    }
+
+    public $sortable = ['id'];
+
+    /**
+     * Check if user is Admin
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function isAdmin()
+    {
+        return $this->role == $this::ADMIN_ROLE;
     }
 }
