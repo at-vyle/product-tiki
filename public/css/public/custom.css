@@ -99,3 +99,22 @@
   margin: 0;
   margin-bottom: 10px;
 }
+#posts-list .item {
+  margin-bottom: 1em;
+}
+#posts-list .item::after {
+  clear: both;
+  content: '';
+  display: block;
+}
+#posts-list .item .quick-reply {
+  display: none;
+}
+#posts-list .item .quick-reply .btn_add_comment{
+  margin-right: 10px;
+}
+#posts-list .item .diff_time{
+  text-align: center;
+  font-style: italic;
+  color: #d2691e;
+}

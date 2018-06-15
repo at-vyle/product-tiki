@@ -115,6 +115,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
   <!-- //navigation -->
   @yield('content')
+    </div>
+  </div>
   <!-- //footer -->
     <div class="footer">
       <div class="container">
@@ -223,6 +225,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     });
   </script>
   <!-- //main slider-banner -->
+  @yield('js')
   <script src="/js/public/category.js"></script>
+  <script src="/js/messages.js"></script>
   </body>
 </html>
