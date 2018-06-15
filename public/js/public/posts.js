@@ -2,13 +2,16 @@ var $url = document.location.pathname;
 function generatePosts(data) {
     html = '';
     data.forEach(posts => {
+        let url = posts.image_path;
         let image = posts.user.user_info.avatar;
         let name = posts.user.user_info.full_name;
+        let diffTime = posts.diff_time;
+        let content = posts.content;
         let stars = '';
         if (posts.type == 1) {
             let rate = Math.round(posts.rating);
-            for(i=1; i<= 5; i++){
-                if(i <= rate) {
+            for (i = 1; i <= 5; i++) {
+                if (i <= rate) {
                     stars += '<i class="fa fa-star blue-star" aria-hidden="true"></i>';
                 }
                 else {
@@ -19,10 +22,10 @@ function generatePosts(data) {
         html += '<div class="item" itemprop="review" itemtype="http://schema.org/Review">'+
                     '<div class="product-col-1 col-md-2">'+
                         '<p class="image">'+
-                            '<img src="/images/avatar/' + image + '">'+
+                            '<img src="' + url + image + '">'+
                         '</p>'+
                         '<p class="name user-info" itemprop="author">'+ name +'</p>'+
-                        '<p class="diff_time">'+ posts.diff_time +'</p>'+
+                        '<p class="diff_time">'+ diffTime +'</p>'+
                     '</div>'+
                     '<div class="product-col-2 col-md-10">'+
                         '<div class="infomation">'+
@@ -31,7 +34,7 @@ function generatePosts(data) {
                         
                         '<div class="description js-description">'+
                             '<p class="review_detail replies-text" itemprop="reviewBody">'+
-                            '<span>'+ posts.content + '</span>'+
+                            '<span>'+ content + '</span>'+
                             '</p>'+
                             '<button type="button" class="btn btn-primary add-comment">'+ Lang.get('user/detail_product.reply') +'</button>'+
                         '</div>'+
@@ -45,7 +48,6 @@ function generatePosts(data) {
     });
     $('#posts-list').append(html);
 }
-// console.log('/api' + $url + '/posts?sortBy=created_at&order=desc&type=1');
 function getAjax(url) {
     $.ajax({
         url: url,
@@ -59,14 +61,13 @@ function getAjax(url) {
     });
 };
 getAjax('/api' + $url + '/posts');
-$(document).ready(function(){
-    $(document).on('click', '#posts-list .item .add-comment', function(){
+$(document).ready(function() {
+    $(document).on('click', '#posts-list .item .add-comment', function() {
         $(this).hide();
         $(this).closest('.item').find('.quick-reply').show();
     });
-    $(document).on('click', '#posts-list .item .js-quick-reply-hide', function(){
+    $(document).on('click', '#posts-list .item .js-quick-reply-hide', function() {
         $(this).closest('.item').find('.quick-reply').hide();
         $(this).closest('.item').find('.add-comment').show();
     })
-
 });

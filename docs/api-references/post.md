@@ -14,10 +14,9 @@ Get list all product's posts
 | Param | Type | Description |
 |---|---|---|
 | product | int | Get posts by product (require) |
-| sort | string | Sort Product |
-| sort_type | string | Type Sort Product |
+| sortBy | string | Sort posts |
+| order | string | Type sort posts |
 | status | int | Get posts by status |
-| user_id | int | Get posts by user_id |
 | perpage | int | number item per page |
 | page | int | paginate posts |
 
