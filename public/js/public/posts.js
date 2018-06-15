@@ -1,5 +1,7 @@
 var $url = document.location.pathname;
 function generatePosts(data) {
+    const TYPE_REVIEW = 1;
+    const TYPE_COMMENT = 2;
     html = '';
     data.forEach(posts => {
         let url = posts.image_path;
@@ -8,7 +10,7 @@ function generatePosts(data) {
         let diffTime = posts.diff_time;
         let content = posts.content;
         let stars = '';
-        if (posts.type == 1) {
+        if (posts.type == TYPE_REVIEW) {
             let rate = Math.round(posts.rating);
             for (i = 1; i <= 5; i++) {
                 if (i <= rate) {
