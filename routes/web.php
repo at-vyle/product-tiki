@@ -31,6 +31,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'namespace' => 'Admin', 'm
     Route::resource('categories', 'CategoryController');
     Route::resource('products', 'ProductController')->parameters(['products' => 'id']);
     Route::resource('posts', 'PostController')->parameters(['posts' => 'id']);
+    Route::post('avatar/{id}', 'UserController@updateAvt')->name('avatar.update');
     Route::resource('users', 'UserController');
     Route::resource('orders', 'OrderController')->parameters(['orders' => 'id']);
 
