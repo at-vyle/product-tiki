@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ApiController;
 use App\Models\Product;
 use App\Models\Post;
 use Illuminate\Http\Response;
+use Carbon\Carbon;
 
 class ProductController extends ApiController
 {
@@ -52,14 +53,20 @@ class ProductController extends ApiController
         $perPage = isset($request->perpage) ? $request->perpage : config('define.post.limit_rows');
         $sortBy = isset($request->sortBy) ? $request->sortBy : 'id';
         $order = isset($request->order) ? $request->order : 'asc';
-
-        $posts = Post::with('user.userInfo')->where('product_id', $product->id)
-                ->when(isset($request->status), function ($query) use ($request) {
-                    return $query->where('status', $request->status);
-                })->orderBy($sortBy, $order)->paginate($perPage);
+        $type = isset($request->type) ? $request->type : Post::TYPE_REVIEW;
+       
+        if ($type == Post::TYPE_REVIEW) {
+            $sortBy = isset($request->sortBy) ? $request->sortBy : 'rating';
+            $order = isset($request->order) ? $request->order : 'desc';
+        }
         
+        $posts = Post::with('user.userInfo')->where('product_id', $product->id)
+                ->where('type', $type)
+                ->where('status', Post::APPROVED)->orderBy($sortBy, $order)->paginate($perPage);
         foreach ($posts as $post) {
             $post['image_path'] = config('app.url').config('define.images_path_users');
+            $createdAt = $post->created_at;
+            $post['diff_time'] = $createdAt->diffForHumans(now());
         }
 
         $data = $this->formatPaginate($posts);
