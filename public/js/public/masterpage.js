@@ -1,5 +1,6 @@
 $( document ).ready(function() {
-    if (localStorage.getItem('login-token')) {
+    accessToken = localStorage.getItem('login-token');
+    if (accessToken) {
         checkLogin();
     } else {
         $('.agile-login #header-logout').hide();
@@ -7,12 +8,12 @@ $( document ).ready(function() {
 
     $(document).on('click', '.agile-login #header-logout #btn-logout', function (event) {
         event.preventDefault();
-        if (localStorage.getItem('login-token')) {
+        if (accessToken) {
             $.ajax({
                 url: "/api/logout",
                 headers: {
                     'Accept': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('login-token')
+                    'Authorization': 'Bearer ' + accessToken
                 },
                 type: "post",
                 success: function (response) {
@@ -30,7 +31,7 @@ function checkLogin() {
         url: '/api/checkAccessToken',
         headers: ({
             Accept: 'application/json',
-            Authorization: 'Bearer ' + window.localStorage.getItem('login-token'),
+            Authorization: 'Bearer ' + accessToken,
         }),
         success: function (response){
             $('.agile-login #header-login').hide();

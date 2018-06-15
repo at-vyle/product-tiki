@@ -22,6 +22,7 @@ $(document).ready(function () {
             statusCode: {
                 401: function (response) {
                     alert(response.responseJSON.error);
+                    $('.login-form-grids input[type="password"]').val('');
                 }
             }
         });
