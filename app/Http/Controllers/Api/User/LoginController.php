@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Validator;
 use Illuminate\Auth\AuthenticationException;
+use App\Http\Requests\CreateUserRequest;
+use App\Mail\SendMailUser;
+use Mail;
 
 class LoginController extends ApiController
 {
@@ -28,6 +31,33 @@ class LoginController extends ApiController
         } else {
             return $this->errorResponse(config('define.login.unauthorised'), Response::HTTP_UNAUTHORIZED);
         }
+    }
+
+    /**
+     * Register user
+     *
+     * @param App\Http\Requests\CreateUserRequest $request validated request
+     *
+     * @return json authentication code with user info
+     */
+    public function register(CreateUserRequest $request)
+    {
+        $input = $request->only(['username', 'email', 'password']);
+        $input['password'] = bcrypt($input['password']);
+        $userInfoData = $request->except(['username', 'email', 'password']);
+
+        $user = User::create($input);
+
+        $userInfoData['user_id'] = $user->id;
+
+        UserInfo::create($userInfoData);
+
+        Mail::to($user->email)->send(new SendMailUser($input));
+
+        $data['token'] =  $user->createToken('token')->accessToken;
+        $data['user'] =  $user->load('userInfo');
+
+        return $this->successResponse($data, Response::HTTP_OK);
     }
 
     /**
@@ -56,6 +86,7 @@ class LoginController extends ApiController
             ->update([
                 'revoked' => true
             ]);
+
         $accessToken->revoke();
         $user->last_logined_at = Carbon::now();
         $user->save();

@@ -25,13 +25,18 @@ class ProductController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Product $product show product
+     * @param \App\Models\Product $product show detail product
      *
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
     {
-        return $this->showOne($product);
+        $product->category;
+        $product->images;
+        $product['price_formated'] = number_format($product['price']);
+        $urlEnd = ends_with(config('app.url'), '/') ? '' : '/';
+        $product['image_path'] = config('app.url') . $urlEnd . config('define.product.upload_image_url');
+        return $this->showOne($product, Response::HTTP_OK);
     }
 
     /**
@@ -47,10 +52,16 @@ class ProductController extends ApiController
         $perPage = isset($request->perpage) ? $request->perpage : config('define.post.limit_rows');
         $sortBy = isset($request->sortBy) ? $request->sortBy : 'id';
         $order = isset($request->order) ? $request->order : 'asc';
+
         $posts = Post::with('user.userInfo')->where('product_id', $product->id)
                 ->when(isset($request->status), function ($query) use ($request) {
                     return $query->where('status', $request->status);
                 })->orderBy($sortBy, $order)->paginate($perPage);
+        
+        foreach ($posts as $post) {
+            $post['image_path'] = config('app.url').config('define.images_path_users');
+        }
+
         $data = $this->formatPaginate($posts);
         return $this->showAll($data, Response::HTTP_OK);
     }
