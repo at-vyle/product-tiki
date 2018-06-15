@@ -96,7 +96,6 @@ class LoginController extends ApiController
     /**
      * Check access token api
      *
-     *
      * @return \Illuminate\Http\Response
      */
     public function checkAccessToken()
