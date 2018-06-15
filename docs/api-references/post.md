@@ -83,3 +83,31 @@ Get list all product's posts
     "code": 200
 }
 ```
+### `POST` Update post
+```
+/api/posts/{post}/update
+```
+Update post with type include review, comment
+
+#### Request headers
+| Key | Value |
+|---|---|
+|Accept|application/json
+|Authorization|Bearer $token
+
+#### Request body
+
+| Key | Type | Description |
+|---|---|---|---|---|---|
+| post | int | required |
+| type | int | required (1) |
+| content | String | required if rating is null |
+| rating | int | required if content is null |
+
+#### Response
+```
+{
+    "type": 1,
+    "content": "new content",
+    "rating": 5
+}
