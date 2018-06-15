@@ -65,14 +65,15 @@
                 <input type="text" id="identity_card" name="identity_card" value="{{ old('identity_card', $user->userinfo['identity_card']) }}" class="form-control col-md-7 col-xs-12">
               </div>
             </div>
+            <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="avatar">{{ __('user.index.avatar') }}</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="file" id="avatar" name="avatar" value="{{ old('avatar', $user->userinfo['avatar_url']) }}" class="form-control col-md-7 col-xs-12">
                 <img id="avatar-{{ $user->userinfo['id'] }}" src="{{ $user->userinfo['avatar_url'] }}" alt="" >
                 @if ( $user->userinfo['avatar'] )
-                  <button onclick="deleteAvatar('{{ route('admin.avatar.update', [ 'id' => $user->userinfo['id'] ]) }}', event)" class="btn-danger"><i class="fa fa-trash"></i></button>
+                  <button id="updated-avatar" onclick="updateAvatar('{{ route('admin.avatar.update', [ 'id' => $user->userinfo['id'] ]) }}', event)" class="btn-danger"><i class="fa fa-trash"></i></button>
                 @else
-                  <button hidden="hidden" onclick="deleteAvatar('{{ route('admin.avatar.update', [ 'id' => $user->userinfo['id'] ]) }}', event)" class="btn-danger"><i class="fa fa-trash"></i></button>
+                  <button hidden="hidden" onclick="updateAvatar('{{ route('admin.avatar.update', [ 'id' => $user->userinfo['id'] ]) }}', event)" class="btn-danger"><i class="fa fa-trash"></i></button>
                 @endif
               </div>
             </div>

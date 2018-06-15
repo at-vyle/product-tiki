@@ -97,11 +97,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function deleteAvt($id)
+    public function updateAvt($id)
     {
         $userInfo = UserInfo::find($id);
+        $img = $userInfo->avatar;
         $userInfo->avatar = null;
         $userInfo->save();
+        unlink(public_path(config('define.images_path_users') . $img));
         $data['userInfo'] = $userInfo;
         return response($data);
     }

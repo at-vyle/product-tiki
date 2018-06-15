@@ -1,4 +1,4 @@
-function deleteAvatar(url, e) {
+function updateAvatar(url, e) {
     e.preventDefault();
     $.ajax({
         headers: {
@@ -7,7 +7,8 @@ function deleteAvatar(url, e) {
         type: "post",
         url: url,
         success: function (result) {
-            document.getElementById('avatar-' + result.userInfo.id).setAttribute('src', '');
+            $('#avatar-' + result.userInfo.id).attr('src', '');
+            $('#updated-avatar').hide();   
         }
-    }); 
+    });
 }
