@@ -25,15 +25,15 @@ Get profile user
         "user": {
             "username": "abcde",
             "email": "abc@abc.abcde",
-            "updated_at": "2018-06-13 09:10:01",
             "created_at": "2018-06-13 09:10:01",
+            "updated_at": "2018-06-13 09:10:01",
             "id": 18,
+            "image_path": "http://192.168.33.10/images/avatar/",
             "user_info": {
                 "id": 14,
                 "user_id": 18,
                 "full_name": "dsahdkjashd djaskdaskjdh",
                 "avatar": "img.jpg",
-                "image_path": "http://192.168.33.10/images/avatar/",
                 "gender": 1,
                 "dob": null,
                 "address": "1231 sjhdkshdaksh",
