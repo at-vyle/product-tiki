@@ -1,5 +1,8 @@
 @extends('public.layout.master')
 @section('title', __('user/master.title.product'))
+@section('css')
+  <link rel="stylesheet" href="/css/public/custom.css">
+@endsection
 @section('content')
 <!-- breadcrumbs -->
 <div class="breadcrumbs">
@@ -14,7 +17,7 @@
 <!-- products -->
   <div class="products">
     <div class="container">
-      <div class="col-md-4 products-left">
+      <div class="col-md-3 products-left">
         <div class="categories">
           <h2>Categories</h2>
           <ul class="cate">
@@ -50,17 +53,17 @@
                 <li><a href="products.html"><i class="fa fa-arrow-right" aria-hidden="true"></i>Shaving Needs</a></li>
               </ul>
           </ul>
-        </div>                                                                                        
+        </div>
       </div>
-      <div class="col-md-8 products-right">
+      <div class="col-md-9 products-right">
         <div class="products-right-grid">
           <div class="products-right-grids">
             <div class="sorting">
               <select id="country" onchange="change_country(this.value)" class="frm-field required sect">
                 <option value="null"><i class="fa fa-arrow-right" aria-hidden="true"></i>Default sorting</option>
-                <option value="null"><i class="fa fa-arrow-right" aria-hidden="true"></i>Sort by popularity</option> 
-                <option value="null"><i class="fa fa-arrow-right" aria-hidden="true"></i>Sort by average rating</option>          
-                <option value="null"><i class="fa fa-arrow-right" aria-hidden="true"></i>Sort by price</option>                
+                <option value="null"><i class="fa fa-arrow-right" aria-hidden="true"></i>Sort by popularity</option>
+                <option value="null"><i class="fa fa-arrow-right" aria-hidden="true"></i>Sort by average rating</option>
+                <option value="null"><i class="fa fa-arrow-right" aria-hidden="true"></i>Sort by price</option>
               </select>
             </div>
             <div class="clearfix"> </div>
@@ -77,7 +80,7 @@
                   <figure>
                     <div class="snipcart-item block">
                       <div class="snipcart-thumb">
-                        <a href="single.html"><img title=" " alt=" " src="/images/Example/3.png"></a>    
+                        <a href="single.html"><img title=" " alt=" " src="/images/Example/3.png"></a>
                         <p>Sampann-toor-dal</p>
                         <h4>$35.99 <span>$55.00</span></h4>
                       </div>
@@ -113,7 +116,7 @@
                   <figure>
                     <div class="snipcart-item block">
                       <div class="snipcart-thumb">
-                        <a href="single.html"><img title=" " alt=" " src="/images/Example/3.png"></a>    
+                        <a href="single.html"><img title=" " alt=" " src="/images/Example/3.png"></a>
                         <p>Parryss-sugar</p>
                         <h4>$30.99 <span>$45.00</span></h4>
                       </div>
@@ -178,9 +181,6 @@
               </div>
             </div>
           </div>
-            <div class="clearfix"> </div>
-        </div>
-        <div class="agile_top_brands_grids">
           <div class="col-md-4 top_brand_left">
             <div class="hover14 column">
               <div class="agile_top_brand_left_grid">
@@ -191,7 +191,7 @@
                   <figure>
                     <div class="snipcart-item block">
                       <div class="snipcart-thumb">
-                        <a href="single.html"><img title=" " alt=" " src="/images/Example/3.png"></a>    
+                        <a href="single.html"><img title=" " alt=" " src="/images/Example/3.png"></a>
                         <p>Sampann-toor-dal</p>
                         <h4>$35.99 <span>$55.00</span></h4>
                       </div>
@@ -227,121 +227,7 @@
                   <figure>
                     <div class="snipcart-item block">
                       <div class="snipcart-thumb">
-                        <a href="single.html"><img title=" " alt=" " src="/images/Example/3.png"></a>    
-                        <p>Parryss-sugar</p>
-                        <h4>$30.99 <span>$45.00</span></h4>
-                      </div>
-                      <div class="snipcart-details top_brand_home_details">
-                        <form action="#" method="post">
-                          <fieldset>
-                            <input type="hidden" name="cmd" value="_cart">
-                            <input type="hidden" name="add" value="1">
-                            <input type="hidden" name="business" value=" ">
-                            <input type="hidden" name="item_name" value="basmati rise">
-                            <input type="hidden" name="amount" value="30.99">
-                            <input type="hidden" name="discount_amount" value="1.00">
-                            <input type="hidden" name="currency_code" value="USD">
-                            <input type="hidden" name="return" value=" ">
-                            <input type="hidden" name="cancel_return" value=" ">
-                            <input type="submit" name="submit" value="Add to cart" class="button">
-                          </fieldset>
-                        </form>
-                      </div>
-                    </div>
-                  </figure>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 top_brand_left">
-            <div class="hover14 column">
-              <div class="agile_top_brand_left_grid">
-                <div class="agile_top_brand_left_grid_pos">
-                  <img src="/images/Example/offer.png" alt=" " class="img-responsive">
-                </div>
-                <div class="agile_top_brand_left_grid_pos">
-                  <img src="/images/Example/offer.png" alt=" " class="img-responsive">
-                </div>
-                <div class="agile_top_brand_left_grid1">
-                  <figure>
-                    <div class="snipcart-item block">
-                      <div class="snipcart-thumb">
-                        <a href="single.html"><img src="/images/Example/3.png" alt=" " class="img-responsive"></a>
-                        <p>Saffola-gold</p>
-                        <h4>$80.99 <span>$105.00</span></h4>
-                      </div>
-                      <div class="snipcart-details top_brand_home_details">
-                        <form action="#" method="post">
-                          <fieldset>
-                            <input type="hidden" name="cmd" value="_cart">
-                            <input type="hidden" name="add" value="1">
-                            <input type="hidden" name="business" value=" ">
-                            <input type="hidden" name="item_name" value="Pepsi soft drink">
-                            <input type="hidden" name="amount" value="80.00">
-                            <input type="hidden" name="discount_amount" value="1.00">
-                            <input type="hidden" name="currency_code" value="USD">
-                            <input type="hidden" name="return" value=" ">
-                            <input type="hidden" name="cancel_return" value=" ">
-                            <input type="submit" name="submit" value="Add to cart" class="button">
-                          </fieldset>
-                        </form>
-                      </div>
-                    </div>
-                  </figure>
-                </div>
-              </div>
-            </div>
-          </div>
-            <div class="clearfix"> </div>
-        </div>
-        <div class="agile_top_brands_grids">
-          <div class="col-md-4 top_brand_left">
-            <div class="hover14 column">
-              <div class="agile_top_brand_left_grid">
-                <div class="agile_top_brand_left_grid_pos">
-                  <img src="/images/Example/offer.png" alt=" " class="img-responsive">
-                </div>
-                <div class="agile_top_brand_left_grid1">
-                  <figure>
-                    <div class="snipcart-item block">
-                      <div class="snipcart-thumb">
-                        <a href="single.html"><img title=" " alt=" " src="/images/Example/3.png"></a>    
-                        <p>Sampann-toor-dal</p>
-                        <h4>$35.99 <span>$55.00</span></h4>
-                      </div>
-                      <div class="snipcart-details top_brand_home_details">
-                        <form action="#" method="post">
-                          <fieldset>
-                            <input type="hidden" name="cmd" value="_cart">
-                            <input type="hidden" name="add" value="1">
-                            <input type="hidden" name="business" value=" ">
-                            <input type="hidden" name="item_name" value="Fortune Sunflower Oil">
-                            <input type="hidden" name="amount" value="35.99">
-                            <input type="hidden" name="discount_amount" value="1.00">
-                            <input type="hidden" name="currency_code" value="USD">
-                            <input type="hidden" name="return" value=" ">
-                            <input type="hidden" name="cancel_return" value=" ">
-                            <input type="submit" name="submit" value="Add to cart" class="button">
-                          </fieldset>
-                        </form>
-                      </div>
-                    </div>
-                  </figure>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 top_brand_left">
-            <div class="hover14 column">
-              <div class="agile_top_brand_left_grid">
-                <div class="agile_top_brand_left_grid_pos">
-                  <img src="/images/Example/offer.png" alt=" " class="img-responsive">
-                </div>
-                <div class="agile_top_brand_left_grid1">
-                  <figure>
-                    <div class="snipcart-item block">
-                      <div class="snipcart-thumb">
-                        <a href="single.html"><img title=" " alt=" " src="/images/Example/3.png"></a>    
+                        <a href="single.html"><img title=" " alt=" " src="/images/Example/3.png"></a>
                         <p>Parryss-sugar</p>
                         <h4>$30.99 <span>$45.00</span></h4>
                       </div>
