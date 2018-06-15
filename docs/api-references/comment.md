@@ -40,6 +40,8 @@ Get list all product's comments
                 "user_id": 1,
                 "post_id": 1,
                 "content": "Voluptate doloremque rerum dignissimos dolores rerum. Blanditiis et qui sit ea nobis rem. Qui ullam aut aut a fugit aut.",
+                "diff_time": "1 day ago",
+                "image_path": "http://product-tiki.show/images/upload/",
                 "created_at": "2018-05-31 07:04:58",
                 "updated_at": "2018-05-31 07:04:58",
                 "deleted_at": null,
