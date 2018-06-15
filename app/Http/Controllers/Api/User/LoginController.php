@@ -9,7 +9,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Validator;
-use Illuminate\Auth\AuthenticationException;
 use App\Http\Requests\CreateUserRequest;
 use App\Mail\SendMailUser;
 use Mail;
@@ -97,17 +96,14 @@ class LoginController extends ApiController
     /**
      * Check access token api
      *
-     * @param \Illuminate\Auth\AuthenticationException $exception exception
      *
      * @return \Illuminate\Http\Response
      */
-    public function checkAccessToken(AuthenticationException $exception)
+    public function checkAccessToken()
     {
         if (Auth::user()) {
             $user = Auth::user();
             return response()->json($user);
-        } else {
-            return response()->json(['error' => $exception->getMessage()], Response::HTTP_UNAUTHORIZED);
         }
     }
 }

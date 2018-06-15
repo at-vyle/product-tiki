@@ -17,10 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware' => 'auth:api'], function() {
-    Route::get('checkAccessToken', 'Api\User\LoginController@checkAccessToken');
-});
-
 Route::group(['prefix' => 'admin', 'as' => 'admin.api.' , 'namespace' => 'Api\Admin'], function () {
     Route::put('posts/{id}/status', 'PostController@changeStatus')->name('posts.update.status');
     Route::apiResource('images', 'ImageController')->parameters(['images' => 'id']);
@@ -40,5 +36,6 @@ Route::group(['as' => 'api.', 'namespace' => 'Api\User'], function () {
     Route::group(['middleware' => 'auth:api'], function(){
         Route::post('details', 'LoginController@details');
         Route::post('logout', 'LoginController@logout');
+        Route::get('checkAccessToken', 'LoginController@checkAccessToken');
     });
 });
