@@ -103,3 +103,10 @@
 .top_brand_left {
     margin: 20px 0;
 }
+.detail-link {
+    margin: 15px auto 0;
+    text-align: center;
+}
+.filter {
+    margin: 10px;
+}
