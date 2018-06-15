@@ -20,30 +20,23 @@ class ProductController extends ApiController
      */
     public function index(Request $request)
     {
-        $perPage = isset($request->perpage) ? $request->perpage : config('define.product.limit_rows');
+        $perPage = isset($request->perpage) ? $request->perpage : config('define.limit_rows');
         $request->order = isset($request->order) ? $request->order : config('define.dir_asc');
-        $sortBySelling = 'selling';
 
         $products = Product::filter($request)->with('category', 'images')
-            ->when(isset($request->sortBy) &&  $request->sortBy != $sortBySelling, function ($query) use ($request) {
+            ->when(isset($request->sortBy), function ($query) use ($request) {
                 return $query->orderBy($request->sortBy, $request->order);
             })
             ->when(isset($request->limit), function ($query) use ($request) {
                 return $query->limit($request->limit);
-            })->get();
+            })->paginate($perPage);
 
         $urlEnd = ends_with(config('app.url'), '/') ? '' : '/';
         foreach ($products as $product) {
             $product['price_formated'] = number_format($product['price']);
-            $product['quantity_sold'] = $product->orderDetails()->sum('quantity');
             $product['image_path'] = config('app.url') . $urlEnd . config('define.product.upload_image_url');
         }
 
-        if (isset($request->sortBy) && $request->sortBy == $sortBySelling) {
-            $products = $products->sortByDesc('quantity_sold')->values();
-        }
-
-        $products = $this->paginate($products, $perPage);
         $products = $this->formatPaginate($products);
         return $this->showAll($products, Response::HTTP_OK);
     }
@@ -79,12 +72,12 @@ class ProductController extends ApiController
         $sortBy = isset($request->sortBy) ? $request->sortBy : 'id';
         $order = isset($request->order) ? $request->order : 'asc';
         $type = isset($request->type) ? $request->type : Post::TYPE_REVIEW;
-       
+
         if ($type == Post::TYPE_REVIEW) {
             $sortBy = isset($request->sortBy) ? $request->sortBy : 'rating';
             $order = isset($request->order) ? $request->order : 'desc';
         }
-        
+
         $posts = Post::with('user.userInfo')->where('product_id', $product->id)
                 ->where('type', $type)
                 ->where('status', Post::APPROVED)->orderBy($sortBy, $order)->paginate($perPage);
