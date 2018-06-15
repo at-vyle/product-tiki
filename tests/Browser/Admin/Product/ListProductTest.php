@@ -102,4 +102,118 @@ class ListProductTest extends DuskTestCase
 
         });
     }
+
+    /**
+     * Make cases for test.
+     *
+     * @return array
+     */
+    public function dataForTest()
+    {
+        return [
+            ['name', 1, 'asc'],
+            ['category_id', 2, 'asc'],
+            ['quantity', 4, 'asc'],
+            ['avg_rating', 5, 'asc'],
+            ['name', 1, 'desc'],
+            ['category_id', 2, 'desc'],
+            ['quantity', 4, 'desc'],
+            ['avg_rating', 5, 'desc'],
+        ];
+    }
+
+    /**
+     * Test sort product.
+     *
+     * @dataProvider dataForTest
+     *
+     * @return void
+     */
+    public function testSortProduct($sortBy, $column, $dir)
+    {
+        $this->browse(function (Browser $browser) use ($sortBy, $column, $dir) {
+
+            factory('App\Models\Category', 5)->create();
+            factory('App\Models\Product', 10)->create();
+            $perPages = config('define.product.limit_rows');
+
+            if ($sortBy == 'category_id') {
+                $products = \DB::table('products')
+                                    ->join('categories', 'products.category_id', '=', 'categories.id')
+                                    ->orderBy($sortBy, $dir)
+                                    ->pluck('categories.name')
+                                    ->toArray();
+            } else {
+                $products = \DB::table('products')->orderBy($sortBy, $dir)->pluck($sortBy)->toArray();
+            }
+
+            $browser->visit(route('admin.products.index'))
+                    ->clicklink('2');
+            if ($dir == 'asc') {
+                $browser->click("#sort-$sortBy-desc")
+                        ->click("#sort-$sortBy-asc");
+            } else {
+                $browser->click("#sort-$sortBy-desc");
+            }
+
+            for ($i = 1; $i <= $perPages; $i++) {
+                $elements = ".table-responsive table tbody tr:nth-child($i) td:nth-child($column)";
+                $this->assertEquals($browser->text($elements), $products[$i + $perPages - 1]);
+            }
+        });
+    }
+
+    /**
+     * Make cases for test.
+     *
+     * @return array
+     */
+    public function dataForSortChangedValueTest()
+    {
+        return [
+            ['price', 6, 'asc'],
+            ['price', 6, 'desc'],
+            ['status', 7, 'asc'],
+            ['status', 7, 'desc'],
+        ];
+    }
+
+    /**
+     * Test sort product by price.
+     * Test sort product by status.
+     *
+     * @dataProvider dataForSortChangedValueTest
+     *
+     * @return void
+     */
+    public function testSortProductChangedValue($sortBy, $column, $dir)
+    {
+        $this->browse(function (Browser $browser) use ($sortBy, $column, $dir) {
+
+            factory('App\Models\Category', 5)->create();
+            factory('App\Models\Product', 10)->create();
+            $perPages = config('define.product.limit_rows');
+
+            $products = \DB::table('products')->orderBy($sortBy, $dir)->pluck($sortBy)->toArray();
+
+            $browser->visit(route('admin.products.index'))
+                    ->clicklink('2');
+            if ($dir == 'asc') {
+                $browser->click("#sort-$sortBy-desc")
+                        ->click("#sort-$sortBy-asc");
+            } else {
+                $browser->click("#sort-$sortBy-desc");
+            }
+
+            for ($i = 1; $i <= $perPages; $i++) {
+                $elements = ".table-responsive table tbody tr:nth-child($i) td:nth-child($column)";
+                if ($sortBy == 'price') {
+                    $this->assertEquals($browser->text($elements), number_format($products[$i + $perPages - 1]));
+                } else {
+                    $products[$i + $perPages - 1] = $products[$i + $perPages - 1] == 0 ? 'Unavailable' : 'Available';
+                    $this->assertEquals($browser->text($elements), $products[$i + $perPages - 1]);
+                }
+            }
+        });
+    }
 }
