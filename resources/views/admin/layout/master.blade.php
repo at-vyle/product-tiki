@@ -256,6 +256,7 @@
 
     <!-- Custom Theme Scripts -->
     <script src="/bower_components/gentelella/build/js/custom.min.js"></script>
+    <script src="/js/admin/deleteAvatar.js"></script>
     <script src="/js/messages.js"></script>
     <script src="/js/admin/main.js"></script>
     @yield('js')
