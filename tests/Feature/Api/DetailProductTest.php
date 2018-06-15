@@ -109,4 +109,28 @@ class DetailProductTest extends TestCase
         $response = $this->json('GET', $url);
         $response->assertJsonStructure($structure);
     }
+
+    /**
+     * Test check some object compare database.
+     *
+     * @return void
+     */
+    public function testCompareDatabase()
+    {
+        $response = $this->json('GET', 'api/products/1');
+        $data = json_decode($response->getContent())->result;
+        $arrayCompare = [
+            'id' => $data->id,
+            'name' => $data->name,
+            'category_id' => $data->category_id
+        ];
+        $this->assertDatabaseHas('products', $arrayCompare);
+        foreach ($data->images as $image) {
+            $arrayImage = [
+                'id' => $image->id,
+                'product_id' => $image->product_id
+            ];
+            $this->assertDatabaseHas('images', $arrayImage);
+        }
+    }
 }
