@@ -3,9 +3,13 @@ function loadPage () {
         url: "/api" + window.location.pathname,
         type: "get",
         success: function( response ) {
-            imagePath = response.result.image_path;
+            let imagePath = response.result.image_path;
+            let stars = '';
+            let imageSub = '';
+            let rate = Math.round(response.result.avg_rating);
+            let currencyType = '$';
 
-            imagePri = '<img id="example" src="' + imagePath + response.result.images[0].img_url + '" alt=" " class="img-responsive">';
+            let imagePri = '<img id="example" src="' + imagePath + response.result.images[0].img_url + '" alt=" " class="img-responsive">';
             $('.agileinfo_single .col-md-4 .agileinfo_single_left').append(imagePri);
 
             response.result.images.forEach(image => {
@@ -13,9 +17,19 @@ function loadPage () {
                 $('.sub-images .sub-images-list').append(imageSub);
             });
 
+            for(i = 1; i <= 5; i++){
+                if(i <= rate) {
+                    stars += '<i class="fa fa-star blue-star" aria-hidden="true"></i>';
+                }
+                else {
+                    stars += '<i class="fa fa-star black-star" aria-hidden="true"></i>'
+                }
+            }
+
             $('.agileinfo_single .agileinfo_single_right h2').append(response.result.name);
             $('.agileinfo_single .agileinfo_single_right .w3agile_description p').append(response.result.description);
-            $('.agileinfo_single .agileinfo_single_right .agileinfo_single_right_snipcart h4').append(response.result.price_formated + '<span></span>');
+            $('.agileinfo_single .agileinfo_single_right .starRating').append(stars);
+            $('.agileinfo_single .agileinfo_single_right .agileinfo_single_right_snipcart h4').append(currencyType + response.result.price_formated + '<span></span>');
 
             $(".agileinfo_single_right .agileinfo_single_right_details input[name='item_name']").attr('value', response.result.name);
             $(".agileinfo_single_right .agileinfo_single_right_details input[name='amount']").attr('value', response.result.price);

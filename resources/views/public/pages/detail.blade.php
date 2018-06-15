@@ -31,16 +31,7 @@
         <h2></h2>
           <div class="rating1">
             <span class="starRating">
-              <input id="xrating5" type="radio" name="rating" value="5">
-              <label for="xrating5">5</label>
-              <input id="xrating4" type="radio" name="rating" value="4">
-              <label for="xrating4">4</label>
-              <input id="xrating3" type="radio" name="rating" value="3" checked="">
-              <label for="xrating3">3</label>
-              <input id="xrating2" type="radio" name="rating" value="2">
-              <label for="xrating2">2</label>
-              <input id="xrating1" type="radio" name="rating" value="1">
-              <label for="xrating1">1</label>
+
             </span>
             <!-- ID  XRATING -->
           </div>
