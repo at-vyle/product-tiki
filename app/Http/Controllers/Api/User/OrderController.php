@@ -17,10 +17,10 @@ class OrderController extends ApiController
      */
     public function index()
     {
+        $perPage = config('define.order.limit_rows');
         $user = Auth::user();
-        
-        $orders = Order::with('user')->withCount('orderDetails')->where('user_id', $user->id)->get();
-
-        return $this->showAll($orders, Response::HTTP_OK);
+        $orders = Order::with('user')->withCount('orderDetails')->where('user_id', $user->id)->paginate($perPage);
+        $data = $this->formatPaginate($orders);
+        return $this->showAll($data, Response::HTTP_OK);
     }
 }
