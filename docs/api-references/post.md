@@ -46,6 +46,8 @@ Get list all product's posts
                 "content": "Voluptate doloremque rerum dignissimos dolores rerum. Blanditiis et qui sit ea nobis rem. Qui ullam aut aut a fugit aut. Magni voluptatem et ut aut. Sint iusto error quisquam deserunt sit est doloribus magnam. Tempora aliquam optio a. Et illum sapiente omnis sequi consequatur molestiae accusantium distinctio. Aut commodi asperiores perspiciatis ut. Ad sequi velit incidunt tenetur.",
                 "rating": 4,
                 "status": 1,
+                "diff_time": "1 day ago",
+                "image_path": "http://product-tiki.show/images/upload/",
                 "created_at": "2018-05-31 07:04:58",
                 "updated_at": "2018-05-31 07:04:58",
                 "deleted_at": null,
