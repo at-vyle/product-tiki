@@ -4,44 +4,50 @@
   <link href="/css/public/profile.css" rel="stylesheet">
 @endsection
 @section('content')
-  <div class="right_col row" role="main">
+<div class="top-brands">
+  <div class="container">
         <div class="col-md-12">
           <div class="page-title">
             <div class="title_left">
               <h3>User Profile</h3>
             </div>
           </div>
-
           <div class="clearfix"></div>
-
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="x_panel">
-                <div class="x_title">
+              <div class="x_panel col-md-12">
+                <div class="x_title col-md-12">
                   <h2>User Report <small>Activity report</small></h2>
                   <div class="clearfix"></div>
                 </div>
-                <div class="x_content">
+                <div class="x_content col-md-12">
                   <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
                     <div class="profile_img">
                       <div id="crop-avatar">
                         <!-- Current avatar -->
-                        <img class="img-responsive avatar-view" src="images/picture.jpg" alt="Avatar" title="Change the avatar">
+                        <img class="img-responsive avatar-view" src="/images/avatar/img.jpg" alt="Avatar" title="Change the avatar">
                       </div>
                     </div>
                     <h3>Samuel Doe</h3>
-
+                    <i class="fa fa-venus"></i>  
+                    <i class="fa fa-mars"></i>  
                     <ul class="list-unstyled user_data">
-                      <li><i class="fa fa-map-marker user-profile-icon"></i> San Francisco, California, USA
-                      </li>
-
-                      <li>
-                        <i class="fa fa-briefcase user-profile-icon"></i> Software Engineer
-                      </li>
-
+                      <li><i class="fa fa-map-marker user-profile-icon"></i> San Francisco, California, USA</li>
                       <li class="m-top-xs">
-                        <i class="fa fa-external-link user-profile-icon"></i>
-                        <a href="http://www.kimlabs.com/profile/" target="_blank">www.kimlabs.com</a>
+                        <i class="fa fa-birthday-cake"></i>
+                        <a href="">1-1-2011</a>
+                      </li>
+                      <li class="m-top-xs">
+                        <i class="fa fa-envelope user-profile-icon"></i>
+                        <a href="">admin@test.co</a>
+                      </li>
+                      <li class="m-top-xs">
+                        <i class="fa fa-phone"></i>
+                        <a href="">0123456789</a>
+                      </li>
+                      <li class="m-top-xs">
+                        <i class="fa fa-birthday-cake"></i>
+                        <a href="">1-1-2011</a>
                       </li>
                     </ul>
 
@@ -65,7 +71,7 @@
                           <!-- start recent activity -->
                           <ul class="messages">
                             <li>
-                              <img src="images/img.jpg" class="avatar" alt="Avatar">
+                              <img src="/images/avatar/img.jpg" class="avatar" alt="Avatar">
                               <div class="message_date">
                                 <h3 class="date text-info">24</h3>
                                 <p class="month">May</p>
@@ -81,7 +87,7 @@
                               </div>
                             </li>
                             <li>
-                              <img src="images/img.jpg" class="avatar" alt="Avatar">
+                              <img src="/images/avatar/img.jpg" class="avatar" alt="Avatar">
                               <div class="message_date">
                                 <h3 class="date text-error">21</h3>
                                 <p class="month">May</p>
@@ -97,7 +103,7 @@
                               </div>
                             </li>
                             <li>
-                              <img src="images/img.jpg" class="avatar" alt="Avatar">
+                              <img src="/images/avatar/img.jpg" class="avatar" alt="Avatar">
                               <div class="message_date">
                                 <h3 class="date text-info">24</h3>
                                 <p class="month">May</p>
@@ -113,7 +119,7 @@
                               </div>
                             </li>
                             <li>
-                              <img src="images/img.jpg" class="avatar" alt="Avatar">
+                              <img src="/images/avatar/img.jpg" class="avatar" alt="Avatar">
                               <div class="message_date">
                                 <h3 class="date text-error">21</h3>
                                 <p class="month">May</p>
@@ -266,4 +272,5 @@
           </div>
         </div>
       </div>
+    </div>
 @endsection
