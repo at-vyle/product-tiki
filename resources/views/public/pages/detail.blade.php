@@ -145,87 +145,12 @@
           </ul>
         </div>
       </div>
-      <div class="review-list">
-      <div class="item" itemprop="review" itemtype="http://schema.org/Review">
-        <div itemprop="itemReviewed" itemtype="http://schema.org/Product"><span itemprop="name" content=""></span></div>
-        <div class="product-col-1 col-md-2">
-          <p class="image">
-            <img src="/images/Example/3.png">
-          </p>
-          <div class="avatar-img" style="background-image: url(&quot;https://graph.facebook.com/630594930413218/picture?width=50&quot;);"></div>
-          <p></p>
-          <p class="name user-info" itemprop="author">MrAnh Master</p>
-          <p class="days user-info">5 tháng trước</p>
-        </div>
-        <div class="product-col-2 col-md-10">
-          <div class="infomation">
-            <span class="starRating">
-          </div>
-          <input id="" type="radio" name="rating" value="5" checked="checked">
-          <label for="">5</label>
-          <input id="" type="radio" name="rating" value="4">
-          <label for="">4</label>
-          <input id="" type="radio" name="rating" value="3">
-          <label for="">3</label>
-          <input id="" type="radio" name="rating" value="2">
-          <label for="">2</label>
-          <input id="" type="radio" name="rating" value="1" >
-          <label for="">1</label>
-          </span>
-          <!-- react-text: 75 -->
-          <!-- /react-text -->
-          <div class="description js-description">
-              <p class="review_detail replies-text" itemprop="reviewBody">
-              <span>
-                <!-- react-text: 79 -->cho mình hỏi, ip X bản mỹ này dùng sim mạng ở vn có bị lock khoing ạ?<!-- /react-text --><br>
-              </span>
-              </p>
-          </div>
-            <div class="quick-reply">
-              <textarea class="form-control review_comment" placeholder="Nhập nội dung trả lời tại đây. Tối đa 1500 từ" rows="5"></textarea><span class="help-block text-left"></span>
-              <button type="button" class="btn btn-primary btn_add_comment" data-review-id="1105262">Gửi trả lời của bạn</button>
-              <button type="button" class="btn btn-default js-quick-reply-hide">Hủy bỏ</button>
-            </div>
-          </div>
-          <div class="replies" style="margin-left: 45px;">
-            <div class="replies-item">
-              <div class="rep-info-user">
-                <p class="replies-image rep-custom">
-                  <img src="/images/Example/3.png">
-                </p>
-                <p class="replies-name rep-custom">
-                <!-- react-text: 103 -->Thanh Vũ
-                </p>
-              </div>
-              <p class="replies-text">
-              <span>
-                <!-- react-text: 108 -->được<!-- /react-text --><br>
-              </span>
-              </p>
-            </div>
-            <div class="replies-item">
-              <div class="rep-info-user">
-                <p class="replies-image rep-custom">
-                  <img src="/images/Example/3.png">
-                </p>
-                <p class="replies-name rep-custom">
-                <!-- react-text: 115 -->Zalo Bùi Tấn Thanh
-                </p>
-              </div>
-              <p class="replies-text">
-              <span>
-                <!-- react-text: 120 -->Máy này là phiên bản quốc tế, nên bạn dùng sim nhà mạng nào vẫn được nhé .<!-- /react-text --><br>
-              </span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-        <!-- react-text: 6 -->
-        <!-- /react-text -->
+      <div class="review-list" id="posts-list">
+
       </div>
     </div>
   </div>
+</div>
 </div>
 <!-- new -->
   <div class="newproducts-w3agile">
@@ -415,4 +340,5 @@
 @endsection
 @section('js')
 <script src="/js/public/product.js"></script>
+<script src="/js/public/posts.js"></script>
 @endsection
