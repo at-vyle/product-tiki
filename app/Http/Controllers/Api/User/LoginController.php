@@ -85,11 +85,24 @@ class LoginController extends ApiController
             ->update([
                 'revoked' => true
             ]);
-            
+
         $accessToken->revoke();
         $user->last_logined_at = Carbon::now();
         $user->save();
 
         return $this->successResponse(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Check access token api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function checkAccessToken()
+    {
+        if (Auth::user()) {
+            $user = Auth::user();
+            return $this->successResponse($user, Response::HTTP_OK);
+        }
     }
 }
