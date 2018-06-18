@@ -37,7 +37,8 @@ Route::group(['as' => 'api.', 'namespace' => 'Api\User'], function () {
     Route::group(['middleware' => 'auth:api'], function(){
         Route::post('details', 'LoginController@details');
         Route::post('logout', 'LoginController@logout');
+        Route::get('checkAccessToken', 'LoginController@checkAccessToken');
         Route::get('users/profile', 'UserController@index');
     });
-    
+
 });
