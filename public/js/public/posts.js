@@ -4,6 +4,7 @@ function generatePosts(data) {
     const TYPE_COMMENT = 2;
     html = '';
     data.forEach(posts => {
+        let id = posts.id;
         let url = posts.image_path;
         let image = posts.user.user_info.avatar;
         let name = posts.user.user_info.full_name;
@@ -21,7 +22,7 @@ function generatePosts(data) {
                 }
             }
         }
-        html += '<div class="item" itemprop="review" itemtype="http://schema.org/Review">'+
+        html += '<div class="item" data-id="' + id + '" itemprop="review" itemtype="http://schema.org/Review">'+
                     '<div class="product-col-1 col-md-2">'+
                         '<p class="image">'+
                             '<img src="' + url + image + '">'+
@@ -45,6 +46,7 @@ function generatePosts(data) {
                             '<button type="button" class="btn btn-primary btn_add_comment" data-review-id="1105262">'+ Lang.get('user/detail_product.send') +'</button>'+
                             '<button type="button" class="btn btn-default js-quick-reply-hide">'+ Lang.get('user/detail_product.cancel') +'</button>'+
                         '</div>'+
+                        '<div class="replies"></div>'+
                     '</div>'+
                 '</div>';
     });
