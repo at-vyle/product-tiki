@@ -8,8 +8,8 @@
   <div class="breadcrumbs">
     <div class="container">
       <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
-        <li><a href="index.html"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-        <li class="active">Singlepage</li>
+        <li><a href="{{ route('user.home') }}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>@lang('user/layout.home')</a></li>
+        <li class="active">@lang('user/product.single_page')</li>
       </ol>
     </div>
   </div>
@@ -19,57 +19,42 @@
       <div class="agileinfo_single">
         <div class="col-md-4 ">
           <div class="agileinfo_single_left">
-            <img id="example" src="/images/Example/3.png" alt=" " class="img-responsive">
+
           </div>
           <div class="sub-images">
             <ul class="sub-images-list">
-              <li class="col-md-4 sub-images-item"><div><img id="example" src="/images/Example/3.png" alt=" " class="img-responsive"></div></li>
-              <li class="col-md-4 sub-images-item"><div><img id="example" src="/images/Example/3.png" alt=" " class="img-responsive"></div></li>
-              <li class="col-md-4 sub-images-item"><div><img id="example" src="/images/Example/3.png" alt=" " class="img-responsive"></div></li>
-              <li class="col-md-4 sub-images-item"><div><img id="example" src="/images/Example/3.png" alt=" " class="img-responsive"></div></li>
+
             </ul>
           </div>
         </div>
         <div class="col-md-8 agileinfo_single_right">
-        <h2>KHARAMORRA Khakra - Hariyali</h2>
+        <h2></h2>
           <div class="rating1">
             <span class="starRating">
-              <input id="xrating5" type="radio" name="rating" value="5">
-              <label for="xrating5">5</label>
-              <input id="xrating4" type="radio" name="rating" value="4">
-              <label for="xrating4">4</label>
-              <input id="xrating3" type="radio" name="rating" value="3" checked="">
-              <label for="xrating3">3</label>
-              <input id="xrating2" type="radio" name="rating" value="2">
-              <label for="xrating2">2</label>
-              <input id="xrating1" type="radio" name="rating" value="1">
-              <label for="xrating1">1</label>
+
             </span>
             <!-- ID  XRATING -->
           </div>
           <div class="w3agile_description">
-            <h4>Description :</h4>
-            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui 
-              officia deserunt mollit anim id est laborum.Duis aute irure dolor in 
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
-              pariatur.</p>
+            <h4>@lang('user/product.show.description') :</h4>
+            <p></p>
           </div>
           <div class="snipcart-item block">
             <div class="snipcart-thumb agileinfo_single_right_snipcart">
-              <h4 class="m-sing">$21.00 <span>$25.00</span></h4>
+              <h4 class="m-sing"></h4>
             </div>
             <div class="snipcart-details agileinfo_single_right_details">
               <form action="#" method="post">
                 <fieldset>
                   <input type="hidden" name="cmd" value="_cart">
                   <input type="hidden" name="add" value="1">
-                  <input type="hidden" name="business" value=" ">
-                  <input type="hidden" name="item_name" value="pulao basmati rice">
-                  <input type="hidden" name="amount" value="21.00">
-                  <input type="hidden" name="discount_amount" value="1.00">
+                  <input type="hidden" name="business" value="">
+                  <input type="hidden" name="item_name" value="">
+                  <input type="hidden" name="amount" value="">
+                  <input type="hidden" name="discount_amount" value="">
                   <input type="hidden" name="currency_code" value="USD">
-                  <input type="hidden" name="return" value=" ">
-                  <input type="hidden" name="cancel_return" value=" ">
+                  <input type="hidden" name="return" value="">
+                  <input type="hidden" name="cancel_return" value="">
                   <input type="submit" name="submit" value="Add to cart" class="button">
                 </fieldset>
               </form>
@@ -128,7 +113,7 @@
               }
             </script>
           </div>
-        </form> 
+        </form>
       </div>
     </div>
   </div>
@@ -160,87 +145,12 @@
           </ul>
         </div>
       </div>
-      <div class="review-list">
-      <div class="item" itemprop="review" itemtype="http://schema.org/Review">
-        <div itemprop="itemReviewed" itemtype="http://schema.org/Product"><span itemprop="name" content=""></span></div>
-        <div class="product-col-1 col-md-2">
-          <p class="image">
-            <img src="/images/Example/3.png">
-          </p>
-          <div class="avatar-img" style="background-image: url(&quot;https://graph.facebook.com/630594930413218/picture?width=50&quot;);"></div>
-          <p></p>
-          <p class="name user-info" itemprop="author">MrAnh Master</p>
-          <p class="days user-info">5 tháng trước</p>
-        </div>
-        <div class="product-col-2 col-md-10">
-          <div class="infomation">
-            <span class="starRating">
-          </div>
-          <input id="" type="radio" name="rating" value="5" checked="checked">
-          <label for="">5</label>
-          <input id="" type="radio" name="rating" value="4">
-          <label for="">4</label>
-          <input id="" type="radio" name="rating" value="3">
-          <label for="">3</label>
-          <input id="" type="radio" name="rating" value="2">
-          <label for="">2</label>
-          <input id="" type="radio" name="rating" value="1" >
-          <label for="">1</label>
-          </span>
-          <!-- react-text: 75 -->
-          <!-- /react-text -->
-          <div class="description js-description">
-              <p class="review_detail replies-text" itemprop="reviewBody">
-              <span>
-                <!-- react-text: 79 -->cho mình hỏi, ip X bản mỹ này dùng sim mạng ở vn có bị lock khoing ạ?<!-- /react-text --><br>
-              </span>
-              </p>
-          </div>
-            <div class="quick-reply">
-              <textarea class="form-control review_comment" placeholder="Nhập nội dung trả lời tại đây. Tối đa 1500 từ" rows="5"></textarea><span class="help-block text-left"></span>
-              <button type="button" class="btn btn-primary btn_add_comment" data-review-id="1105262">Gửi trả lời của bạn</button>
-              <button type="button" class="btn btn-default js-quick-reply-hide">Hủy bỏ</button>
-            </div>
-          </div>
-          <div class="replies" style="margin-left: 45px;">
-            <div class="replies-item">
-              <div class="rep-info-user">
-                <p class="replies-image rep-custom">
-                  <img src="/images/Example/3.png">
-                </p>
-                <p class="replies-name rep-custom">
-                <!-- react-text: 103 -->Thanh Vũ
-                </p>
-              </div>
-              <p class="replies-text">
-              <span>
-                <!-- react-text: 108 -->được<!-- /react-text --><br>
-              </span>
-              </p>
-            </div>
-            <div class="replies-item">
-              <div class="rep-info-user">
-                <p class="replies-image rep-custom">
-                  <img src="/images/Example/3.png">
-                </p>
-                <p class="replies-name rep-custom">
-                <!-- react-text: 115 -->Zalo Bùi Tấn Thanh
-                </p>
-              </div>
-              <p class="replies-text">
-              <span>
-                <!-- react-text: 120 -->Máy này là phiên bản quốc tế, nên bạn dùng sim nhà mạng nào vẫn được nhé .<!-- /react-text --><br>
-              </span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-        <!-- react-text: 6 -->
-        <!-- /react-text -->
+      <div class="review-list" id="posts-list">
+
       </div>
     </div>
   </div>
+</div>
 </div>
 <!-- new -->
   <div class="newproducts-w3agile">
@@ -257,7 +167,7 @@
                   <figure>
                     <div class="snipcart-item block">
                       <div class="snipcart-thumb">
-                        <a href="products.html"><img title=" " alt=" " src="/images/Example/3.png"></a>    
+                        <a href="products.html"><img title=" " alt=" " src="/images/Example/3.png"></a>
                         <p>Fried-gram</p>
                         <div class="stars">
                           <i class="fa fa-star blue-star" aria-hidden="true"></i>
@@ -300,7 +210,7 @@
                   <figure>
                     <div class="snipcart-item block">
                       <div class="snipcart-thumb">
-                        <a href="products.html"><img title=" " alt=" " src="/images/Example/3.png"></a>    
+                        <a href="products.html"><img title=" " alt=" " src="/images/Example/3.png"></a>
                         <p>Navaratan-dal</p>
                         <div class="stars">
                           <i class="fa fa-star blue-star" aria-hidden="true"></i>
@@ -389,7 +299,7 @@
                   <figure>
                     <div class="snipcart-item block">
                       <div class="snipcart-thumb">
-                        <a href="products.html"><img title=" " alt=" " src="/images/Example/3.png"></a>    
+                        <a href="products.html"><img title=" " alt=" " src="/images/Example/3.png"></a>
                         <p>Channa-dal</p>
                         <div class="stars">
                           <i class="fa fa-star blue-star" aria-hidden="true"></i>
@@ -427,4 +337,8 @@
     </div>
   </div>
 <!-- //new -->
+@endsection
+@section('js')
+<script src="/js/public/product.js"></script>
+<script src="/js/public/posts.js"></script>
 @endsection

@@ -89,7 +89,25 @@ class UserController extends Controller
     {
         return view('admin.pages.users.create');
     }
-    
+
+    /**
+     * Delete avatar.
+     *
+     * @param int $id id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updateAvt($id)
+    {
+        $userInfo = UserInfo::find($id);
+        $img = $userInfo->avatar;
+        $userInfo->avatar = null;
+        $userInfo->save();
+        unlink(public_path(config('define.images_path_users') . $img));
+        $data['userInfo'] = $userInfo;
+        return response($data);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

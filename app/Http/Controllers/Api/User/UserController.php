@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
-use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Response;
 use Auth;
 
-class OrderController extends ApiController
+class UserController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,10 @@ class OrderController extends ApiController
      */
     public function index()
     {
-        $perPage = config('define.order.limit_rows');
         $user = Auth::user();
-        $orders = Order::with('user')->withCount('orderDetails')->where('user_id', $user->id)->paginate($perPage);
-        $data = $this->formatPaginate($orders);
-        return $this->showAll($data, Response::HTTP_OK);
+        $user->load('userinfo');
+        $user['image_path'] = config('app.url').config('define.images_path_users');
+
+        return $this->showOne($user, Response::HTTP_OK);
     }
 }

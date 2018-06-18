@@ -6,7 +6,7 @@ return [
     'page_length' => 10,
     'dir_asc' => 'ASC',
     'dir_desc' => 'DESC',
-    'limit_rows' => 5,
+    'limit_rows' => 6,
     'product' => [
         'limit_rows' => 5,
         'upload_image_url' => 'images/upload/'
