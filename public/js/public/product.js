@@ -48,7 +48,7 @@ $(document).ready(function () {
 
     function generateProductList(product) {
         html = '';
-        if (typeof product.images == undefined) {
+        if (product.images.length == 0) {
             src_img = product['image_path'] + 'img.jpg';
         } else {
             src_img = product['image_path'] + product['images'][0]['img_url'];
