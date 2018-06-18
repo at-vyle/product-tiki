@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var url = '';
+    var is_sending = false;
     if (window.location.search == "") {
         url = api.api_products_index;
     } else {
@@ -23,7 +24,6 @@ $(document).ready(function () {
         } else {
             url += '?price=' + $(this).val();
         }
-        url +=
         console.log(url);
         $('#product-list').html('');
         getProductList(url);
@@ -97,11 +97,20 @@ $(document).ready(function () {
     })
 
     function getProductList(url) {
+        if (is_sending) return false;
         $.ajax({
             url: url,
             type: "GET",
+            beforeSend: function () {
+                is_sending = true;
+            },
+            complete: function () {
+                is_sending = false;
+            },
             success: function (response) {
+                console.log(response.result.paginator['next_page_url']);
                 if (response.result.paginator['next_page_url'] != null) {
+                    $('#next').show();
                     $('#next').attr('href', response.result.paginator['next_page_url']);
                 } else {
                     $('#next').hide();
@@ -113,43 +122,3 @@ $(document).ready(function () {
         });
     }
 });
-
-
-// <div class="col-md-4 top_brand_left">
-// <div class="hover14 column">
-// <div class="agile_top_brand_left_grid">
-// <div class="agile_top_brand_left_grid_pos">
-// <img src="" alt=" " class="img-responsive">
-// </div>
-// <div class="agile_top_brand_left_grid1">
-// <figure>
-// <div class="snipcart-item block">
-//   <div class="snipcart-thumb">
-//     <a href="single.html"><img title=" " alt=" " src="/images/Example/3.png"></a>
-//     <p>Sampann-toor-dal</p>
-//     <h4>$35.99 <span>$55.00</span></h4>
-//   </div>
-//
-// </div>
-// </figure>
-// </div>
-// </div>
-// </div>
-// </div>
-
-// <div class="snipcart-details top_brand_home_details">
-//   <form action="#" method="post">
-//     <fieldset>
-//       <input type="hidden" name="cmd" value="_cart">
-//       <input type="hidden" name="add" value="1">
-//       <input type="hidden" name="business" value=" ">
-//       <input type="hidden" name="item_name" value="Fortune Sunflower Oil">
-//       <input type="hidden" name="amount" value="35.99">
-//       <input type="hidden" name="discount_amount" value="1.00">
-//       <input type="hidden" name="currency_code" value="USD">
-//       <input type="hidden" name="return" value=" ">
-//       <input type="hidden" name="cancel_return" value=" ">
-//       <input type="submit" name="submit" value="Add to cart" class="button">
-//     </fieldset>
-//   </form>
-// </div>

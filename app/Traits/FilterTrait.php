@@ -27,13 +27,10 @@ trait FilterTrait
             }
             if ($request->price) {
                 $values = explode(",", $request->price);
-                $query->where('price', '>=', $values[0]);
-                if (isset($values[1])) {
-                    $query->where('price', '<=', $values[1]);
-                }
+                $query->whereBetween('price', $values);
             }
             if ($request->rating) {
-                $query->where('avg_rating', '>', $request->rating);
+                $query->where('avg_rating', '>=', $request->rating);
             }
         });
     }
