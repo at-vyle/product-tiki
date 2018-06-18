@@ -339,6 +339,6 @@
 <!-- //new -->
 @endsection
 @section('js')
-<script src="/js/public/product.js"></script>
+<script src="/js/public/details.js"></script>
 <script src="/js/public/posts.js"></script>
 @endsection
