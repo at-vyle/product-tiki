@@ -14,10 +14,9 @@ Get list all product's posts
 | Param | Type | Description |
 |---|---|---|
 | product | int | Get posts by product (require) |
-| sort | string | Sort Product |
-| sort_type | string | Type Sort Product |
+| sortBy | string | Sort posts |
+| order | string | Type sort posts |
 | status | int | Get posts by status |
-| user_id | int | Get posts by user_id |
 | perpage | int | number item per page |
 | page | int | paginate posts |
 
@@ -47,6 +46,8 @@ Get list all product's posts
                 "content": "Voluptate doloremque rerum dignissimos dolores rerum. Blanditiis et qui sit ea nobis rem. Qui ullam aut aut a fugit aut. Magni voluptatem et ut aut. Sint iusto error quisquam deserunt sit est doloribus magnam. Tempora aliquam optio a. Et illum sapiente omnis sequi consequatur molestiae accusantium distinctio. Aut commodi asperiores perspiciatis ut. Ad sequi velit incidunt tenetur.",
                 "rating": 4,
                 "status": 1,
+                "diff_time": "1 day ago",
+                "image_path": "http://product-tiki.show/images/upload/",
                 "created_at": "2018-05-31 07:04:58",
                 "updated_at": "2018-05-31 07:04:58",
                 "deleted_at": null,
@@ -98,6 +99,7 @@ Get list all product's posts
 | Param | Type | Description |
 |---|---|---|
 | type | int | Get posts by type |
+| rating | int | Get rating of type review|
 | content | text | Post's content |
 
 #### Response
@@ -105,7 +107,14 @@ Get list all product's posts
 ``` json
 {
     "result": {
-        "success":
+        "type": "1",
+        "content": "asdasdasdasd",
+        "rating": "3",
+        "user_id": 17,
+        "product_id": 2,
+        "updated_at": "2018-06-14 09:26:12",
+        "created_at": "2018-06-14 09:26:12",
+        "id": 85
     },
     "code": 200
 }
@@ -117,10 +126,10 @@ Get list all product's posts
     "message": "The given data was invalid.",
     "errors": {
         "type": [
-            "The username has already been taken."
+            "The username cannot be greater than 2"
         ],
         "content": [
-            "The email has already been taken."
+            "The email is required."
         ]
     },
     "code": 422,
