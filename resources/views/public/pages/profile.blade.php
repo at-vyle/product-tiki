@@ -134,21 +134,22 @@
 
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="recent_activity" aria-labelledby="profile-tab">
-
-                          <ul class="messages">
-                            <li>
-                              <div class="message_date">
-                                <h3 class="date text-info">24</h3>
-                                <p class="month">May</p>
-                              </div>
-                              <div class="message_wrapper">
-                                <h3 class="heading">{{ __('user/profile.product_name') }} </h3>
-                                <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
-                                <h5 class="date-info">5 Days ago</h5>
-                                <br />
-                              </div>
-                            </li>
-                          </ul>
+                          <div class="button-posts">
+                          <button class="btn btn-success" id="post">Show Posts</button>
+                          <button class="btn btn-success" id="comment">Show Comments</button>
+                          </div>
+                          <div id="table-content">
+                          <table>
+                          <thead>
+                            <th></th>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td></td>
+                            </tr>
+                          </tbody>
+                          </table>
+                          </div>
 
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="recent_order" aria-labelledby="profile-tab">
