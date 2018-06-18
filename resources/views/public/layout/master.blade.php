@@ -54,8 +54,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
         <div class="agile-login">
           <ul>
-            <li><a href="{{ route('user.register') }}"> {{ __('user/layout.register') }} </a></li>
-            <li><a href="{{ route('user.login') }}">{{ __('user/layout.login') }}</a></li>
+            <li>
+              <div id="header-login">
+                <ul>
+                  <li><a href="{{ route('user.register') }}">{{ __('user/layout.register') }}</a></li>
+                  <li><a href="{{ route('user.login') }}">{{ __('user/layout.login') }}</a></li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div id="header-logout">
+                <ul>
+                  <li><a href="#">{{ __('user/layout.profile') }}</a></li>
+                  <li><a id="btn-logout" href="#">{{ __('user/layout.logout') }}</a></li>
+                </ul>
+              </div>
+            </li>
           </ul>
         </div>
         <div class="product_list_header">
@@ -226,14 +240,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     });
   </script>
   <!-- //main slider-banner -->
-<<<<<<< HEAD
   <script src="/js/public/master.js" charset="utf-8"></script>
   <script src="/js/public/category.js"></script>
-  @yield('js')
-=======
-  @yield('js')
-  <script src="/js/public/category.js"></script>
+  <script src="/js/public/masterpage.js"></script>
   <script src="/js/messages.js"></script>
->>>>>>> master
+  @yield('js')
   </body>
 </html>

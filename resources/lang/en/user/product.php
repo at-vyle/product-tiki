@@ -15,5 +15,8 @@ return [
         '20m' => '20.000.000 - max',
     ],
     'rating_filter' => 'Filter by Rating',
-
+    'single_page' => 'Singlepage',
+    'show' => [
+        'description' => 'Description',
+    ]
 ];
