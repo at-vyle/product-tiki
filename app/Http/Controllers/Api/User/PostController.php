@@ -13,12 +13,12 @@ use Auth;
 class PostController extends ApiController
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @param \Illuminate\Http\Request $request request
-     *
-     * @return \Illuminate\Http\Response
-     */
+    * Display a listing of the resource.
+    *
+    * @param \Illuminate\Http\Request $request request
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function index(Request $request)
     {
         $user = Auth::user();
@@ -35,7 +35,7 @@ class PostController extends ApiController
         return $this->showAll($posts, Response::HTTP_OK);
     }
 
-    /*
+    /**
     * Create post
     *
     * @param \App\Models\Product                  $product product of this post
@@ -43,20 +43,21 @@ class PostController extends ApiController
     *
     * @return \Illuminate\Http\Response
     */
-   public function store(Product $product, CreatePostRequest $request)
-   {
-       $user = Auth::user();
+    public function store(Product $product, CreatePostRequest $request)
+    {
+        $user = Auth::user();
 
-       $input = $request->only('type', 'content');
+        $input = $request->only('type', 'content');
 
-       if ($input['type'] == Post::TYPE_REVIEW) {
-           $input['rating'] = $request->rating;
-       }
-       $input['user_id'] = $user->id;
-       $input['product_id'] = $product->id;
+        if ($input['type'] == Post::TYPE_REVIEW) {
+            $input['rating'] = $request->rating;
+        }
+        $input['user_id'] = $user->id;
+        $input['product_id'] = $product->id;
 
-       $post = Post::create($input);
-       if ($post) {
-           return $this->showOne($post, Response::HTTP_OK);
-       }
+        $post = Post::create($input);
+        if ($post) {
+            return $this->showOne($post, Response::HTTP_OK);
+        }
+    }
 }
