@@ -102,7 +102,7 @@ class LoginController extends ApiController
     {
         if (Auth::user()) {
             $user = Auth::user();
-            return response()->json($user);
+            return $this->successResponse($user, Response::HTTP_OK);
         }
     }
 }
