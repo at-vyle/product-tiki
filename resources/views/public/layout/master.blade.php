@@ -24,6 +24,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- font-awesome icons -->
     <link href="/css/public/font-awesome.css" rel="stylesheet">
     <!-- //font-awesome icons -->
+
     <!-- js -->
     <script src="/js/public/route.js"></script>
     <script src="/js/public/jquery-1.11.1.min.js"></script>
@@ -115,6 +116,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
   <!-- //navigation -->
   @yield('content')
+    </div>
+  </div>
   <!-- //footer -->
     <div class="footer">
       <div class="container">
@@ -223,8 +226,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     });
   </script>
   <!-- //main slider-banner -->
+<<<<<<< HEAD
   <script src="/js/public/master.js" charset="utf-8"></script>
   <script src="/js/public/category.js"></script>
   @yield('js')
+=======
+  @yield('js')
+  <script src="/js/public/category.js"></script>
+  <script src="/js/messages.js"></script>
+>>>>>>> master
   </body>
 </html>
