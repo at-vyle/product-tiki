@@ -90,11 +90,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </ul>
       </div>
       <div class="w3ls_logo_products_left">
-        <h1><a href="index.html">Product Tiki</a></h1>
+        <h1><a href="{{ route('user.home') }}">{{ __('user/layout.page_name') }}</a></h1>
       </div>
       <div class="w3l_search">
-        <form action="#" method="post">
-          <input type="search" name="Search" placeholder="Search for a Product..." required="">
+        <form id="product-search" action="/products" method="post">
+          <input type="search" name="name" placeholder="{{ __('user/layout.search') }}" required="">
           <button type="submit" class="btn btn-default search" aria-label="Left Align">
             <i class="fa fa-search" aria-hidden="true"> </i>
           </button>
@@ -240,8 +240,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     });
   </script>
   <!-- //main slider-banner -->
-  <script src="/js/public/masterpage.js"></script>
+  <script src="/js/public/master.js" charset="utf-8"></script>
   <script src="/js/public/category.js"></script>
+  <script src="/js/public/masterpage.js"></script>
   <script src="/js/messages.js"></script>
   @yield('js')
   </body>

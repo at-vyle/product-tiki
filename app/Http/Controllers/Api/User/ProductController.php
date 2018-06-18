@@ -37,6 +37,8 @@ class ProductController extends ApiController
             $product['image_path'] = config('app.url') . $urlEnd . config('define.product.upload_image_url');
         }
 
+        $products->appends(request()->query());
+        
         $products = $this->formatPaginate($products);
         return $this->showAll($products, Response::HTTP_OK);
     }

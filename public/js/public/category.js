@@ -7,11 +7,11 @@ $.ajax({
             let childsHtml = '';
             if (category.children) {
                 category.children.forEach(childsCategory => {
-                    url = api.products_index+"?category_id="+childsCategory.id;
+                    url = api.products_index+"?category="+childsCategory.id;
                     childsHtml += '<li><a href="'+url+'">'+ childsCategory.name +'</a></li>';
                 });
             }
-            url = api.products_index+"?category_id="+category.id;
+            url = api.products_index+"?category="+category.id;
             html += '<li class="dropdown">\
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">' + category.name + '<b class="caret"></b></a>\
                         <ul class="dropdown-menu multi-column columns-3">\
