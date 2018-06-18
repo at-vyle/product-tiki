@@ -28,6 +28,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.api.' , 'namespace' => 'Api\Ad
 Route::group(['as' => 'api.', 'namespace' => 'Api\User'], function () {
     Route::apiResource('products', 'ProductController');
     Route::apiResource('posts/{post}/comments', 'CommentController');
+    Route::apiResource('posts', 'PostController')->middleware('auth:api');
     Route::apiResource('categories', 'CategoryController');
     Route::apiResource('orders', 'OrderController')->middleware('auth:api');
     Route::get('products/{product}/posts', 'ProductController@getPosts');
@@ -37,5 +38,7 @@ Route::group(['as' => 'api.', 'namespace' => 'Api\User'], function () {
         Route::post('details', 'LoginController@details');
         Route::post('logout', 'LoginController@logout');
         Route::get('checkAccessToken', 'LoginController@checkAccessToken');
+        Route::get('users/profile', 'UserController@index');
     });
+
 });
