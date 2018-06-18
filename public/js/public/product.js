@@ -1,6 +1,5 @@
 $(document).ready(function () {
     var url = '';
-    var is_sending = false;
     if (window.location.search == "") {
         url = api.api_products_index;
     } else {
@@ -13,7 +12,6 @@ $(document).ready(function () {
         } else {
             url += '?rating=' + $(this).val();
         }
-        console.log(url);
         $('#product-list').html('');
         getProductList(url);
     });
@@ -24,7 +22,6 @@ $(document).ready(function () {
         } else {
             url += '?price=' + $(this).val();
         }
-        console.log(url);
         $('#product-list').html('');
         getProductList(url);
     });
@@ -36,7 +33,6 @@ $(document).ready(function () {
         } else {
             url += '?sortBy='+sortBy;
         }
-
         if (sortBy === 'rating' || sortBy === 'price') {
             url += '&order=DESC';
         }
@@ -97,18 +93,10 @@ $(document).ready(function () {
     })
 
     function getProductList(url) {
-        if (is_sending) return false;
         $.ajax({
             url: url,
             type: "GET",
-            beforeSend: function () {
-                is_sending = true;
-            },
-            complete: function () {
-                is_sending = false;
-            },
             success: function (response) {
-                console.log(response.result.paginator['next_page_url']);
                 if (response.result.paginator['next_page_url'] != null) {
                     $('#next').show();
                     $('#next').attr('href', response.result.paginator['next_page_url']);
