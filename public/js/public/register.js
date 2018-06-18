@@ -24,12 +24,13 @@ $(document).ready(function () {
                 password: $('.login-form-grids input[type="password"]').val(),
             },
             success: function (response) {
-                window.location.href = 'http://' + window.location.hostname + '/' +'login';
+                localStorage.setItem('login-token', response.result.token);
+                window.location.href = 'http://' + window.location.hostname;
             },
             error: function (response) {
                 errors = Object.keys(response.responseJSON.errors);
                 errors.forEach(error => {
-                    $('.login-form-grids #' + error + '_error').append(response.responseJSON.errors[error]);
+                    $('.login-form-grids #' + error + '_error').html(response.responseJSON.errors[error]);
                     $('.login-form-grids #' + error + '_error').show();
                 });
             }
