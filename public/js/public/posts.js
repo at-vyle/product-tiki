@@ -45,6 +45,7 @@ function generatePosts(data) {
                             '<button type="button" class="btn btn-primary btn_add_comment" data-review-id="1105262">'+ Lang.get('user/detail_product.send') +'</button>'+
                             '<button type="button" class="btn btn-default js-quick-reply-hide">'+ Lang.get('user/detail_product.cancel') +'</button>'+
                         '</div>'+
+                        '<div class="replies"></div>'+
                     '</div>'+
                 '</div>';
     });

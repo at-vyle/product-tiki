@@ -161,7 +161,7 @@
         </div>
       </div>
       <div class="review-list" id="posts-list">
-      
+     
       </div>
     </div>
   </div>
@@ -355,4 +355,5 @@
 @endsection
 @section('js')
   <script src="/js/public/posts.js"></script>
+  <script src="/js/public/subcomment.js"></script>
 @endsection

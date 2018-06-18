@@ -118,3 +118,6 @@
   font-style: italic;
   color: #d2691e;
 }
+#posts-list .item .product-col-2 .replies {
+    margin-left: 45px;
+}
