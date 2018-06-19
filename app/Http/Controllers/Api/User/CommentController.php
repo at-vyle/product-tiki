@@ -23,7 +23,9 @@ class CommentController extends ApiController
         $perPage = isset($request->perpage) ? $request->perpage : config('define.post.limit_rows');
 
         $comments = Comment::with(['user.userInfo'])->where('post_id', $post->id)->orderBy('id', 'DESC')->paginate($perPage);
-
+        foreach ($comments as $comment) {
+            $comment['image_path'] = config('app.url').config('define.images_path_users');
+        }
         $data = $this->formatPaginate($comments);
 
         return $this->showAll($data, Response::HTTP_OK);
