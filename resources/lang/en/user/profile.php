@@ -16,4 +16,5 @@ return [
     'phone_col' => 'Phone',
     'id_col' => 'Identity Card',
     'avatar' => 'Avatar',
+    'edit_profile' => 'Edit Profile',
 ];
