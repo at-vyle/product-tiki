@@ -36,9 +36,11 @@ function checkLogin() {
         success: function (response){
             $('.agile-login #header-login').hide();
         },
-        error: function () {
-            window.localStorage.removeItem('login-token');
-            $('.agile-login #header-logout').hide();
+        statusCode: {
+            401: function (response) {
+                window.localStorage.removeItem('login-token');
+                $('.agile-login #header-logout').hide();
+            }
         }
     });
 }

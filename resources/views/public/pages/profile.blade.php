@@ -25,26 +25,24 @@
                     <div class="profile_img">
                       <div id="crop-avatar">
                         <!-- Current avatar -->
-                        <img class="img-responsive avatar-view" src="/images/avatar/img.jpg" alt="Avatar" title="Change the avatar">
+                        <img class="img-responsive avatar-view" src="" alt="Avatar" title="Change the avatar">
                       </div>
                     </div>
 
                     <ul class="list-unstyled user_data">
-                      <li class="m-top-xs">
+                      <li id="user_data_username" class="m-top-xs">
                         <i class="fa fa-user"></i>
-                        <a>Samuel Doe</a>
+                        <a></a>
                       </li>
-                      <li class="m-top-xs">
-                        <i class="fa fa-venus"></i>
-                        <i class="fa fa-mars"></i>
+                      <li id="user_data_gender" class="m-top-xs">
                       </li>
-                      <li class="m-top-xs">
+                      <li id="user_data_address" class="m-top-xs">
                         <i class="fa fa-map-marker user-profile-icon"></i>
-                        <a> San Francisco, California, USA</a>
+                        <a></a>
                       </li>
-                      <li class="m-top-xs">
+                      <li id="user_data_email" class="m-top-xs">
                         <i class="fa fa-envelope user-profile-icon"></i>
-                        <a>admin@test.co</a>
+                        <a></a>
                       </li>
                     </ul>
                     <br>
@@ -69,63 +67,57 @@
                           <ul class="user-info">
                             <li>
                               <div class="message_wrapper">
-                                <h4 class="heading">{{ __('user/profile.avatar') }}</h4>
-                                <img id="avatar" src="/images/avatar/img.jpg" alt="">
-                              </div>
-                            </li>
-                            <li>
-                              <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.username_col') }}</h4>
-                                <blockquote id="username" class="message">Data</blockquote>
+                                <blockquote id="username" class="message"></blockquote>
                                 <br />
                               </div>
                             </li>
                             <li>
                               <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.email_col') }}</h4>
-                                <blockquote id="email" class="message">Data</blockquote>
+                                <blockquote id="email" class="message"></blockquote>
                                 <br />
                               </div>
                             </li>
                             <li>
                               <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.fullname_col') }}</h4>
-                                <blockquote id="full_name" class="message">Data</blockquote>
+                                <blockquote id="full_name" class="message"></blockquote>
                                 <br />
                               </div>
                             </li>
                             <li>
                               <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.address_col') }}</h4>
-                                <blockquote id="address" class="message">Data</blockquote>
+                                <blockquote id="address" class="message"></blockquote>
                                 <br />
                               </div>
                             </li>
                             <li>
                               <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.gender_col') }}</h4>
-                                <blockquote id="gender" class="message">Data</blockquote>
+                                <blockquote id="gender" class="message"></blockquote>
                                 <br />
                               </div>
                             </li>
                             <li>
                               <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.dob_col') }}</h4>
-                                <blockquote id="dob" class="message">Data</blockquote>
+                                <blockquote id="dob" class="message"></blockquote>
                                 <br />
                               </div>
                             </li>
                             <li>
                               <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.phone_col') }}</h4>
-                                <blockquote id="phone" class="message">Data</blockquote>
+                                <blockquote id="phone" class="message"></blockquote>
                                 <br />
                               </div>
                             </li>
                             <li>
                               <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.id_col') }}</h4>
-                                <blockquote id="identity_card" class="message">Data</blockquote>
+                                <blockquote id="identity_card" class="message"></blockquote>
                                 <br />
                               </div>
                             </li>
@@ -222,4 +214,7 @@
         </div>
       </div>
     </div>
+@endsection
+@section('js')
+<script src="/js/public/userProfile.js"></script>
 @endsection
