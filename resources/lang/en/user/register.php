@@ -3,7 +3,7 @@
 return [
     'title' => 'Register',
     'form' => [
-        'information' => 'profile information',
+        'information' => 'Profile information',
         'full_name' => 'Full Name',
         'address' => 'Address',
         'gender_default' => 'Gender',
