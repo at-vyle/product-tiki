@@ -48,8 +48,79 @@
                       </li>
                     </ul>
                     <br>
-                    <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
+                    <a class="btn btn-success" data-toggle="modal" data-target="#edit_profile"><i class="fa fa-edit m-right-xs"></i>{{ __('user/profile.edit_profile') }}</a>
                     <br />
+
+                    <div class="modal fade" id="edit_profile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" hidden>
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title" id="myModalLabel">{{ __('user/register.form.information') }}</h4>
+                          </div>
+                          <div class="modal-body">
+
+                              <form id="demo-form2" method="POST" class="form-horizontal form-label-left">
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="full_name">{{ __('user.index.fullname') }}<span class="required">{{ __('user.index.requied') }}</span></label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="full_name" name="full_name" class="form-control col-md-7 col-xs-12">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">{{ __('user.index.address') }}<span class="required">{{ __('user.index.requied') }}</span></label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="address" name="address" class="form-control col-md-7 col-xs-12">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="phone">{{ __('user.index.phone') }}<span class="required">{{ __('user.index.requied') }}</span></label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="phone" name="phone" class="form-control col-md-7 col-xs-12">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="identity_card">{{ __('user.index.indentity_card') }}<span class="required">{{ __('user.index.requied') }}</span></label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="identity_card" name="identity_card" class="form-control col-md-7 col-xs-12">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="avatar">{{ __('user.index.avatar') }}</label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="file" id="avatar" name="avatar" class="form-control col-md-7 col-xs-12">
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('user.index.gender') }}</label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                  <select class="btn btn-info" id="gender" name="gender">
+                                    <option value="">{{ __('user/register.form.gender_default') }}</option>
+                                    <option value="0">{{ __('user/register.form.gender_male') }}</option>
+                                    <option value="1">{{ __('user/register.form.gender_female') }}</option>
+                                  </select>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('user.index.dob') }}</label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="dob" name="dob" class="form-control col-md-7 col-xs-12" type="date">
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <input type="submit" id="edit_profile_submit" class="btn btn-success" value="{{ __('user.index.update') }}">
+                                  </div>
+                                </div>
+                              </form>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
                   </div>
                   <div class="col-md-9 col-sm-9 col-xs-12">
@@ -142,7 +213,7 @@
                             
                           </div>
                           <nav class="paginate-profile">
-                            <a id="next" hidden href="'+  +'">{{ __('user/profile.next') }}</a>
+                            <a id="next" hidden href="">{{ __('user/profile.next') }}</a>
                           </nav>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="recent_order" aria-labelledby="profile-tab">

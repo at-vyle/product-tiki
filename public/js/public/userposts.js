@@ -8,6 +8,10 @@ function getUserPosts(url = '/api/posts') {
             'Authorization': 'Bearer ' + accessToken,
         },
         success: function(response) {
+            const TYPE_REVIEW = 1;
+            const TYPE_COMMENT = 2;
+            const STATUS_POST_APPROVED = 1;
+            const STATUS_POST_WAITING = 0;
             html = '';
             htmlParent = '';
             if (response.result.paginator['next_page_url'] != null) {
@@ -21,13 +25,13 @@ function getUserPosts(url = '/api/posts') {
                 let createdAt = posts.created_at;
                 let updatedAt = posts.updated_at;
                 let status = '';
-                if (posts.status == 1) {
+                if (posts.status == STATUS_POST_APPROVED) {
                     status = '<button class="btn btn-success" disabled="disabled"><i class="fa fa-times-circle icon-size"></i>';
                 } else {
                     status = '<button class="btn btn-danger" disabled="disabled"><i class="fa fa-check-circle icon-size"></i>';
                 }
                 let type = '';
-                if (posts.type == 1) {
+                if (posts.type == TYPE_REVIEW) {
                     type = "Review";
                 } else {
                     type = "Comment";
