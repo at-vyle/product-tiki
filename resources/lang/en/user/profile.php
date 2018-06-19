@@ -16,4 +16,7 @@ return [
     'phone_col' => 'Phone',
     'id_col' => 'Identity Card',
     'avatar' => 'Avatar',
+    'show_user_post' => "Show Posts",
+    'show_user_subcomment' => "Show Comments",
+    'next' => 'Next',
 ];

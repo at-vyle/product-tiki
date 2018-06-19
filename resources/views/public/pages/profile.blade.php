@@ -135,22 +135,15 @@
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="recent_activity" aria-labelledby="profile-tab">
                           <div class="button-posts">
-                          <button class="btn btn-success" id="post">Show Posts</button>
-                          <button class="btn btn-success" id="comment">Show Comments</button>
+                            <button onclick="getUserPosts()" class="btn btn-success col-md-3" id="post active">{{ __('user/profile.show_user_post') }}</button>
+                            <button class="btn btn-success col-md-3" id="comment active">{{ __('user/profile.show_user_subcomment') }}</button>
                           </div>
                           <div id="table-content">
-                          <table>
-                          <thead>
-                            <th></th>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td></td>
-                            </tr>
-                          </tbody>
-                          </table>
+                            
                           </div>
-
+                          <nav class="paginate-profile">
+                            <a id="next" hidden href="'+  +'">{{ __('user/profile.next') }}</a>
+                          </nav>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="recent_order" aria-labelledby="profile-tab">
                           <!-- start user projects -->
@@ -221,6 +214,11 @@
             </div>
           </div>
         </div>
+        
       </div>
     </div>
+@endsection
+@section('js')
+<script src="/js/public/profile.js"></script>
+<script src="/js/public/userposts.js"></script>
 @endsection
