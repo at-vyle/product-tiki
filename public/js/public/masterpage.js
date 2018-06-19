@@ -33,11 +33,11 @@ function checkLogin() {
             Accept: 'application/json',
             Authorization: 'Bearer ' + accessToken,
         }),
-        success: function (response){
+        success: function(response) {
             $('.agile-login #header-login').hide();
         },
         statusCode: {
-            401: function (response) {
+            401: function() {
                 window.localStorage.removeItem('login-token');
                 $('.agile-login #header-logout').hide();
             }

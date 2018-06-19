@@ -35,6 +35,7 @@
                         <a></a>
                       </li>
                       <li id="user_data_gender" class="m-top-xs">
+                        <a></a>
                       </li>
                       <li id="user_data_address" class="m-top-xs">
                         <i class="fa fa-map-marker user-profile-icon"></i>
@@ -87,6 +88,7 @@
                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="avatar">{{ __('user.index.avatar') }}</label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="file" id="avatar" name="avatar" class="form-control col-md-7 col-xs-12">
+                                    <img id="img_avatar" class="avatar-view" src="" alt="">
                                   </div>
                                 </div>
 
