@@ -118,3 +118,15 @@
   font-style: italic;
   color: #d2691e;
 }
+#posts-list .item .product-col-2 .replies {
+  margin-left: 45px;
+}
+.top_brand_left {
+    margin: 20px 0;
+}
+.detail-link {
+    margin: 15px auto 0;
+    text-align: center;
+}
+.filter {
+    margin: 10px;
