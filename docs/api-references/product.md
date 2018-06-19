@@ -18,6 +18,8 @@ Get list product
 | sortBy | string | Top New Product, Top Rating Product, Top selling Product 'quantity_sold = order_detail.quantity(Sum(quantity))' of product |
 | order | string | Sort Product (ASC, DESC) |
 | perpage | int | paginate for page Product |
+| price | int | fillter for Product belong to price |
+| rating | int | fillter for Product belong to rating|
 
 ##### Example
 | URL | Description |
@@ -60,8 +62,10 @@ Get list product
                 "created_at": "2018-05-30 07:37:35",
                 "updated_at": "2018-06-05 09:42:43",
                 "deleted_at": "2018-06-05 09:42:43",
+                "price_formated": "6,321,000",
                 "quantity_sold": "6",
-                "categories": {
+                "image_path": "http://product-tiki.show/images/upload/",
+                "category": {
                     "id": 11,
                     "parent_id": 3,
                     "name": "Dr. Citlalli Berge I",

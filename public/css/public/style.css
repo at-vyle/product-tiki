@@ -134,7 +134,7 @@ button.btn.btn-default.search {
 }
 button.btn.btn-default.search:hover {
     background:#333;
-  
+
 }
 .agile-login {
     float: left;
@@ -309,7 +309,7 @@ ul.multi-column-dropdown h6 {
     border: none;
 }
 /*-- cart --*/
-/*-- cart-box --*/ 
+/*-- cart-box --*/
 .w3view-cart {
     background: #3399cc;
     border: none;
@@ -596,7 +596,7 @@ i.gray-star {
   bottom: 20px;
   right: 2%;
   overflow: hidden;
-  z-index: 999; 
+  z-index: 999;
   width: 32px;
   height: 32px;
   border: none;
@@ -918,7 +918,7 @@ a.w3_agile_vimeo:hover{
   background:#F7F7F9;
   margin:3em auto 0;
 }
-.login-form-grids input[type="email"],.login-form-grids input[type="password"],.login-form-grids input[type="text"]{
+.login-form-grids input[type="email"],.login-form-grids input[type="password"],.login-form-grids input[type="text"],.login-form-grids input[type="number"]{
   outline: none;
     border: 1px solid #DBDBDB;
     padding: 10px 10px 10px 10px;
@@ -1001,11 +1001,8 @@ a.w3_agile_vimeo:hover{
   text-transform:uppercase;
   margin:0 0 2em;
 }
-.login-form-grids input[type="text"]{
+.login-form-grids input[type="text"],.login-form-grids input[type="number"]{
   background:url(../images/img-sp.png) no-repeat 5px -259px #fff;
-}
-.login-form-grids input[type="text"]:nth-child(2){
-  background:url(../images/img-sp.png) no-repeat 0px -298px #fff;
   margin:1em 0;
 }
 .register-check-box label{
@@ -1150,12 +1147,12 @@ td.invert-image a img {
 }
 .quantity-select .entry.value-minus:before,
 .quantity-select .entry.value-plus:before{
-  content: ""; 
+  content: "";
   width: 13px;
-  height: 2px; 
+  height: 2px;
   background: #000;
   left: 50%;
-  margin-left: -7px; 
+  margin-left: -7px;
   top: 50%;
   margin-top: -0.5px;
   position: absolute;
@@ -1163,9 +1160,9 @@ td.invert-image a img {
 .quantity-select .entry.value-plus:after{
   content: "";
   height: 13px;
-  width: 2px; 
+  width: 2px;
   background: #000;
-  left: 50%; 
+  left: 50%;
   margin-left: -1.4px;
     top: 50%;
     margin-top: -6.2px;
@@ -1269,9 +1266,9 @@ h3.w3ls-title.w3ls-title1 {
     list-style-type: decimal;
     padding-left: 0.5em;
 }
-.faq-w3agile .faq > li > a { 
-    color: #999; 
-} 
+.faq-w3agile .faq > li > a {
+    color: #999;
+}
 .faq-w3agile .faq li li.subitem1 {
     display: block;
     margin-top: 1em;
@@ -1372,7 +1369,7 @@ ul.faq {
 }
 .brands-w3l {
     text-align: center;
-   
+
 }
 .brands-w3l p a{
     font-size: 17px;
@@ -1448,7 +1445,7 @@ ul.paging {
   background:none;
 }
 .categories ul.cate,.new-products-grids{
-  padding:2em;
+  padding:1em;
 }
 .categories ul li{
   display:block;
@@ -1567,7 +1564,7 @@ h3.w3_agile_header:after,h2.w3_agile_header:after{
     margin-top: 0.5em;
     line-height: 1.8em;
 }
-/*-- //about-page --*/ 
+/*-- //about-page --*/
 .testi {
     width: 100%;
     margin-top: 3em;
@@ -1576,7 +1573,7 @@ h3.w3_agile_header:after,h2.w3_agile_header:after{
 .testi h3.w3ls-title1 {
     text-align: left;
   font-size: 2.5em;
-} 
+}
 .testi h4 {
     color: #FFFFFF;
     font-size: 1.4em;
@@ -1588,7 +1585,7 @@ h3.w3_agile_header:after,h2.w3_agile_header:after{
     font-size: 1em;
     margin-top: 1em;
     line-height: 1.5em;
-    font-weight: 300; 
+    font-weight: 300;
 }
 .testi-subscript p {
     margin: 1em 2.8em 0 0;
@@ -1910,7 +1907,7 @@ a.callbacks1_s3.active,a.callbacks1_s3:focus{
     background-color:rgba(51, 153, 204, 0.58);
   width: 100%;
     left: 0;
-    text-align: center; 
+    text-align: center;
   -webkit-transition: 0.5s all;
   -moz-transition: 0.5s all;
   -o-transition: 0.5s all;
@@ -1941,10 +1938,10 @@ a.callbacks1_s3.active,a.callbacks1_s3:focus{
   display:block;
   top: 49.2%;
   opacity:1;
-} 
+}
 .caption ul {
     padding: 1em 0;
-} 
+}
 .caption ul li a:hover{
   color:#000;
 }
@@ -2290,7 +2287,7 @@ a.callbacks1_s3.active,a.callbacks1_s3:focus{
     -ms-transition: 0.5s all;
     -moz-transition: 0.5s all;
     cursor: pointer;
-} 
+}
 .icon-box:hover {
     background: #000;
   transition:0.5s all;
@@ -2309,11 +2306,11 @@ a.callbacks1_s3.active,a.callbacks1_s3:focus{
     float: left;
     width: 12.5%;
     height: 115px;
-    padding: 10px; 
+    padding: 10px;
     line-height: 1.4;
-    text-align: center;  
+    text-align: center;
     font-size: 12px;
-    list-style-type: none;  
+    list-style-type: none;
 }
 .codes .bs-glyphicons .glyphicon {
     margin-top: 5px;
@@ -2331,7 +2328,7 @@ a.callbacks1_s3.active,a.callbacks1_s3:focus{
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   color: #777;
-} 
+}
 .codes .bs-glyphicons .glyphicon-class {
     display: block;
     text-align: center;
@@ -2391,7 +2388,7 @@ h3.agileits-icons-title {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   color: #777;
-} 
+}
 .bs-glyphicons .glyphicon-class {
     display: block;
     text-align: center;

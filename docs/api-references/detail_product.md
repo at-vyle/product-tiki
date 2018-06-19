@@ -39,7 +39,9 @@ Get item product
             "created_at": "2018-06-08 08:45:48",
             "updated_at": "2018-06-08 08:45:48",
             "deleted_at": null,
-            "categories": [
+            "price_formated": "7,474,311",
+            "image_path": "http://192.168.33.10/images/upload/",
+            "category": [
                 {
                 "id": 24,
                 "parent_id": 5,

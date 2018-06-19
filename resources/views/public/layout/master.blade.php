@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Product Tiki</title>
+    <title>@yield('title')</title>
     <!-- for-mobile-apps -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -20,17 +20,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="/css/public/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="/css/public/style.css" rel="stylesheet" type="text/css" media="all" />
+    @yield('css')
     <!-- font-awesome icons -->
     <link href="/css/public/font-awesome.css" rel="stylesheet">
     <!-- //font-awesome icons -->
+
     <!-- js -->
+    <script src="/js/public/route.js"></script>
     <script src="/js/public/jquery-1.11.1.min.js"></script>
     <!-- //js -->
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
     <!-- start-smoth-scrolling -->
-    <script type="/text/javascript" src="js/public/move-top.js"></script>
-    <script type="/text/javascript" src="js/public/easing.js"></script>
+    <script type="/text/javascript" src="/js/public/move-top.js"></script>
+    <script type="/text/javascript" src="/js/public/easing.js"></script>
     <script type="/text/javascript">
       jQuery(document).ready(function($) {
         $(".scroll").click(function(event){
@@ -40,6 +43,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
       });
     </script>
     <!-- start-smoth-scrolling -->
+    @yield('css')
   </head>
 
   <body>
@@ -50,8 +54,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
         <div class="agile-login">
           <ul>
-            <li><a href="registered.html"> Create Account </a></li>
-            <li><a href="{{ route('user.login') }}">{{ __('user/layout.login') }}</a></li>
+            <li>
+              <div id="header-login">
+                <ul>
+                  <li><a href="{{ route('user.register') }}">{{ __('user/layout.register') }}</a></li>
+                  <li><a href="{{ route('user.login') }}">{{ __('user/layout.login') }}</a></li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div id="header-logout">
+                <ul>
+                  <li><a href="#">{{ __('user/layout.profile') }}</a></li>
+                  <li><a id="btn-logout" href="#">{{ __('user/layout.logout') }}</a></li>
+                </ul>
+              </div>
+            </li>
           </ul>
         </div>
         <div class="product_list_header">
@@ -72,11 +90,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </ul>
       </div>
       <div class="w3ls_logo_products_left">
-        <h1><a href="index.html">Product Tiki</a></h1>
+        <h1><a href="{{ route('user.home') }}">{{ __('user/layout.page_name') }}</a></h1>
       </div>
       <div class="w3l_search">
-        <form action="#" method="post">
-          <input type="search" name="Search" placeholder="Search for a Product..." required="">
+        <form id="product-search" action="/products" method="post">
+          <input type="search" name="name" placeholder="{{ __('user/layout.search') }}" required="">
           <button type="submit" class="btn btn-default search" aria-label="Left Align">
             <i class="fa fa-search" aria-hidden="true"> </i>
           </button>
@@ -112,6 +130,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
   <!-- //navigation -->
   @yield('content')
+    </div>
+  </div>
   <!-- //footer -->
     <div class="footer">
       <div class="container">
@@ -177,7 +197,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
   <!-- //footer -->
   <!-- Bootstrap Core JavaScript -->
-  <script src="js/public/bootstrap.min.js"></script>
+  <script src="/js/public/bootstrap.min.js"></script>
 
   <!-- top-header and slider -->
   <!-- here stars scrolling icon -->
@@ -197,7 +217,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         });
     </script> -->
   <!-- //here ends scrolling icon -->
-  <script src="js/public/minicart.min.js"></script>
+  <script src="/js/public/minicart.min.js"></script>
   <script>
     // Mini Cart
     paypal.minicart.render({
@@ -209,8 +229,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     }
   </script>
   <!-- main slider-banner -->
-  <script src="js/public/skdslider.min.js"></script>
-  <link href="css/public/skdslider.css" rel="stylesheet">
+  <script src="/js/public/skdslider.min.js"></script>
+  <link href="/css/public/skdslider.css" rel="stylesheet">
   <script type="text/javascript">
     jQuery(document).ready(function(){
       jQuery('#demo1').skdslider({'delay':5000, 'animationSpeed': 2000,'showNextPrev':true,'showPlayButton':true,'autoSlide':true,'animationType':'fading'});
@@ -220,8 +240,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     });
   </script>
   <!-- //main slider-banner -->
-  <script src="/js/messages.js"></script>
-  <script src="/js/public/category.js"></script>
   <script src="/js/public/main.js"></script>
+  <script src="/js/public/master.js" charset="utf-8"></script>
+  <script src="/js/public/category.js"></script>
+  <script src="/js/public/masterpage.js"></script>
+  <script src="/js/messages.js"></script>
+  @yield('js')
   </body>
 </html>

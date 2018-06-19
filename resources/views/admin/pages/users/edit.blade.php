@@ -69,7 +69,12 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="avatar">{{ __('user.index.avatar') }}</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="file" id="avatar" name="avatar" value="{{ old('avatar', $user->userinfo['avatar_url']) }}" class="form-control col-md-7 col-xs-12">
-                <img src="{{ $user->userinfo['avatar_url'] }}" alt="" >
+                <img id="avatar-{{ $user->userinfo['id'] }}" src="{{ $user->userinfo['avatar_url'] }}" alt="" >
+                @if ( $user->userinfo['avatar'] )
+                  <button id="updated-avatar" onclick="updateAvatar('{{ route('admin.avatar.update', [ 'id' => $user->userinfo['id'] ]) }}', event)" class="btn-danger"><i class="fa fa-trash"></i></button>
+                @else
+                  <button hidden="hidden" onclick="updateAvatar('{{ route('admin.avatar.update', [ 'id' => $user->userinfo['id'] ]) }}', event)" class="btn-danger"><i class="fa fa-trash"></i></button>
+                @endif
               </div>
             </div>
             <div class="form-group">

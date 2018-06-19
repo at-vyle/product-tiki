@@ -21,3 +21,6 @@
   	</div>
   <!-- //login -->
 @endsection
+@section('js')
+<script src="/js/public/login.js"></script>
+@endsection

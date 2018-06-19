@@ -19,7 +19,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'category_id', 'name', 'description', 'total_rate', 'rate_count', 'avg_rating', 'price', 'quantity', 'status',
+        'category_id', 'name', 'description', 'total_rate', 'rate_count', 'avg_rating', 'price', 'quantity', 'quantity_sold', 'status',
     ];
 
     protected $dates = ['deleted_at'];
