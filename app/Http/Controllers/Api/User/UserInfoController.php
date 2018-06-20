@@ -17,13 +17,13 @@ class UserInfoController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request request
      *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
-        $updatedUser = $request->only(["full_name", "address", "gender", "phone", "identity_card", "avatar"]);
+        $updatedUser = $request->only(["full_name", "address", "gender", "phone", "identity_card", "avatar", "dob"]);
 
         $user = Auth::user();
 
@@ -32,7 +32,7 @@ class UserInfoController extends ApiController
         $validator = Validator::make($updatedUser, [
             'full_name'      => 'string|max:255',
             'avatar'         => 'image|mimes:png,jpg,jpeg',
-            'birthday'       => 'date_format:"Y-m-d"',
+            'dob'            => 'date_format:"Y-m-d"',
             'address'        => 'string|max:255',
             'phone'          => 'regex:/\(?([0-9]{3})\)?([ . -]?)([0-9]{3})\2([0-9]{4})/',
             'identity_card'  => 'regex:/\(?([0-9]{3})\)?([ . -]?)([0-9]{3})\2([0-9]{3})/|unique:user_info,identity_card,' . $info->identity_card . ',identity_card',
