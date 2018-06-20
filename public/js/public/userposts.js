@@ -1,4 +1,5 @@
-function getUserPosts(url = '/api/posts') {
+var url ='/api/posts';
+function getUserPosts(url) {
     accessToken = localStorage.getItem('login-token');
     $.ajax({
         url: url,
@@ -12,8 +13,6 @@ function getUserPosts(url = '/api/posts') {
             const TYPE_COMMENT = 2;
             const STATUS_POST_APPROVED = 1;
             const STATUS_POST_WAITING = 0;
-            html = '';
-            htmlParent = '';
             if (response.result.paginator['next_page_url'] != null) {
                 $('#next').show();
                 $('#next').attr('href', response.result.paginator['next_page_url']);
@@ -22,8 +21,7 @@ function getUserPosts(url = '/api/posts') {
             }
             response.result.data.forEach(posts => {
                 let content = posts.content;
-                let createdAt = posts.created_at;
-                let updatedAt = posts.updated_at;
+                let nameProduct = posts.product.name;
                 let status = '';
                 if (posts.status == STATUS_POST_APPROVED) {
                     status = '<button class="btn btn-success" disabled="disabled"><i class="fa fa-times-circle icon-size"></i>';
@@ -36,31 +34,62 @@ function getUserPosts(url = '/api/posts') {
                 } else {
                     type = "Comment";
                 }
-                html += '<tr>\
-                            <td class="col-md-10">' + content + '</td>\
-                            <td class="col-md-2">' + createdAt + '</td>\
-                            <td class="col-md-2">' + updatedAt + '</td>\
-                            <td class="col-md-2">' + status + '</td>\
-                            <td class="col-md-2">' + type + '</td>\
-                        </tr>';   
+                let idpost="comt-"+posts.id;
+                $('#demo').clone().attr({"style":"display: ","id":idpost}).insertBefore('#demo');
+                $("#"+idpost +" .content").text(content);
+                $("#"+idpost +" .prduct-name").text(nameProduct);
+                $("#"+idpost +" .status").html(status);
+                $("#"+idpost +" .type").text(type);
+                $("#"+idpost +" .subcomment").html('<button onclick="getComments(' + posts.id +')" class="show-comment">SubComment</button>');
+                
+                $('#replies').clone().attr({"id":"replies-"+posts.id}).insertAfter('#'+idpost);
             });
-            htmlParent += '<table class="table-post data table table-striped no-margin">\
-                        <thead>\
-                            <tr>\
-                                <th class="col-md-10">Content</th>\
-                                <th class="col-md-2">Created_at</th>\
-                                <th class="col-md-2">Updated_at</th>\
-                                <th class="col-md-2">Status</th>\
-                                <th class="col-md-2">Type</th>\
-                            </tr>\
-                        </thead>\
-                        <tbody>' + html + '</tbody>\
-                    </table>';
-            $('#table-content').html(htmlParent);   
+            
         }
     });
 }
 
+function getComments(id) {
+    $.ajax({
+        url: '/api/posts/'+ id + '/comments',
+        type: 'get',
+        header: {
+            'Accept': 'application/json',
+        },
+        success: function(response) {
+            htmlParent = '';
+            html = '';
+            response.result.data.forEach(comments => {
+                let name = comments.user.user_info.full_name;
+                let content = comments.content;
+                html += '<tr>\
+                            <td class="rep-info-user">\
+                                <p class="replies-name rep-custom">'+ content +'</p>\
+                            </td>\
+                            <td class="replies-text">\
+                                <span>' + name + '</span>\
+                            </td>\
+                        </tr>';
+                    
+            });
+            htmlParent += '<table class="col-md-offset-3 table-subcomment data table table-striped no-margin">\
+                                <thead>\
+                                    <tr>\
+                                        <th class="col-md-12">Content Subcomment</th>\
+                                        <th class="col-md-4">Pullname</th>\
+                                    </tr>\
+                                </thead>\
+                                <tbody>\
+                                    '+ html +
+                                '</tbody>\
+                                </table>';
+            $('#replies-'+id).html(htmlParent);
+            
+        }
+    })
+}
+
+getUserPosts(url);
 $('#next').click(function (event) {
     event.preventDefault();
     url_next = $('#next').attr('href');

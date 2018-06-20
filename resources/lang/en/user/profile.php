@@ -18,6 +18,6 @@ return [
     'avatar' => 'Avatar',
     'show_user_post' => "Show Posts",
     'show_user_subcomment' => "Show Comments",
-    'next' => 'Next',
+    'next' => 'More',
     'edit_profile' => 'Edit Profile',
 ];

@@ -169,7 +169,7 @@
                               <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.address_col') }}</h4>
                                 <blockquote id="address" class="message">Data</blockquote>
-                                <br />
+                                <br/>
                               </div>
                             </li>
                             <li>
@@ -205,12 +205,30 @@
 
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="recent_activity" aria-labelledby="profile-tab">
-                          <div class="button-posts">
-                            <button onclick="getUserPosts()" class="btn btn-success col-md-3" id="post active">{{ __('user/profile.show_user_post') }}</button>
-                            <button class="btn btn-success col-md-3" id="comment active">{{ __('user/profile.show_user_subcomment') }}</button>
-                          </div>
                           <div id="table-content">
-                            
+                          <table class="table-post data table table-striped no-margin">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-10">Content</th>
+                                    <th class="col-md-3">Name Product</th>
+                                    <th class="col-md-2">Status</th>
+                                    <th class="col-md-2">Type</th>
+                                    <th class="col-md-2">SubComment</th>
+                                </tr>
+                            </thead>
+                          <tbody>
+                            <tr id="demo" style="display:none;"> 
+                              <td class="content col-md-10"></td>
+                              <td class="prduct-name col-md-3"></td>
+                              <td class="status col-md-2"></td>
+                              <td class="type col-md-2"></td>
+                              <td class="subcomment col-md-2"></td>
+                              <div id="replies">
+                              
+                              </div>
+                            </tr> 
+                          </tbody>
+                        </table>
                           </div>
                           <nav class="paginate-profile">
                             <a id="next" hidden href="">{{ __('user/profile.next') }}</a>
