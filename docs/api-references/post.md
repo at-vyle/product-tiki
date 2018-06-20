@@ -187,7 +187,7 @@ Update post with type include review, comment
             "image_path": "http://product-tiki.show/images/upload/",
             "created_at": "2018-05-31 07:04:58",
             "updated_at": "2018-05-31 07:04:58",
-            "deleted_at": null,
+            "deleted_at": "2018-05-31 07:05:58",
             "user": [
                 {
                     "id": 1,
@@ -198,7 +198,7 @@ Update post with type include review, comment
                     "last_logined_at": "2018-05-31 07:04:58",
                     "created_at": "2018-05-31 07:04:58",
                     "updated_at": "2018-05-31 07:04:58",
-                    "deleted_at": 2018-05-31 07:05:58,
+                    "deleted_at": null,
                     "userinfo": [
                         {
                             "id": 1,
