@@ -209,23 +209,36 @@
                           <table class="table-post data table table-striped no-margin">
                             <thead>
                                 <tr>
-                                    <th class="col-md-10">Content</th>
-                                    <th class="col-md-3">Name Product</th>
-                                    <th class="col-md-2">Status</th>
-                                    <th class="col-md-2">Type</th>
-                                    <th class="col-md-2">SubComment</th>
+                                    <th class="col-md-10">{{ __('user/profile.profile_content') }}</th>
+                                    <th class="col-md-3">{{ __('user/profile.profile_product') }}</th>
+                                    <th class="col-md-2">{{ __('user/profile.profile_status') }}</th>
+                                    <th class="col-md-2">{{ __('user/profile.profile_type') }}</th>
+                                    <th class="col-md-2">{{ __('user/profile.profile_button_comment') }}</th>
                                 </tr>
                             </thead>
                           <tbody>
-                            <tr id="demo" style="display:none;"> 
+                            <tr id="template-post" style="display:none;"> 
                               <td class="content col-md-10"></td>
                               <td class="prduct-name col-md-3"></td>
                               <td class="status col-md-2"></td>
                               <td class="type col-md-2"></td>
                               <td class="subcomment col-md-2"></td>
-                              <div id="replies">
                               
-                              </div>
+                              <table id="replies" hidden class="table-subcomment col-md-offset-3 data table table-striped no-margin">
+                                <thead>
+                                  <tr>
+                                    <th class="col-md-12">Content Subcomment</th>
+                                    <th class="col-md-4">Pullname</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td class="replies-content"></td>
+                                    <td class="replies-name"></td>
+                                  </tr> 
+                                </tbody>
+                              </table>
+                             
                             </tr> 
                           </tbody>
                         </table>

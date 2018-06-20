@@ -20,4 +20,9 @@ return [
     'show_user_subcomment' => "Show Comments",
     'next' => 'More',
     'edit_profile' => 'Edit Profile',
+    'profile_content' => 'Content',
+    'profile_product' => 'Name Product',
+    'profile_status' => 'Status',
+    'profile_type' => 'Type',
+    'profile_button_comment' => 'SubComment',
 ];

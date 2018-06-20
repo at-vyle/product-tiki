@@ -35,56 +35,37 @@ function getUserPosts(url) {
                     type = "Comment";
                 }
                 let idpost="comt-"+posts.id;
-                $('#demo').clone().attr({"style":"display: ","id":idpost}).insertBefore('#demo');
+                $('#template-post').clone().attr({"style":"display: ","id":idpost}).insertBefore('#template-post');
                 $("#"+idpost +" .content").text(content);
                 $("#"+idpost +" .prduct-name").text(nameProduct);
                 $("#"+idpost +" .status").html(status);
                 $("#"+idpost +" .type").text(type);
-                $("#"+idpost +" .subcomment").html('<button onclick="getComments(' + posts.id +')" class="show-comment">SubComment</button>');
+                $("#"+idpost +" .subcomment").html('<button id="button_comment' + posts.id +'" onclick="getComments(' + posts.id +')" class="show-comment btn btn-primary">SubComment</button>');
                 
                 $('#replies').clone().attr({"id":"replies-"+posts.id}).insertAfter('#'+idpost);
             });
-            
         }
     });
 }
 
 function getComments(id) {
+    $('#button_comment'+id).attr('disabled', true);
     $.ajax({
         url: '/api/posts/'+ id + '/comments',
         type: 'get',
-        header: {
+        headers: {
             'Accept': 'application/json',
+            'Authorization': 'Bearer ' + accessToken,
         },
         success: function(response) {
-            htmlParent = '';
-            html = '';
             response.result.data.forEach(comments => {
                 let name = comments.user.user_info.full_name;
                 let content = comments.content;
-                html += '<tr>\
-                            <td class="rep-info-user">\
-                                <p class="replies-name rep-custom">'+ content +'</p>\
-                            </td>\
-                            <td class="replies-text">\
-                                <span>' + name + '</span>\
-                            </td>\
-                        </tr>';
-                    
+                $('#replies-' + id).clone().attr({'style':'display:',"id":"replies-sub"+comments.id}).insertAfter('#comt-'+id);
+                $('#replies-sub'+ comments.id ).show();
+                $('#replies-sub' + comments.id + ' .replies-content').text(content);
+                $('#replies-sub' + comments.id + ' .replies-name').text(name);  
             });
-            htmlParent += '<table class="col-md-offset-3 table-subcomment data table table-striped no-margin">\
-                                <thead>\
-                                    <tr>\
-                                        <th class="col-md-12">Content Subcomment</th>\
-                                        <th class="col-md-4">Pullname</th>\
-                                    </tr>\
-                                </thead>\
-                                <tbody>\
-                                    '+ html +
-                                '</tbody>\
-                                </table>';
-            $('#replies-'+id).html(htmlParent);
-            
         }
     })
 }
