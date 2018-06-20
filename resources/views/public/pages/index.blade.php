@@ -42,6 +42,7 @@
           <div id="myTabContent" class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
               <div class="agile_top_brands_grids">
+                <div id="top9news"></div>
               </div>
               <div class="clearfix"> </div>
             </div>
@@ -49,7 +50,7 @@
               <div class="agile-tp">
               </div>
               <div class="agile_top_brands_grids">
-                
+               <div id="top9rating"></div>
               </div>
               <div class="clearfix"> </div>
             </div>
@@ -68,10 +69,36 @@
     <div class="container">
       <h3>{{ __('user/index.title-new-offers') }}</h3>
         <div class="agile_top_brands_grids">
-            
+          <div id="top4"></div>
         </div>
         <div class="clearfix"> </div>
     </div>
   </div>
 <!-- //new -->
+<div class=" top_brand_left " id="item-products" style="display: none">
+    <div class="hover14 column">
+      <div class="agile_top_brand_left_grid">
+        <div class="agile_top_brand_left_grid_pos">
+        </div>
+        <div class="agile_top_brand_left_grid1">
+          <figure>
+            <div class="snipcart-item block" >
+              <div class="snipcart-thumb">
+                <a href=""><img title=" " alt=" " src="" /></a>  
+                <p></p>
+                <div class="stars"></div>
+                <h4>$ </h4>
+              </div>
+              <div class="snipcart-details top_brand_home_details">
+                <a href="">
+                  <input type="submit" name="submit" value="{{ __('user/index.detail') }}" class="button" />
+                </a>
+              </div>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection

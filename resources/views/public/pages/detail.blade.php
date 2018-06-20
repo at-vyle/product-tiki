@@ -157,8 +157,7 @@
     <div class="container">
       <h3>{{ __('user/index.title-new-offers') }}</h3>
         <div class="agile_top_brands_grids">
-          
-        </div>
+          <div id="top4"></div>
         <div class="clearfix"> </div>
     </div>
   </div>
