@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Api\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
 use App\Models\Order;
+use Illuminate\Validation\ValidationException;
 use App\Models\OrderDetail;
+use App\Models\Product;
 use Illuminate\Http\Response;
 use Auth;
+use Exception;
+use Validator;
 
 class OrderController extends ApiController
 {
@@ -38,14 +42,25 @@ class OrderController extends ApiController
             'user_id' => $user->id
         ]);
         $total = 0;
-        foreach (request('product') as $product) {
-            OrderDetail::create([
-                'product_id' => $product['id'],
-                'order_id' => $order->id,
-                'quantity' => $product['quantity'],
-                'product_price' => $product['price']
+        foreach (request('product') as $input) {
+            $product = Product::find($input['id']);
+
+            $validator = Validator::make($input, [
+                'quantity' => 'numeric|max:'.$product->quantity
             ]);
-            $total = $product['price'] * $product['quantity'];
+
+            if ($validator->fails()) {
+                $order->delete();
+                throw new ValidationException($validator);
+            }
+            $input['price'] = $product->price;
+            OrderDetail::create([
+                'product_id' => $input['id'],
+                'order_id' => $order->id,
+                'quantity' => $input['quantity'],
+                'product_price' => $input['price']
+            ]);
+            $total += $product['price'] * $product['quantity'];
         }
 
         $order->fill(['total' => $total]);
