@@ -15,7 +15,7 @@ Get list all user's order
 ```json
 {
     "result": {
-        "paginate": {
+        "paginator": {
             "current_page": 1,
             "first_page_url": "http://192.168.21.12/api/orders?page=1",
             "from": 1,
