@@ -20,12 +20,6 @@ class LoginTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $user = factory('App\Models\User')->create();
-        factory('App\Models\UserInfo')->create([
-            'user_id' => $user->id
-        ]);
-
-        Artisan::call('passport:install');
     }
 
     /**
@@ -75,12 +69,11 @@ class LoginTest extends TestCase
      */
     public function testJsonLoginSuccess()
     {
-        $user = User::find(1);
         $body = [
-            'email' => $user->email,
+            'email' => $this->user->email,
             'password' => '12345'
         ];
-        $this->json('POST', '/api/login', $body, ['Accept' => 'application/json'])
+        $this->jsonUser('POST', '/api/login', $body, ['Accept' => 'application/json'])
             ->assertStatus(200)
             ->assertJsonStructure($this->jsonStructureLoginSuccess());
     }
@@ -105,12 +98,11 @@ class LoginTest extends TestCase
      */
     public function testJsonLoginFail()
     {
-        $user = User::find(1);
         $body = [
-            'email' => $user->email,
+            'email' => $this->user->email,
             'password' => 'neverlucky'
         ];
-        $this->json('POST', '/api/login', $body, ['Accept' => 'application/json'])
+        $this->jsonUser('POST', '/api/login', $body, ['Accept' => 'application/json'])
             ->assertStatus(401)
             ->assertJsonStructure($this->jsonStructureAuthenticateFail());
     }
@@ -122,15 +114,7 @@ class LoginTest extends TestCase
      */
     public function testJsonLogoutSuccess()
     {
-        $user = User::find(1);
-        $body = [
-            'email' => $user->email,
-            'password' => '12345'
-        ];
-        $response = $this->json('POST', '/api/login', $body, ['Accept' => 'application/json']);
-
-        $token = json_decode($response->getContent())->result->token;
-        $this->json('POST', 'api/logout', [], ['Accept' => 'application/json', 'Authorization' => 'Bearer '.$token])
+        $this->jsonUser('POST', 'api/logout')
             ->assertStatus(204);
     }
 }

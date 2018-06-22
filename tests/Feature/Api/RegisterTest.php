@@ -20,12 +20,6 @@ class RegisterTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $user = factory('App\Models\User')->create();
-        factory('App\Models\UserInfo')->create([
-            'user_id' => $user->id
-        ]);
-
-        Artisan::call('passport:install');
     }
 
     /**
@@ -77,20 +71,20 @@ class RegisterTest extends TestCase
      */
     public function testJsonRegisterFail()
     {
-        $user = User::find(1);
-        $user->load('userinfo');
+
+        $this->user->load('userinfo');
         $body = [
-            'username' => $user->username,
-            'email' => $user->email,
+            'username' => $this->user->username,
+            'email' => $this->user->email,
             'password' => 'neverlucky',
             'full_name' => 'some name',
             'address' => 'some address',
             'gender' => '1',
             'phone' => '1234567890',
-            'identity_card' => $user['userinfo']['identity_card']
+            'identity_card' => $this->user['userinfo']['identity_card']
         ];
 
-        $this->json('POST', '/api/register', $body, ['Accept' => 'application/json'])
+        $this->jsonUser('POST', '/api/register', $body, ['Accept' => 'application/json'])
             ->assertStatus(422)
             ->assertJsonStructure($this->jsonStructureRegisterFail());
     }
@@ -102,7 +96,6 @@ class RegisterTest extends TestCase
      */
     public function testJsonRegisterSuccess()
     {
-        $user = User::find(1);
         $body = [
             'username' => 'Test Username',
             'email' => 'test@email.abc',
@@ -114,7 +107,7 @@ class RegisterTest extends TestCase
             'identity_card' => '672678902'
         ];
 
-        $response = $this->json('POST', '/api/register', $body, ['Accept' => 'application/json']);
+        $response = $this->jsonUser('POST', '/api/register', $body, ['Accept' => 'application/json']);
         $response->assertStatus(200)->assertJsonStructure($this->jsonStructureRegisterSuccess());
         $data = json_decode($response->getContent())->result->user;
         $userCompare = [
