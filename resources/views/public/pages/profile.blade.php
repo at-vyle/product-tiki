@@ -169,7 +169,7 @@
                               <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.address_col') }}</h4>
                                 <blockquote id="address" class="message">Data</blockquote>
-                                <br />
+                                <br/>
                               </div>
                             </li>
                             <li>
@@ -205,22 +205,47 @@
 
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="recent_activity" aria-labelledby="profile-tab">
-
-                          <ul class="messages">
-                            <li>
-                              <div class="message_date">
-                                <h3 class="date text-info">24</h3>
-                                <p class="month">May</p>
-                              </div>
-                              <div class="message_wrapper">
-                                <h3 class="heading">{{ __('user/profile.product_name') }} </h3>
-                                <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
-                                <h5 class="date-info">5 Days ago</h5>
-                                <br />
-                              </div>
-                            </li>
-                          </ul>
-
+                          <div id="table-content">
+                          <table class="table-post data table table-striped no-margin">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-10">{{ __('user/profile.profile_content') }}</th>
+                                    <th class="col-md-3">{{ __('user/profile.profile_product') }}</th>
+                                    <th class="col-md-2">{{ __('user/profile.profile_status') }}</th>
+                                    <th class="col-md-2">{{ __('user/profile.profile_type') }}</th>
+                                    <th class="col-md-2">{{ __('user/profile.profile_button_comment') }}</th>
+                                </tr>
+                            </thead>
+                          <tbody>
+                            <tr id="template-post" style="display:none;"> 
+                              <td class="content col-md-10"></td>
+                              <td class="prduct-name col-md-3"></td>
+                              <td class="status col-md-2"></td>
+                              <td class="type col-md-2"></td>
+                              <td class="subcomment col-md-2"></td>
+                              
+                              <table id="replies" hidden class="table-subcomment col-md-offset-3 data table table-striped no-margin">
+                                <thead>
+                                  <tr>
+                                    <th class="col-md-12">Content Subcomment</th>
+                                    <th class="col-md-4">Pullname</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td class="replies-content"></td>
+                                    <td class="replies-name"></td>
+                                  </tr> 
+                                </tbody>
+                              </table>
+                             
+                            </tr> 
+                          </tbody>
+                        </table>
+                          </div>
+                          <nav class="paginate-profile">
+                            <a id="next" hidden href="">{{ __('user/profile.next') }}</a>
+                          </nav>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="recent_order" aria-labelledby="profile-tab">
                           <!-- start user projects -->
@@ -291,6 +316,11 @@
             </div>
           </div>
         </div>
+        
       </div>
     </div>
+@endsection
+@section('js')
+<script src="/js/public/profile.js"></script>
+<script src="/js/public/userposts.js"></script>
 @endsection

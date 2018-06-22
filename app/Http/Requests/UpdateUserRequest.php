@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\User;
 use App\Models\UserInfo;
+use Auth;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -25,8 +26,12 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules()
     {
-        $user = $this->route()->parameter('user');
-        $userInfo = User::with('userinfo')->where('id', $user->id)->first();
+        if ($this->route()->parameter('user')) {
+            $user = $this->route()->parameter('user');
+            $userInfo = User::with('userinfo')->where('id', $user->id)->first();
+        } else {
+            $userInfo = Auth::user()->load('userinfo');
+        }
         return [
             'full_name'      => 'string|max:255',
             'avatar'         => 'image|mimes:png,jpg,jpeg',
