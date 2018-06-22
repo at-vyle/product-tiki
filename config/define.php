@@ -50,5 +50,8 @@ return [
     ],
     'login' => [
         'unauthorised' => 'Unauthorised'
+    ],
+    'errors' => [
+        'notfound' => 'Model not found',
     ]
 ];

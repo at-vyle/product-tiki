@@ -7,6 +7,7 @@ use Request;
 use Response;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -52,6 +53,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($request->expectsJson() && $exception instanceof ModelNotFoundException) {
+            return response()->json(['message' => $exception->getMessage(), 'errors' => config('define.errors.notfound')], 404);
+        }
         return parent::render($request, $exception);
     }
 
