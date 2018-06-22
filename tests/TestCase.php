@@ -18,6 +18,7 @@ abstract class TestCase extends BaseTestCase
     public function setUp()
     {
         parent::setUp();
+        
         Artisan::call('passport:install');
 
         $this->user = factory('App\Models\User')->create();
