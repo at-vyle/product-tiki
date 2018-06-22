@@ -26,7 +26,7 @@ class OrderController extends ApiController
     public function index(Request $request)
     {
         $user = Auth::user();
-        
+
         $perPage = isset($request->perpage) ? $request->perpage : config('define.order.limit_rows');
 
         $orders = Order::with('user')->withCount('orderDetails')->where('user_id', $user->id)->paginate($perPage);
@@ -80,8 +80,47 @@ class OrderController extends ApiController
             $input['product_id'] = $input['id'];
             $input['order_id'] = $order->id;
             unset($input['id']);
-
+            unset($input['price']);
             OrderDetail::create($input);
+            $total += $input['product_price'] * $input['quantity'];
+        }
+
+        $order->fill(['total' => $total]);
+        $order->load('orderDetails');
+
+        return $this->showOne($order, Response::HTTP_OK);
+    }
+
+    /**
+    * Update order
+    *
+    * @param App\Http\Requests\CreateOrderRequest $request request
+    * @param App\Models\Order                     $order   order to update
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function update(CreateOrderRequest $request, Order $order)
+    {
+        $user = Auth::user();
+
+        $total = 0;
+
+        foreach ($request->products as $input) {
+            $input['product_id'] = $input['id'];
+            $input['order_id'] = $order->id;
+            $product = OrderDetail::where('order_id', $order->id)->where('product_id', $input['product_id'])->first();
+
+            if ($product) {
+                $product->quantity = $input['quantity'];
+                $product->save();
+            } else {
+                $input['product_price'] = Product::find($input['id'])->price;
+                unset($input['id']);
+                unset($input['price']);
+                OrderDetail::create($input);
+            }
+
+
             $total += $input['product_price'] * $input['quantity'];
         }
 
