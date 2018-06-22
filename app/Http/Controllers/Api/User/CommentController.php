@@ -37,8 +37,8 @@ class CommentController extends ApiController
     /**
      * Update comment
      *
-     * @param \App\Models\Comment                    $comment   comment to update
-     * @param App\Http\Requests\UpdateCommentRequest $request request
+     * @param \App\Models\Comment                    $comments comment to update
+     * @param App\Http\Requests\UpdateCommentRequest $request  request
      *
      * @return \Illuminate\Http\Response
      */
@@ -58,7 +58,7 @@ class CommentController extends ApiController
     /**
      * Delete comment
      *
-     * @param \App\Models\Comment $comment comment to update
+     * @param \App\Models\Comment $comments comment to update
      *
      * @return \Illuminate\Http\Response
      */
