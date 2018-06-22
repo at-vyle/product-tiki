@@ -177,3 +177,15 @@ a {
     height: 150px;
     margin: 15px auto;
 }
+.button-posts {
+    margin: 0px 10px 0px 135px !important;
+    padding-left: 10px;
+}
+.button-posts::after {
+    content: '';
+    clear: both;
+    display: block;
+}
+#table-content {
+    margin-top: 20px;
+}

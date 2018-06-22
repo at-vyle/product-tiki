@@ -240,6 +240,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     });
   </script>
   <!-- //main slider-banner -->
+  <script src="/js/public/main.js"></script>
   <script src="/js/public/master.js" charset="utf-8"></script>
   <script src="/js/public/category.js"></script>
   <script src="/js/public/masterpage.js"></script>
