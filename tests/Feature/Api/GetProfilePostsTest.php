@@ -32,7 +32,6 @@ class GetProfilePostsTest extends TestCase
             ]);
         }
         factory('App\Models\Post', 20)->states('rating')->create();
-        Artisan::call('passport:install');
     }
 
     /**
@@ -83,15 +82,7 @@ class GetProfilePostsTest extends TestCase
      */
     public function testGetPostsOfUser()
     {
-        $user = User::find(1);
-        $login = [
-            'email' => $user->email,
-            'password' => '12345'
-        ];
-        $response = $this->json('POST', '/api/login', $login, ['Accept' => 'application/json']);
-        $token = json_decode($response->getContent())->result->token;
-
-        $this->json('GET', 'api/posts', [], ['Accept' => 'application/json', 'Authorization' => 'Bearer '.$token])
+        $this->json('GET', 'api/posts', [], $this->getHeaders())
             ->assertStatus(200)
             ->assertJsonStructure($this->jsonStructureGetPostsSuccess());
     }
