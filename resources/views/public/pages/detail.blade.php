@@ -67,20 +67,20 @@
   </div>
   <div class="review">
     <div class="container review-background">
-      <h3 class="js-customer-h3" style="display: block;font-size: 30px;text-align:  center;">Gửi nhận xét của bạn</h3>
+      <h3 class="js-customer-h3" style="display: block;font-size: 30px;text-align:  center;">@lang('user/detail_product.send_cmt_message')</h3>
       <div class="product-customer-col-4 js-customer-col-4" style="display: block;">
         <form action="" method="post" id="addReviewFrm" novalidate="novalidate" class="bv-form"><button type="submit" class="bv-hidden-submit" style="display: none; width: 0px; height: 0px;"></button>
           <input type="hidden" name="entity_pk_value" value="917986" id="entity_pk_value">
           <input type="hidden" name="productset_id" value="58" id="productset_id">
           <div class="rate form-group has-feedback" id="rating_wrapper">
-            <label>1. Đánh giá của bạn về sản phẩm này:</label>
+            <label>1. @lang('user/detail_product.rating_message'):</label>
             <div class="rating1">
               <span class="starRating">
                 <input id="rating5" type="radio" name="rating" value="5">
                 <label for="rating5">5</label>
                 <input id="rating4" type="radio" name="rating" value="4">
                 <label for="rating4">4</label>
-                <input id="rating3" type="radio" name="rating" value="3" checked="checked">
+                <input id="rating3" type="radio" name="rating" value="3">
                 <label for="rating3">3</label>
                 <input id="rating2" type="radio" name="rating" value="2">
                 <label for="rating2">2</label>
@@ -88,30 +88,16 @@
                 <label for="rating1">1</label>
               </span>
             </div>
-            <small class="help-block" data-bv-validator="callback" data-bv-for="rating_star" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng chọn đánh giá của bạn về sản phẩm này.</small><small class="help-block" data-bv-validator="integer" data-bv-for="rating_star" data-bv-result="NOT_VALIDATED" style="display: none;">Please enter a valid number</small></div>
             <div class="review-content form-group has-feedback has-error">
-              <label for="review_detail">2. Viết nhận xét của bạn vào bên dưới:</label>
-              <textarea placeholder="Nhận xét của bạn về sản phẩm này" class="form-control" name="detail" id="review_detail" cols="30" rows="10" data-bv-field="detail"></textarea><i class="form-control-feedback fa fa-close" data-bv-icon-for="detail" style="display: block;"></i>
-              <small class="help-block" data-bv-validator="callback" data-bv-for="detail" data-bv-result="INVALID" style="display: block;">Nội dung chứa ít nhất 50 ký tự</small>
+              <label for="review_detail">2. @lang('user/detail_product.review_message'):</label>
+              <textarea placeholder="@lang('user/detail_product.post_message')" class="form-control" name="detail" id="review_detail" cols="30" rows="10" data-bv-field="detail"></textarea><i class="form-control-feedback fa fa-close" data-bv-icon-for="detail"></i>
+              <div class="alert alert-info" hidden>@lang('user/detail_product.send_success')</div>
+              <div id="dob_error" class="alert alert-danger" hidden></div>
             </div>
             <div class="action">
               <div class="word-counter"></div>
-              <button onclick="review(event);" class="btn btn-default btn-add-review ">Gửi nhận xét</button>
+              <button class="btn btn-default btn-add-review ">@lang('user/detail_product.btn_send_cmt')</button>
             </div>
-            <script>
-              function review(e) {
-                e.preventDefault();
-                str = '';
-                str += (document.getElementById('review_detail').value);
-                for (let i = 1; i<=5;i++) {
-                  if(document.getElementById('rating'+i).checked) {
-                    str += '\n'+ (document.getElementById('rating'+i).value);
-                    break;
-                  }
-                }
-                alert(str);
-              }
-            </script>
           </div>
         </form>
       </div>
