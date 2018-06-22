@@ -85,30 +85,22 @@ class apiProductTest extends TestCase
                                     'updated_at',
                                     'deleted_at'
                                 ],
-                                'images' => [
-                                    [
-                                        'id',
-                                        'product_id',
-                                        'img_url',
-                                        'created_at',
-                                        'updated_at'
-                                    ]
-                                ]
+                                'images'
                             ]
                         ]
-                        
+
                     ],
                     'code'
                 ]
             ]
-        ];             
+        ];
     }
 
     /**
      * @dataProvider jsonStructureListProduct
      *
-     * @param string $url url of api product 
-     * @param array  $structure structure of json 
+     * @param string $url url of api product
+     * @param array  $structure structure of json
      *
      * Test api structure
      *
