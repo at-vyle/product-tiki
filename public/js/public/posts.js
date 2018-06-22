@@ -1,7 +1,7 @@
 var $url = document.location.pathname;
+const TYPE_REVIEW = 1;
+const TYPE_COMMENT = 2;
 function generatePosts(data) {
-    const TYPE_REVIEW = 1;
-    const TYPE_COMMENT = 2;
     html = '';
     data.forEach(posts => {
         let id = posts.id;
@@ -34,7 +34,7 @@ function generatePosts(data) {
                         '<div class="infomation">'+
                             '<span class="starRating">'+ stars +'</span>'+
                         '</div>'+
-                        
+
                         '<div class="description js-description">'+
                             '<p class="review_detail replies-text" itemprop="reviewBody">'+
                             '<span>'+ content + '</span>'+
@@ -52,7 +52,7 @@ function generatePosts(data) {
                 getComments(id);
     });
     $('#posts-list').append(html);
-    
+
 }
 
 function getComments(id) {
@@ -80,10 +80,10 @@ function getComments(id) {
                                 <span>'+ content + '</span>\
                             </p>\
                         </div>';
-                    
+
             });
             $('#replies'+id).append(html);
-            
+
         }
     })
 }
@@ -97,17 +97,69 @@ function getAjax(url) {
         },
         success: function(response) {
             generatePosts(response.result.data);
-        }    
+        }
     });
 };
+
+function submitPost(pathName) {
+    let typePost = TYPE_COMMENT;
+    if ($('.rating1 .starRating input:checked').val()) {
+        typePost = TYPE_REVIEW;
+    }
+
+    $.ajax({
+        url: '/api' + pathName + '/posts',
+        type: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('login-token'),
+        },
+        data: {
+            type: typePost,
+            rating: $('.rating1 .starRating input:checked').val(),
+            content: $('#addReviewFrm .review-content #review_detail').val(),
+        },
+        success: function(response) {
+            $('#addReviewFrm .review-content .alert-info').show();
+        },
+        error: function(response) {
+            errorMessage = response.responseJSON.message + '<br/>';
+            if (response.responseJSON.errors) {
+                errors = Object.keys(response.responseJSON.errors);
+                errors.forEach(error => {
+                    errorMessage += response.responseJSON.errors[error] + '<br/>';
+                });
+            }
+            $('#addReviewFrm .review-content .alert-danger').html(errorMessage);
+            $('#addReviewFrm .review-content .alert-danger').show();
+        }
+    });
+}
+
 getAjax('/api' + $url + '/posts');
 $(document).ready(function() {
+    $(document).on('click', '.rating1 .starRating input', function() {
+        if ($(this).attr('checked') == 'checked') {
+            $(this).attr('checked', false);
+            $(this).siblings().attr('checked', false);
+        } else {
+            $(this).attr('checked', true);
+            $(this).siblings().attr('checked', false);
+        }
+    });
+
+    $(document).on('click', '#addReviewFrm .action .btn-add-review', function(event) {
+        event.preventDefault();
+        submitPost($url);
+    });
+
     $(document).on('click', '#posts-list .item .add-comment', function() {
         $(this).hide();
         $(this).closest('.item').find('.quick-reply').show();
     });
+
     $(document).on('click', '#posts-list .item .js-quick-reply-hide', function() {
         $(this).closest('.item').find('.quick-reply').hide();
         $(this).closest('.item').find('.add-comment').show();
-    })
+    });
 });

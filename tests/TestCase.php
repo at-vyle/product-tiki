@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Artisan;
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
-    protected $user, $token;
+    protected $user;
+    protected $token;
 
     /**
      * Set up TestCase
