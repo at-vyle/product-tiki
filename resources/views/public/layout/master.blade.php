@@ -65,7 +65,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <li>
               <div id="header-logout">
                 <ul>
-                  <li><a href="#">{{ __('user/layout.profile') }}</a></li>
+                  <li><a href="{{ route('user.info') }}">{{ __('user/layout.profile') }}</a></li>
                   <li><a id="btn-logout" href="#">{{ __('user/layout.logout') }}</a></li>
                 </ul>
               </div>

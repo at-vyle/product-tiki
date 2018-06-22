@@ -217,13 +217,13 @@
                                 </tr>
                             </thead>
                           <tbody>
-                            <tr id="template-post" style="display:none;"> 
+                            <tr id="template-post" style="display:none;">
                               <td class="content col-md-10"></td>
                               <td class="prduct-name col-md-3"></td>
                               <td class="status col-md-2"></td>
                               <td class="type col-md-2"></td>
                               <td class="subcomment col-md-2"></td>
-                              
+
                               <table id="replies" hidden class="table-subcomment col-md-offset-3 data table table-striped no-margin">
                                 <thead>
                                   <tr>
@@ -235,11 +235,11 @@
                                   <tr>
                                     <td class="replies-content"></td>
                                     <td class="replies-name"></td>
-                                  </tr> 
+                                  </tr>
                                 </tbody>
                               </table>
-                             
-                            </tr> 
+
+                            </tr>
                           </tbody>
                         </table>
                           </div>
@@ -252,61 +252,20 @@
                           <table class="data table table-striped no-margin">
                             <thead>
                               <tr>
-                                <th>#</th>
-                                <th>Project Name</th>
-                                <th>Client Company</th>
-                                <th class="hidden-phone">Hours Spent</th>
-                                <th>Contribution</th>
+                                <th class="col-md-7">{{ __('user/profile.profile_order_note') }}</th>
+                                <th class="col-md-2">{{ __('user/profile.profile_total') }}</th>
+                                <th class="col-md-2">{{ __('user/profile.profile_status') }}</th>
+                                <th class="col-md-5">{{ __('user/profile.profile_action') }}</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>1</td>
-                                <td>New Company Takeover Review</td>
-                                <td>Deveint Inc</td>
-                                <td class="hidden-phone">18</td>
-                                <td class="vertical-align-mid">
-                                  <div class="progress">
-                                    <div class="progress-bar progress-bar-success" data-transitiongoal="35"></div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>2</td>
-                                <td>New Partner Contracts Consultanci</td>
-                                <td>Deveint Inc</td>
-                                <td class="hidden-phone">13</td>
-                                <td class="vertical-align-mid">
-                                  <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" data-transitiongoal="15"></div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>3</td>
-                                <td>Partners and Inverstors report</td>
-                                <td>Deveint Inc</td>
-                                <td class="hidden-phone">30</td>
-                                <td class="vertical-align-mid">
-                                  <div class="progress">
-                                    <div class="progress-bar progress-bar-success" data-transitiongoal="45"></div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>4</td>
-                                <td>New Company Takeover Review</td>
-                                <td>Deveint Inc</td>
-                                <td class="hidden-phone">28</td>
-                                <td class="vertical-align-mid">
-                                  <div class="progress">
-                                    <div class="progress-bar progress-bar-success" data-transitiongoal="75"></div>
-                                  </div>
-                                </td>
-                              </tr>
+                              <td id='no-record' hidden>{{ __('user/profile.profile_non_order') }}</td>
                             </tbody>
                           </table>
                           <!-- end user projects -->
+                          <nav class="paginate-profile">
+                            <a id="next" hidden="" href="">{{ __('user/profile.next') }}</a>
+                          </nav>
                         </div>
                       </div>
                     </div>
@@ -316,11 +275,12 @@
             </div>
           </div>
         </div>
-        
+
       </div>
     </div>
 @endsection
 @section('js')
 <script src="/js/public/profile.js"></script>
 <script src="/js/public/userposts.js"></script>
+<script src="/js/public/userOrder.js"></script>
 @endsection
