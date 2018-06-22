@@ -30,6 +30,7 @@ class PostController extends ApiController
             return $query->where('status', $request->status);
         })->where('user_id', $user->id)->paginate($perPage);
 
+        $posts->load('product');
         $posts = $this->formatPaginate($posts);
 
         return $this->showAll($posts, Response::HTTP_OK);
