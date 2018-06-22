@@ -55,3 +55,83 @@ Get list all user's order
     "code": 200
 }
 ```
+
+### `Put` Orders
+```
+/api/orders/{orders}
+```
+Create new order
+#### Request Headers
+| Key | Value |
+|---|---|
+|Accept|application/json
+|Authorization|Bearer $token
+
+#### Query Param
+| Param | Type | Description |
+|---|---|---|
+| products[] | array | List order's products (id, quantity) (require) |
+
+#### Response
+* _Success_
+```json
+{
+    "result": {
+        "user_id": 1,
+        "updated_at": "2018-06-20 08:00:52",
+        "created_at": "2018-06-20 08:00:52",
+        "id": 26,
+        "total": 6,
+        "order_details": [
+            {
+                "id": 18,
+                "product_id": 1,
+                "order_id": 26,
+                "quantity": 3,
+                "product_price": 2,
+                "created_at": "2018-06-20 08:00:52",
+                "updated_at": "2018-06-20 08:00:52",
+                "deleted_at": null
+            },
+            {
+                "id": 19,
+                "product_id": 1,
+                "order_id": 26,
+                "quantity": 3,
+                "product_price": 2,
+                "created_at": "2018-06-20 08:00:52",
+                "updated_at": "2018-06-20 08:00:52",
+                "deleted_at": null
+            }
+        ]
+    },
+    "code": 200
+}
+```
+
+* _Error_
+``` json
+{
+    "message": "The given data was invalid.",
+    "errors": {
+        "products.1.quantity": [
+            "The quantity may not be greater than 10."
+        ]
+    },
+    "code": 422,
+    "request": {
+        "product": [
+            {
+                "id": "1",
+                "price": "2",
+                "quantity": "3"
+            },
+            {
+                "id": "1",
+                "price": "2",
+                "quantity": "321321"
+            }
+        ]
+    }
+}
+```
