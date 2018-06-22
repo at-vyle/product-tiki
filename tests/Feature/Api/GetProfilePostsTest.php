@@ -82,7 +82,7 @@ class GetProfilePostsTest extends TestCase
      */
     public function testGetPostsOfUser()
     {
-        $this->json('GET', 'api/posts', [], $this->getHeaders())
+        $this->jsonUser('GET', 'api/posts')
             ->assertStatus(200)
             ->assertJsonStructure($this->jsonStructureGetPostsSuccess());
     }

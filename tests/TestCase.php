@@ -28,12 +28,16 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * get headers
+     * Get json response
      *
-     * @return void
+     * @return json
      */
-    public function getHeaders()
+    public function jsonUser($method, $url, $data = [], $header = [])
     {
-        return ['Accept' => 'application/json', 'Authorization' => 'Bearer '.$this->token];
+        if ($header) {
+            return ['Accept' => 'application/json', 'Authorization' => 'Bearer '.$this->token];
+            return $this->json($method, $url, $data, $header);
+        }
+        return $this->json($method, $url, $data, ['Accept' => 'application/json', 'Authorization' => 'Bearer '.$this->token]);
     }
 }
