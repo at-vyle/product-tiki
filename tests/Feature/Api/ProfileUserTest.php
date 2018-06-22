@@ -87,4 +87,36 @@ class UserInformationTest extends TestCase
             ->assertStatus(200)
             ->assertJsonStructure($this->jsonStructureGetProfile());
     }
+
+     /**
+     * Test check some object compare database.
+     *
+     * @return void
+     */
+    public function testCompareDatabase()
+    {
+        $user = User::find(1);
+        $login = [
+            'email' => $user->email,
+            'password' => '12345'
+        ];
+        $responseLogin = $this->json('POST', '/api/login', $login, ['Accept' => 'application/json']);
+        $token = json_decode($responseLogin->getContent())->result->token;
+
+        $responseProfie = $this->json('GET', 'api/users/profile', [], ['Accept' => 'application/json', 'Authorization' => 'Bearer '.$token]);
+        
+        $data = json_decode($responseProfie->getContent())->result;
+
+        $arrayUser = [
+            'id' => $data->id,
+            'username' => $data->username,
+            'email' => $data->email
+        ];
+        $this->assertDatabaseHas('users', $arrayUser);
+        $arrayUserInfo = [
+            'id' => $data->userinfo->id,
+            'user_id' => $data->userinfo->user_id
+        ];
+        $this->assertDatabaseHas('user_info', $arrayUserInfo);
+    }
 }
