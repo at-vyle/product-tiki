@@ -18,7 +18,22 @@ class PostController extends Controller
     public function changeStatus($id)
     {
         $post = Post::find($id);
-        $post->status = !$post->status;
+        $product = $post->product;
+        if ($post->type == Post::TYPE_REVIEW) {
+            if ($post->status == Post::UNAPPROVED) {
+                $post->status == Post::APPROVED;
+                $product->total_rate += $post->rating;
+                $product->rate_count++;
+            } else {
+                $post->status == Post::UNAPPROVED;
+                $product->total_rate -= $post->rating;
+                $product->rate_count--;
+            }
+            $product->avg_rating = round($product->total_rate / $product->rate_count);
+            $product->save();
+        } else {
+            $post->status = !$post->status;
+        }
         $post->save();
         $data['status'] = (int) $post->status;
         $data['msg'] = __('post.admin.form.updated');

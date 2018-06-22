@@ -130,3 +130,12 @@
 }
 .filter {
     margin: 10px;
+}
+
+.custom-cart-submit {
+  position: absolute;
+  bottom: -25px;
+  right: 0px;;
+  font-size: 16px;
+  font-weight: bold;
+}

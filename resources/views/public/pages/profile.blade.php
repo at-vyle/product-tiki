@@ -25,26 +25,25 @@
                     <div class="profile_img">
                       <div id="crop-avatar">
                         <!-- Current avatar -->
-                        <img class="img-responsive avatar-view" src="/images/avatar/img.jpg" alt="Avatar" title="Change the avatar">
+                        <img class="img-responsive avatar-view" src="" alt="Avatar" title="Change the avatar">
                       </div>
                     </div>
 
                     <ul class="list-unstyled user_data">
-                      <li class="m-top-xs">
+                      <li id="user_data_username" class="m-top-xs">
                         <i class="fa fa-user"></i>
-                        <a>Samuel Doe</a>
+                        <a></a>
                       </li>
-                      <li class="m-top-xs">
-                        <i class="fa fa-venus"></i>
-                        <i class="fa fa-mars"></i>
+                      <li id="user_data_gender" class="m-top-xs">
+                        <a></a>
                       </li>
-                      <li class="m-top-xs">
+                      <li id="user_data_address" class="m-top-xs">
                         <i class="fa fa-map-marker user-profile-icon"></i>
-                        <a> San Francisco, California, USA</a>
+                        <a></a>
                       </li>
-                      <li class="m-top-xs">
+                      <li id="user_data_email" class="m-top-xs">
                         <i class="fa fa-envelope user-profile-icon"></i>
-                        <a>admin@test.co</a>
+                        <a></a>
                       </li>
                     </ul>
                     <br>
@@ -89,6 +88,7 @@
                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="avatar">{{ __('user.index.avatar') }}</label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="file" id="avatar" name="avatar" class="form-control col-md-7 col-xs-12">
+                                    <img id="img_avatar" class="avatar-view" src="" alt="">
                                   </div>
                                 </div>
 
@@ -140,63 +140,57 @@
                           <ul class="user-info">
                             <li>
                               <div class="message_wrapper">
-                                <h4 class="heading">{{ __('user/profile.avatar') }}</h4>
-                                <img id="avatar" src="/images/avatar/img.jpg" alt="">
-                              </div>
-                            </li>
-                            <li>
-                              <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.username_col') }}</h4>
-                                <blockquote id="username" class="message">Data</blockquote>
+                                <blockquote id="username" class="message"></blockquote>
                                 <br />
                               </div>
                             </li>
                             <li>
                               <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.email_col') }}</h4>
-                                <blockquote id="email" class="message">Data</blockquote>
+                                <blockquote id="email" class="message"></blockquote>
                                 <br />
                               </div>
                             </li>
                             <li>
                               <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.fullname_col') }}</h4>
-                                <blockquote id="full_name" class="message">Data</blockquote>
+                                <blockquote id="full_name" class="message"></blockquote>
                                 <br />
                               </div>
                             </li>
                             <li>
                               <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.address_col') }}</h4>
-                                <blockquote id="address" class="message">Data</blockquote>
-                                <br/>
+                                <blockquote id="address" class="message"></blockquote>
+                                <br />
                               </div>
                             </li>
                             <li>
                               <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.gender_col') }}</h4>
-                                <blockquote id="gender" class="message">Data</blockquote>
+                                <blockquote id="gender" class="message"></blockquote>
                                 <br />
                               </div>
                             </li>
                             <li>
                               <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.dob_col') }}</h4>
-                                <blockquote id="dob" class="message">Data</blockquote>
+                                <blockquote id="dob" class="message"></blockquote>
                                 <br />
                               </div>
                             </li>
                             <li>
                               <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.phone_col') }}</h4>
-                                <blockquote id="phone" class="message">Data</blockquote>
+                                <blockquote id="phone" class="message"></blockquote>
                                 <br />
                               </div>
                             </li>
                             <li>
                               <div class="message_wrapper">
                                 <h4 class="heading">{{ __('user/profile.id_col') }}</h4>
-                                <blockquote id="identity_card" class="message">Data</blockquote>
+                                <blockquote id="identity_card" class="message"></blockquote>
                                 <br />
                               </div>
                             </li>
@@ -217,13 +211,13 @@
                                 </tr>
                             </thead>
                           <tbody>
-                            <tr id="template-post" style="display:none;"> 
+                            <tr id="template-post" style="display:none;">
                               <td class="content col-md-10"></td>
                               <td class="prduct-name col-md-3"></td>
                               <td class="status col-md-2"></td>
                               <td class="type col-md-2"></td>
                               <td class="subcomment col-md-2"></td>
-                              
+
                               <table id="replies" hidden class="table-subcomment col-md-offset-3 data table table-striped no-margin">
                                 <thead>
                                   <tr>
@@ -235,11 +229,11 @@
                                   <tr>
                                     <td class="replies-content"></td>
                                     <td class="replies-name"></td>
-                                  </tr> 
+                                  </tr>
                                 </tbody>
                               </table>
-                             
-                            </tr> 
+
+                            </tr>
                           </tbody>
                         </table>
                           </div>
@@ -252,61 +246,20 @@
                           <table class="data table table-striped no-margin">
                             <thead>
                               <tr>
-                                <th>#</th>
-                                <th>Project Name</th>
-                                <th>Client Company</th>
-                                <th class="hidden-phone">Hours Spent</th>
-                                <th>Contribution</th>
+                                <th class="col-md-7">{{ __('user/profile.profile_order_note') }}</th>
+                                <th class="col-md-2">{{ __('user/profile.profile_total') }}</th>
+                                <th class="col-md-2">{{ __('user/profile.profile_status') }}</th>
+                                <th class="col-md-5">{{ __('user/profile.profile_action') }}</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>1</td>
-                                <td>New Company Takeover Review</td>
-                                <td>Deveint Inc</td>
-                                <td class="hidden-phone">18</td>
-                                <td class="vertical-align-mid">
-                                  <div class="progress">
-                                    <div class="progress-bar progress-bar-success" data-transitiongoal="35"></div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>2</td>
-                                <td>New Partner Contracts Consultanci</td>
-                                <td>Deveint Inc</td>
-                                <td class="hidden-phone">13</td>
-                                <td class="vertical-align-mid">
-                                  <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" data-transitiongoal="15"></div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>3</td>
-                                <td>Partners and Inverstors report</td>
-                                <td>Deveint Inc</td>
-                                <td class="hidden-phone">30</td>
-                                <td class="vertical-align-mid">
-                                  <div class="progress">
-                                    <div class="progress-bar progress-bar-success" data-transitiongoal="45"></div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>4</td>
-                                <td>New Company Takeover Review</td>
-                                <td>Deveint Inc</td>
-                                <td class="hidden-phone">28</td>
-                                <td class="vertical-align-mid">
-                                  <div class="progress">
-                                    <div class="progress-bar progress-bar-success" data-transitiongoal="75"></div>
-                                  </div>
-                                </td>
-                              </tr>
+                              <td id='no-record' hidden>{{ __('user/profile.profile_non_order') }}</td>
                             </tbody>
                           </table>
                           <!-- end user projects -->
+                          <nav class="paginate-profile">
+                            <a id="next" hidden="" href="">{{ __('user/profile.next') }}</a>
+                          </nav>
                         </div>
                       </div>
                     </div>
@@ -316,11 +269,13 @@
             </div>
           </div>
         </div>
-        
+
       </div>
     </div>
 @endsection
 @section('js')
 <script src="/js/public/profile.js"></script>
+<script src="/js/public/userProfile.js"></script>
 <script src="/js/public/userposts.js"></script>
+<script src="/js/public/userOrder.js"></script>
 @endsection

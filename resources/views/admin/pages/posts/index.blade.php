@@ -134,3 +134,6 @@
     </div>
   </div>
 @endsection
+@section('js')
+  <script src="/js/admin/post.js"></script>
+@endsection
