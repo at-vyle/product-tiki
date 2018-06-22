@@ -9,6 +9,7 @@ use Illuminate\Validation\ValidationException;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Http\Response;
+use App\Http\Requests\CreateOrderRequest;
 use Auth;
 use Exception;
 use Validator;
@@ -34,33 +35,24 @@ class OrderController extends ApiController
     *
     * @return \Illuminate\Http\Response
     */
-    public function store()
+    public function store(CreateOrderRequest $request)
     {
         $user = Auth::user();
 
         $order = Order::create([
             'user_id' => $user->id
         ]);
+
         $total = 0;
-        foreach (request('product') as $input) {
-            $product = Product::find($input['id']);
 
-            $validator = Validator::make($input, [
-                'quantity' => 'numeric|max:'.$product->quantity
-            ]);
+        foreach ($request->products as $input) {
+            $input['product_price'] = Product::find($input['id'])->price;
+            $input['product_id'] = $input['id'];
+            $input['order_id'] = $order->id;
+            unset($input['id']);
 
-            if ($validator->fails()) {
-                $order->delete();
-                throw new ValidationException($validator);
-            }
-            $input['price'] = $product->price;
-            OrderDetail::create([
-                'product_id' => $input['id'],
-                'order_id' => $order->id,
-                'quantity' => $input['quantity'],
-                'product_price' => $input['price']
-            ]);
-            $total += $product['price'] * $product['quantity'];
+            OrderDetail::create($input);
+            $total += $input['product_price'] * $input['quantity'];
         }
 
         $order->fill(['total' => $total]);
