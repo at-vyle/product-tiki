@@ -60,7 +60,8 @@ Get list all user's order
 ```
 /api/orders/{orders}
 ```
-Create new order
+Update order
+
 #### Request Headers
 | Key | Value |
 |---|---|
