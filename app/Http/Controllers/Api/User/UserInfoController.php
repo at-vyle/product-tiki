@@ -11,6 +11,7 @@ use App\Models\User;
 use Validator;
 use Auth;
 use Illuminate\Validation\ValidationException;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserInfoController extends ApiController
 {
@@ -21,26 +22,11 @@ class UserInfoController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UpdateUserRequest $request)
     {
-        $updatedUser = $request->only(["full_name", "address", "gender", "phone", "identity_card", "avatar", "dob"]);
+        $updatedUser = $request->only(['full_name', 'address', 'gender', 'phone', 'identity_card', 'avatar', 'dob']);
 
         $user = Auth::user();
-
-        $info = UserInfo::where('user_id', $user->id)->first();
-
-        $validator = Validator::make($updatedUser, [
-            'full_name'      => 'string|max:255',
-            'avatar'         => 'image|mimes:png,jpg,jpeg',
-            'dob'            => 'date_format:"Y-m-d"',
-            'address'        => 'string|max:255',
-            'phone'          => 'regex:/\(?([0-9]{3})\)?([ . -]?)([0-9]{3})\2([0-9]{4})/',
-            'identity_card'  => 'regex:/\(?([0-9]{3})\)?([ . -]?)([0-9]{3})\2([0-9]{3})/|unique:user_info,identity_card,' . $info->identity_card . ',identity_card',
-        ]);
-
-        if ($validator->fails()) {
-            throw new ValidationException($validator);
-        }
 
         try {
             if ($request->hasFile('avatar')) {
