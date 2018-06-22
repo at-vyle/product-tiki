@@ -16,9 +16,20 @@ p{
   margin:0;
 }
 h1,h2,h3,h4,h5,h6,a{
-  font-family: 'Raleway', sans-serif;
+  /* font-family: 'Raleway', sans-serif; */
   margin:0;
   font-weight:700;
+}
+#myTabContent .agile_top_brands_grids .agile_top_brand_left_grid {
+    margin-bottom: 30px;
+}
+.newproducts-w3agile .agile_top_brand_left_grid .agile_top_brand_left_grid_pos img{
+    max-width: 20%;
+    height: auto;
+    float: right;
+}
+img {
+    width: 100%;
 }
 ul,label{
   margin:0;
@@ -1300,7 +1311,7 @@ ul.faq {
 
 .starRating:not(old) > label {
     float: right;
-    background: url(../images/star.png);
+    background: url(/images/icon/star.png);
     background-size: contain;
     margin-right: 2px;
 }
@@ -1310,7 +1321,7 @@ ul.faq {
   display         : block;
   width           : 16px;
   height          : 16px;
-  background      : url(../images/star1.png);
+  background      : url(/images/icon/star1.png);
   background-size : contain;
   opacity         : 0;
   transition      : opacity 0.2s linear;

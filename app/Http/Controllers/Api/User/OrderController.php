@@ -31,7 +31,33 @@ class OrderController extends ApiController
     }
 
     /**
+     * Display detail order.
+     *
+     * @param \App\Models\Order $order order to get detail
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Order $order)
+    {
+        $user = Auth::user();
+
+        $orderDetail = Order::where('id', $order->id)->where('user_id', $user->id)->with('orderDetails.product.images')->first();
+
+        $urlEnd = ends_with(config('app.url'), '/') ? '' : '/';
+        $orderDetail['image_path'] = config('app.url') . $urlEnd . config('define.product.upload_image_url');
+        $orderDetail['total_formated'] = number_format($orderDetail['total']);
+
+        foreach ($orderDetail->orderDetails as $detail) {
+            $detail['price_formated'] = number_format($detail['product_price']);
+        }
+
+        return $this->showOne($orderDetail, Response::HTTP_OK);
+    }
+
+    /**
     * Create order
+    *
+    * @param App\Http\Requests\CreateOrderRequest $request request
     *
     * @return \Illuminate\Http\Response
     */

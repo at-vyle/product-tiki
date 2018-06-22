@@ -85,6 +85,140 @@ Get list all product's posts
     "code": 200
 }
 ```
+### `PUT` Update post
+```
+/api/posts/{post}
+```
+Update post with type include review, comment
+
+#### Request headers
+| Key | Value |
+|---|---|
+|Accept|application/json
+|Authorization|Bearer $token
+
+#### Request body
+
+| Key | Type | Description |
+|---|---|---|
+| post | int | required |
+| type | int | required (1) |
+| content | String | required if rating is null |
+| rating | int | required if content is null |
+
+#### Response
+```
+{
+    "data":{
+            "id": 1,
+            "product_id": 1,
+            "user_id": 1,
+            "type": 1,
+            "content": "Voluptate doloremque rerum dignissimos dolores rerum. Blanditiis et qui sit ea nobis rem. Qui ullam aut aut a fugit aut. Magni voluptatem et ut aut. Sint iusto error quisquam deserunt sit est doloribus magnam. Tempora aliquam optio a. Et illum sapiente omnis sequi consequatur molestiae accusantium distinctio. Aut commodi asperiores perspiciatis ut. Ad sequi velit incidunt tenetur.",
+            "rating": 4,
+            "status": 1,
+            "diff_time": "1 day ago",
+            "image_path": "http://product-tiki.show/images/upload/",
+            "created_at": "2018-05-31 07:04:58",
+            "updated_at": "2018-05-31 07:04:58",
+            "deleted_at": null,
+            "user": [
+                {
+                    "id": 1,
+                    "username": "kyran",
+                    "email": "cronin.kimberly@example.net",
+                    "is_active": 1,
+                    "role": 1,
+                    "last_logined_at": "2018-05-31 07:04:58",
+                    "created_at": "2018-05-31 07:04:58",
+                    "updated_at": "2018-05-31 07:04:58",
+                    "deleted_at": null,
+                    "userinfo": [
+                        {
+                            "id": 1,
+                            "user_id": 1,
+                            "full_name": "Ebony Kiehn DDS",
+                            "avatar": "img.jpg",
+                            "gender": 1,
+                            "dob": "1982-04-05",
+                            "address": "3489 Fredrick Orchard Suite 861\nSchmidtton, NC 00074-0123",
+                            "phone": "+1.743.859.1454",
+                            "identity_card": "147621465",
+                            "created_at": "2018-06-05 10:12:46",
+                            "updated_at": "2018-06-05 10:12:46"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+```
+
+### `DELETE` Delete post
+```
+/api/posts/{post}
+```
+Update post with type include review, comment
+
+#### Request headers
+| Key | Value |
+|---|---|
+|Accept|application/json
+|Authorization|Bearer $token
+
+#### Request body
+
+| Key | Type | Description |
+|---|---|---|
+| post | int | required |
+
+#### Response
+```
+{
+    "data":{
+            "id": 1,
+            "product_id": 1,
+            "user_id": 1,
+            "type": 1,
+            "content": "Voluptate doloremque rerum dignissimos dolores rerum. Blanditiis et qui sit ea nobis rem. Qui ullam aut aut a fugit aut. Magni voluptatem et ut aut. Sint iusto error quisquam deserunt sit est doloribus magnam. Tempora aliquam optio a. Et illum sapiente omnis sequi consequatur molestiae accusantium distinctio. Aut commodi asperiores perspiciatis ut. Ad sequi velit incidunt tenetur.",
+            "rating": 4,
+            "status": 1,
+            "diff_time": "1 day ago",
+            "image_path": "http://product-tiki.show/images/upload/",
+            "created_at": "2018-05-31 07:04:58",
+            "updated_at": "2018-05-31 07:04:58",
+            "deleted_at": "2018-05-31 07:05:58",
+            "user": [
+                {
+                    "id": 1,
+                    "username": "kyran",
+                    "email": "cronin.kimberly@example.net",
+                    "is_active": 1,
+                    "role": 1,
+                    "last_logined_at": "2018-05-31 07:04:58",
+                    "created_at": "2018-05-31 07:04:58",
+                    "updated_at": "2018-05-31 07:04:58",
+                    "deleted_at": null,
+                    "userinfo": [
+                        {
+                            "id": 1,
+                            "user_id": 1,
+                            "full_name": "Ebony Kiehn DDS",
+                            "avatar": "img.jpg",
+                            "gender": 1,
+                            "dob": "1982-04-05",
+                            "address": "3489 Fredrick Orchard Suite 861\nSchmidtton, NC 00074-0123",
+                            "phone": "+1.743.859.1454",
+                            "identity_card": "147621465",
+                            "created_at": "2018-06-05 10:12:46",
+                            "updated_at": "2018-06-05 10:12:46"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+```
 
 ### `POST` Posts
 ```

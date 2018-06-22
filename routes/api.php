@@ -40,7 +40,7 @@ Route::group(['as' => 'api.', 'namespace' => 'Api\User'], function () {
         Route::post('logout', 'LoginController@logout');
         Route::get('checkAccessToken', 'LoginController@checkAccessToken');
         Route::get('users/profile', 'UserController@index');
-        Route::post('orders', 'OrderController@store');
+        Route::put('users/profile', 'UserInfoController@update');
     });
 
 });
