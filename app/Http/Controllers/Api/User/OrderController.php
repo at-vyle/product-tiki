@@ -13,12 +13,16 @@ class OrderController extends ApiController
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Request $request request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $perPage = config('define.order.limit_rows');
         $user = Auth::user();
+        
+        $perPage = isset($request->perpage) ? $request->perpage : config('define.order.limit_rows');
+
         $orders = Order::with('user')->withCount('orderDetails')->where('user_id', $user->id)->paginate($perPage);
         $data = $this->formatPaginate($orders);
         return $this->showAll($data, Response::HTTP_OK);
