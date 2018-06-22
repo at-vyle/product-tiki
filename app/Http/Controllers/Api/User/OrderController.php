@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
 use App\Models\Order;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\AuthenticationException;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Http\Response;
@@ -102,31 +103,34 @@ class OrderController extends ApiController
     public function update(CreateOrderRequest $request, Order $order)
     {
         $user = Auth::user();
+        if ($user->id == $order->user_id) {
+            $total = 0;
 
-        $total = 0;
+            foreach ($request->products as $input) {
+                $input['product_id'] = $input['id'];
+                $input['order_id'] = $order->id;
+                $product = OrderDetail::where('order_id', $order->id)->where('product_id', $input['product_id'])->first();
 
-        foreach ($request->products as $input) {
-            $input['product_id'] = $input['id'];
-            $input['order_id'] = $order->id;
-            $product = OrderDetail::where('order_id', $order->id)->where('product_id', $input['product_id'])->first();
+                if ($product) {
+                    $product->quantity = $input['quantity'];
+                    $product->save();
+                } else {
+                    $input['product_price'] = Product::find($input['id'])->price;
+                    unset($input['id']);
+                    unset($input['price']);
+                    OrderDetail::create($input);
+                }
 
-            if ($product) {
-                $product->quantity = $input['quantity'];
-                $product->save();
-            } else {
-                $input['product_price'] = Product::find($input['id'])->price;
-                unset($input['id']);
-                unset($input['price']);
-                OrderDetail::create($input);
+
+                $total += $input['product_price'] * $input['quantity'];
             }
 
+            $order->fill(['total' => $total]);
+            $order->load('orderDetails');
 
-            $total += $input['product_price'] * $input['quantity'];
+            return $this->showOne($order, Response::HTTP_OK);
+        } else {
+            throw new AuthentictionException();
         }
-
-        $order->fill(['total' => $total]);
-        $order->load('orderDetails');
-
-        return $this->showOne($order, Response::HTTP_OK);
     }
 }
