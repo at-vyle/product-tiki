@@ -25,6 +25,14 @@ $( document ).ready(function() {
     })
 });
 
+$(document).on('click', '#submit-cart', function (event) {
+    event.preventDefault();
+    cart = localStorage.getItem('PPMiniCart');
+    cart = JSON.parse(unescape(cart));
+    products = cart.value.items;
+    console.log(products);
+})
+
 function checkLogin() {
     $.ajax({
         type: 'GET',
