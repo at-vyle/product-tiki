@@ -30,7 +30,38 @@ $(document).on('click', '#submit-cart', function (event) {
     cart = localStorage.getItem('PPMiniCart');
     cart = JSON.parse(unescape(cart));
     products = cart.value.items;
-    console.log(products);
+    let product_data;
+    let data = [];
+    products.forEach(function (product) {
+        product_data = {};
+        product_data.id = product.id;
+        product_data.quantity = product.quantity;
+        data.push(product_data);
+    });
+    $.ajax({
+        type: 'POST',
+        url: '/api/orders',
+        headers: ({
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + accessToken,
+        }),
+        data: {'products': data},
+        success: function(response) {
+            alert(Lang.get('user/cart.submit_success'));
+            localStorage.removeItem('PPMiniCart');
+            window.location.href = '/profile';
+        },
+        statusCode: {
+            401: function() {
+                alert(Lang.get('user/cart.need_login_alert'));
+                localStorage.removeItem('login-token');
+                window.location.pathname = '/login';
+            },
+            422: function (response) {
+                alert(Lang.get('user/cart.quantity_exceed'));
+            }
+        }
+    });
 })
 
 function checkLogin() {

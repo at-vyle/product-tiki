@@ -26,7 +26,7 @@ class OrderController extends ApiController
     public function index(Request $request)
     {
         $user = Auth::user();
-        
+
         $perPage = isset($request->perpage) ? $request->perpage : config('define.order.limit_rows');
 
         $orders = Order::with('user')->withCount('orderDetails')->where('user_id', $user->id)->paginate($perPage);
@@ -85,7 +85,8 @@ class OrderController extends ApiController
             $total += $input['product_price'] * $input['quantity'];
         }
 
-        $order->fill(['total' => $total]);
+        $order->total = $total;
+        $order->save();
         $order->load('orderDetails');
 
         return $this->showOne($order, Response::HTTP_OK);
