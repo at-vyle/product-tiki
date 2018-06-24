@@ -81,7 +81,8 @@ class OrderController extends ApiController
             $total += $input['product_price'] * $input['quantity'];
         }
 
-        $order->fill(['total' => $total]);
+        $order->total = $total;
+        $order->save();
         $order->load('orderDetails');
 
         return $this->showOne($order, Response::HTTP_OK);
