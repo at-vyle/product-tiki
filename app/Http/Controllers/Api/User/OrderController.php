@@ -104,7 +104,6 @@ class OrderController extends ApiController
     {
         $user = Auth::user();
         if ($user->id == $order->user_id) {
-
             if ($order->status != Order::UNAPPROVED) {
                 throw new \Exception(config('define.exception.change_approve_order'));
             }
@@ -123,7 +122,7 @@ class OrderController extends ApiController
                     $total += $input['product_price'] * $input['quantity'];
                 }
             }
-            $removedProduct = OrderDetail::where('order_id', $order->id)->whereNotIn('product_id', $updatedProduct)->delete();
+            OrderDetail::where('order_id', $order->id)->whereNotIn('product_id', $updatedProduct)->delete();
             $order->total = $total;
             $order->save();
             $order->load('orderDetails');
