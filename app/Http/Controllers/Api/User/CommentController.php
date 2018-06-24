@@ -46,7 +46,7 @@ class CommentController extends ApiController
     {
         $user = Auth::user();
         if ($user->id == $comments->user_id) {
-            $comments->fill(['content' => $request->content]);
+            $comments->content = $request->content;
             $comments->load('user.userinfo');
         } else {
             throw new AuthenticationException();
@@ -66,7 +66,7 @@ class CommentController extends ApiController
     {
         $user = Auth::user();
         if ($user->id == $comments->user_id) {
-            $comments->fill(['user.userinfo']);
+            $comments->load('user.userinfo');
             $comments->delete();
         } else {
             throw new AuthenticationException();
