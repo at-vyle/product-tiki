@@ -104,28 +104,28 @@ class OrderController extends ApiController
     {
         $user = Auth::user();
         if ($user->id == $order->user_id) {
-            $total = 0;
 
-            foreach ($request->products as $input) {
-                $input['product_id'] = $input['id'];
-                $input['order_id'] = $order->id;
-                $product = OrderDetail::where('order_id', $order->id)->where('product_id', $input['product_id'])->first();
-
-                if ($product) {
-                    $product->quantity = $input['quantity'];
-                    $product->save();
-                } else {
-                    $input['product_price'] = Product::find($input['id'])->price;
-                    unset($input['id']);
-                    unset($input['price']);
-                    OrderDetail::create($input);
-                }
-
-
-                $total += $input['product_price'] * $input['quantity'];
+            if ($order->status != Order::UNAPPROVED) {
+                throw new \Exception(config('define.exception.change_approve_order'));
             }
+            $total = 0;
+            $updatedProduct = [];
+            if ($request->products) {
+                foreach ($request->products as $input) {
+                    $input['product_id'] = $input['id'];
+                    $input['order_id'] = $order->id;
+                    $product = OrderDetail::where('order_id', $order->id)->where('product_id', $input['product_id'])->first();
+                    array_push($updatedProduct, $input['id']);
+                    $product->quantity = $input['quantity'];
+                    $input['product_price'] = $product->product_price;
+                    $product->save();
 
-            $order->fill(['total' => $total]);
+                    $total += $input['product_price'] * $input['quantity'];
+                }
+            }
+            $removedProduct = OrderDetail::where('order_id', $order->id)->whereNotIn('product_id', $updatedProduct)->delete();
+            $order->total = $total;
+            $order->save();
             $order->load('orderDetails');
 
             return $this->showOne($order, Response::HTTP_OK);

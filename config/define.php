@@ -51,5 +51,8 @@ return [
     ],
     'login' => [
         'unauthorised' => 'Unauthorised'
+    ],
+    'exception' => [
+        'change_approve_order' => 'Cannot Change APPROVED order',
     ]
 ];
