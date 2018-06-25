@@ -20,6 +20,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="/css/public/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="/css/public/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/public/custom.css" rel="stylesheet" type="text/css" media="all" />
     @yield('css')
     <!-- font-awesome icons -->
     <link href="/css/public/font-awesome.css" rel="stylesheet">
@@ -42,6 +43,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         });
       });
     </script>
+    <script src="/js/messages.js"></script>
     <!-- start-smoth-scrolling -->
     @yield('css')
   </head>
@@ -65,7 +67,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <li>
               <div id="header-logout">
                 <ul>
-                  <li><a href="#">{{ __('user/layout.profile') }}</a></li>
+                  <li><a href="{{ route('user.info') }}">{{ __('user/layout.profile') }}</a></li>
                   <li><a id="btn-logout" href="#">{{ __('user/layout.logout') }}</a></li>
                 </ul>
               </div>
@@ -217,7 +219,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         });
     </script> -->
   <!-- //here ends scrolling icon -->
-  <script src="/js/public/minicart.min.js"></script>
+  <script src="/js/public/minicart.js"></script>
   <script>
     // Mini Cart
     paypal.minicart.render({
@@ -240,10 +242,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     });
   </script>
   <!-- //main slider-banner -->
+  <script src="/js/public/main.js"></script>
   <script src="/js/public/master.js" charset="utf-8"></script>
   <script src="/js/public/category.js"></script>
   <script src="/js/public/masterpage.js"></script>
-  <script src="/js/messages.js"></script>
   @yield('js')
   </body>
 </html>

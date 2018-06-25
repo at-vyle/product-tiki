@@ -25,7 +25,6 @@ class apiProfileOrderTest extends TestCase
         factory('App\Models\User', 2)->create();
         factory('App\Models\Order', 10)->create();
         factory('App\Models\OrderDetail', 10)->create();
-        Artisan::call('passport:install');
     }
 
     /**
@@ -98,43 +97,27 @@ class apiProfileOrderTest extends TestCase
      */
     public function testGetOrdersOfUser()
     {
-        $user = User::find(1);
-        $login = [
-            'email' => $user->email,
-            'password' => '12345'
-        ];
-        $response = $this->json('POST', '/api/login', $login, ['Accept' => 'application/json']);
-        $token = json_decode($response->getContent())->result->token;
-
-        $this->json('GET', 'api/orders', [], ['Accept' => 'application/json', 'Authorization' => 'Bearer '.$token])
+        $this->jsonUser('GET', 'api/orders')
             ->assertStatus(200)
             ->assertJsonStructure($this->jsonStructureListOrders());
     }
 
-
-    /**
+     /**
      * Test paginate
      *
      * @return void
      */
     public function testJsonPaginate()
     {
-        $user = User::find(1);
-        $login = [
-            'email' => $user->email,
-            'password' => '12345'
-        ];
-        $response = $this->json('POST', '/api/login', $login, ['Accept' => 'application/json']);
-        $token = json_decode($response->getContent())->result->token;
         $dataTest = [
             'perpage' => 5,
             'page' => 2
         ];
-        $this->json('GET', '/api/orders?perpage=' . $dataTest['perpage'] . '&page=' . $dataTest['page'] . '',  [], ['Accept' => 'application/json', 'Authorization' => 'Bearer '.$token]);
-        //$data = json_decode($response->getContent());
-        //$content = assertJsonStructure($this->jsonStructureListOrders());
-        dd('/api/orders?perpage=' . $dataTest['perpage'] . '&page=' . $dataTest['page'] . '');
-        $this->assertEquals($token->result->paginator->per_page, $dataTest['perpage']);
-        $this->assertEquals($token->result->paginator->current_page, $dataTest['page']);
+
+        $response = $this->jsonUser('GET', 'api/orders?perpage=' . $dataTest['perpage'] . '&page=' . $dataTest['page'] . '');
+        $data = json_decode($response->getContent());
+        
+        $this->assertEquals($data->result->paginator->per_page, $dataTest['perpage']); 
+        $this->assertEquals($data->result->paginator->current_page, $dataTest['page']);
     }
 }
