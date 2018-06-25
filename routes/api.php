@@ -41,6 +41,8 @@ Route::group(['as' => 'api.', 'namespace' => 'Api\User'], function () {
         Route::get('checkAccessToken', 'LoginController@checkAccessToken');
         Route::get('users/profile', 'UserController@index');
         Route::put('users/profile', 'UserInfoController@update');
+        Route::put('posts/{posts}', 'PostController@update');
+        Route::put('posts/{posts}', 'PostController@destroy');
     });
 
 });
