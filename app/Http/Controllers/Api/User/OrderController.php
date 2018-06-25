@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\ApiController;
 use App\Models\Order;
 use Illuminate\Http\Response;
 use Auth;
+use Illuminate\Auth\AuthenticationException;
+use Exception;
 
 class OrderController extends ApiController
 {
@@ -50,5 +52,28 @@ class OrderController extends ApiController
         }
 
         return $this->showOne($orderDetail, Response::HTTP_OK);
+    }
+
+    /**
+     * Update status order.
+     *
+     * @param \App\Models\Order $order order
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cancel(Order $order)
+    {
+        $user = Auth::user();
+
+        if ($user->id == $order->user_id) {
+            if ($order->status != Order::UNAPPROVED) {
+                throw new \Exception(config('define.exception.cancel_approve_order'));
+            }
+            $order->status = Order::CANCELED;
+            $order->save();
+            return $this->showOne($order, Response::HTTP_OK);
+        } else {
+            throw new AuthenticationException();
+        }
     }
 }
