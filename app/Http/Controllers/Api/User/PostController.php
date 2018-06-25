@@ -88,7 +88,7 @@ class PostController extends ApiController
             }
             $input['status'] = Post::UNAPPROVED;
             $post->update($input);
-            return $this->showOne($post->load('user'), Response::HTTP_OK);
+            return $this->showOne($post->load('user.userinfo'), Response::HTTP_OK);
         } else {
             throw new AuthenticationException();
         }
@@ -107,9 +107,7 @@ class PostController extends ApiController
         
         if ($user->id == $post->user_id) {
             $post->load('user.userinfo');
-            \DB::enableQueryLog();
             $post->delete();
-            dd(\DB::getQueryLog());
         } else {
             throw new AuthenticationException();
         }
