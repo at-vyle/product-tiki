@@ -41,7 +41,7 @@ Route::group(['as' => 'api.', 'namespace' => 'Api\User'], function () {
         Route::get('checkAccessToken', 'LoginController@checkAccessToken');
         Route::get('users/profile', 'UserController@index');
         Route::put('users/profile', 'UserInfoController@update');
-        Route::put('users/orders/{order}/cancel', 'OrderController@updateStatus');
+        Route::put('users/orders/{order}/cancel', 'OrderController@cancel');
     });
 
 });

@@ -61,7 +61,7 @@ class OrderController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function updateStatus(Order $order)
+    public function cancel(Order $order)
     {
         $user = Auth::user();
 
