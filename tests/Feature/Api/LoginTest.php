@@ -79,19 +79,6 @@ class LoginTest extends TestCase
     }
 
     /**
-    * Return structure of json.
-    *
-    * @return array
-    */
-    public function jsonStructureAuthenticateFail()
-    {
-        return [
-          "error",
-          "code"
-      ];
-    }
-
-    /**
      * Test structure of json response.
      *
      * @return void
@@ -104,7 +91,10 @@ class LoginTest extends TestCase
         ];
         $this->jsonUser('POST', '/api/login', $body, ['Accept' => 'application/json'])
             ->assertStatus(401)
-            ->assertJsonStructure($this->jsonStructureAuthenticateFail());
+            ->assertJsonStructure([
+              "error",
+              "code"
+          ]);
     }
 
     /**
