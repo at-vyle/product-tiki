@@ -102,6 +102,25 @@ class apiProfileOrderTest extends TestCase
             ->assertJsonStructure($this->jsonStructureListOrders());
     }
 
+    /**
+     * Test check some object compare database.
+     *
+     * @return void
+     */
+    public function testCompareDatabase()
+    {
+        $response = $this->jsonUser('GET', 'api/orders');
+        $data = json_decode($response->getContent())->result->data;
+        foreach ($data as $order) {
+            $arrayCompare = [
+                'id' => $order->id,
+                'note' => $order->note,
+                'total' => $order->total,
+            ];
+            $this->assertDatabaseHas('orders', $arrayCompare);
+        }
+    }
+
      /**
      * Test paginate
      *

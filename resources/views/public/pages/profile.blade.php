@@ -221,14 +221,14 @@
                               <table id="replies" hidden class="table-subcomment col-md-offset-3 data table table-striped no-margin">
                                 <thead>
                                   <tr>
-                                    <th class="col-md-12">Content Subcomment</th>
-                                    <th class="col-md-4">Pullname</th>
+                                    <th class="col-md-10">{{ __('user/profile.replies_content_subcm') }}</th>
+                                    <th class="col-md-3">{{ __('user/profile.fullname_subcm') }}</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   <tr>
                                     <td class="replies-content"></td>
-                                    <td class="replies-name"></td>
+                                    <td class="replies-fullname"></td>
                                   </tr>
                                 </tbody>
                               </table>
