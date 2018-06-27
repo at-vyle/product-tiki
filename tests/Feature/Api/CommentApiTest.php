@@ -17,7 +17,7 @@ class CommentApiTest extends TestCase
         factory('App\Models\Product', 1)->create();
         factory('App\Models\User', 1)->create();
         factory('App\Models\UserInfo',1)->create([
-            'user_id' => 1,
+            'user_id' => 2,
         ]);
         factory('App\Models\Post', 1)->states('rating')->create();
         factory('App\Models\Comment', 10)->create();
