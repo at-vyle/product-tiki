@@ -7,4 +7,5 @@ return [
     'pending' => 'Pending',
     'available' => 'Available',
     'unavailable' => 'Unavailable',
+    'reset' => 'Reset',
 ];
