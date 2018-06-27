@@ -69,40 +69,46 @@ class OrderController extends ApiController
     public function store(CreateOrderRequest $request)
     {
         $user = Auth::user();
+
+        $products = [];
         $errors = [];
+
         foreach ($request->products as $input) {
-            $error = '';
             $product = Product::find($input['id']);
-            if ((int) $input['quantity'] > $product->quantity) {
+            if ((int) $input['quantity'] <= $product->quantity) {
+                $input['product_price'] = $product->price;
+                array_push($products, $input);
+            } else {
                 $error = $product->name . ': ' . config('define.product.exceed_quantity');
                 array_push($errors, $error);
             }
         }
-        if (count($errors)) {
+
+        if (count($products)) {
+            $order = Order::create([
+                'user_id' => $user->id
+            ]);
+
+            $total = 0;
+
+            foreach ($products as $input) {
+                $input['product_id'] = $input['id'];
+                $input['order_id'] = $order->id;
+                unset($input['id']);
+
+                OrderDetail::create($input);
+                $total += $input['product_price'] * $input['quantity'];
+            }
+
+            $order->total = $total;
+            $order->save();
+            $order->load('orderDetails');
+        } else {
             return $this->errorResponse($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-
-        $order = Order::create([
-            'user_id' => $user->id
-        ]);
-
-        $total = 0;
-
-        foreach ($request->products as $input) {
-            $input['product_price'] = Product::find($input['id'])->price;
-            $input['product_id'] = $input['id'];
-            $input['order_id'] = $order->id;
-            unset($input['id']);
-
-            OrderDetail::create($input);
-            $total += $input['product_price'] * $input['quantity'];
-        }
-
-        $order->total = $total;
-        $order->save();
-        $order->load('orderDetails');
-
-        return $this->showOne($order, Response::HTTP_OK);
+        $data['order'] = $order;
+        $data['errors'] = $errors;
+        return $this->successResponse($data, Response::HTTP_OK);
     }
 
     /**
