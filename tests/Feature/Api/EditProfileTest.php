@@ -23,9 +23,8 @@ class EditProfileTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        factory('App\Models\User')->create();
         factory('App\Models\UserInfo')->create([
-            'user_id' => 1
+            'user_id' => $this->user->id
         ]);
 
         Artisan::call('passport:install');
@@ -69,64 +68,106 @@ class EditProfileTest extends TestCase
     }
 
     /**
+     * Return structure of json.
+     *
+     * @return array
+     */
+    public function jsonStructureValidate()
+    {
+        return [
+            "message",
+            "errors" => [
+                "full_name"=> [],
+                "avatar" => [],
+                "address" => [],
+                "phone" => [],
+                "identity_card" => []
+            ],
+            "code",
+            "request" => []
+        ];
+    }
+
+    /**
      * Test status code
      *
      * @return void
      */
     public function testStatusCode()
     {
-        $user = User::find(1);
-        $login = [
-            'email' => $user->email,
-            'password' => '12345'
-        ];
-        $response = $this->json('POST', '/api/login', $login, ['Accept' => 'application/json']);
-        $token = json_decode($response->getContent())->result->token;
-
-        $this->json('PUT', 'api/users/profile', [], ['Accept' => 'application/json', 'Authorization' => 'Bearer '.$token])
+        $this->jsonUser('PUT', 'api/users/profile')
             ->assertStatus(200);
     }
 
-     /**
+    /**
      * Test structure code
      *
      * @return void
      */
     public function testStuctureCode()
     {
-        $user = User::find(1);
-        $login = [
-            'email' => $user->email,
-            'password' => '12345'
-        ];
-        $response = $this->json('POST', '/api/login', $login, ['Accept' => 'application/json']);
-        $token = json_decode($response->getContent())->result->token;
-        
         $update = [
             'full_name' => 'teamIntern@asiantech.vn',
-            'avatar' => 'image.jpg',
             'gender' => 1,
             'dob' => '2018-03-19',
             'address' => 'Street No.2 Van Don Industry, Da Nang City, Viet Nam',
             'phone' => '0123456789',
-            'identity_card' => '987654321'
+            'identity_card' => '987654321',
+            '_method' => 'PUT'
         ];
-        $this->json('PUT', 'api/users/profile', [$update], ['Accept' => 'application/json', 'Authorization' => 'Bearer '.$token])
+        $this->jsonUser('POST', 'api/users/profile', $update)
             ->assertJsonStructure($this->jsonStructureEditProfile());
     }
 
     /**
-     * List case for Test Api validate for input Update Profile
+     * Test check some object compare database.
      *
-     * @return array
+     * @return void
      */
-    public function testValidateForInput()
+    public function testCompareDatabase()
     {
-        return [
-            ['full_name', '', 'The name field is required.'],
-            ['name', '    ', 'The name field is required.'],
-            ['name', '.-=+{}()[]^$@#', 'The name format is invalid.'],
-            ['name', 'Iphone', 'The name has already been taken.'],
+        $update = [
+            'full_name' => 'teamIntern@asiantech.vn',
+            'gender' => 1,
+            'dob' => '2018-03-19',
+            'address' => 'Street No.2 Van Don Industry, Da Nang City, Viet Nam',
+            'phone' => '0123456789',
+            'identity_card' => '987654321',
+            '_method' => 'PUT'
         ];
+        $responseProfie = $this->jsonUser('POST', 'api/users/profile', $update);
+
+        $data = json_decode($responseProfie->getContent())->result;
+
+        $arrayUser = [
+            'id' => $data->id,
+            'username' => $data->username,
+            'email' => $data->email
+        ];
+        $this->assertDatabaseHas('users', $arrayUser);
+        $arrayUserInfo = [
+            'id' => $data->userinfo->id,
+            'user_id' => $data->userinfo->user_id
+        ];
+        $this->assertDatabaseHas('user_info', $arrayUserInfo);
+    }
+
+    /**
+     * Test validate update
+     *
+     * @return void
+     */
+    public function testUpdateValidateForInput()
+    {
+        $update = [
+            'full_name' => '',
+            'avatar' => 'image.jpg',
+            'address' => '',
+            'phone' => '',
+            'identity_card' => '',
+            '_method' => 'PUT'
+        ];
+        $this->jsonUser('POST', 'api/users/profile', $update)
+            ->assertJsonStructure($this->jsonStructureValidate());
     }
 }
