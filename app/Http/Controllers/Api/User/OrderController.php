@@ -69,12 +69,17 @@ class OrderController extends ApiController
     public function store(CreateOrderRequest $request)
     {
         $user = Auth::user();
-
+        $errors = [];
         foreach ($request->products as $input) {
+            $error = '';
             $product = Product::find($input['id']);
             if ((int) $input['quantity'] > $product->quantity) {
-                return $this->errorResponse(config('define.product.exceed_quantity'), Response::HTTP_UNPROCESSABLE_ENTITY);
+                $error = $product->name . ': ' . config('define.product.exceed_quantity');
+                array_push($errors, $error);
             }
+        }
+        if (count($errors)) {
+            return $this->errorResponse($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $order = Order::create([
