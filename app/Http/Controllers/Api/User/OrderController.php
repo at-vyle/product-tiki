@@ -72,7 +72,7 @@ class OrderController extends ApiController
 
         foreach ($request->products as $input) {
             $product = Product::find($input['id']);
-            if ( (int) $input['quantity'] > $product->quantity) {
+            if ((int) $input['quantity'] > $product->quantity) {
                 return $this->errorResponse(config('define.product.exceed_quantity'), Response::HTTP_UNPROCESSABLE_ENTITY);
             }
         }
