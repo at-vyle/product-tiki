@@ -135,3 +135,35 @@ Create new order
     }
 }
 ```
+### `PUT` Orders
+```
+api/users/orders/{order}/cancel
+```
+cancel order
+#### Request Headers
+| Key | Value |
+|---|---|
+|Accept|application/json
+|Authorization|Bearer $token
+
+#### Query Param
+| Key | Value | Description |
+|---|---|---|
+| order | int | id of Order (require) |
+
+#### Response
+```json
+{
+    "result": {
+        "id": 2,
+        "user_id": 1,
+        "total": 89353521,
+        "status": 3,
+        "note": "Ut accusantium est sunt quis et. Unde et voluptas aut possimus. Architecto perferendis voluptas molestias. Officia in deleniti et quae. Qui laudantium architecto consequatur non ducimus eligendi. Quia voluptates doloremque sed architecto earum temporibus repellat. Laborum et natus nulla velit repellendus ipsam. Incidunt et et nihil iusto et qui. Dolore sint vel autem repellat qui reprehenderit.",
+        "created_at": "2018-06-25 09:31:29",
+        "updated_at": "2018-06-27 02:25:18",
+        "deleted_at": null
+    },
+    "code": 200
+}
+```
