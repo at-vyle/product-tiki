@@ -11,20 +11,25 @@ use App\Models\Product;
 use Illuminate\Http\Response;
 use App\Http\Requests\CreateOrderRequest;
 use Auth;
-use Exception;
 use Validator;
+use Illuminate\Auth\AuthenticationException;
+use Exception;
 
 class OrderController extends ApiController
 {
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Request $request request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $perPage = config('define.order.limit_rows');
         $user = Auth::user();
+
+        $perPage = isset($request->perpage) ? $request->perpage : config('define.order.limit_rows');
+
         $orders = Order::with('user')->withCount('orderDetails')->where('user_id', $user->id)->paginate($perPage);
         $data = $this->formatPaginate($orders);
         return $this->showAll($data, Response::HTTP_OK);
@@ -65,6 +70,13 @@ class OrderController extends ApiController
     {
         $user = Auth::user();
 
+        foreach ($request->products as $input) {
+            $product = Product::find($input['id']);
+            if ( (int) $input['quantity'] > $product->quantity) {
+                return $this->errorResponse(config('define.product.exceed_quantity'), Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+        }
+
         $order = Order::create([
             'user_id' => $user->id
         ]);
@@ -86,5 +98,28 @@ class OrderController extends ApiController
         $order->load('orderDetails');
 
         return $this->showOne($order, Response::HTTP_OK);
+    }
+
+    /**
+     * Update status order.
+     *
+     * @param \App\Models\Order $order order
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cancel(Order $order)
+    {
+        $user = Auth::user();
+
+        if ($user->id == $order->user_id) {
+            if ($order->status != Order::UNAPPROVED) {
+                throw new \Exception(config('define.exception.cancel_approve_order'));
+            }
+            $order->status = Order::CANCELED;
+            $order->save();
+            return $this->showOne($order, Response::HTTP_OK);
+        } else {
+            throw new AuthenticationException();
+        }
     }
 }
