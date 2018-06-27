@@ -59,36 +59,70 @@
                           </div>
                           <div class="modal-body">
 
-                              <form id="demo-form2" method="POST" class="form-horizontal form-label-left">
+                              <form id="demo-form2" method="POST" class="form-horizontal form-label-left" enctype:'multipart/form-data'>
                                 <div class="form-group">
                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="full_name">{{ __('user.index.fullname') }}<span class="required">{{ __('user.index.requied') }}</span></label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="full_name" name="full_name" class="form-control col-md-7 col-xs-12">
                                   </div>
                                 </div>
+
+                                <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <div id="full_name_error" class="alert alert-danger" hidden></div>
+                                  </div>
+                                </div>
+
                                 <div class="form-group">
                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">{{ __('user.index.address') }}<span class="required">{{ __('user.index.requied') }}</span></label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="address" name="address" class="form-control col-md-7 col-xs-12">
                                   </div>
                                 </div>
+
+                                <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <div id="address_error" class="alert alert-danger" hidden></div>
+                                  </div>
+                                </div>
+
                                 <div class="form-group">
                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="phone">{{ __('user.index.phone') }}<span class="required">{{ __('user.index.requied') }}</span></label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="phone" name="phone" class="form-control col-md-7 col-xs-12">
                                   </div>
                                 </div>
+
+                                <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <div id="phone_error" class="alert alert-danger" hidden></div>
+                                  </div>
+                                </div>
+
                                 <div class="form-group">
                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="identity_card">{{ __('user.index.indentity_card') }}<span class="required">{{ __('user.index.requied') }}</span></label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="identity_card" name="identity_card" class="form-control col-md-7 col-xs-12">
                                   </div>
                                 </div>
+
+                                <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <div id="identity_card_error" class="alert alert-danger" hidden></div>
+                                  </div>
+                                </div>
+
                                 <div class="form-group">
                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="avatar">{{ __('user.index.avatar') }}</label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="file" id="avatar" name="avatar" class="form-control col-md-7 col-xs-12">
                                     <img id="img_avatar" class="avatar-view" src="" alt="">
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <div id="avatar_error" class="alert alert-danger" hidden></div>
                                   </div>
                                 </div>
 
@@ -104,9 +138,21 @@
                                 </div>
 
                                 <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <div id="gender_error" class="alert alert-danger" hidden></div>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
                                   <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('user.index.dob') }}</label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input id="dob" name="dob" class="form-control col-md-7 col-xs-12" type="date">
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <div id="dob_error" class="alert alert-danger" hidden></div>
                                   </div>
                                 </div>
 
