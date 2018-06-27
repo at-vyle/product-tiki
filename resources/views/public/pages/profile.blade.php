@@ -289,6 +289,7 @@
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="recent_order" aria-labelledby="profile-tab">
                           <!-- start user projects -->
+                          <div id='no-record' hidden>{{ __('user/profile.profile_non_order') }}</div>
                           <table class="data table table-striped no-margin">
                             <thead>
                               <tr>
@@ -299,13 +300,18 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <td id='no-record' hidden>{{ __('user/profile.profile_non_order') }}</td>
+
                             </tbody>
                           </table>
-                          <!-- end user projects -->
                           <nav class="paginate-profile">
                             <a id="next" hidden="" href="">{{ __('user/profile.next') }}</a>
                           </nav>
+                          <div id="order_detail" hidden>
+                            <form action="" method="post" class="form-horizontal form-label-left">
+
+                            </form>
+                          </div>
+                          <!-- end user projects -->
                         </div>
                       </div>
                     </div>
