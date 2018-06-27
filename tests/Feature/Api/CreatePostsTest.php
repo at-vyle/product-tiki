@@ -66,7 +66,7 @@ class CreatePostsTest extends TestCase
      *
      * @return void
      */
-    public function testCreatePosts()
+    public function testCreatePostsSuccess()
     {
         $posts = [
             'type' => 1,
@@ -77,7 +77,15 @@ class CreatePostsTest extends TestCase
         $this->jsonUser('POST', 'api/products/1/posts', $posts)
             ->assertStatus(200)
             ->assertJsonStructure($this->jsonStructureCreatePostsSuccess());
+    }
 
+    /**
+     * Test create post fail
+     *
+     * @return void
+     */
+    public function testCreatePostsFail()
+    {
         $this->jsonUser('POST', 'api/products/1/posts')
             ->assertStatus(422)
             ->assertJsonStructure($this->jsonStructureCreatePostsFailValidation());
