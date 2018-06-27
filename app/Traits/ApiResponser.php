@@ -17,7 +17,7 @@ trait ApiResponser
      *
      * @return \Illuminate\Http\Response
      */
-    protected function successResponse($data, $code)
+    public function successResponse($data, $code)
     {
         return response()->json(['result' => $data, 'code' => $code], $code);
     }
@@ -30,7 +30,7 @@ trait ApiResponser
      *
      * @return \Illuminate\Http\Response
      */
-    protected function errorResponse($message, $code)
+    public function errorResponse($message, $code)
     {
         return response()->json(['error' => $message, 'code' => $code], $code);
     }
@@ -82,5 +82,38 @@ trait ApiResponser
         ];
 
         return collect($result);
+    }
+
+    /**
+     * Paginator input data
+     *
+     * @param Illuminate\Support\Collection $collection data to response
+     *
+     * @return Illuminate\Support\Collection
+     */
+    protected function paginate(Collection $collection)
+    {
+        $rules = [
+            'perpage' => 'integer|min:2|max:50'
+        ];
+
+        Validator::validate(request()->all(), $rules);
+
+        $page = LengthAwarePaginator::resolveCurrentPage();
+
+        $prePage = config('define.limit_rows');
+        if (request()->has('perpage')) {
+            $prePage = request()->perpage;
+        }
+
+        $result = $collection->slice(($page - 1) * $prePage, $prePage);
+
+        $paginated = new LengthAwarePaginator($result->values(), $collection->count(), $prePage, $page, [
+            'path' => LengthAwarePaginator::resolveCurrentPath()
+        ]);
+
+        $paginated->appends(request()->all());
+
+        return $paginated;
     }
 }

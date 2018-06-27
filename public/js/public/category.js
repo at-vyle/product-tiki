@@ -7,17 +7,18 @@ $.ajax({
             let childsHtml = '';
             if (category.children) {
                 category.children.forEach(childsCategory => {
-                    childsHtml += '<li><a href="#">'+ childsCategory.name +'</a></li>';
+                    url = api.products_index+"?category="+childsCategory.id;
+                    childsHtml += '<li><a href="'+url+'">'+ childsCategory.name +'</a></li>';
                 });
             }
-            
+            url = api.products_index+"?category="+category.id;
             html += '<li class="dropdown">\
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">' + category.name + '<b class="caret"></b></a>\
                         <ul class="dropdown-menu multi-column columns-3">\
                             <div class="row">\
                                 <div class="multi-gd-img">\
                                     <ul class="multi-column-dropdown">\
-                                        <h6>' + category.name + '</h6>\
+                                        <a href="'+url+'"><h6>' + category.name + '</h6></a>\
                                         '+ childsHtml +'\
                                     </ul>\
                                 </div>\
