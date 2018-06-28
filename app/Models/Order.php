@@ -48,4 +48,14 @@ class Order extends Model
     {
         return $this->hasMany('App\Models\OrderDetail', 'order_id', 'id');
     }
+
+    /**
+     * Get Cancel Order of Order
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function cancelOrder()
+    {
+        return $this->belongsTo('App\Models\CancelOrder', 'order_id', 'id');
+    }
 }

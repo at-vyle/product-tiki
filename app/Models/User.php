@@ -73,6 +73,16 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Order', 'user_id', 'id');
     }
 
+    /**
+     * Get Cancel Order of User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function cancelOrder()
+    {
+        return $this->belongsTo('App\Models\CancelOrder', 'user_id', 'id');
+    }
+
     public $sortable = ['id'];
 
     /**
