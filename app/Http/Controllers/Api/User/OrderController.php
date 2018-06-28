@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
 use App\Models\Order;
-use App\Models\CancelOrder;
+use App\Models\NoteOrder;
 use Illuminate\Http\Response;
 use Auth;
 use Illuminate\Auth\AuthenticationException;
@@ -70,7 +70,7 @@ class OrderController extends ApiController
             if ($order->status != Order::UNAPPROVED) {
                 throw new \Exception(config('define.exception.cancel_approve_order'));
             }
-            CancelOrder::create([
+            NoteOrder::create([
                 'order_id' => $order->id,
                 'user_id' => $user->id,
                 'note' => request('note'),

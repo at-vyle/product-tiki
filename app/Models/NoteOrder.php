@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CancelOrder extends Model
+class NoteOrder extends Model
 {
-    protected $table = 'cancel_order';
+    protected $table = 'note_order';
 
     /**
      * The attributes that are mass assignable.
@@ -20,11 +20,11 @@ class CancelOrder extends Model
     /**
      * Get User of CancelOrder
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function user()
     {
-        return $this->hasOne('App\Models\User', 'user_id', 'id');
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
     /**
@@ -34,6 +34,6 @@ class CancelOrder extends Model
      */
     public function order()
     {
-        return $this->hasOne('App\Models\Order', 'order_id', 'id');
+        return $this->belongsTo('App\Models\Order', 'order_id', 'id');
     }
 }

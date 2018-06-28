@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class CancelOrderTableSeeder extends Seeder
+class NoteOrderTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class CancelOrderTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Models\CancelOrder', 10)->create();
+        factory('App\Models\NoteOrder', 10)->create();
     }
 }

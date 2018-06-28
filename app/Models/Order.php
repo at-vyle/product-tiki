@@ -52,10 +52,10 @@ class Order extends Model
     /**
      * Get Cancel Order of Order
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
      */
-    public function cancelOrder()
+    public function noteOrder()
     {
-        return $this->belongsTo('App\Models\CancelOrder', 'order_id', 'id');
+        return $this->hasOne('App\Models\NoteOrder', 'order_id', 'id');
     }
 }

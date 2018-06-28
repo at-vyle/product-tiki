@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCancelOrderTable extends Migration
+class CreateNoteOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCancelOrderTable extends Migration
      */
     public function up()
     {
-        Schema::create('cancel_order', function (Blueprint $table) {
+        Schema::create('note_order', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('order_id');
@@ -35,6 +35,6 @@ class CreateCancelOrderTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cancel_order');
+        Schema::dropIfExists('note_order');
     }
 }
