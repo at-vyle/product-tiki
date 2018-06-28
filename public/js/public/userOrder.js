@@ -41,12 +41,12 @@ function showOrder(url) {
           }
           actionHtml = '<td><button order_id='+ order.id +' class="btn btn-primary btn-order-detail">' + Lang.get('user.index.detail') + '</button></td>';
           if (order.status == UNAPPROVED) {
-            actionHtml += '<td><button class="btn btn-danger" orderId="' + post.id + '">' + Lang.get('common.cancel-btn') + '</button></td>';
+            actionHtml += '<td><button class="btn btn-danger" orderId="' + order.id + '">' + Lang.get('common.cancel-btn') + '</button></td>';
           } else {
             actionHtml += '<td><button class="btn btn-danger" disabled="disabled">' + Lang.get('common.cancel-btn') + '</button></td>';
           }
 
-          tableItem = '<tr id="order_' + post.id + '">' + noteHtml + totalHtml + statusHtml + actionHtml + '</tr>';
+          tableItem = '<tr id="order_' + order.id + '">' + noteHtml + totalHtml + statusHtml + actionHtml + '</tr>';
           $('#myTabContent #recent_order table tbody').append(tableItem);
         });
 
