@@ -48,6 +48,7 @@ class CommentController extends ApiController
         if ($user->id == $comments->user_id) {
             $comments->content = $request->content;
             $comments->load('user.userinfo');
+            $comments->save();
         } else {
             throw new AuthenticationException();
         }
