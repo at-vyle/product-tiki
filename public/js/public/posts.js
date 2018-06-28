@@ -89,6 +89,7 @@ function getComments(id) {
 }
 
 function getAjax(url) {
+    $('#posts-list').html('');
     $.ajax({
         url: url,
         type: "get",
@@ -136,8 +137,33 @@ function submitPost(pathName) {
     });
 }
 
-getAjax('/api' + $url + '/posts');
 $(document).ready(function() {
+    getAjax('/api' + $url + '/posts');
+    
+    $(document).on('click', '.filter-post .sort-list li', function() {
+        $(this).addClass('selected');
+        $(this).siblings().removeClass('selected');
+        $(this).closest('.filter-post').find('.title').text($(this).text());
+    });  
+
+    $(document).on('click', '.sort-type .sort-list li', function() {
+        if ($(this).text() == Lang.get('user/detail_product.review')) {
+            $('.sort-rating > button').show();
+            getAjax('/api' + $url + '/posts?type=' + TYPE_REVIEW);
+        }
+        else {
+            $('.sort-rating > button').hide();
+            getAjax('/api' + $url + '/posts?type=' + TYPE_COMMENT);
+        };       
+   
+    });
+
+    $(document).on('click', '.sort-rating .sort-list li', function() {
+        $rate = $(this).data('star');
+        
+        getAjax('/api' + $url + '/posts?rating=' + $rate);
+    });
+
     $(document).on('click', '.rating1 .starRating input', function() {
         if ($(this).attr('checked') == 'checked') {
             $(this).attr('checked', false);
