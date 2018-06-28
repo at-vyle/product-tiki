@@ -147,8 +147,7 @@ $(document).ready(function() {
     });  
 
     $(document).on('click', '.sort-type .sort-list li', function() {
-        
-        if ($(this).text() == 'Review') {
+        if ($(this).text() == Lang.get('user/detail_product.review')) {
             $('.sort-rating > button').show();
             getAjax('/api' + $url + '/posts?type=' + TYPE_REVIEW);
         }
