@@ -74,9 +74,18 @@ class CreatePostsTest extends TestCase
             'rating' => 3
         ];
 
-        $this->jsonUser('POST', 'api/products/1/posts', $posts)
+        $response = $this->jsonUser('POST', 'api/products/1/posts', $posts)
             ->assertStatus(200)
             ->assertJsonStructure($this->jsonStructureCreatePostsSuccess());
+        $data = json_decode($response->getContent())->result;
+        $compareDb = [
+            'id' => $data->id,
+            'type' => 1,
+            'content' => 'testing Content',
+            'rating' => 3,
+            'user_id' => $this->user->id
+        ];
+        $this->assertDatabaseHas('posts', $compareDb);
     }
 
     /**
