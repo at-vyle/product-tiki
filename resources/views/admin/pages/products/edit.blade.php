@@ -52,13 +52,6 @@
             </div>
 
             <div class="form-group">
-              <label for="description" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('product.create.description')</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <textarea class="resizable_textarea form-control" rows='5' name="description" id="description">{{ old('description', $product->description) }}</textarea>
-              </div>
-            </div>
-
-            <div class="form-group">
               <label for="price" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('product.create.price')
                 <span class="required">@lang('product.required')</span>
               </label>
@@ -96,6 +89,13 @@
                     <button onclick="deleteImage('{{ route('admin.api.images.destroy', ['id' => $image->id]) }}', event)" class="delete-img-btn btn-danger"><i class="fa fa-trash"></i></button>
                   </div>
                 @endforeach
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="description" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('product.create.description')</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <textarea class="resizable_textarea form-control" rows='8' name="description" id="description">{{ old('description', $product->description) }}</textarea>
               </div>
             </div>
 

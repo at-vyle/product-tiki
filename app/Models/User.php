@@ -80,7 +80,7 @@ class User extends Authenticatable
      */
     public function noteOrder()
     {
-        return $this->hasOne('App\Models\NoteOrder', 'user_id', 'id');
+        return $this->hasMany('App\Models\NoteOrder', 'user_id', 'id');
     }
 
     public $sortable = ['id'];
