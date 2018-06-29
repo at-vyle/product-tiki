@@ -17,7 +17,6 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('category_id');
             $table->string('name')->charset('utf8')->collation('utf8_unicode_ci');
-            $table->text('preview')->charset('utf8')->collation('utf8_unicode_ci');
             $table->text('description')->charset('utf8')->collation('utf8_unicode_ci');
             $table->unsignedInteger('total_rate')->default(0);
             $table->unsignedInteger('rate_count')->default(0);
