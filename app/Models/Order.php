@@ -56,6 +56,6 @@ class Order extends Model
      */
     public function noteOrder()
     {
-        return $this->hasOne('App\Models\NoteOrder', 'order_id', 'id');
+        return $this->hasMany('App\Models\NoteOrder', 'order_id', 'id');
     }
 }
