@@ -7,6 +7,9 @@ use App\Http\Controllers\Api\ApiController;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Response;
+use App\Http\Requests\UpdateCommentRequest;
+use Illuminate\Auth\AuthenticationException;
+use Auth;
 
 class CommentController extends ApiController
 {
@@ -29,5 +32,25 @@ class CommentController extends ApiController
         $data = $this->formatPaginate($comments);
 
         return $this->showAll($data, Response::HTTP_OK);
+    }
+
+    /**
+     * Delete comment
+     *
+     * @param \App\Models\Comment $comments comment to update
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Comment $comments)
+    {
+        $user = Auth::user();
+        if ($user->id == $comments->user_id) {
+            $comments->load('user.userinfo');
+            $comments->delete();
+        } else {
+            throw new AuthenticationException();
+        }
+
+        return $this->showOne($comments, Response::HTTP_OK);
     }
 }
