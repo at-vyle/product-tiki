@@ -45,6 +45,13 @@
             </div>
 
             <div class="form-group">
+              <label for="preview" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('product.create.preview')</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <textarea class="resizable_textarea form-control" rows='5' name="preview" id="preview">{{ old('preview', $product->preview) }}</textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
               <label for="description" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('product.create.description')</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <textarea class="resizable_textarea form-control" rows='5' name="description" id="description">{{ old('description', $product->description) }}</textarea>
