@@ -26,9 +26,12 @@ class PostProductRequest extends FormRequest
         return [
             'category_id' => 'required|integer|min:1|exists:categories,id',
             'name' => 'required|string|max:255',
+            'preview' => 'required|string',
+            'description' => 'required|string',
             'price' => 'required|integer|min:0',
             'quantity' => 'required|integer|min:0',
-            'input_img.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+            'input_img' => 'required',
+            'input_img.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
         ];
     }
 }
