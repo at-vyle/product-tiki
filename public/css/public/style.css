@@ -44,8 +44,8 @@ span.glyphicon.glyphicon-shopping-cart.my-cart-icon.my-cart-icon-affix {
 }
 .btn-danger {
     color: #fff;
-    background-color: #3399cc;
-    border-color: #3399cc;
+    /* background-color: #3399cc;
+    border-color: #3399cc; */
 }
 .modal-dialog {
     width: 850px;

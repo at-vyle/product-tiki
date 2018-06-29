@@ -8,6 +8,7 @@ use App\Models\Order;
 use Illuminate\Validation\ValidationException;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use App\Models\NoteOrder;
 use Illuminate\Http\Response;
 use App\Http\Requests\CreateOrderRequest;
 use Auth;
@@ -126,6 +127,11 @@ class OrderController extends ApiController
             if ($order->status != Order::UNAPPROVED) {
                 throw new \Exception(config('define.exception.cancel_approve_order'));
             }
+            NoteOrder::create([
+                'order_id' => $order->id,
+                'user_id' => $user->id,
+                'note' => request('note'),
+            ]);
             $order->status = Order::CANCELED;
             $order->save();
             return $this->showOne($order, Response::HTTP_OK);
