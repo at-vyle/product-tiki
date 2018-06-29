@@ -3,7 +3,7 @@ $( document ).ready(function() {
     if (accessToken) {
         checkLogin();
     } else {
-        $('.agile-login #header-logout').hide();
+        $('.agile-login #header-login').show();
     }
 
     $(document).on('click', '.agile-login #header-logout #btn-logout', function (event) {
@@ -34,12 +34,14 @@ function checkLogin() {
             Authorization: 'Bearer ' + accessToken,
         }),
         success: function(response) {
+            $('.agile-login #header-logout').show();
             $('.agile-login #header-login').hide();
         },
         statusCode: {
             401: function() {
                 window.localStorage.removeItem('login-token');
                 $('.agile-login #header-logout').hide();
+                $('.agile-login #header-login').show();
             }
         }
     });
