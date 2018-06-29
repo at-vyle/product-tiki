@@ -130,3 +130,28 @@
 }
 .filter {
     margin: 10px;
+}
+
+.custom-cart-submit {
+  position: absolute;
+  bottom: -25px;
+  right: 0px;;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.margin-left-10px {
+  margin-left: 10px;
+}
+
+.margin-left-10 {
+  margin-left: 10%;
+}
+
+.margin-right-10px {
+  margin-right: 10px;
+}
+
+.padding-tr-10px {
+  padding: 10px 0px;
+}

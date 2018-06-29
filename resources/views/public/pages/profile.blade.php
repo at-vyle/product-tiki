@@ -59,36 +59,70 @@
                           </div>
                           <div class="modal-body">
 
-                              <form id="demo-form2" method="POST" class="form-horizontal form-label-left">
+                              <form id="demo-form2" method="POST" class="form-horizontal form-label-left" enctype:'multipart/form-data'>
                                 <div class="form-group">
                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="full_name">{{ __('user.index.fullname') }}<span class="required">{{ __('user.index.requied') }}</span></label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="full_name" name="full_name" class="form-control col-md-7 col-xs-12">
                                   </div>
                                 </div>
+
+                                <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <div id="full_name_error" class="alert alert-danger" hidden></div>
+                                  </div>
+                                </div>
+
                                 <div class="form-group">
                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">{{ __('user.index.address') }}<span class="required">{{ __('user.index.requied') }}</span></label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="address" name="address" class="form-control col-md-7 col-xs-12">
                                   </div>
                                 </div>
+
+                                <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <div id="address_error" class="alert alert-danger" hidden></div>
+                                  </div>
+                                </div>
+
                                 <div class="form-group">
                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="phone">{{ __('user.index.phone') }}<span class="required">{{ __('user.index.requied') }}</span></label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="phone" name="phone" class="form-control col-md-7 col-xs-12">
                                   </div>
                                 </div>
+
+                                <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <div id="phone_error" class="alert alert-danger" hidden></div>
+                                  </div>
+                                </div>
+
                                 <div class="form-group">
                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="identity_card">{{ __('user.index.indentity_card') }}<span class="required">{{ __('user.index.requied') }}</span></label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="identity_card" name="identity_card" class="form-control col-md-7 col-xs-12">
                                   </div>
                                 </div>
+
+                                <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <div id="identity_card_error" class="alert alert-danger" hidden></div>
+                                  </div>
+                                </div>
+
                                 <div class="form-group">
                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="avatar">{{ __('user.index.avatar') }}</label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="file" id="avatar" name="avatar" class="form-control col-md-7 col-xs-12">
                                     <img id="img_avatar" class="avatar-view" src="" alt="">
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <div id="avatar_error" class="alert alert-danger" hidden></div>
                                   </div>
                                 </div>
 
@@ -104,9 +138,21 @@
                                 </div>
 
                                 <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <div id="gender_error" class="alert alert-danger" hidden></div>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
                                   <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ __('user.index.dob') }}</label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input id="dob" name="dob" class="form-control col-md-7 col-xs-12" type="date">
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <div id="dob_error" class="alert alert-danger" hidden></div>
                                   </div>
                                 </div>
 
@@ -221,14 +267,14 @@
                               <table id="replies" hidden class="table-subcomment col-md-offset-3 data table table-striped no-margin">
                                 <thead>
                                   <tr>
-                                    <th class="col-md-12">Content Subcomment</th>
-                                    <th class="col-md-4">Pullname</th>
+                                    <th class="col-md-10">{{ __('user/profile.replies_content_subcm') }}</th>
+                                    <th class="col-md-3">{{ __('user/profile.fullname_subcm') }}</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   <tr>
                                     <td class="replies-content"></td>
-                                    <td class="replies-name"></td>
+                                    <td class="replies-fullname"></td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -243,63 +289,28 @@
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="recent_order" aria-labelledby="profile-tab">
                           <!-- start user projects -->
+                          <div id='no-record' hidden>{{ __('user/profile.profile_non_order') }}</div>
                           <table class="data table table-striped no-margin">
                             <thead>
                               <tr>
-                                <th>#</th>
-                                <th>Project Name</th>
-                                <th>Client Company</th>
-                                <th class="hidden-phone">Hours Spent</th>
-                                <th>Contribution</th>
+                                <th class="col-md-7">{{ __('user/profile.profile_order_note') }}</th>
+                                <th class="col-md-2">{{ __('user/profile.profile_total') }}</th>
+                                <th class="col-md-2">{{ __('user/profile.profile_status') }}</th>
+                                <th class="col-md-5">{{ __('user/profile.profile_action') }}</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>1</td>
-                                <td>New Company Takeover Review</td>
-                                <td>Deveint Inc</td>
-                                <td class="hidden-phone">18</td>
-                                <td class="vertical-align-mid">
-                                  <div class="progress">
-                                    <div class="progress-bar progress-bar-success" data-transitiongoal="35"></div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>2</td>
-                                <td>New Partner Contracts Consultanci</td>
-                                <td>Deveint Inc</td>
-                                <td class="hidden-phone">13</td>
-                                <td class="vertical-align-mid">
-                                  <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" data-transitiongoal="15"></div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>3</td>
-                                <td>Partners and Inverstors report</td>
-                                <td>Deveint Inc</td>
-                                <td class="hidden-phone">30</td>
-                                <td class="vertical-align-mid">
-                                  <div class="progress">
-                                    <div class="progress-bar progress-bar-success" data-transitiongoal="45"></div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>4</td>
-                                <td>New Company Takeover Review</td>
-                                <td>Deveint Inc</td>
-                                <td class="hidden-phone">28</td>
-                                <td class="vertical-align-mid">
-                                  <div class="progress">
-                                    <div class="progress-bar progress-bar-success" data-transitiongoal="75"></div>
-                                  </div>
-                                </td>
-                              </tr>
+
                             </tbody>
                           </table>
+                          <nav class="paginate-profile">
+                            <a id="next" hidden="" href="">{{ __('user/profile.next') }}</a>
+                          </nav>
+                          <div id="order_detail" hidden>
+                            <form action="" method="post" class="form-horizontal form-label-left">
+
+                            </form>
+                          </div>
                           <!-- end user projects -->
                         </div>
                       </div>
@@ -318,4 +329,5 @@
 <script src="/js/public/profile.js"></script>
 <script src="/js/public/userProfile.js"></script>
 <script src="/js/public/userposts.js"></script>
+<script src="/js/public/userOrder.js"></script>
 @endsection

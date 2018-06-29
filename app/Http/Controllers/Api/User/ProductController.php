@@ -81,6 +81,9 @@ class ProductController extends ApiController
         }
 
         $posts = Post::with('user.userInfo')->where('product_id', $product->id)
+                ->when(isset($request->rating), function ($query) use ($request) {
+                    return $query->where('rating', '>=', $request->rating);
+                })
                 ->where('type', $type)
                 ->where('status', Post::APPROVED)->orderBy($sortBy, $order)->paginate($perPage);
         foreach ($posts as $post) {
@@ -88,6 +91,8 @@ class ProductController extends ApiController
             $createdAt = $post->created_at;
             $post['diff_time'] = $createdAt->diffForHumans(now());
         }
+
+        $posts->appends(request()->query());
 
         $data = $this->formatPaginate($posts);
         return $this->showAll($data, Response::HTTP_OK);
