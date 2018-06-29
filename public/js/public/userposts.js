@@ -64,7 +64,7 @@ function getComments(id) {
                 $('#replies-' + id).clone().attr({'style':'display:',"id":"replies-sub"+comments.id}).insertAfter('#comt-'+id);
                 $('#replies-sub'+ comments.id ).show();
                 $('#replies-sub' + comments.id + ' .replies-content').text(content);
-                $('#replies-sub' + comments.id + ' .replies-name').text(name);  
+                $('#replies-sub' + comments.id + ' .replies-fullname').text(name);  
             });
         }
     })

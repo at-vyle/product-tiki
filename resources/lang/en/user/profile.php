@@ -22,7 +22,13 @@ return [
     'edit_profile' => 'Edit Profile',
     'profile_content' => 'Content',
     'profile_product' => 'Name Product',
+    'profile_order_note' => 'Order\'s note',
     'profile_status' => 'Status',
+    'profile_total' => 'Total',
+    'profile_action' => 'Action',
+    'profile_non_order' => 'Don\'t have any Order',
     'profile_type' => 'Type',
     'profile_button_comment' => 'SubComment',
+    'replies_content_subcm' => 'Content Subcomment',
+    'fullname_subcm' => 'Fullname',
 ];
