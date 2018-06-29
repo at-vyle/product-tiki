@@ -10,6 +10,7 @@ return [
         'category' => 'Category',
         'name' => 'Name',
         'description' => 'Description',
+        'preview' => 'Preview',
         'avg_rating' => 'Avg Rating',
         'price' => 'Price',
         'status' => 'Status',
