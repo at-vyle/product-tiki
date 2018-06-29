@@ -53,7 +53,7 @@ function generatePosts(data) {
         }
         if (user && posts.user_id == user.id) {
             ownerAction = '<button class="btn btn-success edit-post margin-right-10px" data-review-id="1105262" id='+ id +'>'+ Lang.get('product.index.edit') +'</button>'+
-            '<button class="btn btn-danger delete-post margin-right-10px" data-review-id="1105262" id='+ id +'>'+ Lang.get('product.index.delete') +'</button>';
+            '<button class="btn btn-danger delete-post margin-right-10px" data-review-id="1105262" post-id=' + id + '>'+ Lang.get('product.index.delete') +'</button>';
             if (posts.type == TYPE_REVIEW) {
                 editArea = textAreaEdit(id, content, posts.type, rate);
             } else {
@@ -194,14 +194,32 @@ function submitPost(pathName) {
     });
 }
 
+function deletePost(postId) {
+    $.ajax({
+        url: '/api/posts/' + postId,
+        type: 'delete',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('login-token'),
+        },
+        success: function(response) {
+            alert(Lang.get('messages.delete_success'));
+            $('div[class="item posts"][data-id="'+ postId + '"]').remove();
+        },
+        error: function(response) {
+            alert(Lang.get('messages.delete_fail'));
+        }
+    });
+}
+
 $(document).ready(function() {
     getAjax('/api' + $url + '/posts');
-    
+
     $(document).on('click', '.filter-post .sort-list li', function() {
         $(this).addClass('selected');
         $(this).siblings().removeClass('selected');
         $(this).closest('.filter-post').find('.title').text($(this).text());
-    });  
+    });
 
     $(document).on('click', '.sort-type .sort-list li', function() {
         if ($(this).text() == Lang.get('user/detail_product.review')) {
@@ -211,13 +229,13 @@ $(document).ready(function() {
         else {
             $('.sort-rating > button').hide();
             getAjax('/api' + $url + '/posts?type=' + TYPE_COMMENT);
-        };       
-   
+        };
+
     });
 
     $(document).on('click', '.sort-rating .sort-list li', function() {
         $rate = $(this).data('star');
-        
+
         getAjax('/api' + $url + '/posts?rating=' + $rate);
     });
 
@@ -272,5 +290,12 @@ $(document).ready(function() {
 
         $(this).closest('.replies-item').find('.quick-edit').show();
         $(this).closest('.replies-item').find('.quick-edit .edit-post-comment').focus();
+    });
+
+    $(document).on('click', '.posts .description .owner-action .delete-post', function(event) {
+        event.preventDefault();
+        if (confirm(Lang.get('messages.delete_record'))) {
+            deletePost($(this).attr('post-id'));
+        }
     });
 });
