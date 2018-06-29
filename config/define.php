@@ -51,7 +51,10 @@ return [
     'login' => [
         'unauthorised' => 'Unauthorised'
     ],
+    'errors' => [
+        'notfound' => 'Model not found',
+    ],
     'exception' => [
         'cancel_approve_order' => 'Cannot Cancel APPROVED order',
-    ]
+    ],
 ];
