@@ -35,6 +35,7 @@ return [
         'table-title' => 'Create Product',
         'category' => 'Category',
         'name' => 'Name',
+        'preview' => 'Preview',
         'description' => 'Description',
         'price' => 'Price',
         'quantity' => 'Quantity',
