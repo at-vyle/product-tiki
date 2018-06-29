@@ -259,6 +259,7 @@
     <script src="/js/admin/deleteAvatar.js"></script>
     <script src="/js/messages.js"></script>
     <script src="/js/admin/main.js"></script>
+    <script src="/ckeditor/ckeditor.js"></script>
     @yield('js')
   </body>
 </html>

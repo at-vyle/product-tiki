@@ -116,4 +116,6 @@
 @endsection
 @section('js')
 <script src="/js/admin/product.js"></script>
+<script> CKEDITOR.replace('preview'); </script>
+<script> CKEDITOR.replace('description'); </script>
 @endsection

@@ -97,3 +97,7 @@
 </div>
 
 @endsection
+@section('js')
+<script> CKEDITOR.replace('preview'); </script>
+<script> CKEDITOR.replace('description'); </script>
+@endsection
