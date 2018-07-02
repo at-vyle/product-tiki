@@ -8,4 +8,5 @@ return [
     'available' => 'Available',
     'unavailable' => 'Unavailable',
     'reset' => 'Reset',
+    'edit_success' => 'Edited Successfully',
 ];
