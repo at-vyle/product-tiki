@@ -29,4 +29,6 @@ return [
     'profile_non_order' => 'Don\'t have any Order',
     'profile_type' => 'Type',
     'profile_button_comment' => 'SubComment',
+    'replies_content_subcm' => 'Content Subcomment',
+    'fullname_subcm' => 'Fullname',
 ];
