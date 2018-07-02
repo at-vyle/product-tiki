@@ -53,4 +53,26 @@ class CommentController extends ApiController
 
         return $this->showOne($comments, Response::HTTP_OK);
     }
+
+    /**
+     * Update comment
+     *
+     * @param \App\Models\Comment                    $comments comment to update
+     * @param App\Http\Requests\UpdateCommentRequest $request  request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Comment $comments, UpdateCommentRequest $request)
+    {
+        $user = Auth::user();
+        if ($user->id == $comments->user_id) {
+            $comments->content = $request->content;
+            $comments->load('user.userinfo');
+            $comments->save();
+        } else {
+            throw new AuthenticationException();
+        }
+
+        return $this->showOne($comments, Response::HTTP_OK);
+    }
 }
