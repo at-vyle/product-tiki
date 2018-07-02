@@ -33,7 +33,7 @@ class cancelOrderTest extends TestCase
      */
     public function testStatusCodeForCancelOrder()
     {
-        $response = $this->jsonUser('PUT', '/api/users/orders/1/cancel');
+        $response = $this->jsonUser('PUT', '/api/users/orders/1/cancel', ['note' => 'test']);
         $response->assertStatus(200);
     }
 
@@ -77,7 +77,8 @@ class cancelOrderTest extends TestCase
     public function testJsonStructure($url, $structure)
     {
         $cancel = [
-            '_method' => 'PUT'
+            '_method' => 'PUT',
+            'note' => 'test'
         ];
         $response = $this->jsonUser('POST', $url, $cancel);
         $response->assertJsonStructure($structure);
@@ -92,7 +93,8 @@ class cancelOrderTest extends TestCase
     public function testCompareDatabase()
     {
         $cancel = [
-            '_method' => 'PUT'
+            '_method' => 'PUT',
+            'note' => 'test'
         ];
         $response = $this->jsonUser('POST', 'api/users/orders/1/cancel', $cancel);
         $data = json_decode($response->getContent())->result;

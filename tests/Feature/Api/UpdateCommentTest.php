@@ -50,8 +50,6 @@ class UpdateCommentTest extends TestCase
                 "user_id",
                 "post_id",
                 "content",
-                "diff_time",
-                "image_path",
                 "created_at",
                 "updated_at",
                 "deleted_at",
