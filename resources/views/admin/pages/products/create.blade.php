@@ -38,9 +38,9 @@
             </div>
 
             <div class="form-group">
-              <label for="description" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('product.create.description')</label>
+              <label for="preview" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('product.create.preview')</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <textarea class="resizable_textarea form-control" rows='5' name="description" id="description">{{ old('description') }}</textarea>
+                <textarea class="resizable_textarea form-control" rows='5' name="preview" id="preview" required="required">{{ old('preview') }}</textarea>
               </div>
             </div>
 
@@ -74,10 +74,17 @@
               </div>
             </div>
 
+            <div class="form-group">
+              <label for="description" class="control-label col-md-3 col-sm-3 col-xs-12">@lang('product.create.description')</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <textarea class="resizable_textarea form-control" rows='8' name="description" id="description" required="required">{{ old('description') }}</textarea>
+              </div>
+            </div>
+
             <div class="ln_solid"></div>
             <div class="form-group">
               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                <button class="btn btn-primary" type="button">@lang('common.cancel-btn')</button>
+                <a href="{{ route('admin.products.index') }}" class="btn btn-primary">@lang('common.cancel-btn')</a>
                 <button type="submit" class="btn btn-success">@lang('product.create.create')</button>
               </div>
             </div>

@@ -9,11 +9,12 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\AuthenticationException;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use App\Models\NoteOrder;
 use Illuminate\Http\Response;
 use App\Http\Requests\CreateOrderRequest;
 use Auth;
-use Exception;
 use Validator;
+use Exception;
 
 class OrderController extends ApiController
 {
@@ -70,26 +71,73 @@ class OrderController extends ApiController
     {
         $user = Auth::user();
 
-        $order = Order::create([
-            'user_id' => $user->id
-        ]);
-
-        $total = 0;
+        $products = [];
+        $errors = [];
 
         foreach ($request->products as $input) {
-            $input['product_price'] = Product::find($input['id'])->price;
-            $input['product_id'] = $input['id'];
-            $input['order_id'] = $order->id;
-            unset($input['id']);
-            unset($input['price']);
-            OrderDetail::create($input);
-            $total += $input['product_price'] * $input['quantity'];
+            $product = Product::find($input['id']);
+            if ((int) $input['quantity'] <= $product->quantity) {
+                $input['product_price'] = $product->price;
+                array_push($products, $input);
+            } else {
+                $error = $product->name . ': ' . config('define.product.exceed_quantity');
+                array_push($errors, $error);
+            }
         }
 
-        $order->fill(['total' => $total]);
-        $order->load('orderDetails');
+        if (count($products)) {
+            $order = Order::create([
+                'user_id' => $user->id
+            ]);
 
-        return $this->showOne($order, Response::HTTP_OK);
+            $total = 0;
+
+            foreach ($products as $input) {
+                $input['product_id'] = $input['id'];
+                $input['order_id'] = $order->id;
+                unset($input['id']);
+
+                OrderDetail::create($input);
+                $total += $input['product_price'] * $input['quantity'];
+            }
+
+            $order->total = $total;
+            $order->save();
+            $order->load('orderDetails');
+        } else {
+            return $this->errorResponse($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        $data['order'] = $order;
+        $data['errors'] = $errors;
+        return $this->successResponse($data, Response::HTTP_OK);
+    }
+
+    /**
+     * Update status order.
+     *
+     * @param \App\Models\Order $order order
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cancel(Order $order)
+    {
+        $user = Auth::user();
+
+        if ($user->id == $order->user_id) {
+            if ($order->status != Order::UNAPPROVED) {
+                throw new \Exception(config('define.exception.cancel_approve_order'));
+            }
+            NoteOrder::create([
+                'order_id' => $order->id,
+                'user_id' => $user->id,
+                'note' => request('note'),
+            ]);
+            $order->status = Order::CANCELED;
+            $order->save();
+            return $this->showOne($order, Response::HTTP_OK);
+        } else {
+            throw new AuthenticationException();
+        }
     }
 
     /**
@@ -107,27 +155,52 @@ class OrderController extends ApiController
             if ($order->status != Order::UNAPPROVED) {
                 throw new \Exception(config('define.exception.change_approve_order'));
             }
-            $total = 0;
-            $updatedProduct = [];
+
+            $products = [];
+            $errors = [];
+
             if ($request->products) {
                 foreach ($request->products as $input) {
+                    $product = Product::find($input['id']);
+                    if ((int) $input['quantity'] <= $product->quantity) {
+                        $input['product_price'] = $product->price;
+                        array_push($products, $input);
+                    } else {
+                        $error = $product->name . ': ' . config('define.product.exceed_quantity');
+                        array_push($errors, $error);
+                    }
+                }
+                $deleted = OrderDetail::where('order_id', $order->id)->whereNotIn('product_id', array_pluck($request->products, 'id'))->delete();
+            } else {
+                $deleted = OrderDetail::where('order_id', $order->id)->delete();
+            }
+
+
+            $total = 0;
+
+            if (count($products)) {
+                foreach ($products as $input) {
                     $input['product_id'] = $input['id'];
                     $input['order_id'] = $order->id;
                     $product = OrderDetail::where('order_id', $order->id)->where('product_id', $input['product_id'])->first();
-                    array_push($updatedProduct, $input['id']);
+
                     $product->quantity = $input['quantity'];
                     $input['product_price'] = $product->product_price;
                     $product->save();
 
                     $total += $input['product_price'] * $input['quantity'];
                 }
+            } elseif (!$deleted) {
+                return $this->errorResponse($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
             }
-            OrderDetail::where('order_id', $order->id)->whereNotIn('product_id', $updatedProduct)->delete();
+
             $order->total = $total;
             $order->save();
             $order->load('orderDetails');
 
-            return $this->showOne($order, Response::HTTP_OK);
+            $data['order'] = $order;
+            $data['errors'] = $errors;
+            return $this->successResponse($data, Response::HTTP_OK);
         } else {
             throw new AuthentictionException();
         }

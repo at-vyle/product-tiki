@@ -3,10 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Order;
-use App\Models\Product;
 
-class CreateOrderRequest extends FormRequest
+class UpdateCommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +24,7 @@ class CreateOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'products.*.quantity' => 'numeric',
+            'content' => 'required|string',
         ];
     }
 }

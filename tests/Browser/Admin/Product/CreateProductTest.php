@@ -35,6 +35,7 @@ class CreateProductTest extends DuskTestCase
                     ->assertSee('Create Product')
                     ->select('category_id')
                     ->type('name', 'Iphone')
+                    ->type('preview', 'This is a Smart Phone')
                     ->type('description', 'This is a Smart Phone')
                     ->type('price', '10000000')
                     ->type('quantity', '100')
