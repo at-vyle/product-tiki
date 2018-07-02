@@ -56,7 +56,7 @@
                       </a>
                     @endif
                   </th>
-                  <th class="column-title col-md-3"> @lang('product.index.description') </th>
+                  <th class="column-title col-md-3"> @lang('product.index.preview') </th>
                   <th class="column-title"> @lang('product.create.quantity')
                     @if (app('request')->input('sortBy') == trans('product.index.sort_by_quantity') && app('request')->input('dir') == trans('product.index.dir_desc'))
                       <a id="sort-quantity-asc" href="{{ route('admin.products.index', ['content' => request('content'), 'page' => request('page'), 'sortBy' => trans('product.index.sort_by_quantity'), 'dir' => trans('product.index.dir_asc')]) }}">
@@ -112,7 +112,7 @@
                   <tr class="odd pointer">
                     <td class=" ">{{ $product->name }}</td>
                     <td class=" ">{{ $product->category->name }}</td>
-                    <td class=" "><p class="description-text">{{ $product->description }}</p></td>
+                    <td class=" "><p class="description-text">{{ $product->preview }}</p></td>
                     <td class=" ">{{ $product->quantity }}</td>
                     <td class=" ">{{ $product->avg_rating }}</td>
                     <td class=" ">{{ number_format($product->price) }}</td>

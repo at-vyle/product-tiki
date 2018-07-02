@@ -3,19 +3,23 @@ const TYPE_REVIEW = 1;
 const TYPE_COMMENT = 2;
 var user;
 
-function textAreaEdit(id, content, type = TYPE_COMMENT, starRating = 5) {
+function textAreaEdit(id, content, type = TYPE_COMMENT, starRating = maxStar) {
     let starRatingHtml = '';
     if (type == TYPE_REVIEW) {
         starRatingHtml = $('#star-rating').clone();
-        starRatingHtml.find('input[value="' + starRating + '"]').attr('checked', 'checked');
-        starRatingHtml = starRatingHtml.wrap("<div />").parent().html();
+        for (let index = 1; index <= maxStar; index++) {
+            starRatingHtml.find('input[id="rating' + index + '"]').prop('id', 'rating' + index + '-' + id).prop('name', 'rating-' + id);
+            starRatingHtml.find('label[for="rating' + index + '"]').prop('for', 'rating' + index + '-' + id);
+        }
+        starRatingHtml.find('input[id="rating' + starRating + '-' + id + '"]').attr('checked', true);
+        starRatingHtml = starRatingHtml.wrap('<div id="star-rating"><div/>').parent().html();
     }
     let textAreaHtml = '<div class="quick-edit padding-tr-10px" hidden>'+
                             starRatingHtml+
                             '<textarea class="form-control edit-post-comment" placeholder="'+ Lang.get('user/detail_product.placeholder_input') +'" rows="5">' + content + '</textarea><span class="help-block text-left"></span>'+
                             '<div id="replies-errors-' + id + '" class="alert alert-danger" hidden></div>'+
                             '<div class="alert alert-info" hidden></div>'+
-                            '<button id="' + id + '" class="btn btn-primary btn_edit margin-right-10px">'+ Lang.get('user/detail_product.send') +'</button>'+
+                            '<button id="comment-' + id + '" class="btn btn-primary btn_edit margin-right-10px">'+ Lang.get('user/detail_product.send') +'</button>'+
                             '<button type="button" class="btn btn-default js-quick-edit-hide margin-right-10px">'+ Lang.get('user/detail_product.cancel') +'</button>'+
                         '</div>';
     return textAreaHtml;
@@ -36,13 +40,8 @@ function generatePosts(data) {
         let stars = '';
         let editArea = '';
         let ownerAction = '';
-        if (user && posts.user_id == user.id) {
-            ownerAction = '<button class="btn btn-success edit-post margin-right-10px" data-review-id="1105262" id='+ id +'>'+ Lang.get('product.index.edit') +'</button>'+
-                          '<button class="btn btn-danger delete-post margin-right-10px" data-review-id="1105262" id='+ id +'>'+ Lang.get('product.index.delete') +'</button>';
-        }
+        let rate = Math.round(posts.rating);
         if (posts.type == TYPE_REVIEW) {
-            let rate = Math.round(posts.rating);
-            editArea = textAreaEdit(id, content, posts.type, rate);
             for (i = 1; i <= 5; i++) {
                 if (i <= rate) {
                     stars += '<i class="fa fa-star blue-star" aria-hidden="true"></i>';
@@ -50,6 +49,15 @@ function generatePosts(data) {
                 else {
                     stars += '<i class="fa fa-star black-star" aria-hidden="true"></i>'
                 }
+            }
+        }
+        if (user && posts.user_id == user.id) {
+            ownerAction = '<button class="btn btn-success edit-post margin-right-10px" data-review-id="1105262" id='+ id +'>'+ Lang.get('product.index.edit') +'</button>'+
+            '<button class="btn btn-danger delete-post margin-right-10px" data-review-id="1105262" id='+ id +'>'+ Lang.get('product.index.delete') +'</button>';
+            if (posts.type == TYPE_REVIEW) {
+                editArea = textAreaEdit(id, content, posts.type, rate);
+            } else {
+                editArea = textAreaEdit(id, content);
             }
         }
         html += '<div class="item posts" data-id="' + id + '" itemprop="review" itemtype="http://schema.org/Review">'+
@@ -106,10 +114,11 @@ function getComments(id) {
                 let name = comments.user.user_info.full_name;
                 let content = comments.content;
                 let ownerAction = '';
-                let editArea = textAreaEdit('comment-'+comments.id, content, TYPE_COMMENT);
+                let editArea = '';
                 if (user && comments.user_id == user.id) {
-                    ownerAction = '<button class="btn btn-success edit-comment margin-right-10px" data-review-id="1105262" comment-id='+ comments.id +'>'+ Lang.get('product.index.edit') +'</button>'+
-                                  '<button onclick="deleteComment()" class="btn btn-danger delete-comment margin-right-10px" data-review-id="1105262" comment-id='+ comments.id +'>'+ Lang.get('product.index.delete') +'</button>';
+                    editArea = textAreaEdit(comments.id, content);
+                    ownerAction = '<button class="btn btn-success edit-comment margin-right-10px" data-review-id="1105262" id='+ comments.id +'>'+ Lang.get('product.index.edit') +'</button>'+
+                                  '<button class="btn btn-danger delete-comment margin-right-10px" data-review-id="1105262" id='+ comments.id +'>'+ Lang.get('product.index.delete') +'</button>';
                 }
                 html += '<div id="replies-item-'+ comments.id +'" class="replies-item padding-tr-10px">\
                             <div class="rep-info-user">\
@@ -137,6 +146,7 @@ function getComments(id) {
 }
 
 function getAjax(url) {
+    $('#posts-list').html('');
     $.ajax({
         url: url,
         type: "get",
@@ -184,15 +194,40 @@ function submitPost(pathName) {
     });
 }
 
-getAjax('/api' + $url + '/posts');
 $(document).ready(function() {
+    getAjax('/api' + $url + '/posts');
+    
+    $(document).on('click', '.filter-post .sort-list li', function() {
+        $(this).addClass('selected');
+        $(this).siblings().removeClass('selected');
+        $(this).closest('.filter-post').find('.title').text($(this).text());
+    });  
+
+    $(document).on('click', '.sort-type .sort-list li', function() {
+        if ($(this).text() == Lang.get('user/detail_product.review')) {
+            $('.sort-rating > button').show();
+            getAjax('/api' + $url + '/posts?type=' + TYPE_REVIEW);
+        }
+        else {
+            $('.sort-rating > button').hide();
+            getAjax('/api' + $url + '/posts?type=' + TYPE_COMMENT);
+        };       
+   
+    });
+
+    $(document).on('click', '.sort-rating .sort-list li', function() {
+        $rate = $(this).data('star');
+        
+        getAjax('/api' + $url + '/posts?rating=' + $rate);
+    });
+
     $(document).on('click', '.rating1 .starRating input', function() {
         if ($(this).attr('checked') == 'checked') {
             $(this).attr('checked', false);
-            $(this).siblings().attr('checked', false);
+            $(this).siblings('input').attr('checked', false);
         } else {
             $(this).attr('checked', true);
-            $(this).siblings().attr('checked', false);
+            $(this).siblings('input').attr('checked', false);
         }
     });
 
@@ -273,10 +308,11 @@ $(document).ready(function() {
         }
     });
 });
-function deleteComment() {
-    $(document).on('click', '.delete-comment', function() {
-        var commentId = $(this).attr('comment-id');
-        confirm(Lang.get('messages.delete_record'));
+
+$(document).on('click', '.delete-comment', function() {
+    var commentId = $(this).attr('id');
+    var msgDelete = confirm(Lang.get('messages.delete_record'));
+    if (msgDelete) {
         $.ajax({
             url: '/api/comments/' + commentId,
             type: 'DELETE',
@@ -285,11 +321,13 @@ function deleteComment() {
                 'Authorization': 'Bearer ' + accessToken,
             },
             success: function(result) {
-                $('#replies-item-'+commentId).remove();
+                alert(Lang.get('messages.delete_success'));
+                $('#replies-item-'+commentId).remove();               
             },
             error: function(result) {
-                alert(result.responseJSON.error);
+                alert(result.responseJSON.message);
             }
         });
-    })
-}
+    }
+})
+

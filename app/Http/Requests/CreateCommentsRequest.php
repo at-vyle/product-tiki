@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCommentRequest extends FormRequest
+class CreateCommentsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ class UpdateCommentRequest extends FormRequest
     {
         return true;
     }
-    
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +24,7 @@ class UpdateCommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|string',
+            'content'  => 'required|string',
         ];
     }
 }
