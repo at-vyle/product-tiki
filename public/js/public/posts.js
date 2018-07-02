@@ -87,8 +87,8 @@ function generatePosts(data) {
                         '</div>'+
                         '<div class="quick-reply padding-tr-10px">'+
                             '<textarea class="form-control review_comment" placeholder="'+ Lang.get('user/detail_product.placeholder_input') +'" rows="5"></textarea><span class="help-block text-left"></span>'+
-                            '<button type="button" class="btn btn-primary btn_add_comment" data-review-id="1105262">'+ Lang.get('user/detail_product.send') +'</button>'+
-                            '<button type="button" class="btn btn-default js-quick-reply-hide">'+ Lang.get('user/detail_product.cancel') +'</button>'+
+                            '<button class="btn btn-primary btn_add_comment" data-review-id="1105262">'+ Lang.get('user/detail_product.send') +'</button>'+
+                            '<button class="btn btn-default js-quick-reply-hide">'+ Lang.get('user/detail_product.cancel') +'</button>'+
                         '</div>'+
                         '<div id="replies'+id+'"></div>'+
                     '</div>'+
@@ -117,10 +117,10 @@ function getComments(id) {
                 let editArea = '';
                 if (user && comments.user_id == user.id) {
                     editArea = textAreaEdit(comments.id, content);
-                    ownerAction = '<button class="btn btn-success edit-comment margin-right-10px" data-review-id="1105262" id='+ id +'>'+ Lang.get('product.index.edit') +'</button>'+
-                                  '<button class="btn btn-danger delete-comment margin-right-10px" data-review-id="1105262" id='+ id +'>'+ Lang.get('product.index.delete') +'</button>';
+                    ownerAction = '<button class="btn btn-success edit-comment margin-right-10px" data-review-id="1105262" id='+ comments.id +'>'+ Lang.get('product.index.edit') +'</button>'+
+                                  '<button class="btn btn-danger delete-comment margin-right-10px" data-review-id="1105262" id='+ comments.id +'>'+ Lang.get('product.index.delete') +'</button>';
                 }
-                html += '<div class="replies-item padding-tr-10px">\
+                html += '<div id="replies-item-'+ comments.id +'" class="replies-item padding-tr-10px">\
                             <div class="rep-info-user">\
                                 <p class="replies-image rep-custom">\
                                     <img src="'+ url + image +'">\
@@ -274,3 +274,26 @@ $(document).ready(function() {
         $(this).closest('.replies-item').find('.quick-edit .edit-post-comment').focus();
     });
 });
+
+$(document).on('click', '.delete-comment', function() {
+    var commentId = $(this).attr('id');
+    var msgDelete = confirm(Lang.get('messages.delete_record'));
+    if (msgDelete) {
+        $.ajax({
+            url: '/api/comments/' + commentId,
+            type: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken,
+            },
+            success: function(result) {
+                alert(Lang.get('messages.delete_success'));
+                $('#replies-item-'+commentId).remove();               
+            },
+            error: function(result) {
+                alert(result.responseJSON.message);
+            }
+        });
+    }
+})
+
