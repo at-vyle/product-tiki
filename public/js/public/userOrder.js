@@ -103,12 +103,19 @@ function showOrderDetail(url) {
 }
 
 function cancelOrder(orderId) {
+  let note = '';
+  if ($('#note_cancel_order .modal-body #note').val()) {
+    note = $('#note_cancel_order .modal-body #note').val();
+  }
   $.ajax({
     url: 'api/users/orders/' + orderId + '/cancel',
     type: "put",
     headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + accessToken
+    },
+    data: {
+      note: note,
     },
     success: function(response) {
       $('#myTabContent #recent_order tbody tr[id="order_' + response.result.id + '"] .status').html(Lang.get('common.cancel'));
@@ -129,7 +136,8 @@ $(document).ready(function() {
   $(document).on('click', '#myTabContent #recent_order tbody button[orderId]', function(event) {
     event.preventDefault();
     if (confirm(Lang.get('user/profile.cancel_order_confirm'))) {
-      cancelOrder($(this).attr('orderId'));
+      $('#note_cancel_order .modal-body #note_cancel_order_submit').attr('order-id', $(this).attr('orderId'));
+      $('#note_cancel_order').modal('show');
     }
   });
 
@@ -153,5 +161,10 @@ $(document).ready(function() {
     } else {
       $('#myTabContent #recent_order .paginate-profile #next').hide();
     }
+  });
+
+  $(document).on('click', '#note_cancel_order .modal-body input[id="note_cancel_order_submit"][order-id]', function(event) {
+    event.preventDefault();
+    cancelOrder($(this).attr('order-id'));
   });
 });
