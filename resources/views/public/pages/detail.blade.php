@@ -74,7 +74,7 @@
           <input type="hidden" name="productset_id" value="58" id="productset_id">
           <div class="rate form-group has-feedback" id="rating_wrapper">
             <label>1. @lang('user/detail_product.rating_message'):</label>
-            <div class="rating1">
+            <div id='star-rating' class="rating1">
               <span class="starRating">
                 <input id="rating5" type="radio" name="rating" value="5">
                 <label for="rating5">5</label>
@@ -109,25 +109,22 @@
         <div id="product-review-box">
       <div data-reactroot="">
       <div class="review-filter">
-        <span>Chọn xem nhận xét</span>
-        <div class="btn-group dropdown">
-          <button class="btn btn-default btn-sm dropdown-toggle font-14" type="button" data-toggle="dropdown" aria-expanded="false"><span class="title">Hữu ích</span><span class="caret"></span></button>
+        <span>{{ __('user/detail_product.let_see_review') }}</span>
+        <div class="btn-group dropdown filter-post sort-type">
+          <button class="btn btn-default btn-sm dropdown-toggle font-14" type="button" data-toggle="dropdown" aria-expanded="false"><span class="title">{{ __('user/detail_product.review') }}</span><span class="caret"></span></button>
           <ul class="sort-list dropdown-menu" role="menu">
-            <li class="selected" data-parent-index="0" data-index="0"><a href="javascript:void(0);">Hữu ích</a></li>
-            <li class="" data-parent-index="0" data-index="1"><a href="javascript:void(0);">Mới nhất</a></li>
+            <li class="selected"><a href="javascript:void(0);">{{ __('user/detail_product.review') }}</a></li>
+            <li class=""><a href="javascript:void(0);">{{ __('user/detail_product.comment') }}</a></li>
           </ul>
         </div>
-        <div class="btn-group dropdown">
-          <button class="btn btn-default btn-sm dropdown-toggle font-14" type="button" data-toggle="dropdown" aria-expanded="false"><span class="title">Tất cả sao</span><span class="caret"></span></button>
+        <div class="btn-group dropdown filter-post sort-rating">
+          <button class="btn btn-default btn-sm dropdown-toggle font-14" type="button" data-toggle="dropdown" aria-expanded="false"><span class="title">{{ __('user/detail_product.five_star') }}</span><span class="caret"></span></button>
           <ul class="sort-list dropdown-menu" role="menu">
-            <li class="selected" data-parent-index="2" data-index="0"><a href="javascript:void(0);">Tất cả sao</a></li>
-            <li class="" data-parent-index="2" data-index="1"><a href="javascript:void(0);">5 sao</a></li>
-            <li class="" data-parent-index="2" data-index="2"><a href="javascript:void(0);">4 sao</a></li>
-            <li class="" data-parent-index="2" data-index="3"><a href="javascript:void(0);">3 sao</a></li>
-            <li class="" data-parent-index="2" data-index="4"><a href="javascript:void(0);">2 sao</a></li>
-            <li class="" data-parent-index="2" data-index="5"><a href="javascript:void(0);">1 sao</a></li>
-            <li class="" data-parent-index="2" data-index="6"><a href="javascript:void(0);">Hài lòng</a></li>
-            <li class="" data-parent-index="2" data-index="7"><a href="javascript:void(0);">Chưa hài lòng</a></li>
+            <li class="selected" data-star="5"><a href="javascript:void(0);">{{ __('user/detail_product.five_star') }}</a></li>
+            <li class="" data-star="4"><a href="javascript:void(0);">{{ __('user/detail_product.four_star') }}</a></li>
+            <li class="" data-star="3"><a href="javascript:void(0);">{{ __('user/detail_product.three_star') }}</a></li>
+            <li class="" data-star="2"><a href="javascript:void(0);">{{ __('user/detail_product.two_star') }}</a></li>
+            <li class="" data-star="1"><a href="javascript:void(0);">{{ __('user/detail_product.one_star') }}</a></li>
           </ul>
         </div>
       </div>

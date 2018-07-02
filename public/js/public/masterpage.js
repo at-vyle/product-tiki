@@ -3,7 +3,7 @@ $( document ).ready(function() {
     if (accessToken) {
         checkLogin();
     } else {
-        $('.agile-login #header-logout').hide();
+        $('.agile-login #header-login').show();
     }
 
     $(document).on('click', '.agile-login #header-logout #btn-logout', function (event) {
@@ -18,6 +18,7 @@ $( document ).ready(function() {
                 type: "post",
                 success: function (response) {
                     localStorage.removeItem('login-token');
+                    localStorage.removeItem('userLogin');
                     window.location.reload();
                 }
             });
@@ -73,12 +74,16 @@ function checkLogin() {
             Authorization: 'Bearer ' + accessToken,
         }),
         success: function(response) {
+            $('.agile-login #header-logout').show();
             $('.agile-login #header-login').hide();
+            localStorage.setItem('userLogin', JSON.stringify(response.result));
         },
         statusCode: {
             401: function() {
                 window.localStorage.removeItem('login-token');
+                localStorage.removeItem('userLogin');
                 $('.agile-login #header-logout').hide();
+                $('.agile-login #header-login').show();
             }
         }
     });

@@ -11,4 +11,12 @@ return [
     'post_message' => 'Your comment on this product',
     'btn_send_cmt' => 'Send Comment',
     'send_success' => 'Your comment is sended',
+    'let_see_review' => 'Check out the review',
+    'comment' => 'Comment',
+    'review' => 'Review',
+    'one_star' => 'One Star',
+    'two_star' => 'Two Stars',
+    'three_star' => 'Three Stars',
+    'four_star' => 'Four Stars',
+    'five_star' => 'Five Stars',
 ];

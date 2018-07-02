@@ -1,12 +1,9 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Order;
-use App\Models\Product;
 
-class CreateOrderRequest extends FormRequest
+class UpdatePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +23,9 @@ class CreateOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'products.*.quantity' => 'numeric',
+            'type'     => 'required|numeric|min:1|max:2',
+            'rating'   => 'numeric|min:1|max:5',
+            'content'  => 'required|string',
         ];
     }
 }
