@@ -82,9 +82,11 @@ class PostController extends ApiController
             $input = $request->only('type', 'rating', 'content');
             if ($input['type'] == Post::TYPE_REVIEW) {
                 $input['rating'] = $request->rating;
-                $product->total_rate -= $post->rating;
-                $product->rate_count--;
-                $product->save();
+                if ($post->status != POST::UNAPPROVED) {
+                    $product->total_rate -= $post->rating;
+                    $product->rate_count--;
+                    $product->save();
+                }
             }
             $input['status'] = Post::UNAPPROVED;
             $post->update($input);

@@ -36,6 +36,7 @@ Route::group(['as' => 'api.', 'namespace' => 'Api\User'], function () {
     Route::post('login', 'LoginController@login');
     Route::post('register', 'LoginController@register');
     Route::group(['middleware' => 'auth:api'], function(){
+        Route::put('comments/{comments}', 'CommentController@update');
         Route::delete('comments/{comments}', 'CommentController@delete');
         Route::post('details', 'LoginController@details');
         Route::post('logout', 'LoginController@logout');
