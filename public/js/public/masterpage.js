@@ -48,7 +48,16 @@ $(document).on('click', '#submit-cart', function (event) {
         }),
         data: {'products': data},
         success: function(response) {
-            alert(Lang.get('user/cart.submit_success'));
+            alertStr = '';
+
+            if (typeof response.result.errors != undefined) {
+                response.result.errors.forEach(error => {
+                    alertStr += error + '\n';
+                });
+            } else {
+                alertStr = Lang.get('user/cart.submit_success');
+            }
+            alert(alertStr);
             localStorage.removeItem('PPMiniCart');
             window.location.href = '/profile';
         },
@@ -59,7 +68,11 @@ $(document).on('click', '#submit-cart', function (event) {
                 window.location.pathname = '/login';
             },
             422: function (response) {
-                alert(Lang.get('user/cart.quantity_exceed'));
+                alertStr = '';
+                response.responseJSON.error.forEach(error => {
+                    alertStr += error + '\n';
+                })
+                alert(alertStr);
             }
         }
     });
