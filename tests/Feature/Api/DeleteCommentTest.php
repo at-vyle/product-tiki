@@ -50,8 +50,6 @@ class DeleteCommentTest extends TestCase
                 "user_id",
                 "post_id",
                 "content",
-                "diff_time",
-                "image_path",
                 "created_at",
                 "updated_at",
                 "deleted_at",
@@ -100,7 +98,7 @@ class DeleteCommentTest extends TestCase
      *
      * @return void
      */
-    public function testStuctureCode()
+    public function testStructureCode()
     {
         $this->jsonUser('DELETE', 'api/comments/1')
             ->assertJsonStructure($this->jsonStructureDeleteComment());

@@ -74,7 +74,7 @@
           <input type="hidden" name="productset_id" value="58" id="productset_id">
           <div class="rate form-group has-feedback" id="rating_wrapper">
             <label>1. @lang('user/detail_product.rating_message'):</label>
-            <div class="rating1">
+            <div id='star-rating' class="rating1">
               <span class="starRating">
                 <input id="rating5" type="radio" name="rating" value="5">
                 <label for="rating5">5</label>
