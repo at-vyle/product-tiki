@@ -159,7 +159,17 @@ $(document).ready(function() {
         }),
         data: {'products': data, '_method': 'PUT'},
         success: function(response) {
-            showOrderDetail('api/orders/'+order_id);
+            alertStr = '';
+
+            if (typeof response.result.errors != undefined) {
+               response.result.errors.forEach(error => {
+                   alertStr += error + '\n';
+               });
+           } else {
+               alertStr = Lang.get('user/cart.submit_success');
+           }
+           alert(alertStr);
+           showOrderDetail('api/orders/'+order_id);
         },
         statusCode: {
             401: function() {
@@ -168,7 +178,11 @@ $(document).ready(function() {
                 window.location.pathname = '/login';
             },
             422: function (response) {
-                alert(Lang.get('user/cart.quantity_exceed'));
+                alertStr = '';
+                response.responseJSON.error.forEach(error => {
+                    alertStr += error + '\n';
+                })
+                alert(alertStr);
             }
         }
     });
