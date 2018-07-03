@@ -19,7 +19,7 @@ function textAreaEdit(id, content, type = TYPE_COMMENT, starRating = maxStar) {
                             '<textarea class="form-control edit-post-comment" placeholder="'+ Lang.get('user/detail_product.placeholder_input') +'" rows="5">' + content + '</textarea><span class="help-block text-left"></span>'+
                             '<div id="replies-errors-' + id + '" class="alert alert-danger" hidden></div>'+
                             '<div class="alert alert-info" hidden></div>'+
-                            '<button type="button" class="btn btn-primary btn_edit margin-right-10px">'+ Lang.get('user/detail_product.send') +'</button>'+
+                            '<button id="comment-' + id + '" class="btn btn-primary btn_edit margin-right-10px">'+ Lang.get('user/detail_product.send') +'</button>'+
                             '<button type="button" class="btn btn-default js-quick-edit-hide margin-right-10px">'+ Lang.get('user/detail_product.cancel') +'</button>'+
                         '</div>';
     return textAreaHtml;
@@ -130,8 +130,8 @@ function getComments(id) {
                             <div class="text-area-edit-comment margin-left-10">\
                             ' + editArea + '\
                             </div>\
-                            <p class="replies-text">\
-                                <span>'+ content + '</span>\
+                            <p id="replies-text-'+ comments.id +'" class="replies-text">\
+                              <span id="com-content-'+ comments.id + '">'+ content + '</span>\
                             </p>\
                             <div class="comment-owner-action margin-left-10  padding-tr-10px">\
                             ' + ownerAction + '\
@@ -272,6 +272,40 @@ $(document).ready(function() {
 
         $(this).closest('.replies-item').find('.quick-edit').show();
         $(this).closest('.replies-item').find('.quick-edit .edit-post-comment').focus();
+    });
+
+    $(document).on('click', '.quick-edit .btn_edit', function(event) {
+        event.preventDefault();
+        let id = $(this).attr('id');
+        let data = id.split('-');
+        if (data[0] == 'comment') {
+            $.ajax({
+                url: '/api/comments/' + data[1],
+                type: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + accessToken,
+                },
+                data: {             
+                    content: $('#replies-item-' + data[1] + ' textarea').val(),
+                },
+                success: function(response) {
+                    $('.quick-edit').hide();
+                    $('#replies-item-' + data[1] + ' #replies-text-' + data[1]).html(response.result.content);
+                    $('#replies-item-' + data[1] + ' #replies-text-' + data[1]).show();
+                    $('.comment-owner-action').show();
+                },
+                error: function(response) {
+                    errorMessage = response.responseJSON.message + '<br/>';
+                    if (response.responseJSON.errors) {
+                        errors = Object.keys(response.responseJSON.errors);
+                        errors.forEach(error => {
+                            errorMessage += response.responseJSON.errors[error] + '<br/>';
+                        });
+                    }
+                }
+            });
+        }
     });
 });
 

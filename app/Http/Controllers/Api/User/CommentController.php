@@ -36,6 +36,26 @@ class CommentController extends ApiController
     }
 
     /**
+     * Delete comment
+     *
+     * @param \App\Models\Comment $comments comment to delete
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Comment $comments)
+    {
+        $user = Auth::user();
+        if ($user->id == $comments->user_id) {
+            $comments->load('user.userinfo');
+            $comments->delete();
+        } else {
+            throw new AuthenticationException();
+        }
+
+        return $this->showOne($comments, Response::HTTP_OK);
+    }
+
+    /**
      * Update comment
      *
      * @param \App\Models\Comment                    $comments comment to update
@@ -56,35 +76,14 @@ class CommentController extends ApiController
 
         return $this->showOne($comments, Response::HTTP_OK);
     }
-
     /**
-     * Delete comment
+     * Display a listing of the resource.
      *
-     * @param \App\Models\Comment $comments comment to update
+     * @param \App\Models\Post                         $post    post to get commments
+     * @param \App\Http\Requests\CreateCommentsRequest $request request
      *
      * @return \Illuminate\Http\Response
      */
-    public function delete(Comment $comments)
-    {
-        $user = Auth::user();
-        if ($user->id == $comments->user_id) {
-            $comments->load('user.userinfo');
-            $comments->delete();
-        } else {
-            throw new AuthenticationException();
-        }
-
-        return $this->showOne($comments, Response::HTTP_OK);
-    }
-
-   /**
-    * Display a listing of the resource.
-    *
-    * @param \App\Models\Post                         $post    post to get commments
-    * @param \App\Http\Requests\CreateCommentsRequest $request request
-    *
-    * @return \Illuminate\Http\Response
-    */
     public function store(Post $post, CreateCommentsRequest $request)
     {
         $user = Auth::user();
