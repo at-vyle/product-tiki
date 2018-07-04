@@ -90,7 +90,7 @@ class OrderListTest extends DuskTestCase
                     ->visit('/admin/orders/1')
                     ->select('order-status', \App\Models\Order::APPROVED)
                     ->acceptDialog()
-                    ->pause(1000)
+                    ->pause(4000)
                     ->assertSee('Updated');
             $this->assertDatabaseHas('orders', [
                 'id' => 1,

@@ -24,29 +24,29 @@ function showOrder(url) {
           totalHtml = '<td>' + order.total.toLocaleString() + '</td>';
           switch (order.status) {
             case UNAPPROVED:
-              statusHtml = '<td>' + Lang.get('common.pending') + '</td>';
+              statusHtml = '<td class="status">' + Lang.get('common.pending') + '</td>';
               break;
             case APPROVED:
-              statusHtml = '<td>' + Lang.get('common.approve') + '</td>';
+              statusHtml = '<td class="status">' + Lang.get('common.approve') + '</td>';
               break;
             case ON_DELIVERY:
-              statusHtml = '<td>' + Lang.get('orders.admin.show.on_delivery') + '</td>';
+              statusHtml = '<td class="status">' + Lang.get('orders.admin.show.on_delivery') + '</td>';
               break;
             case CANCELED:
-              statusHtml = '<td>' + Lang.get('common.cancel') + '</td>';
+              statusHtml = '<td class="status">' + Lang.get('common.cancel') + '</td>';
               break;
             default:
-              statusHtml = '';
+              statusHtml = '<td class="status">' + Lang.get('common.done') + '</td>';
               break;
           }
           actionHtml = '<td><button order_id='+ order.id +' class="btn btn-primary btn-order-detail">' + Lang.get('user.index.detail') + '</button></td>';
           if (order.status == UNAPPROVED) {
-            actionHtml += '<td><button class="btn btn-danger">' + Lang.get('common.cancel-btn') + '</button></td>';
+            actionHtml += '<td><button class="btn btn-danger" orderId="' + order.id + '">' + Lang.get('common.cancel-btn') + '</button></td>';
           } else {
             actionHtml += '<td><button class="btn btn-danger" disabled="disabled">' + Lang.get('common.cancel-btn') + '</button></td>';
           }
 
-          tableItem = '<tr>' + noteHtml + totalHtml + statusHtml + actionHtml + '</tr>';
+          tableItem = '<tr id="order_' + order.id + '">' + noteHtml + totalHtml + statusHtml + actionHtml + '</tr>';
           $('#myTabContent #recent_order table tbody').append(tableItem);
         });
 
@@ -102,8 +102,44 @@ function showOrderDetail(url) {
   });
 }
 
+function cancelOrder(orderId) {
+  let note = '';
+  if ($('#note').val()) {
+    note = $('#note').val();
+  }
+  $.ajax({
+    url: 'api/users/orders/' + orderId + '/cancel',
+    type: "put",
+    headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + accessToken
+    },
+    data: {
+      note: note,
+    },
+    success: function(response) {
+      $('#recent_order tbody tr[id="order_' + response.result.id + '"] .status').html(Lang.get('common.cancel'));
+      $('#recent_order tbody button[orderId="' + response.result.id + '"]').prop("disabled",true);
+      alert(Lang.get('common.done'));
+    },
+    statusCode: {
+      500: function(response) {
+        alert(response.responseJSON.message);
+      }
+    }
+  });
+}
+
 $(document).ready(function() {
   showOrder('/api/orders');
+
+  $(document).on('click', '#recent_order tbody button[orderId]', function(event) {
+    event.preventDefault();
+    if (confirm(Lang.get('user/profile.cancel_order_confirm'))) {
+      $('#note_cancel_order_submit').attr('order-id', $(this).attr('orderId'));
+      $('#note_cancel_order').modal('show');
+    }
+  });
 
   $(document).on('click', '#myTabContent #recent_order .paginate-profile #next', function(event) {
     event.preventDefault();
@@ -125,5 +161,11 @@ $(document).ready(function() {
     } else {
       $('#myTabContent #recent_order .paginate-profile #next').hide();
     }
+  });
+
+  $(document).on('click', '#note_cancel_order .modal-body input[id="note_cancel_order_submit"][order-id]', function(event) {
+    event.preventDefault();
+    cancelOrder($(this).attr('order-id'));
+    $('#note_cancel_order').modal('hide');
   });
 });

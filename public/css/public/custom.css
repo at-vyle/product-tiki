@@ -140,6 +140,10 @@
   font-weight: bold;
 }
 
+.note-cancel-order {
+  width: 50%;
+}
+
 .margin-left-10px {
   margin-left: 10px;
 }
