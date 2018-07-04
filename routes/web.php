@@ -16,7 +16,7 @@ Route::group(['namespace' => 'Home'], function () {
     Route::get('login', 'LoginController@showLoginForm')->name('user.login');
     Route::get('/register', 'RegisterController@index')->name('user.register');
     Route::get('profile', 'UserController@index')->name('user.info');
-    Route::get('/{locale}', function ($locale) {
+    Route::get('/locale/{locale}', function ($locale) {
         session(['locale' => $locale]);
 
         return redirect()->back();
