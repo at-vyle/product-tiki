@@ -168,6 +168,34 @@
                       </div>
                     </div>
 
+                    <div class="modal fade" id="note_cancel_order" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" hidden>
+                      <div class="modal-dialog note-cancel-order" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4>@lang('user/profile.note_cancel_order')</h4>
+                          </div>
+                          <div class="modal-body">
+
+                              <form id="demo-form2" method="POST" class="form-horizontal form-label-left">
+                                <div class="form-group">
+                                  <div class="col-md-12 col-sm-6 col-xs-12">
+                                    <textarea rows="5" id="note" name="note" class="form-control col-md-7 col-xs-12"></textarea>
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
+                                    <input type="submit" id="note_cancel_order_submit" class="btn btn-success" value="{{ __('category.admin.add.submit') }}">
+                                  </div>
+                                </div>
+                              </form>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                   <div class="col-md-9 col-sm-9 col-xs-12">
                     <div class="row" role="tabpanel" data-example-id="togglable-tabs">
@@ -331,3 +359,4 @@
 <script src="/js/public/userposts.js"></script>
 <script src="/js/public/userOrder.js"></script>
 @endsection
+

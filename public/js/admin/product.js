@@ -20,3 +20,9 @@ function deleteImage(url, e) {
     });
   }
 }
+
+function submitForm(event) {
+  event.preventDefault();
+  $('#description').html($('#editor-description').html());
+  $('#form-editor').submit();
+}

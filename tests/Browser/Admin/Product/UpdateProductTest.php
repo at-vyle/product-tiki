@@ -38,10 +38,12 @@ class UpdateProductTest extends DuskTestCase
                     ->assertSee('Update Product')
                     ->select('category_id')
                     ->type('name', 'Iphone')
-                    ->type('description', 'This is a Smart Phone')
+                    ->type('preview', 'This is preview')
                     ->type('price', '10000000')
                     ->type('quantity', '100')
                     ->attach('input_img[]', __DIR__.'/testing/iphone1.jpg')
+                    ->clear('#editor-description')
+                    ->keys('#editor-description', ['{CONTROL}' , 'b'], 'This is description.')
                     ->press('Update')
                     ->assertPathIs('/admin/products/' . $product->id . '/edit')
                     ->assertSee('Update product successfully');
@@ -49,7 +51,8 @@ class UpdateProductTest extends DuskTestCase
             $this->assertDatabaseHas('products', [
                 'id' => $product->id,
                 'name' => 'Iphone',
-                'description' => 'This is a Smart Phone',
+                'preview' => 'This is preview',
+                'description' => '<b>This is description.</b>',
                 'price' => '10000000',
                 'quantity' => '100',
             ]);
@@ -72,9 +75,10 @@ class UpdateProductTest extends DuskTestCase
                     ->visit('/admin/products/' . $product->id . '/edit')
                     ->assertSee('Update Product')
                     ->type('name', ' ')
-                    ->type('description', ' ')
+                    ->type('preview', ' ')
                     ->type('price', ' ')
                     ->type('quantity', ' ')
+                    ->clear('#editor-description')
                     ->press('Update')
                     ->assertPathIs('/admin/products/' . $product->id . '/edit')
                     ->assertDontSee('Update product successfully');
@@ -83,6 +87,7 @@ class UpdateProductTest extends DuskTestCase
                 'id' => $product->id,
                 'name' => $product->name,
                 'description' => $product->description,
+                'preview' => $product->preview,
                 'price' => $product->price,
                 'quantity' => $product->quantity,
             ]);
@@ -106,10 +111,11 @@ class UpdateProductTest extends DuskTestCase
                     ->assertSee('Update Product')
                     ->select('category_id')
                     ->type('name', 'Iphone')
-                    ->type('description', 'This is a Smart Phone')
+                    ->type('preview', 'This is preview')
                     ->type('price', '1.5')
                     ->type('quantity', '1.5')
                     ->attach('input_img[]', __DIR__.'/testing/iphone1.jpg')
+                    ->keys('#editor-description', 'This is description.')
                     ->press('Update')
                     ->assertPathIs('/admin/products/' . $product->id . '/edit')
                     ->assertDontSee('Update product successfully');
@@ -141,10 +147,11 @@ class UpdateProductTest extends DuskTestCase
                     ->assertSee('Update Product')
                     ->select('category_id')
                     ->type('name', 'Iphone7')
-                    ->type('description', 'This is a Smart Phone')
+                    ->type('preview', 'This is preview')
                     ->type('price', '1000000')
                     ->type('quantity', '10')
                     ->attach('input_img[]', __DIR__.'/testing/iphone1.zip')
+                    ->keys('#editor-description', 'This is description.')
                     ->press('Update')
                     ->assertPathIs('/admin/products/' . $product->id . '/edit')
                     ->assertDontSee('Update product successfully');
@@ -153,6 +160,7 @@ class UpdateProductTest extends DuskTestCase
                 'id' => $product->id,
                 'name' => $product->name,
                 'description' => $product->description,
+                'preview' => $product->preview,
                 'price' => $product->price,
                 'quantity' => $product->quantity,
             ]);
@@ -171,6 +179,7 @@ class UpdateProductTest extends DuskTestCase
             factory('App\Models\Product', 5)->create();
             $product = Product::find(5);
             $browser->loginAs($this->user)
+                    ->resize(1920, 1204)
                     ->visit('/admin/products/' . $product->id . '/edit')
                     ->assertSee('Update Product')
                     ->attach('input_img[]', __DIR__.'/testing/iphone1.jpg')
