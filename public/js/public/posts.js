@@ -87,7 +87,9 @@ function generatePosts(data) {
                         '</div>'+
                         '<div class="quick-reply padding-tr-10px">'+
                             '<textarea class="form-control review_comment" placeholder="'+ Lang.get('user/detail_product.placeholder_input') +'" rows="5"></textarea><span class="help-block text-left"></span>'+
-                            '<button class="btn btn-primary btn_add_comment" data-review-id="1105262">'+ Lang.get('user/detail_product.send') +'</button>'+
+                            '<div id="replies-errors-' + id + '" class="alert alert-danger" hidden></div>'+
+                            '<div class="alert alert-info" hidden>' + Lang.get('user/detail_product.send_success') + '</div>'+
+                            '<button class="btn btn-primary btn_add_comment" data-review-id="1105262" post-id='+ id +'>'+ Lang.get('user/detail_product.send') +'</button>'+
                             '<button class="btn btn-default js-quick-reply-hide">'+ Lang.get('user/detail_product.cancel') +'</button>'+
                         '</div>'+
                         '<div id="replies'+id+'"></div>'+
@@ -212,6 +214,34 @@ function deletePost(postId) {
     });
 }
 
+function submitComment(postId) {
+    $.ajax({
+        url: '/api/posts/' + postId + '/comments',
+        type: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('login-token'),
+        },
+        data: {
+            content: $('div[data-id="' + postId + '"] .quick-reply .review_comment').val(),
+        },
+        success: function(response) {
+            $('div[data-id="' + postId + '"] .quick-reply .alert-info').show();
+        },
+        error: function(response) {
+            errorMessage = response.responseJSON.message + '<br/>';
+            if (response.responseJSON.errors) {
+                errors = Object.keys(response.responseJSON.errors);
+                errors.forEach(error => {
+                    errorMessage += response.responseJSON.errors[error] + '<br/>';
+                });
+            }
+            $('div[data-id="'+ postId +'"] .quick-reply #replies-errors-' + postId).html(errorMessage);
+            $('div[data-id="'+ postId +'"] .quick-reply #replies-errors-' + postId).show();
+        }
+    });
+}
+
 $(document).ready(function() {
     getAjax('/api' + $url + '/posts');
 
@@ -259,6 +289,11 @@ $(document).ready(function() {
         if (confirm(Lang.get('messages.delete_record'))) {
             deletePost($(this).attr('post-id'));
         }
+    });
+
+    $(document).on('click', '.review-list .posts .quick-reply .btn_add_comment', function(event) {
+        event.preventDefault();
+        submitComment($(this).attr('post-id'));
     });
 
     $(document).on('click', '#posts-list .item .add-comment', function() {
