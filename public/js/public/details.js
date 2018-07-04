@@ -26,9 +26,9 @@ function loadPage() {
                     stars += '<i class="fa fa-star black-star" aria-hidden="true"></i>';
                 }
             }
-
             $('.agileinfo_single .agileinfo_single_right h2').append(response.result.name);
-            $('.agileinfo_single .agileinfo_single_right .w3agile_description p').append(response.result.description);
+            $('.agileinfo_single .agileinfo_single_right .w3agile_description p').append(response.result.preview);
+            $('.agileinfo_single > .description-detail p').append(response.result.description);
             $('.agileinfo_single .agileinfo_single_right .starRating').append(stars);
             $('.agileinfo_single .agileinfo_single_right .agileinfo_single_right_snipcart h4').append(currencyType + response.result.price_formated + '<span></span>');
 
