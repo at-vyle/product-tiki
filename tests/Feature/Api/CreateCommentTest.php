@@ -19,16 +19,16 @@ class CreateCommentTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        factory('App\Models\Category')->create();
-        factory('App\Models\Product')->create([
-            'category_id' => 1
+        $category = factory('App\Models\Category')->create();
+        $product = factory('App\Models\Product')->create([
+            'category_id' => $category->id
         ]);
-        factory('App\Models\Post')->create([
-            'product_id' => 1,
+        $post = factory('App\Models\Post')->create([
+            'product_id' => $product->id,
             'user_id' => $this->user->id
         ]);
-        factory('App\Models\Comment')->create([
-            'post_id' => 1,
+        $comment = factory('App\Models\Comment')->create([
+            'post_id' => $post->id,
             'user_id' => $this->user->id
         ]);
     }
