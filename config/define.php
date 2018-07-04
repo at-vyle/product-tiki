@@ -9,7 +9,8 @@ return [
     'limit_rows' => 6,
     'product' => [
         'limit_rows' => 5,
-        'upload_image_url' => 'images/upload/'
+        'upload_image_url' => 'images/upload/',
+        'exceed_quantity' => 'Quantity of Products is too much'
     ],
     'post' => [
         'limit_rows' => 5,
@@ -51,7 +52,11 @@ return [
     'login' => [
         'unauthorised' => 'Unauthorised'
     ],
+    'errors' => [
+        'notfound' => 'Model not found',
+    ],
     'exception' => [
         'cancel_approve_order' => 'Cannot Cancel APPROVED order',
-    ]
+        'change_approve_order' => 'Cannot Change APPROVED order',
+    ],
 ];
