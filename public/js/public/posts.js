@@ -53,7 +53,7 @@ function generatePosts(data) {
         }
         if (user && posts.user_id == user.id) {
             ownerAction = '<button class="btn btn-success edit-post margin-right-10px" data-review-id="1105262" id='+ id +'>'+ Lang.get('product.index.edit') +'</button>'+
-            '<button class="btn btn-danger delete-post margin-right-10px" data-review-id="1105262" id='+ id +'>'+ Lang.get('product.index.delete') +'</button>';
+            '<button class="btn btn-danger delete-post margin-right-10px" data-review-id="1105262" post-id=' + id + '>'+ Lang.get('product.index.delete') +'</button>';
             if (posts.type == TYPE_REVIEW) {
                 editArea = textAreaEdit(id, content, posts.type, rate);
             } else {
@@ -196,6 +196,24 @@ function submitPost(pathName) {
     });
 }
 
+function deletePost(postId) {
+    $.ajax({
+        url: '/api/posts/' + postId,
+        type: 'delete',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('login-token'),
+        },
+        success: function(response) {
+            alert(Lang.get('messages.delete_success'));
+            $('div[class="item posts"][data-id="'+ postId + '"]').remove();
+        },
+        error: function(response) {
+            alert(Lang.get('messages.delete_fail'));
+        }
+    });
+}
+
 function submitComment(postId) {
     $.ajax({
         url: '/api/posts/' + postId + '/comments',
@@ -264,6 +282,13 @@ $(document).ready(function() {
     $(document).on('click', '#addReviewFrm .action .btn-add-review', function(event) {
         event.preventDefault();
         submitPost($url);
+    });
+
+    $(document).on('click', '.posts .description .owner-action .delete-post', function(event) {
+        event.preventDefault();
+        if (confirm(Lang.get('messages.delete_record'))) {
+            deletePost($(this).attr('post-id'));
+        }
     });
 
     $(document).on('click', '.review-list .posts .quick-reply .btn_add_comment', function(event) {
