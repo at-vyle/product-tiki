@@ -59,8 +59,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <li>
               <div class="">
                 <ul>
-                  <li><a href="{{ route('locale', ['locale' => 'en']) }}">{{ __('user/locale.en') }}</a></li>
-                  <li><a href="{{ route('locale', ['locale' => 'vi']) }}">{{ __('user/locale.vi') }}</a></li>
+                  <li><a class="locale" href="{{ route('locale', ['locale' => 'en']) }}">{{ __('user/locale.en') }}</a></li>
+                  <li><a class="locale" href="{{ route('locale', ['locale' => 'vi']) }}">{{ __('user/locale.vi') }}</a></li>
                 </ul>
               </div>
             </li>

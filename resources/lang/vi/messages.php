@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'home' => 'Home',
+    'home' => 'Trang chủ',
     'show_all' => 'Show All',
     'add' => 'Add',
     'comments' => 'Comments',

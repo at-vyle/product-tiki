@@ -19,7 +19,7 @@ Route::group(['namespace' => 'Home'], function () {
     Route::get('/locale/{locale}', function ($locale) {
         session(['locale' => $locale]);
 
-        return redirect()->back();
+        return response()->json(['locale' => session('locale')], 200);
     })->name('locale');
 });
 
