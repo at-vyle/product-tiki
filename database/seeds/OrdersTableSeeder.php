@@ -11,6 +11,6 @@ class OrdersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Models\Order', 10)->create();
+        factory('App\Models\Order', 20)->create();
     }
 }

@@ -25,13 +25,8 @@ class CreateOrderRequest extends FormRequest
      */
     public function rules()
     {
-        $arr = [];
-        $index = 0;
-        foreach (request('products') as $input) {
-            $product = Product::find($input['id']);
-            $arr['products.'.$index.'.quantity'] = 'numeric|max:'.$product->quantity;
-            $index++;
-        }
-        return $arr;
+        return [
+            'products.*.quantity' => 'numeric',
+        ];
     }
 }
