@@ -147,6 +147,44 @@ class UpdateOrderTest extends TestCase
      *
      * @return void
      */
+    public function testCompareDatabase()
+    {
+        $product1 = Product::find(1);
+        $product2 = Product::find(2);
+        $update = [
+            'products' => [
+                [
+                    "id" => $product1->id,
+                    "quantity" => $product1->quantity -1
+                ],
+                [
+                    "id" => $product2->id,
+                    "quantity" => $product2->quantity -1
+                ]
+            ]
+        ];
+        $response = $this->jsonUser('PUT', 'api/orders/1', $update);
+
+        $data = json_decode($response->getContent())->result;
+        $updated1 = [
+            'order_id' => $data->order->id,
+            'product_id' => $product1->id,
+            'quantity' => $product1->quantity -1
+        ];
+        $updated2 = [
+            'order_id' => $data->order->id,
+            'product_id' => $product2->id,
+            'quantity' => $product2->quantity -1
+        ];
+        $this->assertDatabaseHas('order_details', $updated1);
+        $this->assertDatabaseHas('order_details', $updated2);
+    }
+
+    /**
+     * Test status code
+     *
+     * @return void
+     */
     public function testInvalidUpdateOrder()
     {
         $product1 = Product::find(1);
