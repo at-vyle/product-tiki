@@ -14,17 +14,6 @@ use Illuminate\Auth\Events\PasswordReset;
 
 class ResetPasswordController extends ApiController
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reset Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller is responsible for handling password reset requests
-    | and uses a simple trait to include this behavior. You're free to
-    | explore this trait and override any methods you wish to tweak.
-    |
-    */
-
     use ResetsPasswords;
 
     /**
@@ -47,9 +36,10 @@ class ResetPasswordController extends ApiController
     /**
      * Reset the given user's password.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
-     * @param  string  $password
-     * @return void
+     * @param \Illuminate\Contracts\Auth\CanResetPassword $user     user
+     * @param string                                      $password new password
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     protected function resetPassword($user, $password)
     {
@@ -67,7 +57,8 @@ class ResetPasswordController extends ApiController
     /**
      * Get the response for a successful password reset.
      *
-     * @param  string  $response
+     * @param string $response response lang
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     protected function sendResetResponse($response)
@@ -81,14 +72,16 @@ class ResetPasswordController extends ApiController
     /**
      * Get the response for a failed password reset.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $response
+     * @param \Illuminate\Http\Request $request  request
+     * @param string                   $response response lang
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     protected function sendResetFailedResponse(Request $request, $response)
     {
         $message = [
-            'message' => trans($response)
+            'message' => trans($response),
+            'request' => $request->all()
         ];
         return $this->errorResponse($message, Response::HTTP_UNPROCESSABLE_ENTITY);
     }

@@ -10,17 +10,6 @@ use App\Http\Controllers\Api\ApiController;
 
 class ForgotPasswordController extends ApiController
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reset Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller is responsible for handling password reset emails and
-    | includes a trait which assists in sending these notifications from
-    | your application to your users. Feel free to explore this trait.
-    |
-    */
-
     use SendsPasswordResetEmails;
 
     /**
@@ -36,7 +25,8 @@ class ForgotPasswordController extends ApiController
     /**
      * Get the response for a successful password reset link.
      *
-     * @param  string  $response
+     * @param string $response response lang
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     protected function sendResetLinkResponse($response)
@@ -50,14 +40,16 @@ class ForgotPasswordController extends ApiController
     /**
      * Get the response for a failed password reset link.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $response
+     * @param \Illuminate\Http\Request $request  request
+     * @param string                   $response response lang
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     protected function sendResetLinkFailedResponse(Request $request, $response)
     {
         $message = [
-            'message' => trans($response)
+            'message' => trans($response),
+            'request' => $request->all()
         ];
         return $this->errorResponse($message, Response::HTTP_UNPROCESSABLE_ENTITY);
     }
