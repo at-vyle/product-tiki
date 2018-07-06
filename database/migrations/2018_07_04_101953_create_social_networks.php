@@ -17,7 +17,7 @@ class CreateSocialNetworks extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->tinyInteger('type');
-            $table->string('social_id')->nullable();
+            $table->string('social_id');
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('no action');
