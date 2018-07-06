@@ -125,7 +125,7 @@ Get profile user
 }
 ```
 
-### `GET` Profile User
+### `GET` Profile User Address
 ```
 /api/users/profile/address
 ```
@@ -156,6 +156,36 @@ Get address of user
             "updated_at": "2018-07-06 02:00:24"
         }
     ],
+    "code": 200
+}
+```
+
+### `PUT` Profile User Address
+```
+/api/users/profile/address/{address}
+```
+Get address of user
+#### Request Headers
+| Key | Value |
+|---|---|
+|Accept|application/json
+|Authorization|Bearer $token
+
+#### Query Param
+| Param | Type | Description |
+|---|---|---|
+| address | int | address's id |
+
+#### Response
+``` json
+{
+    "result": {
+        "id": 5,
+        "userinfo_id": 11,
+        "address": "Home",
+        "created_at": "2018-07-06 02:00:24",
+        "updated_at": "2018-07-06 04:06:47"
+    },
     "code": 200
 }
 ```
